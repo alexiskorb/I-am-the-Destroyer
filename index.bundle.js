@@ -42016,7 +42016,8 @@ Conversation.isConversationActive = function()
 Conversation.selectResponseByIndex = function(index)
 {
 	var currentNode = this.getCurrentNode();
-	if (index < this.responseElements.length)
+	if (index < this.responseElements.length
+		&& this.responseElements[index].style.visibility == "visible")
 	{
 		this.selectResponse(this.responseElements[index].response);
 	}
