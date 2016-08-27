@@ -57,17 +57,17 @@ Inventory.allowDrop = function(ev) {
 }
 
 Inventory.drag = function(ev) {
-    ev.dataTransfer.setData("target", ev.target);
+    ev.dataTransfer.setData("target", ev.i);
 }
 
 Inventory.drop = function(ev) {
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("target");
-    if (this.itemList[ev.target.i] == undefined){
-        ev.target.image.src = data.src
-        data.src = "";
-        this.itemList[ev.target.i] == data.i;
-        this.itemList[data.i] == undefined;
+    var index = ev.dataTransfer.getData("target");
+    if (Inventory.itemList[ev.target.i] == undefined){
+        ev.target.image.src = Inventory.inventoryDisplay[index].image.src;
+        Inventory.inventoryDisplay[index].image.src = "";
+        Inventory.itemList[ev.target.i] == Inventory.itemList[index];
+        Inventory.itemList[index] == undefined;
     }
 }
 
