@@ -8,7 +8,11 @@ GameEngine = new bmacSdk.Engine("canvasDiv");
 
 // add objects to the engine
 GameEngine.addObject(require("./src/game/conversation.js"));
-GameEngine.addObject(require("./src/game/scenemanager.js"));
+
+//HACK:
+window.SceneManager = require("./src/game/scenemanager.js");
+GameEngine.addObject(window.SceneManager);
+
 GameEngine.addObject(require("./src/game/inventory.js"));
 
 // that's it!

@@ -9,7 +9,8 @@ var SceneManager =
 	 */
 	scenes:
 	{
-		index: require("./index_scene.js"),
+		index: require("./scene_index.js"),
+		creationOfTheWorld: require("./scene_creation_of_the_world.js"),
 	},
 
 	currentScene: undefined,
@@ -51,6 +52,11 @@ SceneManager.update = function()
  */
 SceneManager.changeScene = function(key)
 {
+	if (!this.scenes[key])
+	{
+		console.error("No scene found with key '" + key + "'.");
+		return;
+	}
 	if (this.currentScene)
 	{
 		this.currentScene.hide();

@@ -1,11 +1,23 @@
 
 THREE = require("three");
 Conversation = require("./conversation.js");
+//SceneManager = require("./scenemanager.js");
 
 var ClickTarget = function(mesh)
 {
 	this.mesh = mesh;
 	this.bounds = new THREE.Box3();
+
+	// set this to a block of convo data (using require) to make this
+	// target start a conversation
+	this.triggerConversation = undefined;
+
+	// set to a scene key to make this target trigger a scene transition
+	this.triggerScene = undefined;
+
+	// set to an item key to make this target collect an item and then
+	// disable itself
+	this.collectItem = undefined;
 }
 
 module.exports = ClickTarget;
@@ -26,8 +38,16 @@ ClickTarget.prototype.getBoundingBox = function()
 
 ClickTarget.prototype.trigger = function()
 {
+	if (this.collectItem)
+	{
+		//TODO: give item to player and disable me
+	}
 	if (this.triggerConversation)
 	{
 		Conversation.startConversation(this.triggerConversation);
+	}
+	else if (this.triggerScene)
+	{
+		SceneManager.changeScene(this.triggerScene);
 	}
 }

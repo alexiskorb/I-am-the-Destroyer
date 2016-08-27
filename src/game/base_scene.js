@@ -14,6 +14,13 @@ Scene.prototype.added = function()
 
 }
 
+Scene.prototype.createClickTarget = function(mesh)
+{
+	var target = new ClickTarget(mesh);
+	this.clickTargets.push(target);
+	return target;
+}
+
 /**
  * Gets the click target at the specified position, if any.
  */

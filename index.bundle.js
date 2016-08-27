@@ -9,12 +9,16 @@ GameEngine = new bmacSdk.Engine("canvasDiv");
 
 // add objects to the engine
 GameEngine.addObject(require("./src/game/conversation.js"));
-GameEngine.addObject(require("./src/game/scenemanager.js"));
+
+//HACK:
+window.SceneManager = require("./src/game/scenemanager.js");
+GameEngine.addObject(window.SceneManager);
+
 GameEngine.addObject(require("./src/game/inventory.js"));
 
 // that's it!
 
-},{"./src/game/conversation.js":6,"./src/game/inventory.js":8,"./src/game/scenemanager.js":9,"./src/sdk/engine":12}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":6,"./src/game/inventory.js":7,"./src/game/scenemanager.js":10,"./src/sdk/engine":13}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -41872,6 +41876,13 @@ Scene.prototype.added = function()
 
 }
 
+Scene.prototype.createClickTarget = function(mesh)
+{
+	var target = new ClickTarget(mesh);
+	this.clickTargets.push(target);
+	return target;
+}
+
 /**
  * Gets the click target at the specified position, if any.
  */
@@ -41901,11 +41912,23 @@ Scene.prototype.hide = function()
 
 THREE = require("three");
 Conversation = require("./conversation.js");
+//SceneManager = require("./scenemanager.js");
 
 var ClickTarget = function(mesh)
 {
 	this.mesh = mesh;
 	this.bounds = new THREE.Box3();
+
+	// set this to a block of convo data (using require) to make this
+	// target start a conversation
+	this.triggerConversation = undefined;
+
+	// set to a scene key to make this target trigger a scene transition
+	this.triggerScene = undefined;
+
+	// set to an item key to make this target collect an item and then
+	// disable itself
+	this.collectItem = undefined;
 }
 
 module.exports = ClickTarget;
@@ -41926,9 +41949,17 @@ ClickTarget.prototype.getBoundingBox = function()
 
 ClickTarget.prototype.trigger = function()
 {
+	if (this.collectItem)
+	{
+		//TODO: give item to player and disable me
+	}
 	if (this.triggerConversation)
 	{
 		Conversation.startConversation(this.triggerConversation);
+	}
+	else if (this.triggerScene)
+	{
+		SceneManager.changeScene(this.triggerScene);
 	}
 }
 
@@ -42145,37 +42176,7 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../sdk/input":14,"../sdk/threeutils":19}],7:[function(require,module,exports){
-
-Scene = require("./base_scene.js");
-THREE = require("three");
-ThreeUtils = require("../sdk/threeutils");
-ClickTarget = require("./clicktarget.js");
-
-var IndexScene = function()
-{
-	
-}
-
-IndexScene.prototype = new Scene();
-
-IndexScene.prototype.added = function()
-{
-	// create johnson
-	this.johnson15 = new THREE.Object3D();
-	var johnsonMesh = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "johnson15_sprite");
-	this.transform.add(this.johnson15);
-	this.johnson15.add(johnsonMesh);
-	this.johnson15.position.set(100, 100, -20);
-
-	var johnsonClickTarget = new ClickTarget(johnsonMesh);
-	johnsonClickTarget.triggerConversation = require("../data/sample_conversation.json");
-	this.clickTargets.push(johnsonClickTarget);
-}
-
-module.exports = new IndexScene();
-
-},{"../data/sample_conversation.json":3,"../sdk/threeutils":19,"./base_scene.js":4,"./clicktarget.js":5,"three":2}],8:[function(require,module,exports){
+},{"../sdk/input":15,"../sdk/threeutils":20}],7:[function(require,module,exports){
 
 
 var Inventory = {
@@ -42197,7 +42198,69 @@ Inventory.removeItem = function(item) {
 
 module.exports = Inventory;
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var CreationOfTheWorldScene = function()
+{
+	
+}
+
+CreationOfTheWorldScene.prototype = new Scene();
+
+CreationOfTheWorldScene.prototype.added = function()
+{
+	// create johnson
+	this.johnson15 = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "johnson15_sprite");
+	this.transform.add(this.johnson15);
+	this.johnson15.position.set(100, 100, -20);
+
+	var johnsonClickTarget = this.createClickTarget(this.johnson15);
+	johnsonClickTarget.triggerConversation = require("../data/sample_conversation.json");
+}
+
+module.exports = new CreationOfTheWorldScene();
+
+},{"../data/sample_conversation.json":3,"../sdk/threeutils":20,"./base_scene.js":4,"./clicktarget.js":5,"three":2}],9:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var IndexScene = function()
+{
+	
+}
+
+IndexScene.prototype = new Scene();
+
+IndexScene.prototype.added = function()
+{
+	// create johnson
+	this.johnson15 = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "johnson15_sprite");
+	this.transform.add(this.johnson15);
+	this.johnson15.position.set(100, 100, -20);
+
+	var johnsonClickTarget = this.createClickTarget(this.johnson15);
+	johnsonClickTarget.triggerConversation = require("../data/sample_conversation.json");
+
+	// create door
+	this.door = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "door");
+	this.transform.add(this.door);
+	this.door.position.set(300, 100, -20);
+
+	var doorClickTarget = this.createClickTarget(this.door);
+	doorClickTarget.triggerScene = "creationOfTheWorld";
+}
+
+module.exports = new IndexScene();
+
+},{"../data/sample_conversation.json":3,"../sdk/threeutils":20,"./base_scene.js":4,"./clicktarget.js":5,"three":2}],10:[function(require,module,exports){
 
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");
@@ -42209,7 +42272,8 @@ var SceneManager =
 	 */
 	scenes:
 	{
-		index: require("./index_scene.js"),
+		index: require("./scene_index.js"),
+		creationOfTheWorld: require("./scene_creation_of_the_world.js"),
 	},
 
 	currentScene: undefined,
@@ -42251,6 +42315,11 @@ SceneManager.update = function()
  */
 SceneManager.changeScene = function(key)
 {
+	if (!this.scenes[key])
+	{
+		console.error("No scene found with key '" + key + "'.");
+		return;
+	}
 	if (this.currentScene)
 	{
 		this.currentScene.hide();
@@ -42259,7 +42328,7 @@ SceneManager.changeScene = function(key)
 	this.currentScene.show();
 }
 
-},{"../sdk/input":14,"./conversation.js":6,"./index_scene.js":7}],10:[function(require,module,exports){
+},{"../sdk/input":15,"./conversation.js":6,"./scene_creation_of_the_world.js":8,"./scene_index.js":9}],11:[function(require,module,exports){
 
 // this file is partially generated by tools
 // do not change the layout
@@ -42271,12 +42340,13 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 129,
+	width: 258,
 	height: 158,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"johnson15_sprite":[0,0,128,128],
+	"door":[0,0,128,128],
+	"johnson15_sprite":[129,0,128,128],
 	"trap":[0,129,35,29],
 	},
 },
@@ -42304,7 +42374,7 @@ module.exports =
 },
 }
 
-},{"three":2}],11:[function(require,module,exports){
+},{"three":2}],12:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -42421,7 +42491,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":12}],12:[function(require,module,exports){
+},{"./index.js":13}],13:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -42579,7 +42649,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":14,"../polyfills":17,"./engine.js":11,"three":2}],13:[function(require,module,exports){
+},{"../input":15,"../polyfills":18,"./engine.js":12,"three":2}],14:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -42828,7 +42898,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -42943,7 +43013,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":13,"./keyboard.js":15,"./mouse.js":16}],15:[function(require,module,exports){
+},{"./gamepad.js":14,"./keyboard.js":16,"./mouse.js":17}],16:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -43128,7 +43198,7 @@ module.exports = Keyboard =
 	}
 };
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -43314,7 +43384,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -43400,7 +43470,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -43456,7 +43526,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":19}],19:[function(require,module,exports){
+},{"./index.js":20}],20:[function(require,module,exports){
 
 THREE = require("three");
 AtlasData = require("../atlases");
@@ -43858,4 +43928,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":10,"./Atlas.js":18,"three":2}]},{},[1])
+},{"../atlases":11,"./Atlas.js":19,"three":2}]},{},[1])
