@@ -41856,6 +41856,8 @@ module.exports=
 
 },{}],4:[function(require,module,exports){
 
+Input = require("../sdk/input");
+
 var Conversation =
 {
 	/**
@@ -41873,10 +41875,20 @@ module.exports = Conversation;
 Conversation.added = function()
 {
 	this.parentElement = document.getElementById("conversation");
+	this.responsesElement = document.getElementById("conversation_responses");
 	this.textElement = document.getElementById("conversation_text");
 
 	//TESTING
 	this.startConversation(require("../data/sample_conversation.json"));
+}
+
+Conversation.update = function()
+{
+	var numberPressed = Input.Keyboard.getNumberPressed();
+	if (numberPressed > 0)
+	{
+		this.selectResponseByIndex(numberPressed - 1);
+	}
 }
 
 /**
@@ -41901,11 +41913,22 @@ Conversation.endConversation = function()
 
 /**
  * Select a conversation response and move to the appropriate next node.
- * @param index {Number} The zero-based index.
+ */
+Conversation.selectResponseByIndex = function(index)
+{
+	var currentNode = this.getCurrentNode();
+	if (index < this.responseElements.length)
+	{
+		this.selectResponse(this.responseElements[index].response);
+	}
+}
+
+/**
+ * Select a conversation response and move to the appropriate next node.
+ * @param response {Object} The response data.
  */
 Conversation.selectResponse = function(response)
 {
-	var currentNode = this.getCurrentNode();
 	if (response)
 	{
 		if (response.nextNodeId !== undefined)
@@ -41919,8 +41942,8 @@ Conversation.selectResponse = function(response)
 	}
 	else
 	{
-		console.error("selectedResponse: Conversation '" + this.activeConversationData.title
-			+ "' selected invalid response " + index + " from node " + this.currentNodeId);
+		//console.error("selectedResponse: Conversation '" + this.activeConversationData.title
+		//	+ "' selected invalid response " + index + " from node " + this.currentNodeId);
 	}
 }
 
@@ -41960,7 +41983,7 @@ Conversation.displayResponse = function(index, data)
 	if (!this.responseElements[index])
 	{
 		var element = document.createElement('div');
-		this.parentElement.appendChild(element);
+		this.responsesElement.appendChild(element);
 		element.className = "conversationResponse";
 		element.addEventListener("click", onResponseClicked);
 		this.responseElements[index] = element;
@@ -42030,7 +42053,7 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../data/sample_conversation.json":3}],5:[function(require,module,exports){
+},{"../data/sample_conversation.json":3,"../sdk/input":9}],5:[function(require,module,exports){
 
 ThreeUtils = require("../sdk/threeutils");
 Input = require("../sdk/input");
@@ -42880,6 +42903,19 @@ module.exports = Keyboard =
 	{
 		return !this.keysDown[this._translateKey(code)];
 	},
+
+	/**
+	 * Returns the number key pressed this frame, or -1 if none.
+	 * @returns {Number}
+	 */
+	getNumberPressed: function()
+	{
+		for (var i = 48; i <= 57; i++)
+		{
+			if (this.keyPressed(i)) return i - 48;
+		}
+		return -1;
+	}
 };
 
 },{}],11:[function(require,module,exports){

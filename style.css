@@ -29,16 +29,17 @@ body
 
 	border: 1px solid white;
 	color: white;
+	background-color: black;
 }
 
 .conversationResponse
 {
-	color: white;
+	color: darkgrey;
 }
 
-.conversationResponse :hover
+.conversationResponse:hover
 {
-	color: grey;
+	color: lightgrey;
 }
 
 #canvasDiv
