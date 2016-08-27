@@ -14,12 +14,14 @@ IndexScene.prototype = new Scene();
 IndexScene.prototype.added = function()
 {
 	// create johnson
-	var johnsonSprite = this.createClickableSprite("johnson15_sprite", 100, 100);
+	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
 	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
 
 	// create door
-	var doorClickTarget = this.createClickableSprite("door", 300, 100);
+	var doorClickTarget = this.createClickableSprite("door", 200, -200);
 	doorClickTarget.triggerScene = "creationOfTheWorld";
+
+	Scene.prototype.added.call(this);
 }
 
 module.exports = new IndexScene();
