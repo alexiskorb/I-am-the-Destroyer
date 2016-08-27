@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
 bmacSdk = require("./src/sdk/engine");
@@ -10,10 +10,11 @@ GameEngine = new bmacSdk.Engine("canvasDiv");
 // add objects to the engine
 GameEngine.addObject(require("./src/game/conversation.js"));
 GameEngine.addObject(require("./src/game/sample.js"));
+GameEngine.addObject(require("./src/game/inventory.js"));
 
 // that's it!
 
-},{"./src/game/conversation.js":4,"./src/game/sample.js":5,"./src/sdk/engine":7}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":4,"./src/game/inventory.js":5,"./src/game/sample.js":6,"./src/sdk/engine":8}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -42053,7 +42054,29 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../data/sample_conversation.json":3,"../sdk/input":9}],5:[function(require,module,exports){
+},{"../data/sample_conversation.json":3,"../sdk/input":10}],5:[function(require,module,exports){
+
+
+var Inventory = {
+    inventoryItems: [],
+    inventorySize: 0
+}
+
+Inventory.addItem = function(item) {
+    this.inventoryItems.push(item);
+    this.inventorySize++;
+}
+Inventory.removeItem = function(item) {
+    index = this.inventoryItems.indexOf(item);
+    if (index > -1){
+        this.inventoryItems.splice(index, 1);
+        this.inventorySize--;
+    }
+}
+
+module.exports = Inventory;
+
+},{}],6:[function(require,module,exports){
 
 ThreeUtils = require("../sdk/threeutils");
 Input = require("../sdk/input");
@@ -42094,7 +42117,7 @@ sampleGame.update = function()
 	}
 };
 
-},{"../sdk/input":9,"../sdk/threeutils":14}],6:[function(require,module,exports){
+},{"../sdk/input":10,"../sdk/threeutils":15}],7:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -42211,7 +42234,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":7}],7:[function(require,module,exports){
+},{"./index.js":8}],8:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -42369,7 +42392,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":9,"../polyfills":12,"./engine.js":6,"three":2}],8:[function(require,module,exports){
+},{"../input":10,"../polyfills":13,"./engine.js":7,"three":2}],9:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -42618,7 +42641,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -42733,7 +42756,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":8,"./keyboard.js":10,"./mouse.js":11}],10:[function(require,module,exports){
+},{"./gamepad.js":9,"./keyboard.js":11,"./mouse.js":12}],11:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -42918,7 +42941,7 @@ module.exports = Keyboard =
 	}
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -43104,7 +43127,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -43190,7 +43213,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -43238,7 +43261,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":14}],14:[function(require,module,exports){
+},{"./index.js":15}],15:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -43617,4 +43640,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"./Atlas.js":13,"three":2}]},{},[1])
+},{"./Atlas.js":14,"three":2}]},{},[1]);
