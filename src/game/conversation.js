@@ -23,8 +23,7 @@ Conversation.added = function()
 	this.textElement = document.getElementById("conversation_text");
 	this.portraitElement = document.getElementById("conversation_portrait");
 
-	//TESTING
-	this.startConversation(require("../data/sample_conversation.json"));
+	this.hide();
 }
 
 Conversation.update = function()
@@ -41,9 +40,14 @@ Conversation.update = function()
  */
 Conversation.startConversation = function(conversationData)
 {
-	this.parentElement.style.visibility = "visible";
+	this.show();
 	this.activeConversationData = conversationData;
 	this.moveToNode(1);
+}
+
+Conversation.show = function()
+{
+	this.parentElement.style.visibility = "visible";
 }
 
 /**
@@ -51,10 +55,24 @@ Conversation.startConversation = function(conversationData)
  */
 Conversation.endConversation = function()
 {
+	this.hide();
+	this.activeConversationData = undefined;
+}
+
+Conversation.hide = function()
+{
 	this.parentElement.style.visibility = "hidden";
 	this.portraitElement.className = "conversation_portrait_off";
 	this.hideResponsesFrom(0);
-	this.activeConversationData = undefined;
+}
+
+/**
+ * Returns true if any conversation is active.
+ * @returns {Boolean}
+ */
+Conversation.isConversationActive = function()
+{
+	return !!this.activeConversationData;
 }
 
 /**
@@ -63,7 +81,8 @@ Conversation.endConversation = function()
 Conversation.selectResponseByIndex = function(index)
 {
 	var currentNode = this.getCurrentNode();
-	if (index < this.responseElements.length)
+	if (index < this.responseElements.length
+		&& this.responseElements[index].style.visibility == "visible")
 	{
 		this.selectResponse(this.responseElements[index].response);
 	}

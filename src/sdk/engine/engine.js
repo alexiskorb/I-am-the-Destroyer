@@ -83,10 +83,10 @@ Engine.prototype._handleWindowResize = function()
 		this.screenHeight = this.canvasDiv.offsetHeight;
 		this.renderer.setSize(this.screenWidth, this.screenHeight);
 	}
-	this.mainCamera.left = -this.screenWidth/2;
-	this.mainCamera.right = this.screenWidth/2;
-	this.mainCamera.top = -this.screenHeight/2;
-	this.mainCamera.bottom = this.screenHeight/2;
+	this.mainCamera.left = 0;
+	this.mainCamera.right = this.screenWidth;
+	this.mainCamera.top = 0;
+	this.mainCamera.bottom = this.screenHeight;
 	this.mainCamera.updateProjectionMatrix();
 }
 

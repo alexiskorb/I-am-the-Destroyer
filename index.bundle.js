@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
 bmacSdk = require("./src/sdk/engine");
@@ -9,14 +9,23 @@ GameEngine = new bmacSdk.Engine("canvasDiv");
 
 // add objects to the engine
 GameEngine.addObject(require("./src/game/conversation.js"));
+<<<<<<< HEAD
 GameEngine.addObject(require("./src/game/sample.js"));
 window.Inventory = require("./src/game/inventory.js")
 GameEngine.addObject(Inventory);
 
+=======
+
+//HACK:
+window.SceneManager = require("./src/game/scenemanager.js");
+GameEngine.addObject(window.SceneManager);
+
+GameEngine.addObject(require("./src/game/inventory.js"));
+>>>>>>> daf3736e9e9aa3de9db93bda3bce178fccd97086
 
 // that's it!
 
-},{"./src/game/conversation.js":4,"./src/game/inventory.js":5,"./src/game/sample.js":6,"./src/sdk/engine":9}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":6,"./src/game/inventory.js":7,"./src/game/scenemanager.js":10,"./src/sdk/engine":13}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -41859,6 +41868,110 @@ module.exports=
 
 },{}],4:[function(require,module,exports){
 
+THREE = require("three");
+
+var Scene = function()
+{
+	this.transform = new THREE.Object3D();
+	this.clickTargets = [];
+}
+
+module.exports = Scene;
+
+Scene.prototype.added = function()
+{
+
+}
+
+Scene.prototype.createClickTarget = function(mesh)
+{
+	var target = new ClickTarget(mesh);
+	this.clickTargets.push(target);
+	return target;
+}
+
+/**
+ * Gets the click target at the specified position, if any.
+ */
+Scene.prototype.getClickTarget = function(position)
+{
+	for (var i = 0; i < this.clickTargets.length; i++)
+	{
+		if (this.clickTargets[i].isPointInBounds(position))
+		{
+			return this.clickTargets[i];
+		}
+	}
+	return null;
+}
+
+Scene.prototype.show = function()
+{
+	GameEngine.scene.add(this.transform);
+}
+
+Scene.prototype.hide = function()
+{
+	GameEngine.scene.remove(this.transform);
+}
+
+},{"three":2}],5:[function(require,module,exports){
+
+THREE = require("three");
+Conversation = require("./conversation.js");
+//SceneManager = require("./scenemanager.js");
+
+var ClickTarget = function(mesh)
+{
+	this.mesh = mesh;
+	this.bounds = new THREE.Box3();
+
+	// set this to a block of convo data (using require) to make this
+	// target start a conversation
+	this.triggerConversation = undefined;
+
+	// set to a scene key to make this target trigger a scene transition
+	this.triggerScene = undefined;
+
+	// set to an item key to make this target collect an item and then
+	// disable itself
+	this.collectItem = undefined;
+}
+
+module.exports = ClickTarget;
+
+ClickTarget.prototype.isPointInBounds = function(point)
+{
+	var point = new THREE.Vector3(point.x, point.y, 0);
+	this.getBoundingBox();
+	point.z = (this.bounds.min.z + this.bounds.max.z) / 2;
+	return this.bounds.containsPoint(point);
+}
+
+ClickTarget.prototype.getBoundingBox = function()
+{
+	this.bounds.setFromObject(this.mesh);
+	return this.bounds;
+}
+
+ClickTarget.prototype.trigger = function()
+{
+	if (this.collectItem)
+	{
+		//TODO: give item to player and disable me
+	}
+	if (this.triggerConversation)
+	{
+		Conversation.startConversation(this.triggerConversation);
+	}
+	else if (this.triggerScene)
+	{
+		SceneManager.changeScene(this.triggerScene);
+	}
+}
+
+},{"./conversation.js":6,"three":2}],6:[function(require,module,exports){
+
 Input = require("../sdk/input");
 ThreeUtils = require("../sdk/threeutils");
 
@@ -41883,8 +41996,7 @@ Conversation.added = function()
 	this.textElement = document.getElementById("conversation_text");
 	this.portraitElement = document.getElementById("conversation_portrait");
 
-	//TESTING
-	this.startConversation(require("../data/sample_conversation.json"));
+	this.hide();
 }
 
 Conversation.update = function()
@@ -41901,9 +42013,14 @@ Conversation.update = function()
  */
 Conversation.startConversation = function(conversationData)
 {
-	this.parentElement.style.visibility = "visible";
+	this.show();
 	this.activeConversationData = conversationData;
 	this.moveToNode(1);
+}
+
+Conversation.show = function()
+{
+	this.parentElement.style.visibility = "visible";
 }
 
 /**
@@ -41911,10 +42028,24 @@ Conversation.startConversation = function(conversationData)
  */
 Conversation.endConversation = function()
 {
+	this.hide();
+	this.activeConversationData = undefined;
+}
+
+Conversation.hide = function()
+{
 	this.parentElement.style.visibility = "hidden";
 	this.portraitElement.className = "conversation_portrait_off";
 	this.hideResponsesFrom(0);
-	this.activeConversationData = undefined;
+}
+
+/**
+ * Returns true if any conversation is active.
+ * @returns {Boolean}
+ */
+Conversation.isConversationActive = function()
+{
+	return !!this.activeConversationData;
 }
 
 /**
@@ -41923,7 +42054,8 @@ Conversation.endConversation = function()
 Conversation.selectResponseByIndex = function(index)
 {
 	var currentNode = this.getCurrentNode();
-	if (index < this.responseElements.length)
+	if (index < this.responseElements.length
+		&& this.responseElements[index].style.visibility == "visible")
 	{
 		this.selectResponse(this.responseElements[index].response);
 	}
@@ -42051,7 +42183,7 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../data/sample_conversation.json":3,"../sdk/input":11,"../sdk/threeutils":16}],5:[function(require,module,exports){
+},{"../sdk/input":15,"../sdk/threeutils":20}],7:[function(require,module,exports){
 
 var Inventory = {
     itemList: [],
@@ -42128,48 +42260,137 @@ Inventory.drop = function(ev) {
 
 module.exports = Inventory;
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 
+Scene = require("./base_scene.js");
+THREE = require("three");
 ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var CreationOfTheWorldScene = function()
+{
+	
+}
+
+CreationOfTheWorldScene.prototype = new Scene();
+
+CreationOfTheWorldScene.prototype.added = function()
+{
+	// create johnson
+	this.johnson15 = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "johnson15_sprite");
+	this.transform.add(this.johnson15);
+	this.johnson15.position.set(100, 100, -20);
+
+	var johnsonClickTarget = this.createClickTarget(this.johnson15);
+	johnsonClickTarget.triggerConversation = require("../data/sample_conversation.json");
+}
+
+module.exports = new CreationOfTheWorldScene();
+
+},{"../data/sample_conversation.json":3,"../sdk/threeutils":20,"./base_scene.js":4,"./clicktarget.js":5,"three":2}],9:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var IndexScene = function()
+{
+	
+}
+
+IndexScene.prototype = new Scene();
+
+IndexScene.prototype.added = function()
+{
+	// create johnson
+	this.johnson15 = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "johnson15_sprite");
+	this.transform.add(this.johnson15);
+	this.johnson15.position.set(100, 100, -20);
+
+	var johnsonClickTarget = this.createClickTarget(this.johnson15);
+	johnsonClickTarget.triggerConversation = require("../data/sample_conversation.json");
+
+	// create door
+	this.door = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "door");
+	this.transform.add(this.door);
+	this.door.position.set(300, 100, -20);
+
+	var doorClickTarget = this.createClickTarget(this.door);
+	doorClickTarget.triggerScene = "creationOfTheWorld";
+}
+
+module.exports = new IndexScene();
+
+},{"../data/sample_conversation.json":3,"../sdk/threeutils":20,"./base_scene.js":4,"./clicktarget.js":5,"three":2}],10:[function(require,module,exports){
+
 Input = require("../sdk/input");
+Conversation = require("./conversation.js");
 
-module.exports = sampleGame =
+var SceneManager =
 {
-	
-};
-
-// 'added' is called by the engine when this object is added
-sampleGame.added = function()
-{
-	this.dirtTexture = ThreeUtils.loadTexture("media/dirt.png");
-	this.dirtGeo = ThreeUtils.makeSpriteGeo(128, 64);
-	
-	this.mesh = ThreeUtils.makeSpriteMesh(this.dirtTexture, this.dirtGeo);
-	this.mesh.position.set(200, 200, -10);
-	GameEngine.scene.add(this.mesh);
-};
-
-// 'removed' is called by the engine when this object is removed
-sampleGame.removed = function()
-{
-	
-};
-
-// 'update' is called by the engine once per frame
-sampleGame.update = function()
-{
-	// move the mesh 50 pixels per second based on input
-	if (Input.Keyboard.keyDown('a') || Input.Keyboard.keyDown(Input.Keyboard.LEFT))
+	/**
+	 * List of all possible scenes in the game.
+	 */
+	scenes:
 	{
-		this.mesh.position.x -= 50 * bmacSdk.deltaSec;
-	}
-	if (Input.Keyboard.keyDown('d') || Input.Keyboard.keyDown(Input.Keyboard.RIGHT))
-	{
-		this.mesh.position.x += 50 * bmacSdk.deltaSec;
-	}
-};
+		index: require("./scene_index.js"),
+		creationOfTheWorld: require("./scene_creation_of_the_world.js"),
+	},
 
-},{"../sdk/input":11,"../sdk/threeutils":16}],7:[function(require,module,exports){
+	currentScene: undefined,
+	lastHoveredTarget: undefined,
+}
+
+module.exports = SceneManager;
+
+SceneManager.added = function()
+{
+	// initialize all scenes
+	for (var key in this.scenes)
+	{
+		this.scenes[key].added();
+	}
+
+	this.changeScene("index");
+}
+
+SceneManager.update = function()
+{
+	if (!Conversation.isConversationActive())
+	{
+		var clickTarget = this.currentScene.getClickTarget(GameEngine.mousePosWorld);
+		if (clickTarget)
+		{
+			if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
+			{
+				clickTarget.trigger();
+			}
+			this.lastHoveredTarget = clickTarget;
+		}
+	}
+}
+
+/**
+ * Changes the scene the one with the specified key.
+ * @param {String} key
+ */
+SceneManager.changeScene = function(key)
+{
+	if (!this.scenes[key])
+	{
+		console.error("No scene found with key '" + key + "'.");
+		return;
+	}
+	if (this.currentScene)
+	{
+		this.currentScene.hide();
+	}
+	this.currentScene = this.scenes[key];
+	this.currentScene.show();
+}
+
+},{"../sdk/input":15,"./conversation.js":6,"./scene_creation_of_the_world.js":8,"./scene_index.js":9}],11:[function(require,module,exports){
 
 // this file is partially generated by tools
 // do not change the layout
@@ -42181,12 +42402,14 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 36,
-	height: 29,
+	width: 258,
+	height: 158,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"trap":[0,0,35,29],
+	"door":[0,0,128,128],
+	"johnson15_sprite":[129,0,128,128],
+	"trap":[0,129,35,29],
 	},
 },
 "johnson15":
@@ -42213,7 +42436,7 @@ module.exports =
 },
 }
 
-},{"three":2}],8:[function(require,module,exports){
+},{"three":2}],12:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -42299,10 +42522,10 @@ Engine.prototype._handleWindowResize = function()
 		this.screenHeight = this.canvasDiv.offsetHeight;
 		this.renderer.setSize(this.screenWidth, this.screenHeight);
 	}
-	this.mainCamera.left = -this.screenWidth/2;
-	this.mainCamera.right = this.screenWidth/2;
-	this.mainCamera.top = -this.screenHeight/2;
-	this.mainCamera.bottom = this.screenHeight/2;
+	this.mainCamera.left = 0;
+	this.mainCamera.right = this.screenWidth;
+	this.mainCamera.top = 0;
+	this.mainCamera.bottom = this.screenHeight;
 	this.mainCamera.updateProjectionMatrix();
 }
 
@@ -42330,7 +42553,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":9}],9:[function(require,module,exports){
+},{"./index.js":13}],13:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -42488,7 +42711,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":11,"../polyfills":14,"./engine.js":8,"three":2}],10:[function(require,module,exports){
+},{"../input":15,"../polyfills":18,"./engine.js":12,"three":2}],14:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -42737,7 +42960,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],11:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -42852,7 +43075,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":10,"./keyboard.js":12,"./mouse.js":13}],12:[function(require,module,exports){
+},{"./gamepad.js":14,"./keyboard.js":16,"./mouse.js":17}],16:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -43037,7 +43260,7 @@ module.exports = Keyboard =
 	}
 };
 
-},{}],13:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -43223,7 +43446,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],14:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -43309,7 +43532,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],15:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -43365,7 +43588,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":16}],16:[function(require,module,exports){
+},{"./index.js":20}],20:[function(require,module,exports){
 
 THREE = require("three");
 AtlasData = require("../atlases");
@@ -43570,17 +43793,17 @@ var ThreeUtils =
 	 */
 	makeAtlasMesh: function(atlas, key, dynamic)
 	{
-		if (atlas.data[key] === undefined)
+		if (atlas.sprites[key] === undefined)
 		{
 			console.error("Atlas '"+atlas.url+"' has no key '"+key+"'.");
 			return null;
 		}
-		if (!atlas.data[key].geo)
+		if (!atlas.sprites[key].geo)
 		{
-			atlas.data[key].geo = this.makeSpriteGeo(atlas.data[key][2],atlas.data[key][3]);
-			this._setAtlasUVs(atlas.data[key].geo,atlas,key);
+			atlas.sprites[key].geo = this.makeSpriteGeo(atlas.sprites[key][2],atlas.sprites[key][3]);
+			this._setAtlasUVs(atlas.sprites[key].geo,atlas,key);
 		}
-		var geo = atlas.data[key].geo
+		var geo = atlas.sprites[key].geo
 		if (dynamic)
 		{
 			geo = geo.clone();
@@ -43601,17 +43824,17 @@ var ThreeUtils =
 			console.error("Geometry is not atlased.");
 			return;
 		}
-		if (atlas.data[key] === undefined)
+		if (atlas.sprites[key] === undefined)
 		{
 			console.error("Atlas '"+atlas.url+"' has not key '"+key+"'");
 			return;
 		}
 		
 		uvs = geo.faceVertexUvs[0];
-		var l = atlas.data[key][0]/atlas.width;
-		var b = (1-atlas.data[key][1]/atlas.height);
-		var r = l+atlas.data[key][2]/atlas.width;
-		var t = b-atlas.data[key][3]/atlas.height;
+		var l = atlas.sprites[key][0]/atlas.width;
+		var b = (1-atlas.sprites[key][1]/atlas.height);
+		var r = l+atlas.sprites[key][2]/atlas.width;
+		var t = b-atlas.sprites[key][3]/atlas.height;
 		if (geo.atlas_flipx){var temp=l;l=r;r=temp;}
 		if (geo.atlas_flipy){var temp=t;t=b;b=temp;}
 		uvs[0][0].set(l,b);
@@ -43642,15 +43865,15 @@ var ThreeUtils =
 			console.error("Geometry is not atlased.");
 			return;
 		}
-		if (atlas.data[key] === undefined)
+		if (atlas.sprites[key] === undefined)
 		{
 			console.error("Atlas '"+atlas.url+"' has not key '"+key+"'");
 			return;
 		}
 		this._setAtlasUVs(geometry,atlas,key,flipX,flipY);
 		
-		var w = atlas.data[key][2]/2;
-		var h = atlas.data[key][3]/2;
+		var w = atlas.sprites[key][2]/2;
+		var h = atlas.sprites[key][3]/2;
 		verts = geometry.vertices;
 		verts[0].set(-w,-h,0);
 		verts[1].set(w,-h,0);
@@ -43767,4 +43990,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":7,"./Atlas.js":15,"three":2}]},{},[1]);
+},{"../atlases":11,"./Atlas.js":19,"three":2}]},{},[1])
