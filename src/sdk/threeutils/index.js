@@ -1,5 +1,6 @@
 
 THREE = require("three");
+AtlasData = require("../atlases");
 
 /** @namespace */
 var ThreeUtils = 
@@ -144,6 +145,28 @@ var ThreeUtils =
 		uvs[1][2].set(r,b);
 		geometry.uvsNeedUpdate = true;
 		return geometry;
+	},
+
+	/**
+	 * Loads the atlas represented by the specified key or returns a cached version.
+	 * @param key {String}
+	 * @returns {Atlas}
+	 */
+	loadAtlas: function(key)
+	{
+		var atlasData = AtlasData[key];
+		if (atlasData)
+		{
+			if (!atlasData.atlas)
+			{
+				atlasData.atlas = new this.Atlas(atlasData);
+			}
+			return atlasData.atlas;
+		}
+		else
+		{
+			console.error("Tried to load unknown atlas '" + key + "'.");
+		}
 	},
 
 	/**

@@ -1,5 +1,6 @@
 
 Input = require("../sdk/input");
+ThreeUtils = require("../sdk/threeutils");
 
 var Conversation =
 {
@@ -20,6 +21,7 @@ Conversation.added = function()
 	this.parentElement = document.getElementById("conversation");
 	this.responsesElement = document.getElementById("conversation_responses");
 	this.textElement = document.getElementById("conversation_text");
+	this.portraitElement = document.getElementById("conversation_portrait");
 
 	//TESTING
 	this.startConversation(require("../data/sample_conversation.json"));
@@ -50,6 +52,7 @@ Conversation.startConversation = function(conversationData)
 Conversation.endConversation = function()
 {
 	this.parentElement.style.visibility = "hidden";
+	this.portraitElement.className = "conversation_portrait_off";
 	this.hideResponsesFrom(0);
 	this.activeConversationData = undefined;
 }
@@ -98,7 +101,12 @@ Conversation.moveToNode = function(index)
 		this.currentNodeId = index;
 
 		var currentNode = this.getCurrentNode();
-		this.textElement.innerHTML = "<b>" + this.getSpeakerName(currentNode) + ":</b> " + currentNode.text;
+		var currentSpeaker = this.getSpeaker(currentNode.speaker);
+		this.textElement.innerHTML = "<b>" + currentSpeaker.displayName + ":</b> " + currentNode.text;
+
+		var speakerAtlas = ThreeUtils.loadAtlas(currentSpeaker.atlas);
+		this.portraitElement.className = "conversation_portrait_on";
+		ThreeUtils.setElementToAtlasImage(this.portraitElement, speakerAtlas, currentSpeaker.sprites[0]);
 
 		var r = 0;
 		if (currentNode.responses)
@@ -156,19 +164,6 @@ Conversation.hideResponsesFrom = function(index)
 Conversation.getCurrentNode = function()
 {
 	return this.getNode(this.currentNodeId);
-}
-
-Conversation.getSpeakerName = function(node)
-{
-	var speaker = this.getSpeaker(node.speaker);
-	if (speaker)
-	{
-		return speaker.displayName;
-	}
-	else
-	{
-		return "*ERROR*";
-	}
 }
 
 Conversation.getSpeaker = function(key)
