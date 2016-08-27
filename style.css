@@ -84,6 +84,8 @@ body
 	position: absolute;
 	right: 0px;
 	top: 0px;
+
+
 }
 #inventoryTitle 
 {
@@ -100,4 +102,14 @@ body
 }
 .inventoryItem:last-child{
 	border-bottom: 5px solid black 
+}
+.inventoryImage, .lamp
+{
+
+	height: 60px;
+	width: 60px;
+}
+img[src=""] 
+{
+  display:none;
 }
