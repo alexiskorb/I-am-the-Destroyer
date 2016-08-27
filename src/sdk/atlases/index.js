@@ -9,12 +9,13 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 36,
-	height: 29,
+	width: 129,
+	height: 158,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"trap":[0,0,35,29],
+	"johnson15_sprite":[0,0,128,128],
+	"trap":[0,129,35,29],
 	},
 },
 "johnson15":
