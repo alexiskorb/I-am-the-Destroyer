@@ -58,7 +58,7 @@ Engine.prototype._attachDom = function()
 		this.renderer = new THREE.WebGLRenderer();
 		this.canvasDiv.appendChild(this.renderer.domElement);
 		this.canvasDiv.oncontextmenu = function() { return false; };
-		this.renderer.setClearColor(0x000000, 1);
+		this.renderer.setClearColor(0x888888, 1);
 	}
 	
 	//TODO: 2D depth management
