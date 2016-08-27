@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
 bmacSdk = require("./src/sdk/engine");
@@ -9,23 +9,17 @@ GameEngine = new bmacSdk.Engine("canvasDiv");
 
 // add objects to the engine
 GameEngine.addObject(require("./src/game/conversation.js"));
-<<<<<<< HEAD
-GameEngine.addObject(require("./src/game/sample.js"));
 window.Inventory = require("./src/game/inventory.js")
 GameEngine.addObject(Inventory);
 
-=======
-
-//HACK:
+// Hack
 window.SceneManager = require("./src/game/scenemanager.js");
 GameEngine.addObject(window.SceneManager);
 
-GameEngine.addObject(require("./src/game/inventory.js"));
->>>>>>> daf3736e9e9aa3de9db93bda3bce178fccd97086
 
 // that's it!
 
-},{"./src/game/conversation.js":6,"./src/game/inventory.js":7,"./src/game/scenemanager.js":10,"./src/sdk/engine":13}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":7,"./src/game/inventory.js":8,"./src/game/scenemanager.js":11,"./src/sdk/engine":14}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -41791,6 +41785,214 @@ THREE.MorphBlendMesh.prototype.update = function ( delta ) {
 },{}],3:[function(require,module,exports){
 module.exports=
 {
+	"title": "johnson_xv_conservation",
+
+	"characters":
+	[
+		{
+			"id": "johnson15",
+			"displayName": "Johnson XV",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+		{
+			"id": 1,
+			"speaker": "johnson15",
+			"text": "Hello.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 2,
+				},
+				{
+					"text": "Why are you here?",
+					"nextNodeId": 4,
+				},
+				{
+					"text": "You remind me of someone.",
+					"nextNodeId": 13
+				}
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "johnson15",
+			"text": "I am Angel Johnson XV.",
+			"responses":[
+				{
+					"text": "Are you an angel?",
+					"nextNodeId": 3,
+				},
+			]
+		},
+		{
+			"id": 3,
+			"speaker": "johnson15",
+			"text": "No that's just my name.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 1,
+				},
+			]
+		},
+		{
+			"id": 4,
+			"speaker": "johnson15",
+			"text": "I'm working on the prison. I'm building this room with no walls. It's designed to hold...[he leans in closer]...a great ancient evil.",
+			"responses":[
+				{
+					"text": "[gasp] No!",
+					"nextNodeId": 5,
+				},
+				{
+					"text": "So what do you have so far?",
+					"nextNodeId": 6
+				}
+			]
+		},
+		{
+			"id": 5,
+			"speaker": "johnson15",
+			"text": "Yes!",
+			"responses":[
+				{
+					"text": "[gasp] No!",
+					"nextNodeId": 5,
+				},
+				{ 
+					"text": "That sounds pretty cool.",
+					"nextNodeId": 6,
+				},
+			]
+		},
+		{
+			"id": 6,
+			"speaker": "johnson15",
+			"text": "So, my plan is to make the walls out of solid reinforced steel. There's no way that evil overlord could get through.",
+			"responses":[
+				{
+					"text": "Isn't stell pretty expensive.",
+					"nextNodeId": 7,
+				},
+			]
+		},
+		{
+			"id": 7,
+			"speaker": "johnson15",
+			"text": "For the good quality stuff. Yeah. [He scratches his head.] I think they'll pay enough for it.",
+			"responses":[
+				{
+					"text": "Why don't you use something cheaper?",
+					"nextNodeId": 8,
+				},
+			]
+		},
+		{
+			"id": 8,
+			"speaker": "johnson15",
+			"text": "Like what?",
+			"responses":[
+				{
+					"text": "Bricks. They should be strong enough for a prison, but they're a lot cheaper.",
+					"nextNodeId": 11,
+				},
+				{
+					"text": "Ice. It pretty much works as it's own air conditioning too.",
+					"nextNodeId": 10
+				},
+				{
+					"text": "Sandwiches. I like sandwiches.",
+					"nextNodeId": 9
+				},
+				{
+					"text": "Air. It's cheap. Plus, it's environmentally friendly. I'm sure they have other security measures.",
+					"nextNodeId": 9
+				},
+				{
+					"text": "I don't know. Nevermind.",
+				}
+			]
+		},
+		{
+			"id": 9,
+			"speaker": "johnson15",
+			"text": "Ha ha. Very funny.",
+			"responses":[
+				{
+					"text": "I have a different suggestion.",
+					"nextNodeId": 8,
+				},
+				{
+					"text": "Bye."
+				},
+			]
+		},
+		{
+			"id": 10,
+			"speaker": "johnson15",
+			"text": "I would do ice. But I'm allergic to ice.",
+			"responses":[
+				{
+					"text": "You do know that ice is water, right?",
+					"nextNodeId": 11,
+				},
+			]
+		},
+		{
+			"id": 11,
+			"speaker": "johnson15",
+			"text": "I can't swim.",
+			"responses":[
+				{
+					"text": "What does...nevermind. I have a different suggestion.",
+					"nextNodeId": 8,
+				},
+				{
+					"text": "Bye."
+				},
+			]
+		},
+		{
+			"id": 12,
+			"speaker": "johnson15",
+			"text": "That's actually a good idea. It will save me money. I'll do that.",
+			"responses":[
+				{
+					"text": "Great.",
+				},
+			]
+		},
+		{
+			"id": 13,
+			"speaker": "johnson15",
+			"text": "I look a lot like my family. There are a lot of us.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 2
+				},
+			]
+		},
+	]
+}
+},{}],4:[function(require,module,exports){
+module.exports=
+{
 	"title": "construction_johnson_convo",
 
 	"characters":
@@ -41866,7 +42068,7 @@ module.exports=
 	]
 }
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -41915,7 +42117,7 @@ Scene.prototype.hide = function()
 	GameEngine.scene.remove(this.transform);
 }
 
-},{"three":2}],5:[function(require,module,exports){
+},{"three":2}],6:[function(require,module,exports){
 
 THREE = require("three");
 Conversation = require("./conversation.js");
@@ -41970,7 +42172,7 @@ ClickTarget.prototype.trigger = function()
 	}
 }
 
-},{"./conversation.js":6,"three":2}],6:[function(require,module,exports){
+},{"./conversation.js":7,"three":2}],7:[function(require,module,exports){
 
 Input = require("../sdk/input");
 ThreeUtils = require("../sdk/threeutils");
@@ -42183,7 +42385,7 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../sdk/input":15,"../sdk/threeutils":20}],7:[function(require,module,exports){
+},{"../sdk/input":16,"../sdk/threeutils":21}],8:[function(require,module,exports){
 
 var Inventory = {
     itemList: [],
@@ -42260,7 +42462,7 @@ Inventory.drop = function(ev) {
 
 module.exports = Inventory;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -42287,7 +42489,7 @@ CreationOfTheWorldScene.prototype.added = function()
 
 module.exports = new CreationOfTheWorldScene();
 
-},{"../data/sample_conversation.json":3,"../sdk/threeutils":20,"./base_scene.js":4,"./clicktarget.js":5,"three":2}],9:[function(require,module,exports){
+},{"../data/sample_conversation.json":4,"../sdk/threeutils":21,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],10:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -42309,7 +42511,7 @@ IndexScene.prototype.added = function()
 	this.johnson15.position.set(100, 100, -20);
 
 	var johnsonClickTarget = this.createClickTarget(this.johnson15);
-	johnsonClickTarget.triggerConversation = require("../data/sample_conversation.json");
+	johnsonClickTarget.triggerConversation = require("../data/johnson_xv_conversation.json");
 
 	// create door
 	this.door = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "door");
@@ -42322,7 +42524,7 @@ IndexScene.prototype.added = function()
 
 module.exports = new IndexScene();
 
-},{"../data/sample_conversation.json":3,"../sdk/threeutils":20,"./base_scene.js":4,"./clicktarget.js":5,"three":2}],10:[function(require,module,exports){
+},{"../data/johnson_xv_conversation.json":3,"../sdk/threeutils":21,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],11:[function(require,module,exports){
 
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");
@@ -42390,7 +42592,7 @@ SceneManager.changeScene = function(key)
 	this.currentScene.show();
 }
 
-},{"../sdk/input":15,"./conversation.js":6,"./scene_creation_of_the_world.js":8,"./scene_index.js":9}],11:[function(require,module,exports){
+},{"../sdk/input":16,"./conversation.js":7,"./scene_creation_of_the_world.js":9,"./scene_index.js":10}],12:[function(require,module,exports){
 
 // this file is partially generated by tools
 // do not change the layout
@@ -42436,7 +42638,7 @@ module.exports =
 },
 }
 
-},{"three":2}],12:[function(require,module,exports){
+},{"three":2}],13:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -42553,7 +42755,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":13}],13:[function(require,module,exports){
+},{"./index.js":14}],14:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -42711,7 +42913,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":15,"../polyfills":18,"./engine.js":12,"three":2}],14:[function(require,module,exports){
+},{"../input":16,"../polyfills":19,"./engine.js":13,"three":2}],15:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -42960,7 +43162,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -43075,7 +43277,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":14,"./keyboard.js":16,"./mouse.js":17}],16:[function(require,module,exports){
+},{"./gamepad.js":15,"./keyboard.js":17,"./mouse.js":18}],17:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -43260,7 +43462,7 @@ module.exports = Keyboard =
 	}
 };
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -43446,7 +43648,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -43532,7 +43734,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -43588,7 +43790,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":20}],20:[function(require,module,exports){
+},{"./index.js":21}],21:[function(require,module,exports){
 
 THREE = require("three");
 AtlasData = require("../atlases");
@@ -43990,4 +44192,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":11,"./Atlas.js":19,"three":2}]},{},[1])
+},{"../atlases":12,"./Atlas.js":20,"three":2}]},{},[1]);

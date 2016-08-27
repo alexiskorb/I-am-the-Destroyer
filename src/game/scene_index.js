@@ -19,7 +19,7 @@ IndexScene.prototype.added = function()
 	this.johnson15.position.set(100, 100, -20);
 
 	var johnsonClickTarget = this.createClickTarget(this.johnson15);
-	johnsonClickTarget.triggerConversation = require("../data/sample_conversation.json");
+	johnsonClickTarget.triggerConversation = require("../data/johnson_xv_conversation.json");
 
 	// create door
 	this.door = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "door");

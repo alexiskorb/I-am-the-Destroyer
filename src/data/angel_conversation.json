@@ -1,0 +1,284 @@
+//1 and 10
+{
+    "title": "angel_convo",
+    "characters":
+	[
+		{
+			"id": "angel",
+			"displayName": "Angel Johnson I",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+    "nodes":
+    [
+        {
+            "id": 1,
+            "speaker": "angel",
+            "text": "Hello. Welcome to the creation of the Universe.",
+            "responses": [
+                {
+                    "text": "What are you doing?",
+                    "nextNodeId": 7
+                },
+                {
+                    "text": "Who are you?",
+                    "nextNodeId": 2
+                },
+                {
+                    "text": "Can I ask you something?",
+                    "nextNodeId": 10
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "speaker": "angel",
+            "text": "Me? I am Angel Johnson I the Great and Fabulous.",
+            "responses": [
+                {
+                    "text": "Angel Johnson I? What's the \"I\" for ?",
+                    "nextNodeId": 3
+                },
+                {
+                    "text": "Nevermind",
+                    "nextNodeId": 1
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "speaker": "angel",
+            "text": "Because I am the first Angel Johnson, obviously.",
+            "responses": [
+                {
+                    "text": "Yeah, but...are there other Angel Johnson's to compare to?",
+                    "nextNodeId": 4
+                },
+                {
+                    "text": "Nevermind",
+                    "nextNodeId": 1
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "speaker": "angel",
+            "text": "Well, my father is Angel John, and I am his son, so, therefore, I am Angel Johnson. The first.",
+            "responses": [
+                {
+                    "text": "...",
+                    "nextNodeId":5 
+                },
+                {
+                    "text": "Nevermind",
+                    "nextNodeId": 1
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "speaker": "angel",
+            "text": "I plan on naming all my sons \"Angel Johnson.\"",
+            "responses": [
+                {
+                    "text": "Isn't \"Angel\" a title? That's like calling someone \"Human Smith\".",
+                    "nextNodeId": 6
+                },
+                {
+                    "text": "Nevermind",
+                    "nextNodeId": 1
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "speaker": "angel",
+            "text": "Is this really what you're worried about at the creation of the universe?",
+            "responses": [
+                {
+                    "text": "Touche",
+                    "nextNodeId": 1
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "speaker": "angel",
+            "text": "God said that I could be in charge of making this one small plot of land.",
+            "responses": [
+                {
+                    "text": "Why? Did he get bored or something?",
+                    "nextNodeId": 8
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "speaker": "angel",
+            "text": "All he said was that he wants people to know he has a sense of humor. I'm not sure what that means.",
+            "responses": [
+                {
+                    "text": "continue",
+                    "nextNodeId": 1
+                },
+            ]
+        },
+        {
+            "id": 9,
+            "speaker": "angel",
+            "text": "All he said was that he wants people to know he has a sense of humor. I'm not sure what that means.",
+            "responses": [
+                {
+                    "text": "continue",
+                    "nextNodeId": 1
+                },
+            ]
+        },
+        {
+            "id": 10,
+            "speaker": "angel",
+            "text": "Uh. Yeah. I guess.",
+            "responses": [
+                {
+                    "text": "Can you tell me more about this creating this patch of the Universe gig?",
+                    "nextNodeId": 16
+                },
+                {
+                    "text": "So, I had a problem with lasers.",
+                    "nextNodeId": 11
+                },
+                {
+                    "text": "You think you could make gravity lighter?",
+                    "nextNodeId": 18
+                },
+                {
+                    "text": "Nevermind. Bye."
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "speaker": "angel",
+            "text": "Lasers?",
+            "responses": [
+                {
+                    "text": "They're like concentrated beams of light.",
+                    "nextNodeId": 12
+                },
+            ]
+        },
+        {    
+            "id": 12,
+            "speaker": "angel",
+            "text": "Yeah. Sure. I like light.",
+            "responses": [
+                {
+                    "text": "So, in the future, lasers can hurt people.",
+                    "nextNodeId": 13
+                },
+            ]
+        },
+        {
+            "id": 13,
+            "speaker": "angel",
+            "text": "What? Light hurts people?",
+            "responses": [
+                {
+                    "text": "Yeah. I know, right? So, I was thinking that since light is a symbol of God and God is a symbol of good and hurting people is not good, then light shouldn't be allowed to hurt people.",
+                    "nextNodeId": 14
+                },
+            ]
+        },
+        {
+            "id": 14,
+            "speaker": "angel",
+            "text": "That sounds pretty reasonable.",
+            "responses": [
+                {
+                    "text": "So, since you're creating this part of the Universe, do you mind setting a physical limit on the maximum intensity of light or it's ability to hurt people?",
+                    "nextNodeId": 15
+                },
+            ]
+        },
+        {
+            "id": 15,
+            "speaker": "angel",
+            "text": "Yep. I'll put that on my todo list. Was there anything else?",
+            "responses": [
+                {
+                    "text": "I had another question.",
+                    "nextNodeId": 16
+                },
+                {
+                    "text": "Nope. That's it.",
+                }
+            ]
+        },
+        {
+            "id": 16,
+            "speaker": "angel",
+            "text": "So, I'm allowed to do whatever I want with it. I can put whatever creatures I want or even change the laws of physics. Cool, huh?",
+            "responses": [
+                {
+                    "text": "Yeah",
+                    "nextNodeId": 17
+                }
+            ]
+        },
+        {
+            "id": 17,
+            "speaker": "angel",
+            "text": "To be honest, I'll probably just make everything about the same as the rest. But, you know, better. Obviously.",
+            "responses": [
+                {
+                    "text": "Obviously.",
+                    "nextNodeId": 10
+                }
+            ]
+        },
+        {
+            "id": 18,
+            "speaker": "angel",
+            "text": "Why? I can fly. Who cares about gravity?",
+            "responses": [
+                {
+                    "text": "Well, it'd be more fun for the rest of us.",
+                    "nextNodeId": 19
+                }
+            ]
+        },
+        {
+            "id": 19,
+            "speaker": "angel",
+            "text": "So?",
+            "responses": [
+                {
+                    "text": "Please?",
+                    "nextNodeId": 20
+                }
+            ]
+        },
+        {
+            "id": 20,
+            "speaker": "angel",
+            "text": "Gravity's lame. If you show me something cool or gravity-defying, then maybe, I'll consider it worth my effort.",
+            "responses": [
+                {
+                    "text": "I'll get back to you.",
+                    "nextNodeId": 10
+                }
+            ]
+        },
+    ]
+}

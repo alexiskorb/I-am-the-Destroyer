@@ -1,0 +1,207 @@
+
+{
+	"title": "johnson_xv_conservation",
+
+	"characters":
+	[
+		{
+			"id": "johnson15",
+			"displayName": "Johnson XV",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+		{
+			"id": 1,
+			"speaker": "johnson15",
+			"text": "Hello.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 2,
+				},
+				{
+					"text": "Why are you here?",
+					"nextNodeId": 4,
+				},
+				{
+					"text": "You remind me of someone.",
+					"nextNodeId": 13
+				}
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "johnson15",
+			"text": "I am Angel Johnson XV.",
+			"responses":[
+				{
+					"text": "Are you an angel?",
+					"nextNodeId": 3,
+				},
+			]
+		},
+		{
+			"id": 3,
+			"speaker": "johnson15",
+			"text": "No that's just my name.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 1,
+				},
+			]
+		},
+		{
+			"id": 4,
+			"speaker": "johnson15",
+			"text": "I'm working on the prison. I'm building this room with no walls. It's designed to hold...[he leans in closer]...a great ancient evil.",
+			"responses":[
+				{
+					"text": "[gasp] No!",
+					"nextNodeId": 5,
+				},
+				{
+					"text": "So what do you have so far?",
+					"nextNodeId": 6
+				}
+			]
+		},
+		{
+			"id": 5,
+			"speaker": "johnson15",
+			"text": "Yes!",
+			"responses":[
+				{
+					"text": "[gasp] No!",
+					"nextNodeId": 5,
+				},
+				{ 
+					"text": "That sounds pretty cool.",
+					"nextNodeId": 6,
+				},
+			]
+		},
+		{
+			"id": 6,
+			"speaker": "johnson15",
+			"text": "So, my plan is to make the walls out of solid reinforced steel. There's no way that evil overlord could get through.",
+			"responses":[
+				{
+					"text": "Isn't steel pretty expensive?",
+					"nextNodeId": 7,
+				},
+			]
+		},
+		{
+			"id": 7,
+			"speaker": "johnson15",
+			"text": "For the good quality stuff. Yeah. [He scratches his head.] I think they'll pay enough for it.",
+			"responses":[
+				{
+					"text": "Why don't you use something cheaper?",
+					"nextNodeId": 8,
+				},
+			]
+		},
+		{
+			"id": 8,
+			"speaker": "johnson15",
+			"text": "Like what?",
+			"responses":[
+				{
+					"text": "Bricks. They should be strong enough for a prison, but they're a lot cheaper.",
+					"nextNodeId": 12,
+				},
+				{
+					"text": "Ice. It pretty much works as it's own air conditioning too.",
+					"nextNodeId": 10
+				},
+				{
+					"text": "Sandwiches. I like sandwiches.",
+					"nextNodeId": 9
+				},
+				{
+					"text": "Air. It's cheap. Plus, it's environmentally friendly. I'm sure they have other security measures.",
+					"nextNodeId": 9
+				},
+				{
+					"text": "I don't know. Nevermind.",
+				}
+			]
+		},
+		{
+			"id": 9,
+			"speaker": "johnson15",
+			"text": "Ha ha. Very funny.",
+			"responses":[
+				{
+					"text": "I have a different suggestion.",
+					"nextNodeId": 8,
+				},
+				{
+					"text": "Bye."
+				},
+			]
+		},
+		{
+			"id": 10,
+			"speaker": "johnson15",
+			"text": "I would do ice. But I'm allergic to ice.",
+			"responses":[
+				{
+					"text": "You do know that ice is water, right?",
+					"nextNodeId": 11,
+				},
+			]
+		},
+		{
+			"id": 11,
+			"speaker": "johnson15",
+			"text": "I can't swim.",
+			"responses":[
+				{
+					"text": "What does...nevermind. I have a different suggestion.",
+					"nextNodeId": 8,
+				},
+				{
+					"text": "Bye."
+				},
+			]
+		},
+		{
+			"id": 12,
+			"speaker": "johnson15",
+			"text": "That's actually a good idea. It will save me money. I'll do that.",
+			"responses":[
+				{
+					"text": "Great.",
+				},
+			]
+		},
+		{
+			"id": 13,
+			"speaker": "johnson15",
+			"text": "I look a lot like my family. There are a lot of us.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 2
+				},
+			]
+		},
+	]
+}
