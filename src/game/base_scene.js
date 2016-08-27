@@ -14,8 +14,12 @@ Scene.prototype.added = function()
 
 }
 
-Scene.prototype.createClickTarget = function(mesh)
+Scene.prototype.createClickableSprite = function(key, x, y)
 {
+	var mesh = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), key);
+	this.transform.add(mesh);
+	mesh.position.set(x, y, -20);
+
 	var target = new ClickTarget(mesh);
 	this.clickTargets.push(target);
 	return target;

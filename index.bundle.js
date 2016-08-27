@@ -41827,7 +41827,7 @@ module.exports=
 		{
 			"id": 2,
 			"speaker": "johnson15",
-			"text": "Sure. Whatever. I'm going to go back to building this wall now.",
+			"text": "Sure. <i>Whatever.</i> I'm going to go back to building this wall now.",
 			"responses":[
 				{
 					"text": "I'll give you a candy bar if you make it out of cardboard.",
@@ -41877,8 +41877,12 @@ Scene.prototype.added = function()
 
 }
 
-Scene.prototype.createClickTarget = function(mesh)
+Scene.prototype.createClickableSprite = function(key, x, y)
 {
+	var mesh = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), key);
+	this.transform.add(mesh);
+	mesh.position.set(x, y, -20);
+
 	var target = new ClickTarget(mesh);
 	this.clickTargets.push(target);
 	return target;
@@ -41917,6 +41921,7 @@ Conversation = require("./conversation.js");
 
 var ClickTarget = function(mesh)
 {
+	this.enabled = true;
 	this.mesh = mesh;
 	this.bounds = new THREE.Box3();
 
@@ -41936,6 +41941,7 @@ module.exports = ClickTarget;
 
 ClickTarget.prototype.isPointInBounds = function(point)
 {
+	if (!this.enabled) return false;
 	var point = new THREE.Vector3(point.x, point.y, 0);
 	this.getBoundingBox();
 	point.z = (this.bounds.min.z + this.bounds.max.z) / 2;
@@ -41948,11 +41954,24 @@ ClickTarget.prototype.getBoundingBox = function()
 	return this.bounds;
 }
 
+ClickTarget.prototype.enable = function()
+{
+	this.enabled = true;
+	this.mesh.visible = true;
+}
+
+ClickTarget.prototype.disable = function()
+{
+	this.enabled = false;
+	this.mesh.visible = false;
+}
+
 ClickTarget.prototype.trigger = function()
 {
 	if (this.collectItem)
 	{
-		//TODO: give item to player and disable me
+		Inventory.addItem(Inventory.items[this.collectItem]);
+		this.disable();
 	}
 	if (this.triggerConversation)
 	{
@@ -42271,12 +42290,12 @@ CreationOfTheWorldScene.prototype = new Scene();
 CreationOfTheWorldScene.prototype.added = function()
 {
 	// create johnson
-	this.johnson15 = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "johnson15_sprite");
-	this.transform.add(this.johnson15);
-	this.johnson15.position.set(100, 100, -20);
+	var johnsonSprite = this.createClickableSprite("johnson15_sprite", 100, 100);
+	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
 
-	var johnsonClickTarget = this.createClickTarget(this.johnson15);
-	johnsonClickTarget.triggerConversation = require("../data/sample_conversation.json");
+	// create lamp
+	var lampSprite = this.createClickableSprite("lamp", 200, 200);
+	lampSprite.collectItem = "lamp";
 }
 
 module.exports = new CreationOfTheWorldScene();
@@ -42298,19 +42317,11 @@ IndexScene.prototype = new Scene();
 IndexScene.prototype.added = function()
 {
 	// create johnson
-	this.johnson15 = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "johnson15_sprite");
-	this.transform.add(this.johnson15);
-	this.johnson15.position.set(100, 100, -20);
-
-	var johnsonClickTarget = this.createClickTarget(this.johnson15);
-	johnsonClickTarget.triggerConversation = require("../data/sample_conversation.json");
+	var johnsonSprite = this.createClickableSprite("johnson15_sprite", 100, 100);
+	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
 
 	// create door
-	this.door = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "door");
-	this.transform.add(this.door);
-	this.door.position.set(300, 100, -20);
-
-	var doorClickTarget = this.createClickTarget(this.door);
+	var doorClickTarget = this.createClickableSprite("door", 300, 100);
 	doorClickTarget.triggerScene = "creationOfTheWorld";
 }
 
@@ -42397,13 +42408,13 @@ module.exports =
 {
 	url: "media/general_atlas.png",
 	width: 258,
-	height: 158,
+	height: 189,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
 	"door":[0,0,128,128],
 	"johnson15_sprite":[129,0,128,128],
-	"trap":[0,129,35,29],
+	"lamp":[0,129,60,60],
 	},
 },
 "johnson15":

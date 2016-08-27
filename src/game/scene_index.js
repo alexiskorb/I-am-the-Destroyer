@@ -14,19 +14,11 @@ IndexScene.prototype = new Scene();
 IndexScene.prototype.added = function()
 {
 	// create johnson
-	this.johnson15 = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "johnson15_sprite");
-	this.transform.add(this.johnson15);
-	this.johnson15.position.set(100, 100, -20);
-
-	var johnsonClickTarget = this.createClickTarget(this.johnson15);
-	johnsonClickTarget.triggerConversation = require("../data/sample_conversation.json");
+	var johnsonSprite = this.createClickableSprite("johnson15_sprite", 100, 100);
+	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
 
 	// create door
-	this.door = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "door");
-	this.transform.add(this.door);
-	this.door.position.set(300, 100, -20);
-
-	var doorClickTarget = this.createClickTarget(this.door);
+	var doorClickTarget = this.createClickableSprite("door", 300, 100);
 	doorClickTarget.triggerScene = "creationOfTheWorld";
 }
 

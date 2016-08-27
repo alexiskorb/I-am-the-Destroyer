@@ -5,6 +5,7 @@ Conversation = require("./conversation.js");
 
 var ClickTarget = function(mesh)
 {
+	this.enabled = true;
 	this.mesh = mesh;
 	this.bounds = new THREE.Box3();
 
@@ -24,6 +25,7 @@ module.exports = ClickTarget;
 
 ClickTarget.prototype.isPointInBounds = function(point)
 {
+	if (!this.enabled) return false;
 	var point = new THREE.Vector3(point.x, point.y, 0);
 	this.getBoundingBox();
 	point.z = (this.bounds.min.z + this.bounds.max.z) / 2;
@@ -36,11 +38,24 @@ ClickTarget.prototype.getBoundingBox = function()
 	return this.bounds;
 }
 
+ClickTarget.prototype.enable = function()
+{
+	this.enabled = true;
+	this.mesh.visible = true;
+}
+
+ClickTarget.prototype.disable = function()
+{
+	this.enabled = false;
+	this.mesh.visible = false;
+}
+
 ClickTarget.prototype.trigger = function()
 {
 	if (this.collectItem)
 	{
-		//TODO: give item to player and disable me
+		Inventory.addItem(Inventory.items[this.collectItem]);
+		this.disable();
 	}
 	if (this.triggerConversation)
 	{

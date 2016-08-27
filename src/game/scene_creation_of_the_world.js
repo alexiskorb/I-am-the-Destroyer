@@ -14,12 +14,12 @@ CreationOfTheWorldScene.prototype = new Scene();
 CreationOfTheWorldScene.prototype.added = function()
 {
 	// create johnson
-	this.johnson15 = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "johnson15_sprite");
-	this.transform.add(this.johnson15);
-	this.johnson15.position.set(100, 100, -20);
+	var johnsonSprite = this.createClickableSprite("johnson15_sprite", 100, 100);
+	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
 
-	var johnsonClickTarget = this.createClickTarget(this.johnson15);
-	johnsonClickTarget.triggerConversation = require("../data/sample_conversation.json");
+	// create lamp
+	var lampSprite = this.createClickableSprite("lamp", 200, 200);
+	lampSprite.collectItem = "lamp";
 }
 
 module.exports = new CreationOfTheWorldScene();

@@ -42,7 +42,7 @@
 		{
 			"id": 2,
 			"speaker": "johnson15",
-			"text": "Sure. Whatever. I'm going to go back to building this wall now.",
+			"text": "Sure. <i>Whatever.</i> I'm going to go back to building this wall now.",
 			"responses":[
 				{
 					"text": "I'll give you a candy bar if you make it out of cardboard.",
