@@ -9,16 +9,6 @@ GameEngine = new bmacSdk.Engine("canvasDiv");
 
 // add objects to the engine
 GameEngine.addObject(require("./src/game/conversation.js"));
-<<<<<<< HEAD
-window.Inventory = require("./src/game/inventory.js")
-GameEngine.addObject(Inventory);
-
-// Hack
-window.SceneManager = require("./src/game/scenemanager.js");
-GameEngine.addObject(window.SceneManager);
-
-
-=======
 
 window.Inventory = require("./src/game/inventory.js")
 GameEngine.addObject(Inventory);
@@ -27,7 +17,6 @@ GameEngine.addObject(Inventory);
 window.SceneManager = require("./src/game/scenemanager.js");
 GameEngine.addObject(window.SceneManager);
 
->>>>>>> 4247b3e97f410967b5a1c193c22f9ade07414091
 // that's it!
 
 },{"./src/game/conversation.js":7,"./src/game/inventory.js":8,"./src/game/scenemanager.js":11,"./src/sdk/engine":14}],2:[function(require,module,exports){
@@ -41796,13 +41785,13 @@ THREE.MorphBlendMesh.prototype.update = function ( delta ) {
 },{}],3:[function(require,module,exports){
 module.exports=
 {
-	"title": "johnson_xv_conservation",
+	"title": "future_tech_conversation",
 
 	"characters":
 	[
 		{
-			"id": "johnson15",
-			"displayName": "Johnson XV",
+			"id": "future_tech_guy",
+			"displayName": "Tom Psion",
 			"atlas": "johnson15",
 			"sprites":[
 				"port_idle"
@@ -41822,182 +41811,189 @@ module.exports=
 	[
 		{
 			"id": 1,
-			"speaker": "johnson15",
+			"speaker": "future_tech_guy",
 			"text": "Hello.",
 			"responses":[
 				{
 					"text": "Who are you?",
 					"nextNodeId": 2,
 				},
-				{
-					"text": "Why are you here?",
-					"nextNodeId": 4,
-				},
-				{
-					"text": "You remind me of someone.",
-					"nextNodeId": 13
-				}
-			]
-		},
-		{
-			"id": 2,
-			"speaker": "johnson15",
-			"text": "I am Angel Johnson XV.",
-			"responses":[
-				{
-					"text": "Are you an angel?",
-					"nextNodeId": 3,
-				},
-			]
-		},
-		{
-			"id": 3,
-			"speaker": "johnson15",
-			"text": "No that's just my name.",
-			"responses":[
-				{
-					"text": "continue",
-					"nextNodeId": 1,
-				},
-			]
-		},
-		{
-			"id": 4,
-			"speaker": "johnson15",
-			"text": "I'm working on the prison. I'm building this room with no walls. It's designed to hold...[he leans in closer]...a great ancient evil.",
-			"responses":[
-				{
-					"text": "[gasp] No!",
-					"nextNodeId": 5,
-				},
-				{
-					"text": "So what do you have so far?",
-					"nextNodeId": 6
-				}
-			]
-		},
-		{
-			"id": 5,
-			"speaker": "johnson15",
-			"text": "Yes!",
-			"responses":[
-				{
-					"text": "[gasp] No!",
-					"nextNodeId": 5,
-				},
-				{ 
-					"text": "That sounds pretty cool.",
+    			{
+					"text": "What are you here for?",
 					"nextNodeId": 6,
 				},
 			]
 		},
 		{
-			"id": 6,
-			"speaker": "johnson15",
-			"text": "So, my plan is to make the walls out of solid reinforced steel. There's no way that evil overlord could get through.",
+			"id": 2,
+			"speaker": "future_tech_guy",
+			"text": "I am Tom Psion. I represent Forward FutureTech Technology.",
 			"responses":[
 				{
-					"text": "Isn't stell pretty expensive.",
-					"nextNodeId": 7,
-				},
-			]
-		},
-		{
-			"id": 7,
-			"speaker": "johnson15",
-			"text": "For the good quality stuff. Yeah. [He scratches his head.] I think they'll pay enough for it.",
-			"responses":[
-				{
-					"text": "Why don't you use something cheaper?",
-					"nextNodeId": 8,
-				},
-			]
-		},
-		{
-			"id": 8,
-			"speaker": "johnson15",
-			"text": "Like what?",
-			"responses":[
-				{
-					"text": "Bricks. They should be strong enough for a prison, but they're a lot cheaper.",
-					"nextNodeId": 11,
-				},
-				{
-					"text": "Ice. It pretty much works as it's own air conditioning too.",
-					"nextNodeId": 10
-				},
-				{
-					"text": "Sandwiches. I like sandwiches.",
-					"nextNodeId": 9
-				},
-				{
-					"text": "Air. It's cheap. Plus, it's environmentally friendly. I'm sure they have other security measures.",
-					"nextNodeId": 9
-				},
-				{
-					"text": "I don't know. Nevermind.",
+					"text": "Isn't that a bit repetive? <i>Forward</i> <i>Future</i><b>Tech</b> <b>Tech</b>nology?",
+					"nextNodeId": 3,
 				}
 			]
 		},
-		{
-			"id": 9,
-			"speaker": "johnson15",
-			"text": "Ha ha. Very funny.",
+        {
+			"id": 3,
+			"speaker": "future_tech_guy",
+			"text": "See! That's what I told them! But apparently, we were created by merging the companies \"Future Industrial Technology\" and \"Forward SciTech Co\". If you think that's bad. You should hear our motto.", 
 			"responses":[
 				{
-					"text": "I have a different suggestion.",
-					"nextNodeId": 8,
+					"text": "What's the motto?",
+					"nextNodeId": 4,
 				},
-				{
-					"text": "Bye."
-				},
-			]
+                {
+                    "text": "So. What are you doing here?",
+					"nextNodeId": 4,
+                }
+			],
 		},
-		{
-			"id": 10,
-			"speaker": "johnson15",
-			"text": "I would do ice. But I'm allergic to ice.",
+        {
+			"id": 4,
+			"speaker": "future_tech_guy",
+			"text": "Forward FutureTech Technology: Looking forwards to the future of technology to provide a bright future.", 
 			"responses":[
 				{
-					"text": "You do know that ice is water, right?",
-					"nextNodeId": 11,
+					"text": "Wow. That's just...wow.",
+					"nextNodeId": 6,
 				},
-			]
+                {
+					"text": "That's a great motto!",
+					"nextNodeId": 5,
+				}
+			],
 		},
-		{
-			"id": 11,
-			"speaker": "johnson15",
-			"text": "I can't swim.",
+        {
+			"id": 5,
+			"speaker": "future_tech_guy",
+			"text": "I sincerely hope you're kidding.", 
 			"responses":[
 				{
-					"text": "What does...nevermind. I have a different suggestion.",
-					"nextNodeId": 8,
-				},
-				{
-					"text": "Bye."
-				},
-			]
+					"text": "Anyway, what are you doing here?",
+					"nextNodeId": 6,
+				}
+			],
 		},
-		{
-			"id": 12,
-			"speaker": "johnson15",
-			"text": "That's actually a good idea. It will save me money. I'll do that.",
+        {
+			"id": 6,
+			"speaker": "future_tech_guy",
+			"text": "We're here to tell people about Forward FutureTech Technology.", 
 			"responses":[
 				{
-					"text": "Great.",
+					"text": "Tell me about your history.",
+					"nextNodeId": 7
 				},
-			]
+                {
+                    "text": "What do you make?",
+					"nextNodeId": 9
+                },
+                {
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 11
+                }
+			],
 		},
-		{
-			"id": 13,
-			"speaker": "johnson15",
-			"text": "I look a lot like my family. There are a lot of us.",
+        {
+			"id": 7,
+			"speaker": "future_tech_guy",
+			"text": "Well, both \"Future Industrial Technology\" and \"Forward SciTech Co\" have been around for a while. About 50 years, ago, the two merged into \"Forward FutureTech Technology.\" Back then, we were struggling to get funds. Luckily, Anthony Calahan invested in our company. Since then, we've been doing great!", 
 			"responses":[
 				{
 					"text": "continue",
-					"nextNodeId": 2
+					"nextNodeId": 8
+				}
+			],
+		},
+        {
+			"id": 8,
+			"speaker": "future_tech_guy",
+			"text": "Any more questions?", 
+			"responses":[
+				{
+					"text": "Tell me about your history.",
+					"nextNodeId": 7
 				},
-			]
+                {
+                    "text": "What do you make?",
+					"nextNodeId": 9
+                },
+                {
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 11
+                }
+			],
+		},
+        {
+			"id": 9,
+			"speaker": "future_tech_guy",
+			"text": "We make all sorts of things. We've made force fields, ion swords, holographic chairs. We also make more mundane stuff that's styled to look like it would belong in a SciFy movie.", 
+			"responses":[
+				{
+					"text": "Holographic chairs?",
+					"nextNodeId": 10
+				},
+                {
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 11
+                }
+			],
+		},
+        {
+			"id": 10,
+			"speaker": "future_tech_guy",
+			"text": "It looks like a chair, but is just a hologram. Yeah. I don't know why'd you want it either.", 
+			"responses":[
+				{
+					"text": "Another thing...",
+					"nextNodeId": 8				
+                },
+				{
+					"text": "Bye.",
+					"nextNodeId": 8				
+                }
+			],
+		},
+        {
+			"id": 11,
+			"speaker": "future_tech_guy",
+			"text": "Not really. We are giving out free lamps.", 
+			"responses":[
+				{
+					"text": "Does it do anything?",
+					"nextNodeId": 12				
+                },
+                {
+                    "text": "I don't want a lamp.",
+					"nextNodeId": 8
+                }
+			],
+		},
+        {
+			"id": 12,
+			"speaker": "future_tech_guy",
+			"text": "No. It's just a boring lamp.", 
+			"responses":[
+				{
+					"text": "I'll take it anyway.",
+					"nextNodeId": 13				
+                },
+                {
+                    "text": "I don't want a lamp.",
+					"nextNodeId": 8
+                }
+			],
+		},
+        {
+			"id": 13,
+			"speaker": "future_tech_guy",
+			"text": "Here you go.", 
+			"responses":[
+				{
+					"text": "[Take lamp.]",				
+                },
+			],
 		},
 	]
 }
@@ -42169,11 +42165,7 @@ Scene.prototype.hide = function()
 	GameEngine.scene.remove(this.transform);
 }
 
-<<<<<<< HEAD
-},{"three":2}],6:[function(require,module,exports){
-=======
-},{"../sdk/threeutils":20,"three":2}],5:[function(require,module,exports){
->>>>>>> 4247b3e97f410967b5a1c193c22f9ade07414091
+},{"../sdk/threeutils":21,"three":2}],6:[function(require,module,exports){
 
 THREE = require("three");
 Conversation = require("./conversation.js");
@@ -42632,17 +42624,9 @@ IndexScene.prototype = new Scene();
 IndexScene.prototype.added = function()
 {
 	// create johnson
-<<<<<<< HEAD
-	this.johnson15 = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "johnson15_sprite");
-	this.transform.add(this.johnson15);
-	this.johnson15.position.set(100, 100, -20);
 
-	var johnsonClickTarget = this.createClickTarget(this.johnson15);
-	johnsonClickTarget.triggerConversation = require("../data/johnson_xv_conversation.json");
-=======
 	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
-	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
->>>>>>> 4247b3e97f410967b5a1c193c22f9ade07414091
+	johnsonSprite.triggerConversation = require("../data/future_tech_conversation.json");
 
 	// create door
 	var doorClickTarget = this.createClickableSprite("door", 0, 0);
@@ -42653,7 +42637,7 @@ IndexScene.prototype.added = function()
 
 module.exports = new IndexScene();
 
-},{"../data/johnson_xv_conversation.json":3,"../sdk/threeutils":21,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],11:[function(require,module,exports){
+},{"../data/future_tech_conversation.json":3,"../sdk/threeutils":21,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],11:[function(require,module,exports){
 
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");

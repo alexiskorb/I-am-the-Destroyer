@@ -1,0 +1,214 @@
+
+{
+	"title": "future_tech_conversation",
+
+	"characters":
+	[
+		{
+			"id": "future_tech_guy",
+			"displayName": "Tom Psion",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+		{
+			"id": 1,
+			"speaker": "future_tech_guy",
+			"text": "Hello.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 2,
+				},
+    			{
+					"text": "What are you here for?",
+					"nextNodeId": 6,
+				},
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "future_tech_guy",
+			"text": "I am Tom Psion. I represent Forward FutureTech Technology.",
+			"responses":[
+				{
+					"text": "Isn't that a bit repetive? <i>Forward</i> <i>Future</i><b>Tech</b> <b>Tech</b>nology?",
+					"nextNodeId": 3,
+				}
+			]
+		},
+        {
+			"id": 3,
+			"speaker": "future_tech_guy",
+			"text": "See! That's what I told them! But apparently, we were created by merging the companies \"Future Industrial Technology\" and \"Forward SciTech Co\". If you think that's bad. You should hear our motto.", 
+			"responses":[
+				{
+					"text": "What's the motto?",
+					"nextNodeId": 4,
+				},
+                {
+                    "text": "So. What are you doing here?",
+					"nextNodeId": 4,
+                }
+			],
+		},
+        {
+			"id": 4,
+			"speaker": "future_tech_guy",
+			"text": "Forward FutureTech Technology: Looking forwards to the future of technology to provide a bright future.", 
+			"responses":[
+				{
+					"text": "Wow. That's just...wow.",
+					"nextNodeId": 6,
+				},
+                {
+					"text": "That's a great motto!",
+					"nextNodeId": 5,
+				}
+			],
+		},
+        {
+			"id": 5,
+			"speaker": "future_tech_guy",
+			"text": "I sincerely hope you're kidding.", 
+			"responses":[
+				{
+					"text": "Anyway, what are you doing here?",
+					"nextNodeId": 6,
+				}
+			],
+		},
+        {
+			"id": 6,
+			"speaker": "future_tech_guy",
+			"text": "We're here to tell people about Forward FutureTech Technology.", 
+			"responses":[
+				{
+					"text": "Tell me about your history.",
+					"nextNodeId": 7
+				},
+                {
+                    "text": "What do you make?",
+					"nextNodeId": 9
+                },
+                {
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 11
+                }
+			],
+		},
+        {
+			"id": 7,
+			"speaker": "future_tech_guy",
+			"text": "Well, both \"Future Industrial Technology\" and \"Forward SciTech Co\" have been around for a while. About 50 years, ago, the two merged into \"Forward FutureTech Technology.\" Back then, we were struggling to get funds. Luckily, Anthony Calahan invested in our company. Since then, we've been doing great!", 
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 8
+				}
+			],
+		},
+        {
+			"id": 8,
+			"speaker": "future_tech_guy",
+			"text": "Any more questions?", 
+			"responses":[
+				{
+					"text": "Tell me about your history.",
+					"nextNodeId": 7
+				},
+                {
+                    "text": "What do you make?",
+					"nextNodeId": 9
+                },
+                {
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 11
+                }
+			],
+		},
+        {
+			"id": 9,
+			"speaker": "future_tech_guy",
+			"text": "We make all sorts of things. We've made force fields, ion swords, holographic chairs. We also make more mundane stuff that's styled to look like it would belong in a SciFy movie.", 
+			"responses":[
+				{
+					"text": "Holographic chairs?",
+					"nextNodeId": 10
+				},
+                {
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 11
+                }
+			],
+		},
+        {
+			"id": 10,
+			"speaker": "future_tech_guy",
+			"text": "It looks like a chair, but is just a hologram. Yeah. I don't know why'd you want it either.", 
+			"responses":[
+				{
+					"text": "Another thing...",
+					"nextNodeId": 8				
+                },
+				{
+					"text": "Bye.",
+					"nextNodeId": 8				
+                }
+			],
+		},
+        {
+			"id": 11,
+			"speaker": "future_tech_guy",
+			"text": "Not really. We are giving out free lamps.", 
+			"responses":[
+				{
+					"text": "Does it do anything?",
+					"nextNodeId": 12				
+                },
+                {
+                    "text": "I don't want a lamp.",
+					"nextNodeId": 8
+                }
+			],
+		},
+        {
+			"id": 12,
+			"speaker": "future_tech_guy",
+			"text": "No. It's just a boring lamp.", 
+			"responses":[
+				{
+					"text": "I'll take it anyway.",
+					"nextNodeId": 13				
+                },
+                {
+                    "text": "I don't want a lamp.",
+					"nextNodeId": 8
+                }
+			],
+		},
+        {
+			"id": 13,
+			"speaker": "future_tech_guy",
+			"text": "Here you go.", 
+			"responses":[
+				{
+					"text": "[Take lamp.]",				
+                },
+			],
+		},
+	]
+}
