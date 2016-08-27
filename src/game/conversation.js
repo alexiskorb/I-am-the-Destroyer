@@ -11,7 +11,7 @@ var Conversation =
 	responseElements: [],
 
 	endConversationResponse: {
-		text: "End Conversation"
+		text: "Bye."
 	},
 }
 
@@ -157,11 +157,10 @@ Conversation.moveToNode = function(index)
 		this.portraitElement.className = "conversation_portrait_on";
 		ThreeUtils.setElementToAtlasImage(this.portraitElement, speakerAtlas, currentSpeaker.sprites[0]);
 
-		var r = 0;
+		var i = 0;
 		if (currentNode.responses)
 		{
-			var i = 0;
-			for (; r < currentNode.responses.length; r++)
+			for (var r = 0; r < currentNode.responses.length; r++)
 			{
 				if (this.responsePassesConditionals(currentNode.responses[r]))
 				{
@@ -169,11 +168,10 @@ Conversation.moveToNode = function(index)
 				}
 			}
 		}
-		else
-		{
-			this.displayResponse(r++, this.endConversationResponse);
-		}
-		this.hideResponsesFrom(r);
+		
+		this.displayResponse(i++, this.endConversationResponse);
+		
+		this.hideResponsesFrom(i);
 	}
 	else
 	{
