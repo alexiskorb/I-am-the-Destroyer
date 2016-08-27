@@ -1,6 +1,7 @@
 
 Input = require("../sdk/input");
 ThreeUtils = require("../sdk/threeutils");
+GlobalVariables = require("./globalvariables.js");
 
 var Conversation =
 {
@@ -42,6 +43,21 @@ Conversation.startConversation = function(conversationData)
 {
 	this.show();
 	this.activeConversationData = conversationData;
+
+	// determine starting node
+	var node0 = this.getNode(0);
+	if (node0)
+	{
+		for (var i = 0; i < node0.responses.length; i++)
+		{
+			if (this.responsePassesConditionals(node0.responses[i]))
+			{
+				this.moveToNode(node0.responses[i].nextNodeId)
+				return;
+			}
+		}
+	}
+
 	this.moveToNode(1);
 }
 
@@ -96,6 +112,10 @@ Conversation.selectResponse = function(response)
 {
 	if (response)
 	{
+		if (response.onceOnlyGlobal)
+		{
+			GlobalVariables.setVariable(response.onceOnlyGlobal);
+		}
 		if (response.nextNodeId !== undefined)
 		{
 			this.moveToNode(response.nextNodeId);
@@ -119,6 +139,16 @@ Conversation.moveToNode = function(index)
 	{
 		this.currentNodeId = index;
 
+		// set globals
+		if (targetNode.setGlobalTrue)
+		{
+			GlobalVariables.setVariable(targetNode.setGlobalTrue);
+		}
+		if (targetNode.setGlobalFalse)
+		{
+			GlobalVariables.unsetVariable(targetNode.setGlobalFalse);
+		}
+
 		var currentNode = this.getCurrentNode();
 		var currentSpeaker = this.getSpeaker(currentNode.speaker);
 		this.textElement.innerHTML = "<b>" + currentSpeaker.displayName + ":</b> " + currentNode.text;
@@ -130,9 +160,13 @@ Conversation.moveToNode = function(index)
 		var r = 0;
 		if (currentNode.responses)
 		{
+			var i = 0;
 			for (; r < currentNode.responses.length; r++)
 			{
-				this.displayResponse(r, currentNode.responses[r]);
+				if (this.responsePassesConditionals(currentNode.responses[r]))
+				{
+					this.displayResponse(i++, currentNode.responses[r]);
+				}
 			}
 		}
 		else
@@ -146,6 +180,49 @@ Conversation.moveToNode = function(index)
 		console.error("moveToNode: Conversation '" + this.activeConversationData.title
 			+ "' has no node " + this.currentNodeId + ".");
 	}
+}
+
+Conversation.responsePassesConditionals = function(response)
+{
+	if (response.globalIsFalse)
+	{
+		if (response.globalIsFalse instanceof Array)
+		{
+			for (var i = 0; i < response.globalIsFalse.length; i++)
+			{
+				if (GlobalVariables.getVariable(response.globalIsFalse[i]))
+				{
+					return false;
+				}
+			}
+		}
+		else if (GlobalVariables.getVariable(response.globalIsFalse))
+		{
+			return false;
+		}
+	}
+	if (response.globalIsTrue)
+	{
+		if (response.globalIsTrue instanceof Array)
+		{
+			for (var i = 0; i < response.globalIsTrue.length; i++)
+			{
+				if (!GlobalVariables.getVariable(response.globalIsTrue[i]))
+				{
+					return false;
+				}
+			}
+		}
+		else if (!GlobalVariables.getVariable(response.globalIsTrue))
+		{
+			return false;
+		}
+	}
+	if (response.onceOnlyGlobal && GlobalVariables.getVariable(response.onceOnlyGlobal))
+	{
+		return false;
+	}
+	return true;
 }
 
 Conversation.displayResponse = function(index, data)

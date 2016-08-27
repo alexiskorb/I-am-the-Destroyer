@@ -23,9 +23,23 @@
     "nodes":
     [
         {
+            "id": 0,
+            "speaker": "angel",
+            "responses": [
+                {
+                    "nextNodeId": 1,
+                    "globalIsFalse": "hasTalkedToAngel"
+                },
+                {
+                    "nextNodeId": 21
+                }
+            ]
+        },
+        {
             "id": 1,
             "speaker": "angel",
             "text": "Hello. Welcome to the creation of the Universe.",
+            "setGlobalTrue": "hasTalkedToAngel",
             "responses": [
                 {
                     "text": "What are you doing?",
@@ -33,6 +47,7 @@
                 },
                 {
                     "text": "Who are you?",
+                    "globalIsFalse": "askedAngelAboutName",
                     "nextNodeId": 2
                 },
                 {
@@ -48,6 +63,7 @@
             "responses": [
                 {
                     "text": "Angel Johnson I? What's the \"I\" for ?",
+                    "onceOnlyGlobal": "askedAngelAboutName",
                     "nextNodeId": 3
                 },
                 {
@@ -280,5 +296,25 @@
                 }
             ]
         },
+
+        {
+            "id": 21,
+            "speaker": "angel",
+            "text": "Oh. Hello again.",
+            "responses": [
+                {
+                    "text": "What are you doing?",
+                    "nextNodeId": 7
+                },
+                {
+                    "text": "Who are you?",
+                    "nextNodeId": 2
+                },
+                {
+                    "text": "Can I ask you something?",
+                    "nextNodeId": 10
+                }
+            ]
+        }
     ]
 }
