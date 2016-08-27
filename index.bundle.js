@@ -1,7 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
-bmacSdk = require("./src/sdk/engine");
+window.bmacSdk = require("./src/sdk/engine");
 bmacSdk.initialize();
 
 // create a game engine
@@ -9,6 +9,7 @@ GameEngine = new bmacSdk.Engine("canvasDiv");
 
 // add objects to the engine
 GameEngine.addObject(require("./src/game/conversation.js"));
+<<<<<<< HEAD
 window.Inventory = require("./src/game/inventory.js")
 GameEngine.addObject(Inventory);
 
@@ -17,6 +18,16 @@ window.SceneManager = require("./src/game/scenemanager.js");
 GameEngine.addObject(window.SceneManager);
 
 
+=======
+
+window.Inventory = require("./src/game/inventory.js")
+GameEngine.addObject(Inventory);
+
+//HACK:
+window.SceneManager = require("./src/game/scenemanager.js");
+GameEngine.addObject(window.SceneManager);
+
+>>>>>>> 4247b3e97f410967b5a1c193c22f9ade07414091
 // that's it!
 
 },{"./src/game/conversation.js":7,"./src/game/inventory.js":8,"./src/game/scenemanager.js":11,"./src/sdk/engine":14}],2:[function(require,module,exports){
@@ -42035,7 +42046,7 @@ module.exports=
 		{
 			"id": 2,
 			"speaker": "johnson15",
-			"text": "Sure. Whatever. I'm going to go back to building this wall now.",
+			"text": "Sure. <i>Whatever.</i> I'm going to go back to building this wall now.",
 			"responses":[
 				{
 					"text": "I'll give you a candy bar if you make it out of cardboard.",
@@ -42071,22 +42082,54 @@ module.exports=
 },{}],5:[function(require,module,exports){
 
 THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
 
 var Scene = function()
 {
 	this.transform = new THREE.Object3D();
 	this.clickTargets = [];
+
+	if (!this.backgroundUrl)
+	{
+		this.backgroundUrl = "media/room_empty.png";
+	}
+
+	this.backgroundGeometry = ThreeUtils.makeSpriteGeo(1920, 1080);
+	this.backgroundMaterial = new THREE.MeshBasicMaterial(
+		{
+			map: ThreeUtils.loadTexture(this.backgroundUrl),
+			transparent: true
+		}
+	);
+	this.backgroundMesh = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial);
+	this.backgroundMesh.position.set(0, 0, -15);
+	this.transform.add(this.backgroundMesh);
 }
 
 module.exports = Scene;
 
 Scene.prototype.added = function()
 {
-
+	this.transform.position.set(GameEngine.screenWidth / 2, GameEngine.screenHeight / 2, 0);
 }
 
-Scene.prototype.createClickTarget = function(mesh)
+Scene.prototype.update = function()
 {
+	for (var i = 0; i < this.clickTargets.length; i++)
+	{
+		if (this.clickTargets[i].enabled)
+		{
+			this.clickTargets[i].update();
+		}
+	}
+}
+
+Scene.prototype.createClickableSprite = function(key, x, y)
+{
+	var mesh = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), key);
+	this.transform.add(mesh);
+	mesh.position.set(x, y, -10);
+
 	var target = new ClickTarget(mesh);
 	this.clickTargets.push(target);
 	return target;
@@ -42107,6 +42150,15 @@ Scene.prototype.getClickTarget = function(position)
 	return null;
 }
 
+Scene.prototype.setAlpha = function(alpha)
+{
+	for (var i = 0; i < this.clickTargets.length; i++)
+	{
+		this.clickTargets[i].mesh.material.opacity = alpha;
+	}
+	this.backgroundMaterial.opacity = alpha;
+}
+
 Scene.prototype.show = function()
 {
 	GameEngine.scene.add(this.transform);
@@ -42117,7 +42169,11 @@ Scene.prototype.hide = function()
 	GameEngine.scene.remove(this.transform);
 }
 
+<<<<<<< HEAD
 },{"three":2}],6:[function(require,module,exports){
+=======
+},{"../sdk/threeutils":20,"three":2}],5:[function(require,module,exports){
+>>>>>>> 4247b3e97f410967b5a1c193c22f9ade07414091
 
 THREE = require("three");
 Conversation = require("./conversation.js");
@@ -42125,6 +42181,7 @@ Conversation = require("./conversation.js");
 
 var ClickTarget = function(mesh)
 {
+	this.enabled = true;
 	this.mesh = mesh;
 	this.bounds = new THREE.Box3();
 
@@ -42140,10 +42197,45 @@ var ClickTarget = function(mesh)
 	this.collectItem = undefined;
 }
 
+ClickTarget.ANIM_PICKUP = 1;
+
 module.exports = ClickTarget;
+
+ClickTarget.prototype.update = function()
+{
+	if (this.animation)
+	{
+		this.animationTimer += bmacSdk.deltaSec;
+		if (this.animationTimer > this.animationDuration)
+		{
+			this.animationTimer = this.animationDuration;
+			this.animation = undefined;
+			this.disable();
+			this.triggerPostAnimation();
+		}
+
+		var animProgress = this.animationTimer / this.animationDuration;
+
+		// ease in
+		animProgress = animProgress * animProgress * animProgress;
+
+		switch (this.animation)
+		{
+			case ClickTarget.ANIM_PICKUP:
+			// tween to bottom-center of screen while scaling up a bit
+			this.mesh.position.set(
+				this.animationStartPos.x + (0 - this.animationStartPos.x) * animProgress,
+				this.animationStartPos.y + (GameEngine.screenHeight / 2 - this.animationStartPos.y) * animProgress,
+				this.mesh.position.z);
+			this.mesh.scale.set(1 + animProgress * 4, 1 + animProgress * 4, 1);
+			break;
+		}
+	}
+}
 
 ClickTarget.prototype.isPointInBounds = function(point)
 {
+	if (!this.enabled) return false;
 	var point = new THREE.Vector3(point.x, point.y, 0);
 	this.getBoundingBox();
 	point.z = (this.bounds.min.z + this.bounds.max.z) / 2;
@@ -42156,11 +42248,31 @@ ClickTarget.prototype.getBoundingBox = function()
 	return this.bounds;
 }
 
+ClickTarget.prototype.enable = function()
+{
+	this.enabled = true;
+	this.mesh.visible = true;
+}
+
+ClickTarget.prototype.disable = function()
+{
+	this.enabled = false;
+	this.mesh.visible = false;
+}
+
+ClickTarget.prototype.playPickupTween = function()
+{
+	this.animation = ClickTarget.ANIM_PICKUP;
+	this.animationDuration = 0.45;
+	this.animationTimer = 0;
+	this.animationStartPos = new THREE.Vector2().copy(this.mesh.position);
+}
+
 ClickTarget.prototype.trigger = function()
 {
 	if (this.collectItem)
 	{
-		//TODO: give item to player and disable me
+		this.playPickupTween();
 	}
 	if (this.triggerConversation)
 	{
@@ -42168,7 +42280,15 @@ ClickTarget.prototype.trigger = function()
 	}
 	else if (this.triggerScene)
 	{
-		SceneManager.changeScene(this.triggerScene);
+		SceneManager.changeScene(this.triggerScene, SceneManager.ANIM_FORWARD);
+	}
+}
+
+ClickTarget.prototype.triggerPostAnimation = function()
+{
+	if (this.collectItem)
+	{
+		Inventory.addItem(Inventory.items[this.collectItem]);
 	}
 }
 
@@ -42471,7 +42591,9 @@ ClickTarget = require("./clicktarget.js");
 
 var CreationOfTheWorldScene = function()
 {
-	
+	this.backgroundUrl = "media/room_empty.png";
+
+	Scene.call(this);
 }
 
 CreationOfTheWorldScene.prototype = new Scene();
@@ -42479,12 +42601,14 @@ CreationOfTheWorldScene.prototype = new Scene();
 CreationOfTheWorldScene.prototype.added = function()
 {
 	// create johnson
-	this.johnson15 = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "johnson15_sprite");
-	this.transform.add(this.johnson15);
-	this.johnson15.position.set(100, 100, -20);
+	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
+	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
 
-	var johnsonClickTarget = this.createClickTarget(this.johnson15);
-	johnsonClickTarget.triggerConversation = require("../data/sample_conversation.json");
+	// create lamp
+	var lampSprite = this.createClickableSprite("lamp", 200, -200);
+	lampSprite.collectItem = "lamp";
+
+	Scene.prototype.added.call(this);
 }
 
 module.exports = new CreationOfTheWorldScene();
@@ -42498,7 +42622,9 @@ ClickTarget = require("./clicktarget.js");
 
 var IndexScene = function()
 {
-	
+	this.backgroundUrl = "media/room_empty.png";
+
+	Scene.call(this);
 }
 
 IndexScene.prototype = new Scene();
@@ -42506,20 +42632,23 @@ IndexScene.prototype = new Scene();
 IndexScene.prototype.added = function()
 {
 	// create johnson
+<<<<<<< HEAD
 	this.johnson15 = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "johnson15_sprite");
 	this.transform.add(this.johnson15);
 	this.johnson15.position.set(100, 100, -20);
 
 	var johnsonClickTarget = this.createClickTarget(this.johnson15);
 	johnsonClickTarget.triggerConversation = require("../data/johnson_xv_conversation.json");
+=======
+	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
+	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
+>>>>>>> 4247b3e97f410967b5a1c193c22f9ade07414091
 
 	// create door
-	this.door = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "door");
-	this.transform.add(this.door);
-	this.door.position.set(300, 100, -20);
-
-	var doorClickTarget = this.createClickTarget(this.door);
+	var doorClickTarget = this.createClickableSprite("door", 0, 0);
 	doorClickTarget.triggerScene = "creationOfTheWorld";
+
+	Scene.prototype.added.call(this);
 }
 
 module.exports = new IndexScene();
@@ -42542,7 +42671,13 @@ var SceneManager =
 
 	currentScene: undefined,
 	lastHoveredTarget: undefined,
+
+	animation: undefined,
 }
+
+SceneManager.ANIM_NONE = 0;
+SceneManager.ANIM_TIMETRAVEL = 1;
+SceneManager.ANIM_FORWARD = 2;
 
 module.exports = SceneManager;
 
@@ -42554,12 +42689,13 @@ SceneManager.added = function()
 		this.scenes[key].added();
 	}
 
-	this.changeScene("index");
+	this.finallyChangeScene("index");
+	this.currentScene.show();
 }
 
 SceneManager.update = function()
 {
-	if (!Conversation.isConversationActive())
+	if (!Conversation.isConversationActive() && !this.animation)
 	{
 		var clickTarget = this.currentScene.getClickTarget(GameEngine.mousePosWorld);
 		if (clickTarget)
@@ -42571,25 +42707,77 @@ SceneManager.update = function()
 			this.lastHoveredTarget = clickTarget;
 		}
 	}
+
+	// update animation
+	if (this.animation)
+	{
+		this.animationTimer += bmacSdk.deltaSec;
+		if (this.animationTimer >= this.animationDuration)
+		{
+			this.animationTimer = this.animationDuration;
+			this.animation = undefined;
+			this.finallyChangeScene(this.changingToScene);
+		}
+
+		var animProgress = this.animationTimer / this.animationDuration;
+
+		// ease in
+		animProgress = animProgress * animProgress * animProgress;
+
+		switch (this.animation)
+		{
+			case SceneManager.ANIM_FORWARD:
+			// scale up and fade out
+			this.currentScene.transform.scale.set(1 + animProgress * 1.5, 1 + animProgress * 1.5, 1);
+			this.currentScene.setAlpha(1 - (animProgress * animProgress));
+			break;
+		}
+	}
+
+	this.currentScene.update();
 }
 
 /**
  * Changes the scene the one with the specified key.
  * @param {String} key
  */
-SceneManager.changeScene = function(key)
+SceneManager.changeScene = function(key, animType)
 {
 	if (!this.scenes[key])
 	{
 		console.error("No scene found with key '" + key + "'.");
 		return;
 	}
+
+	var targetScene = this.scenes[key];
+	targetScene.show();
+	targetScene.transform.position.z = -20;
+	this.changingToScene = key;
+	
+	this.animation = animType;
+	this.animationTimer = 0;
+	switch (animType)
+	{
+		case SceneManager.ANIM_NONE:
+		this.animationDuration = 0;
+		break;
+		case SceneManager.ANIM_FORWARD:
+		this.animationDuration = 2;
+		break;
+		case SceneManager.ANIM_TIMETRAVEL:
+		this.animationDuration = 0;
+		break;
+	}
+}
+
+SceneManager.finallyChangeScene = function(key)
+{
 	if (this.currentScene)
 	{
 		this.currentScene.hide();
 	}
 	this.currentScene = this.scenes[key];
-	this.currentScene.show();
+	this.currentScene.transform.position.z = 0;
 }
 
 },{"../sdk/input":16,"./conversation.js":7,"./scene_creation_of_the_world.js":9,"./scene_index.js":10}],12:[function(require,module,exports){
@@ -42604,14 +42792,14 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 258,
-	height: 158,
+	width: 318,
+	height: 385,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"door":[0,0,128,128],
-	"johnson15_sprite":[129,0,128,128],
-	"trap":[0,129,35,29],
+	"door":[0,0,256,256],
+	"johnson15_sprite":[0,257,128,128],
+	"lamp":[257,0,60,60],
 	},
 },
 "johnson15":
