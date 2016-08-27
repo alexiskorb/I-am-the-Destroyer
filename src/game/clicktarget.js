@@ -34,7 +34,7 @@ ClickTarget.prototype.update = function()
 		{
 			this.animationTimer = this.animationDuration;
 			this.animation = undefined;
-			this.disable();
+			this.permanentlyDisable();
 			this.triggerPostAnimation();
 		}
 
@@ -74,14 +74,23 @@ ClickTarget.prototype.getBoundingBox = function()
 
 ClickTarget.prototype.enable = function()
 {
-	this.enabled = true;
-	this.mesh.visible = true;
+	if (!this.permanentlyDisabled)
+	{
+		this.enabled = true;
+		this.mesh.visible = true;
+	}
 }
 
 ClickTarget.prototype.disable = function()
 {
 	this.enabled = false;
 	this.mesh.visible = false;
+}
+
+ClickTarget.prototype.permanentlyDisable = function()
+{
+	this.permanentlyDisabled = true;
+	this.disable();
 }
 
 ClickTarget.prototype.playPickupTween = function()

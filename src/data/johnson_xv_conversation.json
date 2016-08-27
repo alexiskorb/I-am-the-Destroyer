@@ -151,10 +151,7 @@
 				{
 					"text": "I have a different suggestion.",
 					"nextNodeId": 8,
-				},
-				{
-					"text": "Bye."
-				},
+				}
 			]
 		},
 		{
@@ -176,10 +173,7 @@
 				{
 					"text": "What does...nevermind. I have a different suggestion.",
 					"nextNodeId": 8,
-				},
-				{
-					"text": "Bye."
-				},
+				}
 			]
 		},
 		{

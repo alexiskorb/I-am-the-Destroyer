@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
 window.bmacSdk = require("./src/sdk/engine");
@@ -19,7 +19,7 @@ GameEngine.addObject(window.SceneManager);
 
 // that's it!
 
-},{"./src/game/conversation.js":7,"./src/game/inventory.js":8,"./src/game/scenemanager.js":11,"./src/sdk/engine":14}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":7,"./src/game/inventory.js":9,"./src/game/scenemanager.js":12,"./src/sdk/engine":15}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -41783,8 +41783,9 @@ THREE.MorphBlendMesh.prototype.update = function ( delta ) {
 
 
 },{}],3:[function(require,module,exports){
-module.exports=
+module.exports=//1 and 10
 {
+<<<<<<< HEAD
 	"title": "future_tech_conversation",
 
 	"characters":
@@ -41792,6 +41793,14 @@ module.exports=
 		{
 			"id": "future_tech_guy",
 			"displayName": "Tom Psion",
+=======
+    "title": "angel_convo",
+    "characters":
+	[
+		{
+			"id": "angel",
+			"displayName": "Angel Johnson I",
+>>>>>>> 9dc4292f9cbc123efb1115645ce5db4edc6cd93c
 			"atlas": "johnson15",
 			"sprites":[
 				"port_idle"
@@ -41806,6 +41815,7 @@ module.exports=
 			]
 		}
 	],
+<<<<<<< HEAD
 
 	"nodes":
 	[
@@ -41996,6 +42006,302 @@ module.exports=
 			],
 		},
 	]
+=======
+    "nodes":
+    [
+        {
+            "id": 0,
+            "speaker": "angel",
+            "responses": [
+                {
+                    "nextNodeId": 1,
+                    "globalIsFalse": "hasTalkedToAngel"
+                },
+                {
+                    "nextNodeId": 21
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "speaker": "angel",
+            "text": "Hello. Welcome to the creation of the Universe.",
+            "setGlobalTrue": "hasTalkedToAngel",
+            "responses": [
+                {
+                    "text": "What are you doing?",
+                    "nextNodeId": 7
+                },
+                {
+                    "text": "Who are you?",
+                    "globalIsFalse": "askedAngelAboutName",
+                    "nextNodeId": 2
+                },
+                {
+                    "text": "Can I ask you something?",
+                    "nextNodeId": 10
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "speaker": "angel",
+            "text": "Me? I am Angel Johnson I the Great and Fabulous.",
+            "responses": [
+                {
+                    "text": "Angel Johnson I? What's the \"I\" for ?",
+                    "onceOnlyGlobal": "askedAngelAboutName",
+                    "nextNodeId": 3
+                },
+                {
+                    "text": "Nevermind",
+                    "nextNodeId": 1
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "speaker": "angel",
+            "text": "Because I am the first Angel Johnson, obviously.",
+            "responses": [
+                {
+                    "text": "Yeah, but...are there other Angel Johnson's to compare to?",
+                    "nextNodeId": 4
+                },
+                {
+                    "text": "Nevermind",
+                    "nextNodeId": 1
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "speaker": "angel",
+            "text": "Well, my father is Angel John, and I am his son, so, therefore, I am Angel Johnson. The first.",
+            "responses": [
+                {
+                    "text": "...",
+                    "nextNodeId":5 
+                },
+                {
+                    "text": "Nevermind",
+                    "nextNodeId": 1
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "speaker": "angel",
+            "text": "I plan on naming all my sons \"Angel Johnson.\"",
+            "responses": [
+                {
+                    "text": "Isn't \"Angel\" a title? That's like calling someone \"Human Smith\".",
+                    "nextNodeId": 6
+                },
+                {
+                    "text": "Nevermind",
+                    "nextNodeId": 1
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "speaker": "angel",
+            "text": "Is this really what you're worried about at the creation of the universe?",
+            "responses": [
+                {
+                    "text": "Touche",
+                    "nextNodeId": 1
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "speaker": "angel",
+            "text": "God said that I could be in charge of making this one small plot of land.",
+            "responses": [
+                {
+                    "text": "Why? Did he get bored or something?",
+                    "nextNodeId": 8
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "speaker": "angel",
+            "text": "All he said was that he wants people to know he has a sense of humor. I'm not sure what that means.",
+            "responses": [
+                {
+                    "text": "continue",
+                    "nextNodeId": 1
+                },
+            ]
+        },
+        {
+            "id": 9,
+            "speaker": "angel",
+            "text": "All he said was that he wants people to know he has a sense of humor. I'm not sure what that means.",
+            "responses": [
+                {
+                    "text": "continue",
+                    "nextNodeId": 1
+                },
+            ]
+        },
+        {
+            "id": 10,
+            "speaker": "angel",
+            "text": "Uh. Yeah. I guess.",
+            "responses": [
+                {
+                    "text": "Can you tell me more about this creating this patch of the Universe gig?",
+                    "nextNodeId": 16
+                },
+                {
+                    "text": "So, I had a problem with lasers.",
+                    "nextNodeId": 11
+                },
+                {
+                    "text": "You think you could make gravity lighter?",
+                    "nextNodeId": 18
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "speaker": "angel",
+            "text": "Lasers?",
+            "responses": [
+                {
+                    "text": "They're like concentrated beams of light.",
+                    "nextNodeId": 12
+                },
+            ]
+        },
+        {    
+            "id": 12,
+            "speaker": "angel",
+            "text": "Yeah. Sure. I like light.",
+            "responses": [
+                {
+                    "text": "So, in the future, lasers can hurt people.",
+                    "nextNodeId": 13
+                },
+            ]
+        },
+        {
+            "id": 13,
+            "speaker": "angel",
+            "text": "What? Light hurts people?",
+            "responses": [
+                {
+                    "text": "Yeah. I know, right? So, I was thinking that since light is a symbol of God and God is a symbol of good and hurting people is not good, then light shouldn't be allowed to hurt people.",
+                    "nextNodeId": 14
+                },
+            ]
+        },
+        {
+            "id": 14,
+            "speaker": "angel",
+            "text": "That sounds pretty reasonable.",
+            "responses": [
+                {
+                    "text": "So, since you're creating this part of the Universe, do you mind setting a physical limit on the maximum intensity of light or it's ability to hurt people?",
+                    "nextNodeId": 15
+                },
+            ]
+        },
+        {
+            "id": 15,
+            "speaker": "angel",
+            "text": "Yep. I'll put that on my todo list. Was there anything else?",
+            "responses": [
+                {
+                    "text": "I had another question.",
+                    "nextNodeId": 16
+                },
+                {
+                    "text": "Nope. That's it.",
+                }
+            ]
+        },
+        {
+            "id": 16,
+            "speaker": "angel",
+            "text": "So, I'm allowed to do whatever I want with it. I can put whatever creatures I want or even change the laws of physics. Cool, huh?",
+            "responses": [
+                {
+                    "text": "Yeah",
+                    "nextNodeId": 17
+                }
+            ]
+        },
+        {
+            "id": 17,
+            "speaker": "angel",
+            "text": "To be honest, I'll probably just make everything about the same as the rest. But, you know, better. Obviously.",
+            "responses": [
+                {
+                    "text": "Obviously.",
+                    "nextNodeId": 10
+                }
+            ]
+        },
+        {
+            "id": 18,
+            "speaker": "angel",
+            "text": "Why? I can fly. Who cares about gravity?",
+            "responses": [
+                {
+                    "text": "Well, it'd be more fun for the rest of us.",
+                    "nextNodeId": 19
+                }
+            ]
+        },
+        {
+            "id": 19,
+            "speaker": "angel",
+            "text": "So?",
+            "responses": [
+                {
+                    "text": "Please?",
+                    "nextNodeId": 20
+                }
+            ]
+        },
+        {
+            "id": 20,
+            "speaker": "angel",
+            "text": "Gravity's lame. If you show me something cool or gravity-defying, then maybe, I'll consider it worth my effort.",
+            "responses": [
+                {
+                    "text": "I'll get back to you.",
+                    "nextNodeId": 10
+                }
+            ]
+        },
+
+        {
+            "id": 21,
+            "speaker": "angel",
+            "text": "Oh. Hello again.",
+            "responses": [
+                {
+                    "text": "What are you doing?",
+                    "nextNodeId": 7
+                },
+                {
+                    "text": "Who are you?",
+                    "nextNodeId": 2
+                },
+                {
+                    "text": "Can I ask you something?",
+                    "nextNodeId": 10
+                }
+            ]
+        }
+    ]
+>>>>>>> 9dc4292f9cbc123efb1115645ce5db4edc6cd93c
 }
 },{}],4:[function(require,module,exports){
 module.exports=
@@ -42165,7 +42471,11 @@ Scene.prototype.hide = function()
 	GameEngine.scene.remove(this.transform);
 }
 
+<<<<<<< HEAD
 },{"../sdk/threeutils":21,"three":2}],6:[function(require,module,exports){
+=======
+},{"../sdk/threeutils":22,"three":2}],6:[function(require,module,exports){
+>>>>>>> 9dc4292f9cbc123efb1115645ce5db4edc6cd93c
 
 THREE = require("three");
 Conversation = require("./conversation.js");
@@ -42202,7 +42512,7 @@ ClickTarget.prototype.update = function()
 		{
 			this.animationTimer = this.animationDuration;
 			this.animation = undefined;
-			this.disable();
+			this.permanentlyDisable();
 			this.triggerPostAnimation();
 		}
 
@@ -42242,14 +42552,23 @@ ClickTarget.prototype.getBoundingBox = function()
 
 ClickTarget.prototype.enable = function()
 {
-	this.enabled = true;
-	this.mesh.visible = true;
+	if (!this.permanentlyDisabled)
+	{
+		this.enabled = true;
+		this.mesh.visible = true;
+	}
 }
 
 ClickTarget.prototype.disable = function()
 {
 	this.enabled = false;
 	this.mesh.visible = false;
+}
+
+ClickTarget.prototype.permanentlyDisable = function()
+{
+	this.permanentlyDisabled = true;
+	this.disable();
 }
 
 ClickTarget.prototype.playPickupTween = function()
@@ -42288,6 +42607,7 @@ ClickTarget.prototype.triggerPostAnimation = function()
 
 Input = require("../sdk/input");
 ThreeUtils = require("../sdk/threeutils");
+GlobalVariables = require("./globalvariables.js");
 
 var Conversation =
 {
@@ -42297,7 +42617,7 @@ var Conversation =
 	responseElements: [],
 
 	endConversationResponse: {
-		text: "End Conversation"
+		text: "Bye."
 	},
 }
 
@@ -42329,6 +42649,21 @@ Conversation.startConversation = function(conversationData)
 {
 	this.show();
 	this.activeConversationData = conversationData;
+
+	// determine starting node
+	var node0 = this.getNode(0);
+	if (node0)
+	{
+		for (var i = 0; i < node0.responses.length; i++)
+		{
+			if (this.responsePassesConditionals(node0.responses[i]))
+			{
+				this.moveToNode(node0.responses[i].nextNodeId)
+				return;
+			}
+		}
+	}
+
 	this.moveToNode(1);
 }
 
@@ -42383,6 +42718,10 @@ Conversation.selectResponse = function(response)
 {
 	if (response)
 	{
+		if (response.onceOnlyGlobal)
+		{
+			GlobalVariables.setVariable(response.onceOnlyGlobal);
+		}
 		if (response.nextNodeId !== undefined)
 		{
 			this.moveToNode(response.nextNodeId);
@@ -42406,6 +42745,16 @@ Conversation.moveToNode = function(index)
 	{
 		this.currentNodeId = index;
 
+		// set globals
+		if (targetNode.setGlobalTrue)
+		{
+			GlobalVariables.setVariable(targetNode.setGlobalTrue);
+		}
+		if (targetNode.setGlobalFalse)
+		{
+			GlobalVariables.unsetVariable(targetNode.setGlobalFalse);
+		}
+
 		var currentNode = this.getCurrentNode();
 		var currentSpeaker = this.getSpeaker(currentNode.speaker);
 		this.textElement.innerHTML = "<b>" + currentSpeaker.displayName + ":</b> " + currentNode.text;
@@ -42414,25 +42763,70 @@ Conversation.moveToNode = function(index)
 		this.portraitElement.className = "conversation_portrait_on";
 		ThreeUtils.setElementToAtlasImage(this.portraitElement, speakerAtlas, currentSpeaker.sprites[0]);
 
-		var r = 0;
+		var i = 0;
 		if (currentNode.responses)
 		{
-			for (; r < currentNode.responses.length; r++)
+			for (var r = 0; r < currentNode.responses.length; r++)
 			{
-				this.displayResponse(r, currentNode.responses[r]);
+				if (this.responsePassesConditionals(currentNode.responses[r]))
+				{
+					this.displayResponse(i++, currentNode.responses[r]);
+				}
 			}
 		}
-		else
-		{
-			this.displayResponse(r++, this.endConversationResponse);
-		}
-		this.hideResponsesFrom(r);
+		
+		this.displayResponse(i++, this.endConversationResponse);
+		
+		this.hideResponsesFrom(i);
 	}
 	else
 	{
 		console.error("moveToNode: Conversation '" + this.activeConversationData.title
 			+ "' has no node " + this.currentNodeId + ".");
 	}
+}
+
+Conversation.responsePassesConditionals = function(response)
+{
+	if (response.globalIsFalse)
+	{
+		if (response.globalIsFalse instanceof Array)
+		{
+			for (var i = 0; i < response.globalIsFalse.length; i++)
+			{
+				if (GlobalVariables.getVariable(response.globalIsFalse[i]))
+				{
+					return false;
+				}
+			}
+		}
+		else if (GlobalVariables.getVariable(response.globalIsFalse))
+		{
+			return false;
+		}
+	}
+	if (response.globalIsTrue)
+	{
+		if (response.globalIsTrue instanceof Array)
+		{
+			for (var i = 0; i < response.globalIsTrue.length; i++)
+			{
+				if (!GlobalVariables.getVariable(response.globalIsTrue[i]))
+				{
+					return false;
+				}
+			}
+		}
+		else if (!GlobalVariables.getVariable(response.globalIsTrue))
+		{
+			return false;
+		}
+	}
+	if (response.onceOnlyGlobal && GlobalVariables.getVariable(response.onceOnlyGlobal))
+	{
+		return false;
+	}
+	return true;
 }
 
 Conversation.displayResponse = function(index, data)
@@ -42497,7 +42891,53 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../sdk/input":16,"../sdk/threeutils":21}],8:[function(require,module,exports){
+},{"../sdk/input":17,"../sdk/threeutils":22,"./globalvariables.js":8}],8:[function(require,module,exports){
+
+var GlobalVariables =
+{
+	Variables: {},
+}
+
+module.exports = GlobalVariables;
+
+GlobalVariables.getVariable = function(key)
+{
+	return !!this.Variables[key];
+}
+
+GlobalVariables.setVariable = function(key)
+{
+	if (key instanceof Array)
+	{
+		for (var i = 0; i < key.length; i++)
+		{
+			this.setVariable(key[i]);
+		}
+	}
+	else
+	{
+		this.Variables[key] = true;
+	}
+}
+
+GlobalVariables.unsetVariable = function(key)
+{
+	if (key instanceof Array)
+	{
+		for (var i = 0; i < key.length; i++)
+		{
+			this.unsetVariable(key[i]);
+		}
+	}
+	else
+	{
+		this.Variables[key] = false;
+	}
+}
+
+},{}],9:[function(require,module,exports){
+
+ThreeUtils = require("../sdk/threeutils");
 
 var Inventory = {
     itemList: [],
@@ -42506,7 +42946,7 @@ var Inventory = {
 
 Inventory.items = {
     lamp: {
-        source: "media/red lamp.jpg",
+        sprite: "lamp",
     }
 }
 
@@ -42520,9 +42960,8 @@ Inventory.added = function() {
         li.className = "inventoryItem";
         li.addEventListener("drop", this.drop);
         li.addEventListener("dragover", this.allowDrop);
-        li.image = document.createElement("img");
+        li.image = document.createElement("div");
         li.image.className = "inventoryImage";
-        li.image.src = "";
         li.image.i = i;
         li.appendChild(li.image);
         li.id = "inventoryItem" + i;
@@ -42536,7 +42975,9 @@ Inventory.added = function() {
 Inventory.addItem = function(item) {
    for (var i = 0; i < 5; i++){
        if (this.itemList[i] == undefined){
-           this.inventoryDisplay[i].image.src = item.source;
+           ThreeUtils.setElementToAtlasImage(
+               this.inventoryDisplay[i].image, ThreeUtils.loadAtlas("general"), item.sprite);
+            this.inventoryDisplay[i].image.style.visibility = "visible";
            this.itemList[i] = item;
            break;
        }
@@ -42545,7 +42986,7 @@ Inventory.addItem = function(item) {
 Inventory.removeItem = function(item) {
    for (var i = 0; i < 5; i++){
        if (Inventory.itemList[i] == item){
-           this.inventoryDisplay[i].image.src = "";
+           this.inventoryDisplay[i].image.style.visibility = "hidden";
            this.itemList[i] = undefined;
            break;
        }
@@ -42564,8 +43005,9 @@ Inventory.drop = function(ev) {
     ev.preventDefault();
     var index = ev.dataTransfer.getData("target");
     if (Inventory.itemList[ev.target.i] == undefined){
-        ev.target.image.src = Inventory.inventoryDisplay[index].image.src;
-        Inventory.inventoryDisplay[index].image.src = "";
+        ThreeUtils.setElementToAtlasImage(
+            ev.target.image, ThreeUtils.loadAtlas("general"), Inventory.itemList[index].sprite);
+        Inventory.inventoryDisplay[index].image.visibility = "hidden";
         Inventory.itemList[ev.target.i] == Inventory.itemList[index];
         Inventory.itemList[index] == undefined;
     }
@@ -42574,7 +43016,7 @@ Inventory.drop = function(ev) {
 
 module.exports = Inventory;
 
-},{}],9:[function(require,module,exports){
+},{"../sdk/threeutils":22}],10:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -42605,7 +43047,7 @@ CreationOfTheWorldScene.prototype.added = function()
 
 module.exports = new CreationOfTheWorldScene();
 
-},{"../data/sample_conversation.json":4,"../sdk/threeutils":21,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],10:[function(require,module,exports){
+},{"../data/sample_conversation.json":4,"../sdk/threeutils":22,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],11:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -42624,9 +43066,14 @@ IndexScene.prototype = new Scene();
 IndexScene.prototype.added = function()
 {
 	// create johnson
+<<<<<<< HEAD
 
 	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
 	johnsonSprite.triggerConversation = require("../data/future_tech_conversation.json");
+=======
+	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
+	johnsonSprite.triggerConversation = require("../data/angel_conversation.json");
+>>>>>>> 9dc4292f9cbc123efb1115645ce5db4edc6cd93c
 
 	// create door
 	var doorClickTarget = this.createClickableSprite("door", 0, 0);
@@ -42637,7 +43084,11 @@ IndexScene.prototype.added = function()
 
 module.exports = new IndexScene();
 
+<<<<<<< HEAD
 },{"../data/future_tech_conversation.json":3,"../sdk/threeutils":21,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],11:[function(require,module,exports){
+=======
+},{"../data/angel_conversation.json":3,"../sdk/threeutils":22,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],12:[function(require,module,exports){
+>>>>>>> 9dc4292f9cbc123efb1115645ce5db4edc6cd93c
 
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");
@@ -42764,7 +43215,7 @@ SceneManager.finallyChangeScene = function(key)
 	this.currentScene.transform.position.z = 0;
 }
 
-},{"../sdk/input":16,"./conversation.js":7,"./scene_creation_of_the_world.js":9,"./scene_index.js":10}],12:[function(require,module,exports){
+},{"../sdk/input":17,"./conversation.js":7,"./scene_creation_of_the_world.js":10,"./scene_index.js":11}],13:[function(require,module,exports){
 
 // this file is partially generated by tools
 // do not change the layout
@@ -42810,7 +43261,7 @@ module.exports =
 },
 }
 
-},{"three":2}],13:[function(require,module,exports){
+},{"three":2}],14:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -42927,7 +43378,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":14}],14:[function(require,module,exports){
+},{"./index.js":15}],15:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -43085,7 +43536,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":16,"../polyfills":19,"./engine.js":13,"three":2}],15:[function(require,module,exports){
+},{"../input":17,"../polyfills":20,"./engine.js":14,"three":2}],16:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -43334,7 +43785,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -43449,7 +43900,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":15,"./keyboard.js":17,"./mouse.js":18}],17:[function(require,module,exports){
+},{"./gamepad.js":16,"./keyboard.js":18,"./mouse.js":19}],18:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -43634,7 +44085,7 @@ module.exports = Keyboard =
 	}
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -43820,7 +44271,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -43906,7 +44357,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -43962,7 +44413,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":21}],21:[function(require,module,exports){
+},{"./index.js":22}],22:[function(require,module,exports){
 
 THREE = require("three");
 AtlasData = require("../atlases");
@@ -44364,4 +44815,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":12,"./Atlas.js":20,"three":2}]},{},[1]);
+},{"../atlases":13,"./Atlas.js":21,"three":2}]},{},[1])

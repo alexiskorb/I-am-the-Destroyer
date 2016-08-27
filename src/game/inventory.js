@@ -1,4 +1,6 @@
 
+ThreeUtils = require("../sdk/threeutils");
+
 var Inventory = {
     itemList: [],
     inventoryDisplay: []
@@ -6,7 +8,7 @@ var Inventory = {
 
 Inventory.items = {
     lamp: {
-        source: "media/red lamp.jpg",
+        sprite: "lamp",
     }
 }
 
@@ -20,9 +22,8 @@ Inventory.added = function() {
         li.className = "inventoryItem";
         li.addEventListener("drop", this.drop);
         li.addEventListener("dragover", this.allowDrop);
-        li.image = document.createElement("img");
+        li.image = document.createElement("div");
         li.image.className = "inventoryImage";
-        li.image.src = "";
         li.image.i = i;
         li.appendChild(li.image);
         li.id = "inventoryItem" + i;
@@ -36,7 +37,9 @@ Inventory.added = function() {
 Inventory.addItem = function(item) {
    for (var i = 0; i < 5; i++){
        if (this.itemList[i] == undefined){
-           this.inventoryDisplay[i].image.src = item.source;
+           ThreeUtils.setElementToAtlasImage(
+               this.inventoryDisplay[i].image, ThreeUtils.loadAtlas("general"), item.sprite);
+            this.inventoryDisplay[i].image.style.visibility = "visible";
            this.itemList[i] = item;
            break;
        }
@@ -45,7 +48,7 @@ Inventory.addItem = function(item) {
 Inventory.removeItem = function(item) {
    for (var i = 0; i < 5; i++){
        if (Inventory.itemList[i] == item){
-           this.inventoryDisplay[i].image.src = "";
+           this.inventoryDisplay[i].image.style.visibility = "hidden";
            this.itemList[i] = undefined;
            break;
        }
@@ -64,8 +67,9 @@ Inventory.drop = function(ev) {
     ev.preventDefault();
     var index = ev.dataTransfer.getData("target");
     if (Inventory.itemList[ev.target.i] == undefined){
-        ev.target.image.src = Inventory.inventoryDisplay[index].image.src;
-        Inventory.inventoryDisplay[index].image.src = "";
+        ThreeUtils.setElementToAtlasImage(
+            ev.target.image, ThreeUtils.loadAtlas("general"), Inventory.itemList[index].sprite);
+        Inventory.inventoryDisplay[index].image.visibility = "hidden";
         Inventory.itemList[ev.target.i] == Inventory.itemList[index];
         Inventory.itemList[index] == undefined;
     }
