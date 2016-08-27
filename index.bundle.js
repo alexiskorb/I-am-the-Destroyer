@@ -1,7 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
-bmacSdk = require("./src/sdk/engine");
+window.bmacSdk = require("./src/sdk/engine");
 bmacSdk.initialize();
 
 // create a game engine
@@ -41877,6 +41877,17 @@ Scene.prototype.added = function()
 
 }
 
+Scene.prototype.update = function()
+{
+	for (var i = 0; i < this.clickTargets.length; i++)
+	{
+		if (this.clickTargets[i].enabled)
+		{
+			this.clickTargets[i].update();
+		}
+	}
+}
+
 Scene.prototype.createClickableSprite = function(key, x, y)
 {
 	var mesh = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), key);
@@ -41937,7 +41948,40 @@ var ClickTarget = function(mesh)
 	this.collectItem = undefined;
 }
 
+ClickTarget.ANIM_PICKUP = 1;
+
 module.exports = ClickTarget;
+
+ClickTarget.prototype.update = function()
+{
+	if (this.animation)
+	{
+		this.animationTimer += bmacSdk.deltaSec;
+		if (this.animationTimer > this.animationDuration)
+		{
+			this.animationTimer = this.animationDuration;
+			this.disable();
+			this.triggerPostAnimation();
+		}
+
+		var animProgress = this.animationTimer / this.animationDuration;
+
+		// ease in
+		animProgress = animProgress * animProgress * animProgress;
+
+		switch (this.animation)
+		{
+			case ClickTarget.ANIM_PICKUP:
+			// tween to bottom-center of screen while scaling up a bit
+			this.mesh.position.set(
+				this.animationStartPos.x + (GameEngine.screenWidth / 2 - this.animationStartPos.x) * animProgress,
+				this.animationStartPos.y + (GameEngine.screenHeight - this.animationStartPos.y) * animProgress,
+				this.mesh.position.z);
+			this.mesh.scale.set(1 + animProgress * 4, 1 + animProgress * 4, 1);
+			break;
+		}
+	}
+}
 
 ClickTarget.prototype.isPointInBounds = function(point)
 {
@@ -41966,12 +42010,19 @@ ClickTarget.prototype.disable = function()
 	this.mesh.visible = false;
 }
 
+ClickTarget.prototype.playPickupTween = function()
+{
+	this.animation = ClickTarget.ANIM_PICKUP;
+	this.animationDuration = 0.45;
+	this.animationTimer = 0;
+	this.animationStartPos = new THREE.Vector2().copy(this.mesh.position);
+}
+
 ClickTarget.prototype.trigger = function()
 {
 	if (this.collectItem)
 	{
-		Inventory.addItem(Inventory.items[this.collectItem]);
-		this.disable();
+		this.playPickupTween();
 	}
 	if (this.triggerConversation)
 	{
@@ -41980,6 +42031,14 @@ ClickTarget.prototype.trigger = function()
 	else if (this.triggerScene)
 	{
 		SceneManager.changeScene(this.triggerScene);
+	}
+}
+
+ClickTarget.prototype.triggerPostAnimation = function()
+{
+	if (this.collectItem)
+	{
+		Inventory.addItem(Inventory.items[this.collectItem]);
 	}
 }
 
@@ -42374,6 +42433,8 @@ SceneManager.update = function()
 			this.lastHoveredTarget = clickTarget;
 		}
 	}
+
+	this.currentScene.update();
 }
 
 /**

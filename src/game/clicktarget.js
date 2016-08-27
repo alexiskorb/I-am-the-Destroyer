@@ -21,7 +21,40 @@ var ClickTarget = function(mesh)
 	this.collectItem = undefined;
 }
 
+ClickTarget.ANIM_PICKUP = 1;
+
 module.exports = ClickTarget;
+
+ClickTarget.prototype.update = function()
+{
+	if (this.animation)
+	{
+		this.animationTimer += bmacSdk.deltaSec;
+		if (this.animationTimer > this.animationDuration)
+		{
+			this.animationTimer = this.animationDuration;
+			this.disable();
+			this.triggerPostAnimation();
+		}
+
+		var animProgress = this.animationTimer / this.animationDuration;
+
+		// ease in
+		animProgress = animProgress * animProgress * animProgress;
+
+		switch (this.animation)
+		{
+			case ClickTarget.ANIM_PICKUP:
+			// tween to bottom-center of screen while scaling up a bit
+			this.mesh.position.set(
+				this.animationStartPos.x + (GameEngine.screenWidth / 2 - this.animationStartPos.x) * animProgress,
+				this.animationStartPos.y + (GameEngine.screenHeight - this.animationStartPos.y) * animProgress,
+				this.mesh.position.z);
+			this.mesh.scale.set(1 + animProgress * 4, 1 + animProgress * 4, 1);
+			break;
+		}
+	}
+}
 
 ClickTarget.prototype.isPointInBounds = function(point)
 {
@@ -50,12 +83,19 @@ ClickTarget.prototype.disable = function()
 	this.mesh.visible = false;
 }
 
+ClickTarget.prototype.playPickupTween = function()
+{
+	this.animation = ClickTarget.ANIM_PICKUP;
+	this.animationDuration = 0.45;
+	this.animationTimer = 0;
+	this.animationStartPos = new THREE.Vector2().copy(this.mesh.position);
+}
+
 ClickTarget.prototype.trigger = function()
 {
 	if (this.collectItem)
 	{
-		Inventory.addItem(Inventory.items[this.collectItem]);
-		this.disable();
+		this.playPickupTween();
 	}
 	if (this.triggerConversation)
 	{
@@ -64,5 +104,13 @@ ClickTarget.prototype.trigger = function()
 	else if (this.triggerScene)
 	{
 		SceneManager.changeScene(this.triggerScene);
+	}
+}
+
+ClickTarget.prototype.triggerPostAnimation = function()
+{
+	if (this.collectItem)
+	{
+		Inventory.addItem(Inventory.items[this.collectItem]);
 	}
 }

@@ -14,6 +14,17 @@ Scene.prototype.added = function()
 
 }
 
+Scene.prototype.update = function()
+{
+	for (var i = 0; i < this.clickTargets.length; i++)
+	{
+		if (this.clickTargets[i].enabled)
+		{
+			this.clickTargets[i].update();
+		}
+	}
+}
+
 Scene.prototype.createClickableSprite = function(key, x, y)
 {
 	var mesh = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), key);

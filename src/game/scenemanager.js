@@ -44,6 +44,8 @@ SceneManager.update = function()
 			this.lastHoveredTarget = clickTarget;
 		}
 	}
+
+	this.currentScene.update();
 }
 
 /**

@@ -1,6 +1,6 @@
 
 // load the SDK
-bmacSdk = require("./src/sdk/engine");
+window.bmacSdk = require("./src/sdk/engine");
 bmacSdk.initialize();
 
 // create a game engine
