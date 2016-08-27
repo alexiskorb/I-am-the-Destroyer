@@ -6,7 +6,8 @@ bmacSdk.initialize();
 // create a game engine
 GameEngine = new bmacSdk.Engine("canvasDiv");
 
-// add the sample game object to the engine
+// add objects to the engine
+GameEngine.addObject(require("./src/game/conversation.js"));
 GameEngine.addObject(require("./src/game/sample.js"));
 
 // that's it!

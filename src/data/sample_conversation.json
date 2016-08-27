@@ -1,0 +1,76 @@
+
+{
+	"title": "construction_johnson_convo",
+
+	"characters":
+	[
+		{
+			"id": "johnson15",
+			"displayName": "Johnson XV",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+		{
+			"id": 1,
+			"speaker": "johnson15",
+			"text": "...are you a floating crystal?",
+			"responses":[
+				{
+					"text": "Nope. Just a normal person like you.",
+					"nextNodeId": 2
+				},
+				{
+					"text": "Yes. Bow before my great power.",
+					"nextNodeId": 3
+				}
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "johnson15",
+			"text": "Sure. Whatever. I'm going to go back to building this wall now.",
+			"responses":[
+				{
+					"text": "I'll give you a candy bar if you make it out of cardboard.",
+					"nextNodeId": 4
+				},
+				{
+					"text": "Sudo make it out of cardboard.",
+					"nextNodeId": 5
+				},
+				{
+					"text": "Well, have fun."
+				}
+			]
+		},
+		{
+			"id": 3,
+			"speaker": "johnson15",
+			"text": "No...?"
+		},
+		{
+			"id": 4,
+			"speaker": "johnson15",
+			"text": "Deal!"
+		},
+		{
+			"id": 5,
+			"speaker": "johnson15",
+			"text": "Oh, okay."
+		}
+	]
+}

@@ -17,4 +17,26 @@ module.exports =
 	"trap":[0,0,35,29],
 	},
 },
+"johnson15":
+{
+	url: "media/johnson15_atlas.png",
+	width: 201,
+	height: 256,
+	filter: THREE.LinearFilter,
+	sprites:
+	{
+	"port_idle":[0,0,200,256],
+	},
+},
+"player":
+{
+	url: "media/player_atlas.png",
+	width: 201,
+	height: 256,
+	filter: THREE.LinearFilter,
+	sprites:
+	{
+	"port_idle":[0,0,200,256],
+	},
+},
 }

@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
 bmacSdk = require("./src/sdk/engine");
@@ -7,12 +7,13 @@ bmacSdk.initialize();
 // create a game engine
 GameEngine = new bmacSdk.Engine("canvasDiv");
 
-// add the sample game object to the engine
+// add objects to the engine
+GameEngine.addObject(require("./src/game/conversation.js"));
 GameEngine.addObject(require("./src/game/sample.js"));
 
 // that's it!
 
-},{"./src/game/sample.js":3,"./src/sdk/engine":5}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":4,"./src/game/sample.js":5,"./src/sdk/engine":7}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -41776,6 +41777,260 @@ THREE.MorphBlendMesh.prototype.update = function ( delta ) {
 
 
 },{}],3:[function(require,module,exports){
+module.exports=
+{
+	"title": "construction_johnson_convo",
+
+	"characters":
+	[
+		{
+			"id": "johnson15",
+			"displayName": "Johnson XV",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+		{
+			"id": 1,
+			"speaker": "johnson15",
+			"text": "...are you a floating crystal?",
+			"responses":[
+				{
+					"text": "Nope. Just a normal person like you.",
+					"nextNodeId": 2
+				},
+				{
+					"text": "Yes. Bow before my great power.",
+					"nextNodeId": 3
+				}
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "johnson15",
+			"text": "Sure. Whatever. I'm going to go back to building this wall now.",
+			"responses":[
+				{
+					"text": "I'll give you a candy bar if you make it out of cardboard.",
+					"nextNodeId": 4
+				},
+				{
+					"text": "Sudo make it out of cardboard.",
+					"nextNodeId": 5
+				},
+				{
+					"text": "Well, have fun."
+				}
+			]
+		},
+		{
+			"id": 3,
+			"speaker": "johnson15",
+			"text": "No...?"
+		},
+		{
+			"id": 4,
+			"speaker": "johnson15",
+			"text": "Deal!"
+		},
+		{
+			"id": 5,
+			"speaker": "johnson15",
+			"text": "Oh, okay."
+		}
+	]
+}
+
+},{}],4:[function(require,module,exports){
+
+var Conversation =
+{
+	/**
+	 * Array of allocated HTML elements for dialogue responses.
+	 */
+	responseElements: [],
+
+	endConversationResponse: {
+		text: "End Conversation"
+	},
+}
+
+module.exports = Conversation;
+
+Conversation.added = function()
+{
+	this.parentElement = document.getElementById("conversation");
+	this.textElement = document.getElementById("conversation_text");
+
+	//TESTING
+	this.startConversation(require("../data/sample_conversation.json"));
+}
+
+/**
+ * Starts playing the specified conversation.
+ */
+Conversation.startConversation = function(conversationData)
+{
+	this.parentElement.style.visibility = "visible";
+	this.activeConversationData = conversationData;
+	this.moveToNode(1);
+}
+
+/**
+ * Ends the current conversation.
+ */
+Conversation.endConversation = function()
+{
+	this.parentElement.style.visibility = "hidden";
+	this.hideResponsesFrom(0);
+	this.activeConversationData = undefined;
+}
+
+/**
+ * Select a conversation response and move to the appropriate next node.
+ * @param index {Number} The zero-based index.
+ */
+Conversation.selectResponse = function(response)
+{
+	var currentNode = this.getCurrentNode();
+	if (response)
+	{
+		if (response.nextNodeId !== undefined)
+		{
+			this.moveToNode(response.nextNodeId);
+		}
+		else
+		{
+			this.endConversation();
+		}
+	}
+	else
+	{
+		console.error("selectedResponse: Conversation '" + this.activeConversationData.title
+			+ "' selected invalid response " + index + " from node " + this.currentNodeId);
+	}
+}
+
+Conversation.moveToNode = function(index)
+{
+	var targetNode = this.getNode(index);
+	if (targetNode)
+	{
+		this.currentNodeId = index;
+
+		var currentNode = this.getCurrentNode();
+		this.textElement.innerHTML = "<b>" + this.getSpeakerName(currentNode) + ":</b> " + currentNode.text;
+
+		var r = 0;
+		if (currentNode.responses)
+		{
+			for (; r < currentNode.responses.length; r++)
+			{
+				this.displayResponse(r, currentNode.responses[r]);
+			}
+		}
+		else
+		{
+			this.displayResponse(r++, this.endConversationResponse);
+		}
+		this.hideResponsesFrom(r);
+	}
+	else
+	{
+		console.error("moveToNode: Conversation '" + this.activeConversationData.title
+			+ "' has no node " + this.currentNodeId + ".");
+	}
+}
+
+Conversation.displayResponse = function(index, data)
+{
+	if (!this.responseElements[index])
+	{
+		var element = document.createElement('div');
+		this.parentElement.appendChild(element);
+		element.className = "conversationResponse";
+		element.addEventListener("click", onResponseClicked);
+		this.responseElements[index] = element;
+	}
+	else
+	{
+		var element = this.responseElements[index];
+	}
+	element.response = data;
+	element.style.visibility = "visible";
+	element.innerHTML = (index + 1) + ":- " + data.text;
+}
+
+var onResponseClicked = function(param)
+{
+	Conversation.selectResponse(param.target.response);
+}
+
+Conversation.hideResponsesFrom = function(index)
+{
+	for (; index < this.responseElements.length; index++)
+	{
+		this.responseElements[index].style.visibility = "hidden";
+	}
+}
+
+Conversation.getCurrentNode = function()
+{
+	return this.getNode(this.currentNodeId);
+}
+
+Conversation.getSpeakerName = function(node)
+{
+	var speaker = this.getSpeaker(node.speaker);
+	if (speaker)
+	{
+		return speaker.displayName;
+	}
+	else
+	{
+		return "*ERROR*";
+	}
+}
+
+Conversation.getSpeaker = function(key)
+{
+	for (var i = 0; i < this.activeConversationData.characters.length; i++)
+	{
+		if (this.activeConversationData.characters[i].id == key)
+		{
+			return this.activeConversationData.characters[i];
+		}
+	}
+	console.error("Conversation '" + this.activeConversationData.title + "' has no speaker '" + key + "'.");
+	return undefined;
+}
+
+Conversation.getNode = function(index)
+{
+	for (var i = 0; i < this.activeConversationData.nodes.length; i++)
+	{
+		if (this.activeConversationData.nodes[i].id == index)
+		{
+			return this.activeConversationData.nodes[i];
+		}
+	}
+	return null;
+}
+
+},{"../data/sample_conversation.json":3}],5:[function(require,module,exports){
 
 ThreeUtils = require("../sdk/threeutils");
 Input = require("../sdk/input");
@@ -41816,7 +42071,7 @@ sampleGame.update = function()
 	}
 };
 
-},{"../sdk/input":7,"../sdk/threeutils":12}],4:[function(require,module,exports){
+},{"../sdk/input":9,"../sdk/threeutils":14}],6:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -41933,7 +42188,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":5}],5:[function(require,module,exports){
+},{"./index.js":7}],7:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -42091,7 +42346,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":7,"../polyfills":10,"./engine.js":4,"three":2}],6:[function(require,module,exports){
+},{"../input":9,"../polyfills":12,"./engine.js":6,"three":2}],8:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -42340,7 +42595,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -42455,7 +42710,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":6,"./keyboard.js":8,"./mouse.js":9}],8:[function(require,module,exports){
+},{"./gamepad.js":8,"./keyboard.js":10,"./mouse.js":11}],10:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -42627,7 +42882,7 @@ module.exports = Keyboard =
 	},
 };
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -42813,7 +43068,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -42899,7 +43154,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -42947,7 +43202,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":12}],12:[function(require,module,exports){
+},{"./index.js":14}],14:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -43326,4 +43581,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"./Atlas.js":11,"three":2}]},{},[1]);
+},{"./Atlas.js":13,"three":2}]},{},[1])
