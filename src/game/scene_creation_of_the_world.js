@@ -6,7 +6,9 @@ ClickTarget = require("./clicktarget.js");
 
 var CreationOfTheWorldScene = function()
 {
-	
+	this.backgroundUrl = "media/room_empty.png";
+
+	Scene.call(this);
 }
 
 CreationOfTheWorldScene.prototype = new Scene();

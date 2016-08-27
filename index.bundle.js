@@ -41863,18 +41863,35 @@ module.exports=
 },{}],4:[function(require,module,exports){
 
 THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
 
 var Scene = function()
 {
 	this.transform = new THREE.Object3D();
 	this.clickTargets = [];
+
+	if (!this.backgroundUrl)
+	{
+		this.backgroundUrl = "media/room_empty.png";
+	}
+
+	this.backgroundGeometry = ThreeUtils.makeSpriteGeo(1920, 1080);
+	this.backgroundMaterial = new THREE.MeshBasicMaterial(
+		{
+			map: ThreeUtils.loadTexture(this.backgroundUrl),
+			transparent: true
+		}
+	);
+	this.backgroundMesh = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial);
+	this.backgroundMesh.position.set(0, 0, -15);
+	this.transform.add(this.backgroundMesh);
 }
 
 module.exports = Scene;
 
 Scene.prototype.added = function()
 {
-
+	this.transform.position.set(GameEngine.screenWidth / 2, GameEngine.screenHeight / 2, 0);
 }
 
 Scene.prototype.update = function()
@@ -41892,7 +41909,7 @@ Scene.prototype.createClickableSprite = function(key, x, y)
 {
 	var mesh = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), key);
 	this.transform.add(mesh);
-	mesh.position.set(x, y, -20);
+	mesh.position.set(x, y, -10);
 
 	var target = new ClickTarget(mesh);
 	this.clickTargets.push(target);
@@ -41914,6 +41931,15 @@ Scene.prototype.getClickTarget = function(position)
 	return null;
 }
 
+Scene.prototype.setAlpha = function(alpha)
+{
+	for (var i = 0; i < this.clickTargets.length; i++)
+	{
+		this.clickTargets[i].mesh.material.opacity = alpha;
+	}
+	this.backgroundMaterial.opacity = alpha;
+}
+
 Scene.prototype.show = function()
 {
 	GameEngine.scene.add(this.transform);
@@ -41924,7 +41950,7 @@ Scene.prototype.hide = function()
 	GameEngine.scene.remove(this.transform);
 }
 
-},{"three":2}],5:[function(require,module,exports){
+},{"../sdk/threeutils":20,"three":2}],5:[function(require,module,exports){
 
 THREE = require("three");
 Conversation = require("./conversation.js");
@@ -41960,6 +41986,7 @@ ClickTarget.prototype.update = function()
 		if (this.animationTimer > this.animationDuration)
 		{
 			this.animationTimer = this.animationDuration;
+			this.animation = undefined;
 			this.disable();
 			this.triggerPostAnimation();
 		}
@@ -41974,8 +42001,8 @@ ClickTarget.prototype.update = function()
 			case ClickTarget.ANIM_PICKUP:
 			// tween to bottom-center of screen while scaling up a bit
 			this.mesh.position.set(
-				this.animationStartPos.x + (GameEngine.screenWidth / 2 - this.animationStartPos.x) * animProgress,
-				this.animationStartPos.y + (GameEngine.screenHeight - this.animationStartPos.y) * animProgress,
+				this.animationStartPos.x + (0 - this.animationStartPos.x) * animProgress,
+				this.animationStartPos.y + (GameEngine.screenHeight / 2 - this.animationStartPos.y) * animProgress,
 				this.mesh.position.z);
 			this.mesh.scale.set(1 + animProgress * 4, 1 + animProgress * 4, 1);
 			break;
@@ -42030,7 +42057,7 @@ ClickTarget.prototype.trigger = function()
 	}
 	else if (this.triggerScene)
 	{
-		SceneManager.changeScene(this.triggerScene);
+		SceneManager.changeScene(this.triggerScene, SceneManager.ANIM_FORWARD);
 	}
 }
 
@@ -42341,7 +42368,9 @@ ClickTarget = require("./clicktarget.js");
 
 var CreationOfTheWorldScene = function()
 {
-	
+	this.backgroundUrl = "media/room_empty.png";
+
+	Scene.call(this);
 }
 
 CreationOfTheWorldScene.prototype = new Scene();
@@ -42349,12 +42378,14 @@ CreationOfTheWorldScene.prototype = new Scene();
 CreationOfTheWorldScene.prototype.added = function()
 {
 	// create johnson
-	var johnsonSprite = this.createClickableSprite("johnson15_sprite", 100, 100);
+	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
 	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
 
 	// create lamp
-	var lampSprite = this.createClickableSprite("lamp", 200, 200);
+	var lampSprite = this.createClickableSprite("lamp", 200, -200);
 	lampSprite.collectItem = "lamp";
+
+	Scene.prototype.added.call(this);
 }
 
 module.exports = new CreationOfTheWorldScene();
@@ -42368,7 +42399,9 @@ ClickTarget = require("./clicktarget.js");
 
 var IndexScene = function()
 {
-	
+	this.backgroundUrl = "media/room_empty.png";
+
+	Scene.call(this);
 }
 
 IndexScene.prototype = new Scene();
@@ -42376,12 +42409,14 @@ IndexScene.prototype = new Scene();
 IndexScene.prototype.added = function()
 {
 	// create johnson
-	var johnsonSprite = this.createClickableSprite("johnson15_sprite", 100, 100);
+	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
 	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
 
 	// create door
-	var doorClickTarget = this.createClickableSprite("door", 300, 100);
+	var doorClickTarget = this.createClickableSprite("door", 0, 0);
 	doorClickTarget.triggerScene = "creationOfTheWorld";
+
+	Scene.prototype.added.call(this);
 }
 
 module.exports = new IndexScene();
@@ -42404,7 +42439,13 @@ var SceneManager =
 
 	currentScene: undefined,
 	lastHoveredTarget: undefined,
+
+	animation: undefined,
 }
+
+SceneManager.ANIM_NONE = 0;
+SceneManager.ANIM_TIMETRAVEL = 1;
+SceneManager.ANIM_FORWARD = 2;
 
 module.exports = SceneManager;
 
@@ -42416,12 +42457,13 @@ SceneManager.added = function()
 		this.scenes[key].added();
 	}
 
-	this.changeScene("index");
+	this.finallyChangeScene("index");
+	this.currentScene.show();
 }
 
 SceneManager.update = function()
 {
-	if (!Conversation.isConversationActive())
+	if (!Conversation.isConversationActive() && !this.animation)
 	{
 		var clickTarget = this.currentScene.getClickTarget(GameEngine.mousePosWorld);
 		if (clickTarget)
@@ -42434,6 +42476,32 @@ SceneManager.update = function()
 		}
 	}
 
+	// update animation
+	if (this.animation)
+	{
+		this.animationTimer += bmacSdk.deltaSec;
+		if (this.animationTimer >= this.animationDuration)
+		{
+			this.animationTimer = this.animationDuration;
+			this.animation = undefined;
+			this.finallyChangeScene(this.changingToScene);
+		}
+
+		var animProgress = this.animationTimer / this.animationDuration;
+
+		// ease in
+		animProgress = animProgress * animProgress * animProgress;
+
+		switch (this.animation)
+		{
+			case SceneManager.ANIM_FORWARD:
+			// scale up and fade out
+			this.currentScene.transform.scale.set(1 + animProgress * 1.5, 1 + animProgress * 1.5, 1);
+			this.currentScene.setAlpha(1 - (animProgress * animProgress));
+			break;
+		}
+	}
+
 	this.currentScene.update();
 }
 
@@ -42441,19 +42509,43 @@ SceneManager.update = function()
  * Changes the scene the one with the specified key.
  * @param {String} key
  */
-SceneManager.changeScene = function(key)
+SceneManager.changeScene = function(key, animType)
 {
 	if (!this.scenes[key])
 	{
 		console.error("No scene found with key '" + key + "'.");
 		return;
 	}
+
+	var targetScene = this.scenes[key];
+	targetScene.show();
+	targetScene.transform.position.z = -20;
+	this.changingToScene = key;
+	
+	this.animation = animType;
+	this.animationTimer = 0;
+	switch (animType)
+	{
+		case SceneManager.ANIM_NONE:
+		this.animationDuration = 0;
+		break;
+		case SceneManager.ANIM_FORWARD:
+		this.animationDuration = 2;
+		break;
+		case SceneManager.ANIM_TIMETRAVEL:
+		this.animationDuration = 0;
+		break;
+	}
+}
+
+SceneManager.finallyChangeScene = function(key)
+{
 	if (this.currentScene)
 	{
 		this.currentScene.hide();
 	}
 	this.currentScene = this.scenes[key];
-	this.currentScene.show();
+	this.currentScene.transform.position.z = 0;
 }
 
 },{"../sdk/input":15,"./conversation.js":6,"./scene_creation_of_the_world.js":8,"./scene_index.js":9}],11:[function(require,module,exports){
@@ -42468,14 +42560,14 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 258,
-	height: 189,
+	width: 318,
+	height: 385,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"door":[0,0,128,128],
-	"johnson15_sprite":[129,0,128,128],
-	"lamp":[0,129,60,60],
+	"door":[0,0,256,256],
+	"johnson15_sprite":[0,257,128,128],
+	"lamp":[257,0,60,60],
 	},
 },
 "johnson15":

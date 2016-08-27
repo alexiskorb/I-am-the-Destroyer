@@ -33,6 +33,7 @@ ClickTarget.prototype.update = function()
 		if (this.animationTimer > this.animationDuration)
 		{
 			this.animationTimer = this.animationDuration;
+			this.animation = undefined;
 			this.disable();
 			this.triggerPostAnimation();
 		}
@@ -47,8 +48,8 @@ ClickTarget.prototype.update = function()
 			case ClickTarget.ANIM_PICKUP:
 			// tween to bottom-center of screen while scaling up a bit
 			this.mesh.position.set(
-				this.animationStartPos.x + (GameEngine.screenWidth / 2 - this.animationStartPos.x) * animProgress,
-				this.animationStartPos.y + (GameEngine.screenHeight - this.animationStartPos.y) * animProgress,
+				this.animationStartPos.x + (0 - this.animationStartPos.x) * animProgress,
+				this.animationStartPos.y + (GameEngine.screenHeight / 2 - this.animationStartPos.y) * animProgress,
 				this.mesh.position.z);
 			this.mesh.scale.set(1 + animProgress * 4, 1 + animProgress * 4, 1);
 			break;
@@ -103,7 +104,7 @@ ClickTarget.prototype.trigger = function()
 	}
 	else if (this.triggerScene)
 	{
-		SceneManager.changeScene(this.triggerScene);
+		SceneManager.changeScene(this.triggerScene, SceneManager.ANIM_FORWARD);
 	}
 }
 
