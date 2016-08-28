@@ -15,10 +15,12 @@ module.exports =
 	sprites:
 	{
 	"door":[0,0,256,256],
+	"grad_circle":[0,386,64,64],
+	"grad_r":[129,257,64,64],
 	"heaven_angel":[257,0,212,467],
 	"heaven_player":[470,0,196,297],
 	"johnson15_sprite":[0,257,128,128],
-	"lamp":[0,386,60,60],
+	"lamp":[194,257,60,60],
 	},
 },
 "johnson15":

@@ -42841,6 +42841,32 @@ ClickTarget.prototype.getBoundingBox = function()
 	return this.bounds;
 }
 
+ClickTarget.prototype.hover = function()
+{
+	if (!this.hoverMesh)
+	{
+		this.hoverMesh = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "grad_circle");
+		GameEngine.scene.add(this.hoverMesh);
+	}
+	this.getBoundingBox();
+	this.hoverMesh.position.set(
+		this.mesh.position.x + GameEngine.screenWidth/2,
+		this.mesh.position.y + GameEngine.screenHeight/2, this.mesh.position.z - 1);
+	this.bounds.size(this.hoverMesh.scale);
+	this.hoverMesh.scale.x /= 32;
+	this.hoverMesh.scale.y /= 32;
+	this.hoverMesh.scale.z = 1;
+	this.hoverMesh.visible = true;
+}
+
+ClickTarget.prototype.unhover = function()
+{
+	if (this.hoverMesh)
+	{
+		this.hoverMesh.visible = false;
+	}
+}
+
 ClickTarget.prototype.enable = function()
 {
 	if (!this.permanentlyDisabled)
@@ -43558,9 +43584,16 @@ SceneManager.update = function()
 			{
 				clickTarget.trigger();
 			}
-			this.lastHoveredTarget = clickTarget;
 		}
 	}
+
+	if (clickTarget != this.lastHoveredTarget)
+	{
+		if (clickTarget) clickTarget.hover();
+		if (this.lastHoveredTarget) this.lastHoveredTarget.unhover();
+	}
+
+	this.lastHoveredTarget = clickTarget;
 
 	// update animation
 	if (this.animation)
@@ -43652,10 +43685,12 @@ module.exports =
 	sprites:
 	{
 	"door":[0,0,256,256],
+	"grad_circle":[0,386,64,64],
+	"grad_r":[129,257,64,64],
 	"heaven_angel":[257,0,212,467],
 	"heaven_player":[470,0,196,297],
 	"johnson15_sprite":[0,257,128,128],
-	"lamp":[0,386,60,60],
+	"lamp":[194,257,60,60],
 	},
 },
 "johnson15":

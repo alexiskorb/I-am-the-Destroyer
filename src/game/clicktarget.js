@@ -72,6 +72,32 @@ ClickTarget.prototype.getBoundingBox = function()
 	return this.bounds;
 }
 
+ClickTarget.prototype.hover = function()
+{
+	if (!this.hoverMesh)
+	{
+		this.hoverMesh = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "grad_circle");
+		GameEngine.scene.add(this.hoverMesh);
+	}
+	this.getBoundingBox();
+	this.hoverMesh.position.set(
+		this.mesh.position.x + GameEngine.screenWidth/2,
+		this.mesh.position.y + GameEngine.screenHeight/2, this.mesh.position.z - 1);
+	this.bounds.size(this.hoverMesh.scale);
+	this.hoverMesh.scale.x /= 32;
+	this.hoverMesh.scale.y /= 32;
+	this.hoverMesh.scale.z = 1;
+	this.hoverMesh.visible = true;
+}
+
+ClickTarget.prototype.unhover = function()
+{
+	if (this.hoverMesh)
+	{
+		this.hoverMesh.visible = false;
+	}
+}
+
 ClickTarget.prototype.enable = function()
 {
 	if (!this.permanentlyDisabled)
