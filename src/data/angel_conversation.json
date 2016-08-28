@@ -305,7 +305,7 @@
             "responses": [
                 {
                     "text": "Please?",
-                    "setGlobalTrue": "BALLOON_TALK"
+                    "setGlobalTrue": "BALLOON_TALK",
                     "nextNodeId": 20
                 }
             ]
