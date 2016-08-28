@@ -95,6 +95,8 @@ Engine.prototype._handleWindowResize = function()
 			rendererHeight = rendererWidth * 9/16;
 		}
 
+		this.pixelScale = 1920 / rendererWidth; 
+
 		this.renderer.domElement.style.display = "block";
 		this.renderer.domElement.style.margin = "auto";
 		this.renderer.setSize(rendererWidth, rendererHeight);
@@ -109,7 +111,9 @@ Engine.prototype._handleWindowResize = function()
 Engine.prototype._animate = function()
 {
 	// calculate mouse pos
-	var mousePos = Input.Mouse.getPosition(this.canvasDiv);
+	var mousePos = Input.Mouse.getPosition(this.renderer.domElement);
+	mousePos.x *= this.pixelScale;
+	mousePos.y *= this.pixelScale;
 	if (!this.mousePosWorld) this.mousePosWorld = new THREE.Vector2();
 	this.mousePosWorld.x = mousePos.x + this.mainCamera.position.x;
 	this.mousePosWorld.y = mousePos.y + this.mainCamera.position.y;

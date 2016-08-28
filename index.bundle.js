@@ -42827,14 +42827,20 @@ CreationOfTheWorldScene.prototype = new Scene();
 
 CreationOfTheWorldScene.prototype.added = function()
 {
+	// create sky
+
+	// create rotating clouds
+
+	// create scrolling clouds
+
+	// create pedastal
+
 	// create johnson
 	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
 	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
 
-	// create lamp
-	var lampSprite = this.createClickableSprite("lamp", 200, -200);
-	lampSprite.collectItem = "lamp";
-
+	// create player
+	
 	Scene.prototype.added.call(this);
 }
 
@@ -43126,21 +43132,41 @@ Engine.prototype._handleWindowResize = function()
 {
 	if (this.canvasDiv) // for node server support
 	{
-		this.screenWidth = this.canvasDiv.offsetWidth;
-		this.screenHeight = this.canvasDiv.offsetHeight;
-		this.renderer.setSize(this.screenWidth, this.screenHeight);
+		this.screenWidth = 1920;
+		this.screenHeight = 1080;
+
+		var rendererWidth = window.innerWidth;
+		var rendererHeight = window.innerHeight;
+		var aspect = rendererWidth / rendererHeight;
+
+		if (aspect > 16/9)
+		{
+			rendererWidth = rendererHeight * 16/9;
+		}
+		else if (aspect < 16/9)
+		{
+			rendererHeight = rendererWidth * 9/16;
+		}
+
+		this.pixelScale = 1920 / rendererWidth; 
+
+		this.renderer.domElement.style.display = "block";
+		this.renderer.domElement.style.margin = "auto";
+		this.renderer.setSize(rendererWidth, rendererHeight);
 	}
 	this.mainCamera.left = 0;
-	this.mainCamera.right = this.screenWidth;
+	this.mainCamera.right = 1920;
 	this.mainCamera.top = 0;
-	this.mainCamera.bottom = this.screenHeight;
+	this.mainCamera.bottom = 1080;
 	this.mainCamera.updateProjectionMatrix();
 }
 
 Engine.prototype._animate = function()
 {
 	// calculate mouse pos
-	var mousePos = Input.Mouse.getPosition(this.canvasDiv);
+	var mousePos = Input.Mouse.getPosition(this.renderer.domElement);
+	mousePos.x *= this.pixelScale;
+	mousePos.y *= this.pixelScale;
 	if (!this.mousePosWorld) this.mousePosWorld = new THREE.Vector2();
 	this.mousePosWorld.x = mousePos.x + this.mainCamera.position.x;
 	this.mousePosWorld.y = mousePos.y + this.mainCamera.position.y;

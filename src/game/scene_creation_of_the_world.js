@@ -15,14 +15,20 @@ CreationOfTheWorldScene.prototype = new Scene();
 
 CreationOfTheWorldScene.prototype.added = function()
 {
+	// create sky
+
+	// create rotating clouds
+
+	// create scrolling clouds
+
+	// create pedastal
+
 	// create johnson
 	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
 	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
 
-	// create lamp
-	var lampSprite = this.createClickableSprite("lamp", 200, -200);
-	lampSprite.collectItem = "lamp";
-
+	// create player
+	
 	Scene.prototype.added.call(this);
 }
 
