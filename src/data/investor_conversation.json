@@ -1,4 +1,6 @@
-
+//CARNIVAL
+//INVESTMENT_TALK
+//NO_FUTURE_TECH
 {
 	"title": "investor_convo",
 
@@ -46,6 +48,11 @@
 					"text": "Any news around town?",
 					"textNodeId": 25,
 					"globalIsFalse": "CARNIVAL"
+				},
+				{
+					"text": "Any news around town?",
+					"textNodeId": 36,
+					"globalIsTrue": "CARNIVAL"
 				},
 			]
 		},
@@ -521,6 +528,16 @@
 			"id": 35,
 			"speaker": "investor",
 			"text": "You know what? Actually, I will get him to come around every few years or so. Everyone loves circuses.",
+			"responses": [
+				{
+					"text": "Yay!"
+				},
+			]	
+		},
+		{
+			"id": 36,
+			"speaker": "investor",
+			"text": "My nephew should be bringing the circus to town every few years.",
 			"responses": [
 				{
 					"text": "Yay!"
