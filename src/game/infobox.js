@@ -410,6 +410,36 @@ InfoBox.info =
                 text: "I must free myself from these walls."
             },
         ]
+    },
+    moatImpassable:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "There is a moat in the way. It is full of water and dark-crystal-eating crocodiles.",
+            }
+        ]
+    },
+    doorHasDamPower:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "The door seems fully powered and very secure."
+            }
+        ]
+    },
+    doorHasNoDamPower:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "The door flickers and seems to have barely enough power to stay closed."
+            }
+        ]
     }
 }
 

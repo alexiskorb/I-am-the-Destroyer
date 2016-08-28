@@ -8,7 +8,7 @@ ClickTarget = require("./clicktarget.js");
 
 var PrisonScene3 = function()
 {
-	this.backgroundUrl = "media/prison1_bg.png";
+	this.backgroundUrl = "media/doorframe.png";
 
 	PrisonScene.call(this);
 }
@@ -20,11 +20,21 @@ PrisonScene3.prototype.added = function()
 	var atlas = ThreeUtils.loadAtlas("prison1");
 	
 	// create door
-	var doorClickTarget = this.createClickableRegion(
-		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
+	var doorClickTarget = this.createClickableSprite("keydoor", 0, 0);
 	doorClickTarget.addAction({
 		action: "triggerScene",
-		target: "prison4"
+		target: "prison4",
+		//TODO: check lamp is plugged in
+		globalIsFalse: "DAM_BUILT"
+	})
+	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "doorHasDamPower",
+		globalIsTrue: "DAM_BUILT"
+	})
+	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "doorHasNoDamPower",
 	})
 
 	PrisonScene.prototype.added.call(this);
