@@ -1,3 +1,8 @@
+//NO_FUTURE_TECH
+//BALLOON_TALK
+//CARNIVAL
+
+//balloon
 
 {
 	"title": "future_tech_conversation",
@@ -24,6 +29,7 @@
 
 	"nodes":
 	[
+
 		{
 			"id": 1,
 			"speaker": "future_tech_guy",
@@ -31,12 +37,29 @@
 			"responses":[
 				{
 					"text": "Who are you?",
+					"globalIsFalse": "NO_FUTURE_TECH",
 					"nextNodeId": 2,
+				},
+				{
+					"text": "Who are you?",
+					"globalIsTrue": "NO_FUTURE_TECH",
+					"nextNodeId": 14
 				},
     			{
 					"text": "What are you here for?",
+					"globalIsFalse": "NO_FUTURE_TECH",
 					"nextNodeId": 6,
 				},
+				{
+					"text": "What are you here for?",
+					"globalIsTrue": "NO_FUTURE_TECH",
+					"nextNodeId": 17,
+				},
+				{
+					"text": "Did you attend the carnival?",
+					"globalIsTrue": "CARNIVAL",
+					"nextNodeId": 18
+				}
 			]
 		},
 		{
@@ -209,6 +232,66 @@
 					"text": "[Take lamp.]",				
                 },
 			],
+		},
+		{
+			"id": 14,
+			"speaker": "future_tech_guy",
+			"text": "I am Tom Psion. I used to work at Forward FutureTech Technology, but they went out of business. Now, I am an underwater basket weaving instructor.",
+			"responses":[
+				{
+					"text": "Underwater Basket Weaving?",
+					"nextNodeId": 15,
+				},
+				{
+					"text": "What happened?",
+					"nextNodeId": 16,
+				}
+			]
+		},
+		{
+			"id": 15,
+			"speaker": "future_tech_guy",
+			"text": "Heh, no. I'm a lawyer.",
+			"responses":[
+			]
+		},
+		{
+			"id": 16,
+			"speaker": "future_tech_guy",
+			"text": "The company just didn't have enough money. We thought we were going to get support from Anthony Calahan but he chose to invest elsewhere. We do have good food now, though. I love strawberries.",
+			"responses":[
+			]
+		},
+		{
+			"id": 17,
+			"speaker": "future_tech_guy",
+			"text": "I'm relaxing and eating strawberries. They're delicious.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 14
+				}
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "future_tech_guy",
+			"text": "Yeah. They were giving out free balloons. Want one?",
+			"responses":[
+				{
+					"text": "Sure!",
+					"getItem": "balloon"
+				},
+				{
+					"text": "Only idiots would be impressed by balloons.",
+					"globalIsFalse": "Balloon_Talk"
+				},
+				{
+					"text": "Only idiots would be impressed by balloons. Wait, I think I might know a certain winged doofus. I'll take the balloon.",
+					"getItem": "balloon",
+					"globalIsTrue": "Balloon_Talk"
+				}
+			]
 		},
 	]
 }

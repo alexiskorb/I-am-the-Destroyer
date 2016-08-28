@@ -1,0 +1,376 @@
+
+{
+	"title": "prophet_convo",
+
+	"characters":
+	[
+		{
+			"id": "prophet",
+			"displayName": "Maximus Helios",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[	
+       
+		{
+			"id": 1,
+			"speaker": "prophet",
+			"text": "Hello.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 2
+				},
+				{
+					"text": "What are you doing?",
+					"nextNodeId": 15
+				},
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "prophet",
+			"text": "I am Maximus Helios. I was the National Spelling Bee Champion and a Five-Time Winner of the Local Waffle-Eating Contest.",
+			"responses":[
+				{
+					"text": "The National Spelling Bee Champion?",
+					"nextNodeId": 3
+				},
+				{
+					"text": "The Local Waffle-Eating Contest?",
+					"nextNodeId": 16
+				},
+				{
+					"text": "What are you doing?",
+					"nextNodeId": 15
+				},
+			]
+		},
+		{
+			"id": 3,
+			"speaker": "prophet",
+			"text": "Yes. I won on the word \"smaragdine\". It means \"of or relating to emeralds.\" Do you know how to spell that?",
+			"responses":[
+				{
+					"text": "s-m-a-r-a-g-d-i-n-e",
+					"nextNodeId": 8
+				},
+				{
+					"text": "s-m-u-r-a-g-d-i-n-n",
+					"nextNodeId": 4
+				},
+				{
+					"text": "s-m-e-r-r-a-g-d-e-a-n",
+					"nextNodeId": 4
+				},
+				{
+					"text": "s-m-u-r-g-a-d-u-r-g",
+					"nextNodeId": 5
+				},
+				{
+					"text": "s-u-p-e-r-c-a-l-i-f-r-a-g-i-l-i-s-t-i-c-e-x-p-i-a-l-i-d-o-c-i-o-u-s",
+					"nextNodeId": 5
+				},
+				{
+					"text": "Heh, no.",
+					"nextNodeId": 6
+				},
+				{
+					"text": "Who cares.",
+					"nextNodeId": 6
+				},
+			]
+		},
+		{
+			"id": 5,
+			"speaker": "prophet",
+			"text": "Close, but no. It's s-m-a-r-a-g-d-i-n-e. \"A\" for effort.",
+			"responses":[
+				{
+					"text": "The National Spelling Bee Champion?",
+					"nextNodeId": 3
+				},
+			]
+		},
+		{
+			"id": 6,
+			"speaker": "prophet",
+			"text": "Not even close. It's s-m-a-r-a-g-d-i-n-e. \"F\" for effort.",
+			"responses":[
+				{
+					"text": "The National Spelling Bee Champion?",
+					"nextNodeId": 3
+				},
+			]
+		},
+		{
+			"id": 7,
+			"speaker": "prophet",
+			"text": "Wow. Don't you know I'm the <i>National</i> Spelling Bee Champion? I deserve more respect from you plebs. Gosh. I hate people who act so high and mighty.",
+			"responses":[
+				{
+					"text": "[Sigh]",
+					"nextNodeId": 15
+				},
+				{
+					"text": "As do I.",
+					"nextNodeId": 15
+				},
+				{
+					"text": "Isn't that a bit hypocritical?",
+					"nextNodeId": 17
+				},
+			]
+		},
+		{
+			"id": 8,
+			"speaker": "prophet",
+			"text": "You got it? What about gesellschaft? It means an association of individual for common goals.",
+			"responses":[
+				{
+					"text": "g-e-s-e-l-l-s-c-h-a-f-t",
+					"nextNodeId": 11
+				},
+				{
+					"text": "g-a-z-e-l-l-e-s-h-a-f-t",
+					"nextNodeId": 9
+				},
+				{
+					"text": "g-u-z-z-l-e-c-h-a-p-h-t",
+					"nextNodeId": 9
+				},
+				{
+					"text": "g-i-g-a-n-o-r-m-o-u-s",
+					"nextNodeId": 10
+				},
+				{
+					"text": "y-o-u-a-r-e-s-u-c-h-a-n-e-r-d",
+					"nextNodeId": 10
+				},
+				{
+					"text": "I'm bored.",
+					"nextNodeId": 7
+				},
+				{
+					"text": "Who cares.",
+					"nextNodeId": 7
+				},
+			]
+		},
+		{
+			"id": 9,
+			"speaker": "prophet",
+			"text": "Close, but no. It's g-e-s-e-l-l-s-c-h-a-f-t. \"A\" for effort.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 14
+				},
+			]
+		},
+		{
+			"id": 10,
+			"speaker": "prophet",
+			"text": "Not even close. It's g-e-s-e-l-l-s-c-h-a-f-t. \"F\" for effort.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 14 
+				},
+			]
+		},
+		{
+		"id": 11,
+			"speaker": "prophet",
+			"text": "Ha. No. It's...wait. You got it right? You must be cheating!",
+			"responses":[
+				{
+					"text": "...and <i>you</i> must have no friends.",
+					"nextNodeId": 14
+				},
+				{
+					"text": "...and you're the derivative of acceleration.",
+					"nextNodeId": 14
+				},
+				{
+					"text": "Well, actually. There's this thing called dialogue boxes...",
+					"nextNodeId": 12
+				},
+				{
+					"text": "Whatever.",
+					"nextNodeId": 14
+				},
+			]
+		},
+		{
+			"id": 12,
+			"speaker": "prophet",
+			"text": "What?",
+			"responses":[
+				{
+					"text": "...and when you speak, I can see the words...",
+					"nextNodeId": 13
+				},
+				{
+					"text": "Nevermind.",
+					"nextNodeId": 14
+				},
+			]
+		},
+		{
+			"id": 13,
+			"speaker": "prophet",
+			"text": "What?",
+			"responses":[
+				{
+					"text": "Nevermind.",
+					"nextNodeId": 14
+				},
+			]
+		},
+		{
+			"id": 14,
+			"speaker": "prophet",
+			"text": "What do you want?",
+			"responses":[
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 15
+				},
+			]
+		},
+		{
+			"id": 15,
+			"speaker": "prophet",
+			"text": "I am waiting for a sign. I feel like I'm supposed to be preaching about something. I feel like I'm important.",
+			"responses":[
+				{
+					"text": "Yeah. I bet you do...",
+					"nextNodeId": 18
+				},
+				{
+					"text": "What kind of sign?",
+					"nextNodeId": 18
+				},
+				{
+					"text": "I think I might know what the sign is.",
+					"nextNodeId": 20
+				},
+			]
+		},
+		{
+			"id": 16,
+			"speaker": "prophet",
+			"text": "Yep. I can eat waffles like no other. Another victory for the National Spelling Bee Champion.",
+			"responses":[
+				{
+					"text": "The National Spelling Bee Champion?",
+					"nextNodeId": 3
+				},
+					{
+					"text": "So, what are you doing here?",
+					"nextNodeId": 15
+				},
+			]
+		},
+		{
+			"id": 17,
+			"speaker": "prophet",
+			"text": "I hate hypocrites too! I hope you're not one. Ugh.",
+			"responses":[
+				{
+					"text": "So, what are you doing here?",
+					"nextNodeId": 15
+				},
+					{
+					"text": "I'm done with you. Bye.",
+				},
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "prophet",
+			"text": "I am waiting for something to fall from the sky. And then, I, Maximus Helios, will share my revelations with the world!",
+			"responses":[
+				{
+					"text": "Whatever, weirdo.",
+				},
+				{
+					"text": "I'll let you know if I see something.",
+					"nextNodeId": 19
+				},
+			]
+		},
+		{
+			"id": 19,
+			"speaker": "prophet",
+			"text": "That would be great.",
+			"responses":[
+			]
+		},
+		{
+			"id": 20,
+			"speaker": "prophet",
+			"text": "Really? What is it?",
+			"responses":[
+				{
+					"text": "A fist in your face.",
+					"nextNodeId": 21
+				},
+				{
+					"text": "I saw a...uh...bird.",
+					"nextNodeId": 23
+				},
+				{
+					"text": "I think I saw something in the middle of that volcano over there. You should go there.",
+					"nextNodeId": 24
+				},
+				{
+					"text": "I AM THE SIGN!",
+					"nextNodeId": 22
+				},
+			]
+		},
+		{
+			"id": 21,
+			"speaker": "prophet",
+			"text": "Begone from me, unbeliever!",
+			"responses":[
+			]
+		},
+		{
+			"id": 22,
+			"speaker": "prophet",
+			"text": "A simpleton like you? Please.",
+			"responses":[
+			]
+		},
+		{
+			"id": 23,
+			"speaker": "prophet",
+			"text": "I must see it in person to believe. I shall wait here.",
+			"responses":[
+			]
+		},
+		{
+			"id": 24,
+			"speaker": "prophet",
+			"text": "No. I must wait here. Good day.",
+			"responses":[
+			]
+		},
+	]
+}

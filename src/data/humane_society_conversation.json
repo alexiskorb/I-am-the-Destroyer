@@ -1,0 +1,50 @@
+
+{
+	"title": "humane_society_convo",
+
+	"characters":
+	[
+		{
+			"id": "humane_society_guy",
+			"displayName": "Jason Helios",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+		{
+			"id": 1,
+			"speaker": "humane_society_guy",
+			"text": "Hello.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 2
+				},
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "humane_society_guy",
+			"text": "My name is Jason Helios. I work for the Humane Society.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 2
+				},
+			]
+		},
+	]
+}

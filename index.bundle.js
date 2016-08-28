@@ -19,7 +19,7 @@ GameEngine.addObject(window.SceneManager);
 
 // that's it!
 
-},{"./src/game/conversation.js":6,"./src/game/inventory.js":8,"./src/game/scenemanager.js":11,"./src/sdk/engine":14}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":7,"./src/game/inventory.js":9,"./src/game/scenemanager.js":12,"./src/sdk/engine":15}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -41787,6 +41787,10 @@ module.exports=//ANGEL_INTRODUCTION
 //WORMHOLE_ACTIVATED
 //BOX_OBTAINED
 //BOX_USED
+//BALLOON_TALK
+//GRAVITY_LIGHTER
+
+//balloon
 {
     "title": "angel_conversation",
     "characters":
@@ -42087,6 +42091,7 @@ module.exports=//ANGEL_INTRODUCTION
             "responses": [
                 {
                     "text": "Please?",
+                    "setGlobalTrue": "BALLOON_TALK",
                     "nextNodeId": 20
                 }
             ]
@@ -42117,7 +42122,8 @@ module.exports=//ANGEL_INTRODUCTION
             "responses": [
                 {
                     "text": "And if you make gravity lighter, it will fly even faster!",
-                    "nextNodeId": 22
+                    "nextNodeId": 22,
+                    "setGlobalTrue": "GRAVITY_LIGHTER"
                 }
             ]
         },
@@ -42293,6 +42299,384 @@ module.exports=//ANGEL_INTRODUCTION
     ]
 }
 },{}],4:[function(require,module,exports){
+module.exports=
+{
+	"title": "prophet_convo",
+
+	"characters":
+	[
+		{
+			"id": "prophet",
+			"displayName": "Maximus Helios",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[	
+       
+		{
+			"id": 1,
+			"speaker": "prophet",
+			"text": "Hello.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 2
+				},
+				{
+					"text": "What are you doing?",
+					"nextNodeId": 15
+				},
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "prophet",
+			"text": "I am Maximus Helios. I was the National Spelling Bee Champion and a Five-Time Winner of the Local Waffle-Eating Contest.",
+			"responses":[
+				{
+					"text": "The National Spelling Bee Champion?",
+					"nextNodeId": 3
+				},
+				{
+					"text": "The Local Waffle-Eating Contest?",
+					"nextNodeId": 16
+				},
+				{
+					"text": "What are you doing?",
+					"nextNodeId": 15
+				},
+			]
+		},
+		{
+			"id": 3,
+			"speaker": "prophet",
+			"text": "Yes. I won on the word \"smaragdine\". It means \"of or relating to emeralds.\" Do you know how to spell that?",
+			"responses":[
+				{
+					"text": "s-m-a-r-a-g-d-i-n-e",
+					"nextNodeId": 8
+				},
+				{
+					"text": "s-m-u-r-a-g-d-i-n-n",
+					"nextNodeId": 4
+				},
+				{
+					"text": "s-m-e-r-r-a-g-d-e-a-n",
+					"nextNodeId": 4
+				},
+				{
+					"text": "s-m-u-r-g-a-d-u-r-g",
+					"nextNodeId": 5
+				},
+				{
+					"text": "s-u-p-e-r-c-a-l-i-f-r-a-g-i-l-i-s-t-i-c-e-x-p-i-a-l-i-d-o-c-i-o-u-s",
+					"nextNodeId": 5
+				},
+				{
+					"text": "Heh, no.",
+					"nextNodeId": 6
+				},
+				{
+					"text": "Who cares.",
+					"nextNodeId": 6
+				},
+			]
+		},
+		{
+			"id": 5,
+			"speaker": "prophet",
+			"text": "Close, but no. It's s-m-a-r-a-g-d-i-n-e. \"A\" for effort.",
+			"responses":[
+				{
+					"text": "The National Spelling Bee Champion?",
+					"nextNodeId": 3
+				},
+			]
+		},
+		{
+			"id": 6,
+			"speaker": "prophet",
+			"text": "Not even close. It's s-m-a-r-a-g-d-i-n-e. \"F\" for effort.",
+			"responses":[
+				{
+					"text": "The National Spelling Bee Champion?",
+					"nextNodeId": 3
+				},
+			]
+		},
+		{
+			"id": 7,
+			"speaker": "prophet",
+			"text": "Wow. Don't you know I'm the <i>National</i> Spelling Bee Champion? I deserve more respect from you plebs. Gosh. I hate people who act so high and mighty.",
+			"responses":[
+				{
+					"text": "[Sigh]",
+					"nextNodeId": 15
+				},
+				{
+					"text": "As do I.",
+					"nextNodeId": 15
+				},
+				{
+					"text": "Isn't that a bit hypocritical?",
+					"nextNodeId": 17
+				},
+			]
+		},
+		{
+			"id": 8,
+			"speaker": "prophet",
+			"text": "You got it? What about gesellschaft? It means an association of individual for common goals.",
+			"responses":[
+				{
+					"text": "g-e-s-e-l-l-s-c-h-a-f-t",
+					"nextNodeId": 11
+				},
+				{
+					"text": "g-a-z-e-l-l-e-s-h-a-f-t",
+					"nextNodeId": 9
+				},
+				{
+					"text": "g-u-z-z-l-e-c-h-a-p-h-t",
+					"nextNodeId": 9
+				},
+				{
+					"text": "g-i-g-a-n-o-r-m-o-u-s",
+					"nextNodeId": 10
+				},
+				{
+					"text": "y-o-u-a-r-e-s-u-c-h-a-n-e-r-d",
+					"nextNodeId": 10
+				},
+				{
+					"text": "I'm bored.",
+					"nextNodeId": 7
+				},
+				{
+					"text": "Who cares.",
+					"nextNodeId": 7
+				},
+			]
+		},
+		{
+			"id": 9,
+			"speaker": "prophet",
+			"text": "Close, but no. It's g-e-s-e-l-l-s-c-h-a-f-t. \"A\" for effort.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 14
+				},
+			]
+		},
+		{
+			"id": 10,
+			"speaker": "prophet",
+			"text": "Not even close. It's g-e-s-e-l-l-s-c-h-a-f-t. \"F\" for effort.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 14 
+				},
+			]
+		},
+		{
+		"id": 11,
+			"speaker": "prophet",
+			"text": "Ha. No. It's...wait. You got it right? You must be cheating!",
+			"responses":[
+				{
+					"text": "...and <i>you</i> must have no friends.",
+					"nextNodeId": 14
+				},
+				{
+					"text": "...and you're the derivative of acceleration.",
+					"nextNodeId": 14
+				},
+				{
+					"text": "Well, actually. There's this thing called dialogue boxes...",
+					"nextNodeId": 12
+				},
+				{
+					"text": "Whatever.",
+					"nextNodeId": 14
+				},
+			]
+		},
+		{
+			"id": 12,
+			"speaker": "prophet",
+			"text": "What?",
+			"responses":[
+				{
+					"text": "...and when you speak, I can see the words...",
+					"nextNodeId": 13
+				},
+				{
+					"text": "Nevermind.",
+					"nextNodeId": 14
+				},
+			]
+		},
+		{
+			"id": 13,
+			"speaker": "prophet",
+			"text": "What?",
+			"responses":[
+				{
+					"text": "Nevermind.",
+					"nextNodeId": 14
+				},
+			]
+		},
+		{
+			"id": 14,
+			"speaker": "prophet",
+			"text": "What do you want?",
+			"responses":[
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 15
+				},
+			]
+		},
+		{
+			"id": 15,
+			"speaker": "prophet",
+			"text": "I am waiting for a sign. I feel like I'm supposed to be preaching about something. I feel like I'm important.",
+			"responses":[
+				{
+					"text": "Yeah. I bet you do...",
+					"nextNodeId": 18
+				},
+				{
+					"text": "What kind of sign?",
+					"nextNodeId": 18
+				},
+				{
+					"text": "I think I might know what the sign is.",
+					"nextNodeId": 20
+				},
+			]
+		},
+		{
+			"id": 16,
+			"speaker": "prophet",
+			"text": "Yep. I can eat waffles like no other. Another victory for the National Spelling Bee Champion.",
+			"responses":[
+				{
+					"text": "The National Spelling Bee Champion?",
+					"nextNodeId": 3
+				},
+					{
+					"text": "So, what are you doing here?",
+					"nextNodeId": 15
+				},
+			]
+		},
+		{
+			"id": 17,
+			"speaker": "prophet",
+			"text": "I hate hypocrites too! I hope you're not one. Ugh.",
+			"responses":[
+				{
+					"text": "So, what are you doing here?",
+					"nextNodeId": 15
+				},
+					{
+					"text": "I'm done with you. Bye.",
+				},
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "prophet",
+			"text": "I am waiting for something to fall from the sky. And then, I, Maximus Helios, will share my revelations with the world!",
+			"responses":[
+				{
+					"text": "Whatever, weirdo.",
+				},
+				{
+					"text": "I'll let you know if I see something.",
+					"nextNodeId": 19
+				},
+			]
+		},
+		{
+			"id": 19,
+			"speaker": "prophet",
+			"text": "That would be great.",
+			"responses":[
+			]
+		},
+		{
+			"id": 20,
+			"speaker": "prophet",
+			"text": "Really? What is it?",
+			"responses":[
+				{
+					"text": "A fist in your face.",
+					"nextNodeId": 21
+				},
+				{
+					"text": "I saw a...uh...bird.",
+					"nextNodeId": 23
+				},
+				{
+					"text": "I think I saw something in the middle of that volcano over there. You should go there.",
+					"nextNodeId": 24
+				},
+				{
+					"text": "I AM THE SIGN!",
+					"nextNodeId": 22
+				},
+			]
+		},
+		{
+			"id": 21,
+			"speaker": "prophet",
+			"text": "Begone from me, unbeliever!",
+			"responses":[
+			]
+		},
+		{
+			"id": 22,
+			"speaker": "prophet",
+			"text": "A simpleton like you? Please.",
+			"responses":[
+			]
+		},
+		{
+			"id": 23,
+			"speaker": "prophet",
+			"text": "I must see it in person to believe. I shall wait here.",
+			"responses":[
+			]
+		},
+		{
+			"id": 24,
+			"speaker": "prophet",
+			"text": "No. I must wait here. Good day.",
+			"responses":[
+			]
+		},
+	]
+}
+
+},{}],5:[function(require,module,exports){
 
 THREE = require("three");
 ThreeUtils = require("../sdk/threeutils");
@@ -42382,7 +42766,7 @@ Scene.prototype.hide = function()
 	GameEngine.scene.remove(this.transform);
 }
 
-},{"../sdk/threeutils":21,"three":2}],5:[function(require,module,exports){
+},{"../sdk/threeutils":22,"three":2}],6:[function(require,module,exports){
 
 THREE = require("three");
 Conversation = require("./conversation.js");
@@ -42510,7 +42894,7 @@ ClickTarget.prototype.triggerPostAnimation = function()
 	}
 }
 
-},{"./conversation.js":6,"three":2}],6:[function(require,module,exports){
+},{"./conversation.js":7,"three":2}],7:[function(require,module,exports){
 
 Input = require("../sdk/input");
 ThreeUtils = require("../sdk/threeutils");
@@ -42808,7 +43192,7 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../sdk/input":16,"../sdk/threeutils":21,"./globalvariables.js":7}],7:[function(require,module,exports){
+},{"../sdk/input":17,"../sdk/threeutils":22,"./globalvariables.js":8}],8:[function(require,module,exports){
 
 var GlobalVariables =
 {
@@ -42852,7 +43236,7 @@ GlobalVariables.unsetVariable = function(key)
 	}
 }
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 ThreeUtils = require("../sdk/threeutils");
 
@@ -42956,7 +43340,7 @@ Inventory.drop = function(ev) {
 
 module.exports = Inventory;
 
-},{"../sdk/threeutils":21}],9:[function(require,module,exports){
+},{"../sdk/threeutils":22}],10:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -43040,7 +43424,7 @@ CreationOfTheWorldScene.prototype.update = function()
 
 module.exports = new CreationOfTheWorldScene();
 
-},{"../data/angel_conversation.json":3,"../sdk/threeutils":21,"./base_scene.js":4,"./clicktarget.js":5,"three":2}],10:[function(require,module,exports){
+},{"../data/angel_conversation.json":3,"../sdk/threeutils":22,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],11:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -43085,6 +43469,14 @@ IndexScene.prototype.added = function()
 	//topShadow.
 
 	// create floor
+	
+	// create johnson
+	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
+	johnsonSprite.triggerConversation = require("../data/prophet_conversation.json");
+
+	// create door
+	var doorClickTarget = this.createClickableSprite("door", 0, 0);
+	doorClickTarget.triggerScene = "creationOfTheWorld";
 
 	Scene.prototype.added.call(this);
 }
@@ -43102,7 +43494,7 @@ IndexScene.prototype.update = function()
 
 module.exports = new IndexScene();
 
-},{"../sdk/threeutils":21,"./base_scene.js":4,"./clicktarget.js":5,"three":2}],11:[function(require,module,exports){
+},{"../data/prophet_conversation.json":4,"../sdk/threeutils":22,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],12:[function(require,module,exports){
 
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");
@@ -43229,7 +43621,7 @@ SceneManager.finallyChangeScene = function(key)
 	this.currentScene.transform.position.z = 0;
 }
 
-},{"../sdk/input":16,"./conversation.js":6,"./scene_creation_of_the_world.js":9,"./scene_index.js":10}],12:[function(require,module,exports){
+},{"../sdk/input":17,"./conversation.js":7,"./scene_creation_of_the_world.js":10,"./scene_index.js":11}],13:[function(require,module,exports){
 
 // this file is partially generated by tools
 // do not change the layout
@@ -43313,7 +43705,7 @@ module.exports =
 },
 }
 
-},{"three":2}],13:[function(require,module,exports){
+},{"three":2}],14:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -43450,7 +43842,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":14}],14:[function(require,module,exports){
+},{"./index.js":15}],15:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -43608,7 +44000,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":16,"../polyfills":19,"./engine.js":13,"three":2}],15:[function(require,module,exports){
+},{"../input":17,"../polyfills":20,"./engine.js":14,"three":2}],16:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -43857,7 +44249,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -43972,7 +44364,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":15,"./keyboard.js":17,"./mouse.js":18}],17:[function(require,module,exports){
+},{"./gamepad.js":16,"./keyboard.js":18,"./mouse.js":19}],18:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -44157,7 +44549,7 @@ module.exports = Keyboard =
 	}
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -44343,7 +44735,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -44429,7 +44821,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -44485,7 +44877,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":21}],21:[function(require,module,exports){
+},{"./index.js":22}],22:[function(require,module,exports){
 
 THREE = require("three");
 AtlasData = require("../atlases");
@@ -44887,4 +45279,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":12,"./Atlas.js":20,"three":2}]},{},[1])
+},{"../atlases":13,"./Atlas.js":21,"three":2}]},{},[1])

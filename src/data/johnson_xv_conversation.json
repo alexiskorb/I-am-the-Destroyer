@@ -1,3 +1,7 @@
+//GRAVITY_LIGHTER
+//BRICK_WALL
+//WOOD_WALL
+//CARDBOARD_WALL
 
 {
 	"title": "johnson_xv_conversation",
@@ -6,7 +10,7 @@
 	[
 		{
 			"id": "johnson15",
-			"displayName": "Johnson XV",
+			"displayName": "Angel Johnson XV",
 			"atlas": "johnson15",
 			"sprites":[
 				"port_idle"
@@ -34,13 +38,44 @@
 					"nextNodeId": 2,
 				},
 				{
-					"text": "Why are you here?",
+					"text": "What are you doing?",
 					"nextNodeId": 4,
+					"isGlobalFalse": "BRICK_WALL" 
+				},
+				{
+					"text": "So, how's the wall going?",
+					"nextNodeId": 12,
+					"isGlobalFalse": "WOOD_WALL" 
+				},
+				{
+					"text": "So, how's the wall going?",
+					"nextNodeId": 21,
+					"isGlobalFalse": "CARDBOARD_WALL" 
+				},
+				{
+					"text": "So, how's the wall going?",
+					"nextNodeId": 32,
+					"isGlobalFalse": "CARDBOARD_WALL" 
 				},
 				{
 					"text": "You remind me of someone.",
 					"nextNodeId": 13
-				}
+				},
+				{
+					"text": "About the labyrinth and door...",
+					"isGlobalTrue": "DOOR_TALK",
+					"nextNodeId": 36
+				},
+				{			
+					"text": "Which one's your cousin working on again?",
+					"isGlobalTrue": "BAD_LABYRINTH",
+					"nextNodeId": 47
+				},
+				{			
+					"text": "Which one's your cousin working on again?",
+					"isGlobalTrue": "BAD_DOOR",
+					"nextNodeId": 48
+				},
 			]
 		},
 		{
@@ -68,7 +103,7 @@
 		{
 			"id": 4,
 			"speaker": "johnson15",
-			"text": "I'm working on the prison. I'm building this room with no walls. It's designed to hold...[he leans in closer]...a great ancient evil.",
+			"text": "I'm working on the prison. It's designed to hold...[he leans in closer]...a great ancient evil.",
 			"responses":[
 				{
 					"text": "[gasp] No!",
@@ -76,7 +111,7 @@
 				},
 				{
 					"text": "So what do you have so far?",
-					"nextNodeId": 6
+					"nextNodeId": 33
 				}
 			]
 		},
@@ -195,6 +230,437 @@
 					"text": "continue",
 					"nextNodeId": 2
 				},
+			]
+		},
+		{
+			"id": 14,
+			"speaker": "johnson15",
+			"text": "I've beeen getting some nice brickes for a nice brick wall.",
+			"responses":[
+				{
+					"text": "You know, bricks are kind of heavy. Maybe you should choose something lighter.",
+					"isGlobalFalse": "GRAVITY_LIGHTER",
+					"nextNodeId": 16
+				},
+				{
+					"text": "You know, bricks are kind of heavy. Maybe you should choose something lighter.",
+					"isGlobalTrue": "GRAVITY_LIGHTER",
+					"nextNodeId": 15
+				},
+			]
+		},
+		{
+			"id": 15,
+			"speaker": "johnson15",
+			"text": "What are you talking about? Bricks aren't that heavy. Gravity's barely even there. Nah. It's staying bricks. Good security, it is. Go me.",
+			"responses":[
+			]
+		},
+		{
+			"id": 16,
+			"speaker": "johnson15",
+			"text": "Yeah. They are. I did kind of throw out my back the other day. What do you suggest?",
+			"responses":[
+				{
+					"text": "Wood. It's still pretty strong, but it's a lot lighter. Plus, it will look vintage.",
+					"nextNodeId": 20,
+					"setGlobalTrue": "WOOD_WALL"
+				},
+				{
+					"text": "Geese. They're really quite stackable.",
+					"nextNodeId": 18
+				},
+				{
+					"text": "Paper. You can draw custom designs on it.",
+					"nextNodeId": 17
+				},
+				{
+					"text": "Pillows. You're less likely to get sued for workplace safety.",
+					"nextNodeId": 19
+				},
+			]
+		},
+		{
+			"id": 17,
+			"speaker": "johnson15",
+			"text": "It's too dangerous! I'd get a paper cut for sure. Any other suggestions?",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 16
+				},
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "johnson15",
+			"text": "I've always been more fond of ducks. But, they aren't quite as stackable. Any other suggestions?",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 16
+				},
+			]
+		},
+		{
+			"id": 19,
+			"speaker": "johnson15",
+			"text": "Pillows don't make good walls. What are you talking about? Is this a prison or a day care?",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 16
+				},
+			]
+		},
+		{
+			"id": 20,
+			"speaker": "johnson15",
+			"text": "Ah. Good idea. Wood it is.",
+			"responses":[
+				{
+					"text": "Good luck.",
+				},
+			]
+		},
+		{
+			"id": 21,
+			"speaker": "johnson15",
+			"text": "I've got some nice wood planks.",
+			"responses":[
+				{
+					"text": "You know. I've been thinking. Isn't wood still kind of heavy?",
+					"isGlobalFalse": "GRAVITY_LIGHTER",
+					"nextNodeId": 23
+				},
+				{
+					"text": "You know. I've been thinking. Isn't wood still kind of heavy?",
+					"isGlobalTrue": "GRAVITY_LIGHTER",
+					"nextNodeId": 22
+				},
+			]
+		},
+		{
+			"id": 22,
+			"speaker": "johnson15",
+			"text": "Ha! I could carry 10 trees on my back. Gravity's nothing for us strong workers.",
+			"responses":[
+			]
+		},
+		{
+			"id": 23,
+			"speaker": "johnson15",
+			"text": "It's a little heavy, but not bad.",
+			"responses":[
+				{
+					"text": "But don't you get a ton of wood splinters?",
+					"nextNodeId": 24
+				},
+			]
+		},
+		{
+			"id": 24,
+			"speaker": "johnson15",
+			"text": "Wood splinters are pretty annoying. Do you have an alternative?",
+			"responses":[
+				{
+					"text": "Reinforced Steel. It's so strong.",
+					"nextNodeId": 25
+				},
+				{
+					"text": "Brick. It's sturdy.",
+					"nextNodeId": 26,
+					"isGlobalTrue": "GRAVITY_LIGHTER"
+				},
+				{
+					"text": "Brick. It's sturdy.",
+					"nextNodeId": 27,
+					"isGlobalFalse": "GRAVITY_LIGHTER"
+				},
+				{
+					"text": "Wood.",
+					"nextNodeId": 28
+				},
+				{
+					"text": "Cardboard?",
+					"nextNodeId": 29,
+					"isGlobalFalse": "WORMHOLE_ACTIVATED"
+				},
+				{
+					"text": "Cardboard?",
+					"nextNodeId":30,
+					"isGlobalTrue": "WORMHOLE_ACTIVATED"
+				},
+			]
+		},
+		{
+			"id": 25,
+			"speaker": "johnson15",
+			"text": "No. Steel's so expensive. Any other suggestions?",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 24
+				},
+			]
+		},
+		{
+			"id": 26,
+			"speaker": "johnson15",
+			"text": "Bricks are ugly. I can't do that. I take pride in my work.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 24
+				},
+			]
+		},
+		{
+			"id": 27,
+			"speaker": "johnson15",
+			"text": "But brick is heavy. My back will hurt.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 24
+				},
+			]
+		},
+		{
+			"id": 28,
+			"speaker": "johnson15",
+			"text": "But aren't we already...wait...what?",
+			"responses":[
+				{
+					"nextNodeId": 24
+				},
+			]
+		},
+		{
+			"id": 29,
+			"speaker": "johnson15",
+			"text": "I would. But cardboard is so hard to find. There was this one crazy guy spouting about how cardboard sucks, and no one was there to counter him, so now we have no cardboard. Guess I'll stick with wood for now.",
+			"responses":[
+				{
+				},
+			]
+		},
+		{
+			"id": 30,
+			"speaker": "johnson15",
+			"text": "What a brilliant idea! It's so easy to move and manufacture! I love it!",
+			"responses":[
+				{
+					"text": "So, you'll make it out of cardboard then?",
+					"setGlobalTrue": "CARDBOARD_WALL",
+					"nextNodeId": 31
+				},
+			]
+		},
+		{
+			"id": 31,
+			"speaker": "johnson15",
+			"text": "Yep! Thanks for all the help. You're a real lifesaver.",
+			"responses":[
+				{
+				},
+			]
+		},
+		{
+			"id": 32,
+			"speaker": "johnson15",
+			"text": "It's being made out of the finest cardboard.",
+			"responses":[
+				{
+				},
+			]
+		},
+		{
+			"id": 33,
+			"speaker": "johnson15",
+			"text": "Well, I'm making this room with no doors. I'm also working on a labyrinth and a keypad door.",
+			"responses":[
+				{
+					"text": "Tell me about the wall.",
+					"nextNodeId": 6
+				},
+				{
+					"text": "Tell me about the labyrinth.",
+					"nextNodeId": 34
+				},
+				{
+					"text": "Tell me about the keypad door",
+					"nextNodeId": 35
+				},
+			]
+		},
+		{
+			"id": 34,
+			"speaker": "johnson15",
+			"text": "It's going to be a complicated underwater maze. No one will get throught it. There is one problem, though...",
+			"responses":[
+				{
+					"text": "What's the problem?",
+					"nextNodeId": 36
+				},
+			]
+		},
+		{
+			"id": 35,
+			"speaker": "johnson15",
+			"text": "A sturdy door run with the city's electricity. It will have a really good combination too. There is one problem, though...",
+			"responses":[
+				{
+					"text": "What's that?",
+					"nextNodeId": 36
+				},
+			]
+		},
+		{
+			"id": 36,
+			"speaker": "johnson15",
+			"text": "I don't have the time to do both the door and the labyrinth. So, I was thinking I'd have my cousin do one for me.",
+			"responses":[
+				{
+					"setGlobalTrue": "DOOR_TALK",
+					"text": "Your cousin?",
+					"nextNodeId": 37,
+				},
+			]
+		},
+		{
+			"id": 37,
+			"speaker": "johnson15",
+			"text": "Yeah. He's pretty good at security. I'd have my <i>other</i> cousin help too, but he got hit by a meteor in a freak accident. Now, he's not so smart and makes really bad security systems.",
+			"responses":[
+				{
+					"text": "That's unfortunate.",
+					"nextNodeId": 38
+				},
+				{
+					"text": "Like, how bad?",
+					"nextNodeId": 38
+				},
+			]
+		},
+		{
+			"id": 38,
+			"speaker": "johnson15",
+			"text": "Any toddler could get through his systems.",
+			"responses":[
+				{
+					"text": "What about the first cousin?",
+					"nextNodeId": 39,
+					"isGlobalFalse": "WORMHOLE_ACTIVATED"
+				},
+			    { 
+					"text": "What about the first cousin?",
+					"nextNodeId": 43,
+					"isGlobalTrue": "WORMHOLE_ACTIVATED"
+				},
+			]
+		},
+		{
+			"id": 39,
+			"speaker": "johnson15",
+			"text": "His systems should be fine, no problem. As long as he doesn't get hit on the head by some random thing falling out of the sky, he ought to be fine. I'm sure his security will be great.",
+			"responses":[
+				{
+					"text": "What if he did get hit on the head?",
+					"nextNodeId": 40
+				},
+			]
+		},
+		{
+			"id": 40,
+			"speaker": "johnson15",
+			"text": "Then, the systems would probably be junk. But that's not going to happen. So can you help me?",
+			"responses":[
+				{
+					"text": "With what?",
+					"nextNodeId": 41
+				},
+			]
+		},
+		{
+			"id": 41,
+			"speaker": "johnson15",
+			"text": "Which system should I have my cousin work on? The labyrinth or the door?",
+			"responses":[
+				{
+					"text": "I should think about this some more. I'll get back to you.",
+				},
+			]
+		},
+		{
+			"id": 42,
+			"speaker": "johnson15",
+			"text": "Great. It's settled then.",
+			"responses":[
+			]
+		},
+		{
+			"id": 43,
+			"speaker": "johnson15",
+			"text": "Well, funny thing. The other day, this random cardboard box came out of nowhere and smacked him on the head. I worry he'll be like my other cousin, but I just don't have the time to make both security systems.",
+			"responses":[
+				{
+					"text": "I'm sure he'll be alright.",
+					"nextNodeId": 44
+				},
+				{
+					"text": "What a <i>random</i> and <i>bizarre</i> coinkydink.",
+					"nextNodeId": 44
+				},
+				{
+					"text": "That's too bad.",
+					"nextNodeId": 44
+				},
+			]
+		},
+		{
+			"id": 44,
+			"speaker": "johnson15",
+			"text": "Well, I bet the security will be not so great. [Sigh.] What can you do? So, which system should he work on? The labyrinth or the door?",
+			"responses":[
+				{
+					"text": "The door.",
+					"setGlobalTrue": "BAD_DOOR",
+					"nextNodeId": 45
+				},
+				{
+					"text": "The door.",
+					"nextNodeId": 46,
+					"setGlobalTrue": "BAD_LABYRINTH"
+				},
+			]
+		},
+		{
+			"id": 45,
+			"speaker": "johnson15",
+			"text": "The labyrinth it is.",
+			"responses":[
+			]
+		},
+		{
+			"id": 46,
+			"speaker": "johnson15",
+			"text": "The door it is.",
+			"responses":[
+			]
+		},
+		{
+			"id": 47,
+			"speaker": "johnson15",
+			"text": "The labyrinth.",
+			"responses":[
+			]
+		},
+		{
+			"id": 48,
+			"speaker": "johnson15",
+			"text": "The door.",
+			"responses":[
 			]
 		},
 	]

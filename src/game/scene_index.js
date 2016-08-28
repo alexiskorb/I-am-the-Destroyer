@@ -42,6 +42,14 @@ IndexScene.prototype.added = function()
 	//topShadow.
 
 	// create floor
+	
+	// create johnson
+	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
+	johnsonSprite.triggerConversation = require("../data/prophet_conversation.json");
+
+	// create door
+	var doorClickTarget = this.createClickableSprite("door", 0, 0);
+	doorClickTarget.triggerScene = "creationOfTheWorld";
 
 	Scene.prototype.added.call(this);
 }
