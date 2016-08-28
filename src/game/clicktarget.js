@@ -187,6 +187,10 @@ ClickTarget.prototype.triggerAction = function(action)
 	{
 		SceneManager.changeScene(action.target, SceneManager.ANIM_FORWARD);
 	}
+	else if (action.action == "disable")
+	{
+		this.permanentlyDisable();
+	}
 }
 
 ClickTarget.prototype.actionMeetsConditionals = function(action)

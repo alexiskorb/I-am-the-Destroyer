@@ -45327,6 +45327,10 @@ ClickTarget.prototype.triggerAction = function(action)
 	{
 		SceneManager.changeScene(action.target, SceneManager.ANIM_FORWARD);
 	}
+	else if (action.action == "disable")
+	{
+		this.permanentlyDisable();
+	}
 }
 
 ClickTarget.prototype.actionMeetsConditionals = function(action)
@@ -46939,8 +46943,6 @@ TimeDeviceScene.prototype = new Scene();
 
 TimeDeviceScene.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("general");
-	
 	// create device base
 	this.deviceBase = this.createClickableSprite("timedevice", 0, 0);
 	this.deviceBase.addAction({
@@ -46950,9 +46952,11 @@ TimeDeviceScene.prototype.added = function()
 	this.deviceBase.enabled = false;
 
 	// create sticky note
-	this.stickyNote = ThreeUtils.makeAtlasMesh(atlas, "timedevice_sticky");
-	this.transform.add(this.stickyNote);
-	this.stickyNote.position.set(79, 200, -10);
+	this.stickyNote = this.createClickableSprite("timedevice_sticky", 79, 200);
+	this.stickyNote.mesh.position.z = -10;
+	this.stickyNote.addAction({
+		action: "disable"
+	})
 	
 	// create buttons
 	this.buttons = [];
@@ -47035,13 +47039,6 @@ TimeDeviceScene.prototype.update = function()
 	}
 
 	Scene.prototype.update.call(this);
-}
-
-TimeDeviceScene.prototype.notifyChangedScene = function()
-{
-	this.stickyNote.visible = false;
-
-	Scene.prototype.notifyChangedScene.call(this);
 }
 
 TimeDeviceScene.prototype.tweenOff = function()
@@ -47160,6 +47157,7 @@ SceneManager.update = function()
 			if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 			{
 				clickTarget.trigger();
+				this.lastThingClicked = clickTarget;
 			}
 		}
 	}
@@ -47201,7 +47199,7 @@ SceneManager.update = function()
 	if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 	{
 		//TODO: hide if clicking a different target
-		if (!(clickTarget)) 
+		if (clickTarget != this.lastThingClicked) 
 		{
 			InfoBox.hide();
 		}
