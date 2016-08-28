@@ -1,6 +1,7 @@
 
 THREE = require("three");
 Conversation = require("./conversation.js");
+InfoBox = require("./infobox.js");
 //SceneManager = require("./scenemanager.js");
 
 var ClickTarget = function(mesh)
@@ -19,6 +20,8 @@ var ClickTarget = function(mesh)
 	// set to an item key to make this target collect an item and then
 	// disable itself
 	this.collectItem = undefined;
+
+	this.showInfoBox = undefined;
 }
 
 ClickTarget.ANIM_PICKUP = 1;
@@ -107,9 +110,13 @@ ClickTarget.prototype.trigger = function()
 	{
 		this.playPickupTween();
 	}
+	if (this.showInfoBox){
+		InfoBox.display(this.showInfoBox);
+	}
 	if (this.triggerConversation)
 	{
 		Conversation.startConversation(this.triggerConversation);
+		InfoBox.hide();
 	}
 	else if (this.triggerScene)
 	{

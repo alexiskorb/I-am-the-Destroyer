@@ -125,3 +125,16 @@ img[src=""]
 {
   display:none;
 }
+#infobox
+{
+	position: absolute;
+	left:0;right:0;
+	top: 0;
+	width: 300px;
+	margin: 20px auto;
+	padding: 8px 140px 8px 140px;
+
+	border: 1px solid white;
+	color: white;
+	background-color: black;
+}

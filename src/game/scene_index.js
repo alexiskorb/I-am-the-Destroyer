@@ -46,6 +46,10 @@ IndexScene.prototype.added = function()
 	// create johnson
 	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
 	johnsonSprite.triggerConversation = require("../data/prophet_conversation.json");
+	johnsonSprite.showInfoBox = "test2";
+
+	var johnsonSprite2 = this.createClickableSprite("johnson15_sprite", -300, -300);
+	johnsonSprite2.showInfoBox = "test";
 
 	// create door
 	var doorClickTarget = this.createClickableSprite("door", 0, 0);

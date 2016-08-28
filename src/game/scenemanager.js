@@ -1,6 +1,7 @@
 
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");
+InfoBox = require("./infobox.js");
 
 var SceneManager =
 {
@@ -75,6 +76,15 @@ SceneManager.update = function()
 			this.currentScene.transform.scale.set(1 + animProgress * 1.5, 1 + animProgress * 1.5, 1);
 			this.currentScene.setAlpha(1 - (animProgress * animProgress));
 			break;
+		}
+	}
+
+	if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
+	{
+		var clickTarget = this.currentScene.getClickTarget(GameEngine.mousePosWorld);
+		if (!(clickTarget && clickTarget.showInfoBox)) 
+		{
+			InfoBox.hide();
 		}
 	}
 

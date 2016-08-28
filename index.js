@@ -8,6 +8,7 @@ GameEngine = new bmacSdk.Engine("canvasDiv");
 
 // add objects to the engine
 GameEngine.addObject(require("./src/game/conversation.js"));
+GameEngine.addObject(require("./src/game/infobox.js"));
 
 window.Inventory = require("./src/game/inventory.js")
 GameEngine.addObject(Inventory);
