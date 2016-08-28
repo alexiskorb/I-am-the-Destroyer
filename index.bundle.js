@@ -42841,6 +42841,7 @@ Scene.prototype.hide = function()
 THREE = require("three");
 Conversation = require("./conversation.js");
 InfoBox = require("./infobox.js");
+GlobalVariables = require("./globalvariables.js");
 //SceneManager = require("./scenemanager.js");
 
 var ClickTarget = function(mesh)
@@ -42848,6 +42849,8 @@ var ClickTarget = function(mesh)
 	this.enabled = true;
 	this.mesh = mesh;
 	this.bounds = new THREE.Box3();
+
+	this.actions = [];
 
 	// set this to a block of convo data (using require) to make this
 	// target start a conversation
@@ -42862,6 +42865,17 @@ var ClickTarget = function(mesh)
 
 	this.showInfoBox = undefined;
 }
+
+ClickTarget.prototype.addAction = function(data)
+{
+	this.actions.push(data);
+}
+
+//Possible action keys:
+// - triggerConversation
+// - triggerScene
+// - collectItem
+// - showInfoBox
 
 ClickTarget.ANIM_PICKUP = 1;
 
@@ -42902,6 +42916,7 @@ ClickTarget.prototype.update = function()
 ClickTarget.prototype.isPointInBounds = function(point)
 {
 	if (!this.enabled) return false;
+	if (this.actions.length == 0) return false;
 	var point = new THREE.Vector3(point.x, point.y, 0);
 	this.getBoundingBox();
 	point.z = (this.bounds.min.z + this.bounds.max.z) / 2;
@@ -42973,37 +42988,93 @@ ClickTarget.prototype.playPickupTween = function()
 
 ClickTarget.prototype.trigger = function()
 {
-	if (this.triggerTimeDevice)
+	for (var i = 0; i < this.actions.length; i++)
+	{
+		if (this.actionMeetsConditionals(this.actions[i]))
+		{
+			this.triggerAction(this.actions[i]);
+			return;
+		}
+	}
+}
+
+ClickTarget.prototype.triggerAction = function(action)
+{
+	this.executingAction = action;
+
+	if (action.action == "triggerTimeDevice")
 	{
 		SceneManager.showTimeDevice();
 	}
-	if (this.collectItem)
+	else if (action.action == "collectItem")
 	{
 		this.playPickupTween();
 	}
-	if (this.showInfoBox){
-		InfoBox.display(this.showInfoBox);
-	}
-	if (this.triggerConversation)
+	else if (action.action == "showInfoBox")
 	{
-		Conversation.startConversation(this.triggerConversation);
+		InfoBox.display(action.target);
+	}
+	else if (action.action == "triggerConversation")
+	{
+		Conversation.startConversation(action.target);
 		InfoBox.hide();
 	}
-	else if (this.triggerScene)
+	else if (action.action == "triggerScene")
 	{
-		SceneManager.changeScene(this.triggerScene, SceneManager.ANIM_FORWARD);
+		SceneManager.changeScene(action.target, SceneManager.ANIM_FORWARD);
 	}
+}
+
+ClickTarget.prototype.actionMeetsConditionals = function(action)
+{
+	if (action.globalIsFalse)
+	{
+		if (action.globalIsFalse instanceof Array)
+		{
+			for (var i = 0; i < action.globalIsFalse.length; i++)
+			{
+				if (GlobalVariables.getVariable(action.globalIsFalse[i]))
+				{
+					return false;
+				}
+			}
+		}
+		else if (GlobalVariables.getVariable(action.globalIsFalse))
+		{
+			return false;
+		}
+	}
+	if (action.globalIsTrue)
+	{
+		if (action.globalIsTrue instanceof Array)
+		{
+			for (var i = 0; i < action.globalIsTrue.length; i++)
+			{
+				if (!GlobalVariables.getVariable(action.globalIsTrue[i]))
+				{
+					return false;
+				}
+			}
+		}
+		else if (!GlobalVariables.getVariable(action.globalIsTrue))
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 ClickTarget.prototype.triggerPostAnimation = function()
 {
-	if (this.collectItem)
+	if (this.executingAction.action == "collectItem")
 	{
-		Inventory.addItem(Inventory.items[this.collectItem]);
+		Inventory.addItem(Inventory.items[this.executingAction.target]);
 	}
+
+	this.executingAction = undefined;
 }
 
-},{"./conversation.js":8,"./infobox.js":10,"three":2}],8:[function(require,module,exports){
+},{"./conversation.js":8,"./globalvariables.js":9,"./infobox.js":10,"three":2}],8:[function(require,module,exports){
 
 Input = require("../sdk/input");
 ThreeUtils = require("../sdk/threeutils");
@@ -43911,7 +43982,10 @@ CreationOfTheWorldScene.prototype.added = function()
 	this.johnsonSprite = this.createClickableSprite("heaven_angel",
 		314,
 		this.johnsonYPos);
-	this.johnsonSprite.triggerConversation = require("../data/angel_conversation.json");
+	this.johnsonSprite.addAction({
+		action: "triggerConversation",
+		target: require("../data/angel_conversation.json") 
+	})
 
 	// create player
 	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);
@@ -43960,7 +44034,10 @@ IndexScene.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.triggerScene = "prison1";
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison1"
+	})
 
 	Scene.prototype.added.call(this);
 }
@@ -44088,18 +44165,28 @@ PrisonScene1.prototype.added = function()
 	
 	// create johnson
 	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
-	johnsonSprite.triggerConversation = require("../data/prophet_conversation.json");
-	johnsonSprite.showInfoBox = "test2";
+	johnsonSprite.addAction({
+		action: "triggerConversation",
+		target: require("../data/prophet_conversation.json")
+	})
 
 	var johnsonSprite2 = this.createClickableSprite("johnson15_sprite", -300, -300);
-	johnsonSprite2.showInfoBox = "keypad";
+	johnsonSprite2.addAction({
+		action: "showInfoBox",
+		target: "keypad"
+	})
 	var johnsonSprite3 = this.createClickableSprite("johnson15_sprite", -400, -200);
-	johnsonSprite3.showInfoBox = "moat";
+	johnsonSprite3.addAction({
+		action: "showInfoBox",
+		target: "moat"
+	})
 
 	// create door
-	var doorClickTarget = this.createClickableRegion(
-		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.triggerScene = "prison2";
+	var doorClickTarget = this.createClickableRegion(GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison2"
+	})
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -44146,7 +44233,10 @@ PrisonScene2.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.triggerScene = "prison3";
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison3"
+	})
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -44183,7 +44273,10 @@ PrisonScene3.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.triggerScene = "prison4";
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison4"
+	})
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -44220,7 +44313,10 @@ PrisonScene4.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.triggerScene = "prison5";
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison5"
+	})
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -44257,7 +44353,10 @@ PrisonScene5.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.triggerScene = "prison6";
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison6"
+	})
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -44294,7 +44393,10 @@ PrisonScene6.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.triggerScene = "prison7";
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison7"
+	})
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -44331,7 +44433,10 @@ PrisonScene7.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.triggerScene = "prison8";
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison8"
+	})
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -44403,7 +44508,9 @@ TimeDeviceScene.prototype.added = function()
 	
 	// create device base
 	this.deviceBase = this.createClickableSprite("timedevice", 0, 0);
-	this.deviceBase.triggerTimeDevice = true;
+	this.deviceBase.addAction({
+		action: "triggerTimeDevice"
+	})
 	this.deviceBase.mesh.position.z = -15;
 	this.deviceBase.enabled = false;
 
@@ -44416,16 +44523,28 @@ TimeDeviceScene.prototype.added = function()
 	this.buttons = [];
 
 	var button1 = this.createClickableSprite("timedevice_button1", -169, -90);
-	button1.triggerScene = "creationOfTheWorld";
+	button1.addAction({
+		action: "triggerScene",
+		target: "creationOfTheWorld"
+	})
 
 	var button2 = this.createClickableSprite("timedevice_button2", -75, -145);
-	button2.triggerScene = "field";
+	button2.addAction({
+		action: "triggerScene",
+		target: "field"
+	})
 
 	var button3 = this.createClickableSprite("timedevice_button3", 66, -145);
-	button3.triggerScene = "construction";
+	button3.addAction({
+		action: "triggerScene",
+		target: "construction"
+	})
 
 	var button4 = this.createClickableSprite("timedevice_button4", 173, -90);
-	button4.triggerScene = "LAST_PRISON";
+	button4.addAction({
+		action: "triggerScene",
+		target: "LAST_PRISON"
+	})
 
 	this.buttons.push(button1);
 	this.buttons.push(button2);
@@ -44645,7 +44764,8 @@ SceneManager.update = function()
 
 	if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 	{
-		if (!(clickTarget && clickTarget.showInfoBox)) 
+		//TODO: hide if clicking a different target
+		if (!(clickTarget)) 
 		{
 			InfoBox.hide();
 		}

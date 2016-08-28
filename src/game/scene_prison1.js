@@ -58,18 +58,28 @@ PrisonScene1.prototype.added = function()
 	
 	// create johnson
 	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
-	johnsonSprite.triggerConversation = require("../data/prophet_conversation.json");
-	johnsonSprite.showInfoBox = "test2";
+	johnsonSprite.addAction({
+		action: "triggerConversation",
+		target: require("../data/prophet_conversation.json")
+	})
 
 	var johnsonSprite2 = this.createClickableSprite("johnson15_sprite", -300, -300);
-	johnsonSprite2.showInfoBox = "keypad";
+	johnsonSprite2.addAction({
+		action: "showInfoBox",
+		target: "keypad"
+	})
 	var johnsonSprite3 = this.createClickableSprite("johnson15_sprite", -400, -200);
-	johnsonSprite3.showInfoBox = "moat";
+	johnsonSprite3.addAction({
+		action: "showInfoBox",
+		target: "moat"
+	})
 
 	// create door
-	var doorClickTarget = this.createClickableRegion(
-		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.triggerScene = "prison2";
+	var doorClickTarget = this.createClickableRegion(GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison2"
+	})
 
 	PrisonScene.prototype.added.call(this);
 }

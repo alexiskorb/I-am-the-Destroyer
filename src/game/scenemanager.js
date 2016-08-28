@@ -116,7 +116,8 @@ SceneManager.update = function()
 
 	if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 	{
-		if (!(clickTarget && clickTarget.showInfoBox)) 
+		//TODO: hide if clicking a different target
+		if (!(clickTarget)) 
 		{
 			InfoBox.hide();
 		}

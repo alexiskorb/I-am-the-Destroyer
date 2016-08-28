@@ -60,7 +60,10 @@ CreationOfTheWorldScene.prototype.added = function()
 	this.johnsonSprite = this.createClickableSprite("heaven_angel",
 		314,
 		this.johnsonYPos);
-	this.johnsonSprite.triggerConversation = require("../data/angel_conversation.json");
+	this.johnsonSprite.addAction({
+		action: "triggerConversation",
+		target: require("../data/angel_conversation.json") 
+	})
 
 	// create player
 	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);

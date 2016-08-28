@@ -25,7 +25,9 @@ TimeDeviceScene.prototype.added = function()
 	
 	// create device base
 	this.deviceBase = this.createClickableSprite("timedevice", 0, 0);
-	this.deviceBase.triggerTimeDevice = true;
+	this.deviceBase.addAction({
+		action: "triggerTimeDevice"
+	})
 	this.deviceBase.mesh.position.z = -15;
 	this.deviceBase.enabled = false;
 
@@ -38,16 +40,28 @@ TimeDeviceScene.prototype.added = function()
 	this.buttons = [];
 
 	var button1 = this.createClickableSprite("timedevice_button1", -169, -90);
-	button1.triggerScene = "creationOfTheWorld";
+	button1.addAction({
+		action: "triggerScene",
+		target: "creationOfTheWorld"
+	})
 
 	var button2 = this.createClickableSprite("timedevice_button2", -75, -145);
-	button2.triggerScene = "field";
+	button2.addAction({
+		action: "triggerScene",
+		target: "field"
+	})
 
 	var button3 = this.createClickableSprite("timedevice_button3", 66, -145);
-	button3.triggerScene = "construction";
+	button3.addAction({
+		action: "triggerScene",
+		target: "construction"
+	})
 
 	var button4 = this.createClickableSprite("timedevice_button4", 173, -90);
-	button4.triggerScene = "LAST_PRISON";
+	button4.addAction({
+		action: "triggerScene",
+		target: "LAST_PRISON"
+	})
 
 	this.buttons.push(button1);
 	this.buttons.push(button2);
