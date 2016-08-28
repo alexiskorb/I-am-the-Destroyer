@@ -46143,6 +46143,26 @@ InfoBox.info =
             }
         ]
     },
+    doorHasDamPower:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "The door seems fully powered and very secure."
+            }
+        ]
+    },
+    doorHasNoDamPower:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "The door flickers and seems to have barely enough power to stay closed."
+            }
+        ]
+    }
 }
 
 
@@ -46688,7 +46708,7 @@ ClickTarget = require("./clicktarget.js");
 
 var PrisonScene3 = function()
 {
-	this.backgroundUrl = "media/prison1_bg.png";
+	this.backgroundUrl = "media/doorframe.png";
 
 	PrisonScene.call(this);
 }
@@ -46700,11 +46720,21 @@ PrisonScene3.prototype.added = function()
 	var atlas = ThreeUtils.loadAtlas("prison1");
 	
 	// create door
-	var doorClickTarget = this.createClickableRegion(
-		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
+	var doorClickTarget = this.createClickableSprite("keydoor", 0, 0);
 	doorClickTarget.addAction({
 		action: "triggerScene",
-		target: "prison4"
+		target: "prison4",
+		//TODO: check lamp is plugged in
+		globalIsFalse: "DAM_BUILT"
+	})
+	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "doorHasDamPower",
+		globalIsTrue: "DAM_BUILT"
+	})
+	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "doorHasNoDamPower",
 	})
 
 	PrisonScene.prototype.added.call(this);
@@ -47291,25 +47321,26 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 949,
-	height: 754,
+	width: 1406,
+	height: 956,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"crystal":[538,0,281,283],
-	"door":[262,394,256,256],
-	"grad_circle":[820,206,64,64],
-	"grad_r":[433,651,64,64],
-	"heaven_angel":[538,284,212,467],
-	"heaven_player":[751,284,196,297],
-	"johnson15_sprite":[820,0,128,128],
-	"lamp":[885,206,60,60],
-	"timedevice":[0,0,537,393],
-	"timedevice_button1":[153,652,141,93],
-	"timedevice_button2":[295,651,137,75],
-	"timedevice_button3":[820,129,120,76],
-	"timedevice_button4":[0,652,152,102],
-	"timedevice_sticky":[0,394,261,257],
+	"crystal":[545,394,281,283],
+	"door":[827,394,256,256],
+	"grad_circle":[401,863,64,64],
+	"grad_r":[466,863,64,64],
+	"heaven_angel":[1084,258,212,467],
+	"heaven_player":[827,651,196,297],
+	"johnson15_sprite":[545,781,128,128],
+	"keydoor":[0,0,544,862],
+	"lamp":[1345,0,60,60],
+	"timedevice":[545,0,537,393],
+	"timedevice_button1":[0,863,141,93],
+	"timedevice_button2":[142,863,137,75],
+	"timedevice_button3":[280,863,120,76],
+	"timedevice_button4":[545,678,152,102],
+	"timedevice_sticky":[1083,0,261,257],
 	},
 },
 "heaven":
@@ -47340,8 +47371,8 @@ module.exports =
 "characters":
 {
 	url: "media/characters_atlas.png",
-	width: 710,
-	height: 703,
+	width: 627,
+	height: 371,
 	filter: THREE.LinearFilter,
 	sprites:
 	{

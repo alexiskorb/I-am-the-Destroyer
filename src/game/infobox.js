@@ -421,6 +421,26 @@ InfoBox.info =
             }
         ]
     },
+    doorHasDamPower:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "The door seems fully powered and very secure."
+            }
+        ]
+    },
+    doorHasNoDamPower:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "The door flickers and seems to have barely enough power to stay closed."
+            }
+        ]
+    }
 }
 
 
