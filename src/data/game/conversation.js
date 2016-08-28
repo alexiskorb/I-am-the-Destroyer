@@ -116,6 +116,9 @@ Conversation.selectResponse = function(response)
 		{
 			GlobalVariables.setVariable(response.onceOnlyGlobal);
 		}
+		if (response.getItem) {
+			Inventory.addItem(Inventory.items[response.getItem]);
+		}
 		if (response.nextNodeId !== undefined)
 		{
 			this.moveToNode(response.nextNodeId);

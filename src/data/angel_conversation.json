@@ -43,7 +43,7 @@
             "responses": [
                 {
                     "text": "What are you doing?",
-                    "nextNodeId": 7
+                    "nextNodeId": 7,
                 },
                 {
                     "text": "Who are you?",
