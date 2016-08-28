@@ -28,7 +28,7 @@
             "responses": [
                 {
                     "nextNodeId": 1,
-                    "globalIsFalse": "hasTalkedToAngel"
+                    "onceOnlyGlobal": "ANGEL_INTRODUCTION"
                 },
                 {
                     "nextNodeId": 21
@@ -38,12 +38,11 @@
         {
             "id": 1,
             "speaker": "angel",
-            "text": "Hello. Welcome to the creation of the Universe.",
-            "setGlobalTrue": "hasTalkedToAngel",
+            "text": "Hello. Welcome to the creation of the Universe. What are you doing here?",
             "responses": [
                 {
-                    "text": "What are you doing?",
-                    "nextNodeId": 7
+                    "text": "What are <i>you</i> doing?",
+                    "nextNodeId": 7,
                 },
                 {
                     "text": "Who are you?",
@@ -51,7 +50,7 @@
                     "nextNodeId": 2
                 },
                 {
-                    "text": "Can I ask you something?",
+                    "text": "You know. Just chilling. Can I ask you something?",
                     "nextNodeId": 10
                 }
             ]

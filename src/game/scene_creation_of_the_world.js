@@ -25,7 +25,7 @@ CreationOfTheWorldScene.prototype.added = function()
 
 	// create johnson
 	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
-	johnsonSprite.triggerConversation = require("../data/sample_conversation.json");
+	johnsonSprite.triggerConversation = require("../data/angel_conversation.json");
 
 	// create player
 	

@@ -52,6 +52,7 @@ Conversation.startConversation = function(conversationData)
 		{
 			if (this.responsePassesConditionals(node0.responses[i]))
 			{
+				this.selectResponse(node0.responses[i]);
 				this.moveToNode(node0.responses[i].nextNodeId)
 				return;
 			}
@@ -115,6 +116,9 @@ Conversation.selectResponse = function(response)
 		if (response.onceOnlyGlobal)
 		{
 			GlobalVariables.setVariable(response.onceOnlyGlobal);
+		}
+		if (response.getItem) {
+			Inventory.addItem(Inventory.items[response.getItem]);
 		}
 		if (response.nextNodeId !== undefined)
 		{
