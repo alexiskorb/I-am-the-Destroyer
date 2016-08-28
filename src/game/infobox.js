@@ -410,7 +410,17 @@ InfoBox.info =
                 text: "I must free myself from these walls."
             },
         ]
-    }
+    },
+    moatImpassable:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "There is a moat in the way. It is full of water and dark-crystal-eating crocodiles.",
+            }
+        ]
+    },
 }
 
 
