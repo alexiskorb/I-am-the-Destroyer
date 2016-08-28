@@ -95,7 +95,7 @@ SceneManager.changeScene = function(key, animType)
 
 	var targetScene = this.scenes[key];
 	targetScene.show();
-	targetScene.transform.position.z = -20;
+	targetScene.transform.position.z = -25;
 	this.changingToScene = key;
 	
 	this.animation = animType;

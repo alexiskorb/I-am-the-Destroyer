@@ -9,16 +9,16 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 459,
-	height: 385,
+	width: 667,
+	height: 467,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
 	"door":[0,0,256,256],
+	"heaven_angel":[257,0,212,467],
+	"heaven_player":[470,0,196,297],
 	"johnson15_sprite":[0,257,128,128],
-	"lamp":[129,257,60,60],
-	"player_atlas":[257,0,201,256],
-	"player_atlas2":[129,318,60,60],
+	"lamp":[0,386,60,60],
 	},
 },
 "johnson15":
@@ -35,12 +35,35 @@ module.exports =
 "player":
 {
 	url: "media/player_atlas.png",
-	width: 201,
-	height: 256,
+	width: 213,
+	height: 371,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"port_idle":[0,0,200,256],
+	"port_idle":[0,0,212,371],
+	},
+},
+"heaven":
+{
+	url: "media/heaven_atlas.png",
+	width: 1236,
+	height: 357,
+	filter: THREE.LinearFilter,
+	sprites:
+	{
+	"heaven_back_glow_25":[0,247,4,110],
+	"heaven_platform":[0,0,1235,246],
+	},
+},
+"johnson1":
+{
+	url: "media/johnson1_atlas.png",
+	width: 213,
+	height: 371,
+	filter: THREE.LinearFilter,
+	sprites:
+	{
+	"port_idle":[0,0,212,371],
 	},
 },
 }

@@ -20,7 +20,7 @@ var Scene = function()
 		}
 	);
 	this.backgroundMesh = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial);
-	this.backgroundMesh.position.set(0, 0, -15);
+	this.backgroundMesh.position.set(0, 0, -20);
 	this.transform.add(this.backgroundMesh);
 }
 

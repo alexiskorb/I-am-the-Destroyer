@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
 window.bmacSdk = require("./src/sdk/engine");
@@ -41797,7 +41797,7 @@ module.exports=//ANGEL_INTRODUCTION
 		{
 			"id": "angel",
 			"displayName": "Angel Johnson I",
-			"atlas": "johnson15",
+			"atlas": "johnson1",
 			"sprites":[
 				"port_idle"
 			]
@@ -42697,7 +42697,7 @@ var Scene = function()
 		}
 	);
 	this.backgroundMesh = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial);
-	this.backgroundMesh.position.set(0, 0, -15);
+	this.backgroundMesh.position.set(0, 0, -20);
 	this.transform.add(this.backgroundMesh);
 }
 
@@ -42918,6 +42918,7 @@ Conversation.added = function()
 	this.responsesElement = document.getElementById("conversation_responses");
 	this.textElement = document.getElementById("conversation_text");
 	this.portraitElement = document.getElementById("conversation_portrait");
+	this.portraitElement2 = document.getElementById("conversation_portrait2");
 
 	this.hide();
 }
@@ -42975,6 +42976,7 @@ Conversation.hide = function()
 {
 	this.parentElement.style.visibility = "hidden";
 	this.portraitElement.className = "conversation_portrait_off";
+	this.portraitElement2.className = "conversation_portrait2_off";
 	this.hideResponsesFrom(0);
 }
 
@@ -43056,6 +43058,9 @@ Conversation.moveToNode = function(index)
 		var speakerAtlas = ThreeUtils.loadAtlas(currentSpeaker.atlas);
 		this.portraitElement.className = "conversation_portrait_on";
 		ThreeUtils.setElementToAtlasImage(this.portraitElement, speakerAtlas, currentSpeaker.sprites[0]);
+
+		this.portraitElement2.className = "conversation_portrait2_on";
+		ThreeUtils.setElementToAtlasImage(this.portraitElement2, ThreeUtils.loadAtlas("player"), "port_idle");
 
 		var i = 0;
 		if (currentNode.responses)
@@ -43342,7 +43347,7 @@ ClickTarget = require("./clicktarget.js");
 
 var CreationOfTheWorldScene = function()
 {
-	this.backgroundUrl = "media/room_empty.png";
+	this.backgroundUrl = "media/heaven_sky_gradient.png";
 
 	Scene.call(this);
 }
@@ -43351,21 +43356,68 @@ CreationOfTheWorldScene.prototype = new Scene();
 
 CreationOfTheWorldScene.prototype.added = function()
 {
-	// create sky
+	var heavenAtlas = ThreeUtils.loadAtlas("heaven");
 
-	// create rotating clouds
+	// create rotating clouds (L)
+	var cloudRingTex = ThreeUtils.loadTexture("media/heaven_cloud_wheel.png");
+	var cloudRingGeo = ThreeUtils.makeSpriteGeo(1924, 1942);
+	this.cloudRingL = ThreeUtils.makeSpriteMesh(cloudRingTex, cloudRingGeo);
+	this.transform.add(this.cloudRingL);
+	this.cloudRingL.position.set(1173, GameEngine.screenHeight/2-111, -19);
+
+	// (R)
+	var cloudRingTex = ThreeUtils.loadTexture("media/heaven_cloud_wheel.png");
+	var cloudRingGeo = ThreeUtils.makeSpriteGeo(1924, 1942);
+	this.cloudRingR = ThreeUtils.makeSpriteMesh(cloudRingTex, cloudRingGeo);
+	this.transform.add(this.cloudRingR);
+	this.cloudRingR.position.set(-1173, GameEngine.screenHeight/2-111, -19);
 
 	// create scrolling clouds
+	this.cloudScrollTex = ThreeUtils.loadTexture("media/heaven_fore_clouds.png");
+	var cloudScrollGeo = ThreeUtils.makeSpriteGeo(3626, 324);
+	this.cloudScrollTex.wrapS = THREE.RepeatWrapping;
+	this.cloudScroll = ThreeUtils.makeSpriteMesh(this.cloudScrollTex, cloudScrollGeo);
+	this.transform.add(this.cloudScroll);
+	this.cloudScroll.position.set(0, GameEngine.screenHeight/2-324/2, -9);
 
-	// create pedastal
+	// create glow
+	this.glowSprite = ThreeUtils.makeAtlasMesh(heavenAtlas, "heaven_back_glow_25");
+	this.glowSprite.position.set(
+		0, GameEngine.screenHeight/2 - heavenAtlas.getSpriteHeight("heaven_back_glow_25")*2, -18);
+	this.glowSprite.scale.set(GameEngine.screenWidth, 4, 1);
+	this.transform.add(this.glowSprite);
+
+	// create pedestal
+	this.pedestalSprite = ThreeUtils.makeAtlasMesh(heavenAtlas, "heaven_platform");
+	this.pedestalSprite.position.set(
+		0,
+		GameEngine.screenHeight/2 - heavenAtlas.getSpriteHeight("heaven_platform")/2,
+		-15);
+	this.transform.add(this.pedestalSprite);
 
 	// create johnson
-	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
-	johnsonSprite.triggerConversation = require("../data/angel_conversation.json");
+	this.johnsonYPos = GameEngine.screenHeight/2 - 488;
+	this.angelBob = 0;
+	this.johnsonSprite = this.createClickableSprite("heaven_angel",
+		314,
+		this.johnsonYPos);
+	this.johnsonSprite.triggerConversation = require("../data/angel_conversation.json");
 
 	// create player
+	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);
 	
 	Scene.prototype.added.call(this);
+}
+
+CreationOfTheWorldScene.prototype.update = function()
+{
+	this.angelBob += bmacSdk.deltaSec / 4;
+	this.johnsonSprite.mesh.position.y = this.johnsonYPos + Math.cos(this.angelBob * Math.PI * 2) * 10;
+
+	this.cloudRingR.rotation.z += bmacSdk.deltaSec * 0.04;
+	this.cloudRingL.rotation.z -= bmacSdk.deltaSec * 0.04;
+
+	this.cloudScrollTex.offset.set(this.cloudScrollTex.offset.x + bmacSdk.deltaSec * 0.02, 0);
 }
 
 module.exports = new CreationOfTheWorldScene();
@@ -43499,7 +43551,7 @@ SceneManager.changeScene = function(key, animType)
 
 	var targetScene = this.scenes[key];
 	targetScene.show();
-	targetScene.transform.position.z = -20;
+	targetScene.transform.position.z = -25;
 	this.changingToScene = key;
 	
 	this.animation = animType;
@@ -43540,16 +43592,16 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 459,
-	height: 385,
+	width: 667,
+	height: 467,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
 	"door":[0,0,256,256],
+	"heaven_angel":[257,0,212,467],
+	"heaven_player":[470,0,196,297],
 	"johnson15_sprite":[0,257,128,128],
-	"lamp":[129,257,60,60],
-	"player_atlas":[257,0,201,256],
-	"player_atlas2":[129,318,60,60],
+	"lamp":[0,386,60,60],
 	},
 },
 "johnson15":
@@ -43566,12 +43618,35 @@ module.exports =
 "player":
 {
 	url: "media/player_atlas.png",
-	width: 201,
-	height: 256,
+	width: 213,
+	height: 371,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"port_idle":[0,0,200,256],
+	"port_idle":[0,0,212,371],
+	},
+},
+"heaven":
+{
+	url: "media/heaven_atlas.png",
+	width: 1236,
+	height: 357,
+	filter: THREE.LinearFilter,
+	sprites:
+	{
+	"heaven_back_glow_25":[0,247,4,110],
+	"heaven_platform":[0,0,1235,246],
+	},
+},
+"johnson1":
+{
+	url: "media/johnson1_atlas.png",
+	width: 213,
+	height: 371,
+	filter: THREE.LinearFilter,
+	sprites:
+	{
+	"port_idle":[0,0,212,371],
 	},
 },
 }
@@ -45150,4 +45225,8 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
+<<<<<<< HEAD
 },{"../atlases":13,"./Atlas.js":21,"three":2}]},{},[1]);
+=======
+},{"../atlases":12,"./Atlas.js":20,"three":2}]},{},[1])
+>>>>>>> db9c14b7339079c4e27c0904f12a65e1691a5b03

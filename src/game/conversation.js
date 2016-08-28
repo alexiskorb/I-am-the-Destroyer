@@ -23,6 +23,7 @@ Conversation.added = function()
 	this.responsesElement = document.getElementById("conversation_responses");
 	this.textElement = document.getElementById("conversation_text");
 	this.portraitElement = document.getElementById("conversation_portrait");
+	this.portraitElement2 = document.getElementById("conversation_portrait2");
 
 	this.hide();
 }
@@ -80,6 +81,7 @@ Conversation.hide = function()
 {
 	this.parentElement.style.visibility = "hidden";
 	this.portraitElement.className = "conversation_portrait_off";
+	this.portraitElement2.className = "conversation_portrait2_off";
 	this.hideResponsesFrom(0);
 }
 
@@ -161,6 +163,9 @@ Conversation.moveToNode = function(index)
 		var speakerAtlas = ThreeUtils.loadAtlas(currentSpeaker.atlas);
 		this.portraitElement.className = "conversation_portrait_on";
 		ThreeUtils.setElementToAtlasImage(this.portraitElement, speakerAtlas, currentSpeaker.sprites[0]);
+
+		this.portraitElement2.className = "conversation_portrait2_on";
+		ThreeUtils.setElementToAtlasImage(this.portraitElement2, ThreeUtils.loadAtlas("player"), "port_idle");
 
 		var i = 0;
 		if (currentNode.responses)
