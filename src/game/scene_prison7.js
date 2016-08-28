@@ -1,17 +1,19 @@
 
-Scene = require("./base_scene.js");
+PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
 ThreeUtils = require("../sdk/threeutils");
 ClickTarget = require("./clicktarget.js");
+
+// In which you must get over a pit filled with spikes and other less sensible things
 
 var PrisonScene7 = function()
 {
 	this.backgroundUrl = "media/prison1_bg.png";
 
-	Scene.call(this);
+	PrisonScene.call(this);
 }
 
-PrisonScene7.prototype = new Scene();
+PrisonScene7.prototype = new PrisonScene();
 
 PrisonScene7.prototype.added = function()
 {
@@ -22,12 +24,12 @@ PrisonScene7.prototype.added = function()
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.triggerScene = "prison8";
 
-	Scene.prototype.added.call(this);
+	PrisonScene.prototype.added.call(this);
 }
 
 PrisonScene7.prototype.update = function()
 {
-	Scene.prototype.update.call(this);
+	PrisonScene.prototype.update.call(this);
 }
 
 module.exports = new PrisonScene7();

@@ -1,17 +1,19 @@
 
-Scene = require("./base_scene.js");
+PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
 ThreeUtils = require("../sdk/threeutils");
 ClickTarget = require("./clicktarget.js");
+
+// In which you must get past a solid wall
 
 var PrisonScene6 = function()
 {
 	this.backgroundUrl = "media/prison1_bg.png";
 
-	Scene.call(this);
+	PrisonScene.call(this);
 }
 
-PrisonScene6.prototype = new Scene();
+PrisonScene6.prototype = new PrisonScene();
 
 PrisonScene6.prototype.added = function()
 {
@@ -22,12 +24,12 @@ PrisonScene6.prototype.added = function()
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.triggerScene = "prison7";
 
-	Scene.prototype.added.call(this);
+	PrisonScene.prototype.added.call(this);
 }
 
 PrisonScene6.prototype.update = function()
 {
-	Scene.prototype.update.call(this);
+	PrisonScene.prototype.update.call(this);
 }
 
 module.exports = new PrisonScene6();
