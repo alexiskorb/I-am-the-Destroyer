@@ -42732,6 +42732,18 @@ Scene.prototype.createClickableSprite = function(key, x, y)
 	return target;
 }
 
+Scene.prototype.createClickableRegion = function(x, y, w, h)
+{
+	var geometry = ThreeUtils.makeSpriteGeo(w, h);
+	var mesh = ThreeUtils.makeSpriteMesh(ThreeUtils.loadTexture("media/transparent.png"), geometry);
+	this.transform.add(mesh);
+	mesh.position.set(x, y, -10);
+
+	var target = new ClickTarget(mesh);
+	this.clickTargets.push(target);
+	return target;
+}
+
 /**
  * Gets the click target at the specified position, if any.
  */
@@ -42846,6 +42858,7 @@ ClickTarget.prototype.hover = function()
 	if (!this.hoverMesh)
 	{
 		this.hoverMesh = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "grad_circle");
+		this.hoverMesh.material.opacity = 0.3;
 		GameEngine.scene.add(this.hoverMesh);
 	}
 	this.getBoundingBox();
@@ -43512,7 +43525,8 @@ IndexScene.prototype.added = function()
 	johnsonSprite.triggerConversation = require("../data/prophet_conversation.json");
 
 	// create door
-	var doorClickTarget = this.createClickableSprite("door", 0, 0);
+	var doorClickTarget = this.createClickableRegion(
+		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.triggerScene = "creationOfTheWorld";
 
 	Scene.prototype.added.call(this);

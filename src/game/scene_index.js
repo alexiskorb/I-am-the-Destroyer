@@ -59,7 +59,8 @@ IndexScene.prototype.added = function()
 	johnsonSprite.triggerConversation = require("../data/prophet_conversation.json");
 
 	// create door
-	var doorClickTarget = this.createClickableSprite("door", 0, 0);
+	var doorClickTarget = this.createClickableRegion(
+		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.triggerScene = "creationOfTheWorld";
 
 	Scene.prototype.added.call(this);

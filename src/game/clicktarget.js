@@ -77,6 +77,7 @@ ClickTarget.prototype.hover = function()
 	if (!this.hoverMesh)
 	{
 		this.hoverMesh = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "grad_circle");
+		this.hoverMesh.material.opacity = 0.4;
 		GameEngine.scene.add(this.hoverMesh);
 	}
 	this.getBoundingBox();
