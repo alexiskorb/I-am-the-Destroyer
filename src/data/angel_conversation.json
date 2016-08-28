@@ -2,6 +2,9 @@
 //WORMHOLE_ACTIVATED
 //BOX_OBTAINED
 //BOX_USED
+//BALLOON_TALK
+
+//balloon
 {
     "title": "angel_conversation",
     "characters":
@@ -302,6 +305,7 @@
             "responses": [
                 {
                     "text": "Please?",
+                    "setGlobalTrue": "BALLOON_TALK"
                     "nextNodeId": 20
                 }
             ]
