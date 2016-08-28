@@ -26,7 +26,6 @@ IndexScene.prototype.added = function()
 
 	Scene.prototype.added.call(this);
 }
-
 IndexScene.prototype.update = function()
 {
 	Scene.prototype.update.call(this);

@@ -64,6 +64,7 @@ CreationOfTheWorldScene.prototype.added = function()
 
 	// create player
 	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);
+	Inventory.select(3);
 	
 	Scene.prototype.added.call(this);
 }
