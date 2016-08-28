@@ -46,6 +46,7 @@ ClickTarget.prototype.addFalse = function(data)
 }
 
 
+
 //Possible action keys:
 // - triggerConversation
 // - triggerScene
@@ -205,6 +206,10 @@ ClickTarget.prototype.triggerAction = function(action)
 	{
 		this.permanentlyDisable();
 	}
+	else if (action.action == "interact")
+	{
+		this.interact(action.target, action.setGlobals);
+	}
 }
 
 ClickTarget.prototype.actionMeetsConditionals = function(action)
@@ -273,4 +278,15 @@ ClickTarget.prototype.meetsExistConditions = function()
         }
     }
     return true;
+}
+
+ClickTarget.prototype.interact = function(item, globals)
+{
+	var selected = Inventory.itemHeld();
+	if (selected){
+		Inventory.removeItem(item);
+	}
+	for (var i = 0; i < globals.length; i++){
+		GlobalVariables.setVariable(globals[i]);
+	}
 }

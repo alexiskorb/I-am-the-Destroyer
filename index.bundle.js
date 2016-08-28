@@ -45195,6 +45195,7 @@ ClickTarget.prototype.addFalse = function(data)
 }
 
 
+
 //Possible action keys:
 // - triggerConversation
 // - triggerScene
@@ -45354,6 +45355,10 @@ ClickTarget.prototype.triggerAction = function(action)
 	{
 		this.permanentlyDisable();
 	}
+	else if (action.action == "interact")
+	{
+		this.interact(action.target, action.setGlobals);
+	}
 }
 
 ClickTarget.prototype.actionMeetsConditionals = function(action)
@@ -45424,6 +45429,16 @@ ClickTarget.prototype.meetsExistConditions = function()
     return true;
 }
 
+ClickTarget.prototype.interact = function(item, globals)
+{
+	var selected = Inventory.itemHeld();
+	if (selected){
+		Inventory.removeItem(item);
+	}
+	for (var i = 0; i < globals.length; i++){
+		GlobalVariables.setVariable(globals[i]);
+	}
+}
 },{"./conversation.js":13,"./globalvariables.js":14,"./infobox.js":15,"three":2}],13:[function(require,module,exports){
 
 Input = require("../sdk/input");
@@ -46159,11 +46174,7 @@ Inventory.items = {
         sprite: "player_atlas2"
     },
     cardboard_box: {
-<<<<<<< HEAD
         sprite: "cardboardbox"
-=======
-        sprite: "cardboard_box"
->>>>>>> d0a015e3df2121b26e6ad3adf0417b3e7cc64c27
     },
     cardboard: {
         sprite: "cardboard"
@@ -46290,7 +46301,7 @@ Inventory.itemHeld = function()
 {
     if (this.itemSelected > -1)
     {
-        return this.itemList[itemSelected];
+        return this.itemList[this.itemSelected];
     }
     return undefined;
 }
@@ -46369,6 +46380,11 @@ CreationOfTheWorldScene.prototype.added = function()
 	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);
 	this.wormhole = this.createClickableSprite("wormhole", 0, 0);
 	this.wormhole.addTrue("WORMHOLE_ACTIVATED");
+	this.wormhole.addAction ({
+		action: "interact",
+		target: Inventory.items["cardboard_box"],
+		setGlobals: ["BOX_IN_WORMHOLE"]
+	});
 
 	Scene.prototype.added.call(this);
 }
@@ -47210,7 +47226,6 @@ SceneManager.update = function()
 			if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 			{
 				clickTarget.trigger();
-				this.lastThingClicked = clickTarget;
 			}
 		}
 	}
@@ -47252,7 +47267,7 @@ SceneManager.update = function()
 	if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 	{
 		//TODO: hide if clicking a different target
-		if (clickTarget != this.lastThingClicked) 
+		if (!(clickTarget)) 
 		{
 			InfoBox.hide();
 		}
@@ -47358,24 +47373,14 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-<<<<<<< HEAD
 	width: 1474,
-=======
-	width: 1468,
->>>>>>> d0a015e3df2121b26e6ad3adf0417b3e7cc64c27
 	height: 956,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-<<<<<<< HEAD
 	"balloon":[531,879,60,60],
-	"cardboard":[746,678,60,60],
-	"cardboardbox":[592,879,60,60],
-=======
-	"ballon":[698,678,60,60],
-	"cardboard":[1407,0,60,60],
-	"cardboardbox":[1345,84,60,60],
->>>>>>> d0a015e3df2121b26e6ad3adf0417b3e7cc64c27
+	"cardboard":[592,879,60,60],
+	"cardboardbox":[1345,129,60,60],
 	"crystal":[545,394,281,283],
 	"door":[827,394,256,256],
 	"grad_circle":[401,863,64,64],
@@ -47384,14 +47389,9 @@ module.exports =
 	"heaven_player":[827,651,196,297],
 	"johnson15_sprite":[1345,0,128,128],
 	"keydoor":[0,0,544,862],
-<<<<<<< HEAD
-	"lamp":[1345,129,60,60],
-	"magnets":[746,739,60,60],
-=======
-	"lamp":[698,739,60,60],
-	"magnets":[759,678,60,60],
-	"outlet":[1345,0,61,83],
->>>>>>> d0a015e3df2121b26e6ad3adf0417b3e7cc64c27
+	"lamp":[746,762,60,60],
+	"magnets":[653,879,60,60],
+	"outlet":[746,678,61,83],
 	"timedevice":[545,0,537,393],
 	"timedevice_button1":[0,863,141,93],
 	"timedevice_button2":[142,863,137,75],
