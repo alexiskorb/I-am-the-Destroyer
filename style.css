@@ -70,8 +70,6 @@ body
 
 #canvasDiv
 {
-	width: 100%; height: 100%;
-	overflow: hidden;
 	z-index: -1;
 }
 #inventory
@@ -84,8 +82,6 @@ body
 	position: absolute;
 	right: 0px;
 	top: 0px;
-
-
 }
 #inventoryTitle 
 {
