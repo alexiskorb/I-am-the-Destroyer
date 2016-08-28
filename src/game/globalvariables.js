@@ -8,7 +8,7 @@ module.exports = GlobalVariables;
 
 GlobalVariables.getVariable = function(key)
 {
-	return !!this.Variables[key];
+	return !!this.Variables[key.toLowerCase()];
 }
 
 GlobalVariables.setVariable = function(key)
@@ -22,7 +22,7 @@ GlobalVariables.setVariable = function(key)
 	}
 	else
 	{
-		this.Variables[key] = true;
+		this.Variables[key.toLowerCase()] = true;
 	}
 }
 
@@ -37,6 +37,6 @@ GlobalVariables.unsetVariable = function(key)
 	}
 	else
 	{
-		this.Variables[key] = false;
+		this.Variables[key.toLowerCase()] = false;
 	}
 }

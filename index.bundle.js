@@ -45687,7 +45687,7 @@ module.exports = GlobalVariables;
 
 GlobalVariables.getVariable = function(key)
 {
-	return !!this.Variables[key];
+	return !!this.Variables[key.toLowerCase()];
 }
 
 GlobalVariables.setVariable = function(key)
@@ -45701,7 +45701,7 @@ GlobalVariables.setVariable = function(key)
 	}
 	else
 	{
-		this.Variables[key] = true;
+		this.Variables[key.toLowerCase()] = true;
 	}
 }
 
@@ -45716,7 +45716,7 @@ GlobalVariables.unsetVariable = function(key)
 	}
 	else
 	{
-		this.Variables[key] = false;
+		this.Variables[key.toLowerCase()] = false;
 	}
 }
 
@@ -46111,6 +46111,18 @@ Inventory.items = {
     },
     player_atlas: {
         sprite: "player_atlas2"
+    },
+    cardboard_box: {
+        sprite: "cardboard_box"
+    },
+    cardboard: {
+        sprite: "cardboard"
+    },
+    balloon: {
+        sprite: "balloon"
+    },
+    magnets: {
+        sprite: "magnets"
     }
 }
 
