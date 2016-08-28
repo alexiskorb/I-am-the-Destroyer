@@ -12,8 +12,19 @@ var SceneManager =
 	scenes:
 	{
 		timeDevice: require("./scene_timedevice.js"),
-		index: require("./scene_index.js"),
+		prison0: require("./scene_index.js"),
 		creationOfTheWorld: require("./scene_creation_of_the_world.js"),
+		field: require("./scene_past_field.js"),
+		construction: require("./scene_past_construction.js"),
+		prison1: require("./scene_prison1.js"),
+		prison2: require("./scene_prison2.js"),
+		prison3: require("./scene_prison3.js"),
+		prison4: require("./scene_prison4.js"),
+		prison5: require("./scene_prison5.js"),
+		prison6: require("./scene_prison6.js"),
+		prison7: require("./scene_prison7.js"),
+		prison8: require("./scene_prison8.js"),
+		LAST_PRISON: undefined, //special case, set dynamically
 	},
 
 	currentScene: undefined,
@@ -21,6 +32,8 @@ var SceneManager =
 
 	animation: undefined,
 }
+
+SceneManager.scenes.LAST_PRISON = SceneManager.scenes.prison0;
 
 SceneManager.ANIM_NONE = 0;
 SceneManager.ANIM_TIMETRAVEL = 1;
@@ -40,7 +53,7 @@ SceneManager.added = function()
 	this.scenes["timeDevice"].show();
 	this.scenes["timeDevice"].transform.position.z = -10;
 
-	this.finallyChangeScene("index", true);
+	this.finallyChangeScene("prison0", true);
 	this.currentScene.show();
 }
 
@@ -144,6 +157,8 @@ SceneManager.changeScene = function(key, animType)
 	var targetScene = this.scenes[key];
 	targetScene.show();
 	targetScene.transform.position.z = -70;
+	targetScene.transform.scale.set(1,1,1);
+	targetScene.setAlpha(1);
 	this.changingToScene = key;
 	
 	this.animation = animType;
@@ -176,5 +191,9 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 		{
 			this.scenes[i].notifyChangedScene();
 		}
+	}
+	if (key.substr(0, 6) === "prison")
+	{
+		this.scenes.LAST_PRISON = this.currentScene;
 	}
 }

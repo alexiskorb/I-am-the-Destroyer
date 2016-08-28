@@ -20,7 +20,7 @@ GameEngine.addObject(window.SceneManager);
 
 // that's it!
 
-},{"./src/game/conversation.js":7,"./src/game/infobox.js":9,"./src/game/inventory.js":10,"./src/game/scenemanager.js":14,"./src/sdk/engine":17}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":7,"./src/game/infobox.js":9,"./src/game/inventory.js":10,"./src/game/scenemanager.js":24,"./src/sdk/engine":27}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -42786,7 +42786,7 @@ Scene.prototype.hide = function()
 	GameEngine.scene.remove(this.transform);
 }
 
-},{"../sdk/threeutils":24,"three":2}],6:[function(require,module,exports){
+},{"../sdk/threeutils":34,"three":2}],6:[function(require,module,exports){
 
 THREE = require("three");
 Conversation = require("./conversation.js");
@@ -43251,7 +43251,7 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../sdk/input":19,"../sdk/threeutils":24,"./globalvariables.js":8}],8:[function(require,module,exports){
+},{"../sdk/input":29,"../sdk/threeutils":34,"./globalvariables.js":8}],8:[function(require,module,exports){
 
 var GlobalVariables =
 {
@@ -43677,7 +43677,7 @@ InfoBox.info =
 
 
 module.exports = InfoBox;
-},{"../sdk/input":19,"../sdk/threeutils":24,"./globalvariables.js":8}],10:[function(require,module,exports){
+},{"../sdk/input":29,"../sdk/threeutils":34,"./globalvariables.js":8}],10:[function(require,module,exports){
 
 ThreeUtils = require("../sdk/threeutils");
 
@@ -43782,7 +43782,7 @@ Inventory.drop = function(ev) {
 
 module.exports = Inventory;
 
-},{"../sdk/threeutils":24}],11:[function(require,module,exports){
+},{"../sdk/threeutils":34}],11:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -43868,7 +43868,7 @@ CreationOfTheWorldScene.prototype.update = function()
 
 module.exports = new CreationOfTheWorldScene();
 
-},{"../data/angel_conversation.json":3,"../sdk/threeutils":24,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],12:[function(require,module,exports){
+},{"../data/angel_conversation.json":3,"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],12:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -43885,6 +43885,97 @@ var IndexScene = function()
 IndexScene.prototype = new Scene();
 
 IndexScene.prototype.added = function()
+{
+	var atlas = ThreeUtils.loadAtlas("prison1");
+	
+	// create door
+	var doorClickTarget = this.createClickableRegion(
+		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
+	doorClickTarget.triggerScene = "prison1";
+
+	Scene.prototype.added.call(this);
+}
+
+IndexScene.prototype.update = function()
+{
+	Scene.prototype.update.call(this);
+}
+
+module.exports = new IndexScene();
+
+},{"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],13:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var ConstructionScene = function()
+{
+	this.backgroundUrl = "media/heaven_sky_gradient.png";
+
+	Scene.call(this);
+}
+
+ConstructionScene.prototype = new Scene();
+
+ConstructionScene.prototype.added = function()
+{
+	Scene.prototype.added.call(this);
+}
+
+ConstructionScene.prototype.update = function()
+{
+	Scene.prototype.update.call(this);
+}
+
+module.exports = new ConstructionScene();
+
+},{"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],14:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var FieldScene = function()
+{
+	this.backgroundUrl = "media/heaven_sky_gradient.png";
+
+	Scene.call(this);
+}
+
+FieldScene.prototype = new Scene();
+
+FieldScene.prototype.added = function()
+{
+	Scene.prototype.added.call(this);
+}
+
+FieldScene.prototype.update = function()
+{
+	Scene.prototype.update.call(this);
+}
+
+module.exports = new FieldScene();
+
+},{"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],15:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var PrisonScene1 = function()
+{
+	this.backgroundUrl = "media/prison1_bg.png";
+
+	Scene.call(this);
+}
+
+PrisonScene1.prototype = new Scene();
+
+PrisonScene1.prototype.added = function()
 {
 	var atlas = ThreeUtils.loadAtlas("prison1");
 	
@@ -43938,12 +44029,12 @@ IndexScene.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.triggerScene = "creationOfTheWorld";
+	doorClickTarget.triggerScene = "prison2";
 
 	Scene.prototype.added.call(this);
 }
 
-IndexScene.prototype.update = function()
+PrisonScene1.prototype.update = function()
 {
 	// jitter forcefield
 	for (var i = 0; i < this.forcefieldSprites.length; i++)
@@ -43958,9 +44049,249 @@ IndexScene.prototype.update = function()
 	Scene.prototype.update.call(this);
 }
 
-module.exports = new IndexScene();
+module.exports = new PrisonScene1();
 
-},{"../data/prophet_conversation.json":4,"../sdk/threeutils":24,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],13:[function(require,module,exports){
+},{"../data/prophet_conversation.json":4,"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],16:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var PrisonScene2 = function()
+{
+	this.backgroundUrl = "media/prison1_bg.png";
+
+	Scene.call(this);
+}
+
+PrisonScene2.prototype = new Scene();
+
+PrisonScene2.prototype.added = function()
+{
+	var atlas = ThreeUtils.loadAtlas("prison1");
+	
+	// create door
+	var doorClickTarget = this.createClickableRegion(
+		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
+	doorClickTarget.triggerScene = "prison3";
+
+	Scene.prototype.added.call(this);
+}
+
+PrisonScene2.prototype.update = function()
+{
+	Scene.prototype.update.call(this);
+}
+
+module.exports = new PrisonScene2();
+
+},{"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],17:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var PrisonScene3 = function()
+{
+	this.backgroundUrl = "media/prison1_bg.png";
+
+	Scene.call(this);
+}
+
+PrisonScene3.prototype = new Scene();
+
+PrisonScene3.prototype.added = function()
+{
+	var atlas = ThreeUtils.loadAtlas("prison1");
+	
+	// create door
+	var doorClickTarget = this.createClickableRegion(
+		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
+	doorClickTarget.triggerScene = "prison4";
+
+	Scene.prototype.added.call(this);
+}
+
+PrisonScene3.prototype.update = function()
+{
+	Scene.prototype.update.call(this);
+}
+
+module.exports = new PrisonScene3();
+
+},{"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],18:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var PrisonScene4 = function()
+{
+	this.backgroundUrl = "media/prison1_bg.png";
+
+	Scene.call(this);
+}
+
+PrisonScene4.prototype = new Scene();
+
+PrisonScene4.prototype.added = function()
+{
+	var atlas = ThreeUtils.loadAtlas("prison1");
+	
+	// create door
+	var doorClickTarget = this.createClickableRegion(
+		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
+	doorClickTarget.triggerScene = "prison5";
+
+	Scene.prototype.added.call(this);
+}
+
+PrisonScene4.prototype.update = function()
+{
+	Scene.prototype.update.call(this);
+}
+
+module.exports = new PrisonScene4();
+
+},{"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],19:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var PrisonScene5 = function()
+{
+	this.backgroundUrl = "media/prison1_bg.png";
+
+	Scene.call(this);
+}
+
+PrisonScene5.prototype = new Scene();
+
+PrisonScene5.prototype.added = function()
+{
+	var atlas = ThreeUtils.loadAtlas("prison1");
+	
+	// create door
+	var doorClickTarget = this.createClickableRegion(
+		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
+	doorClickTarget.triggerScene = "prison6";
+
+	Scene.prototype.added.call(this);
+}
+
+PrisonScene5.prototype.update = function()
+{
+	Scene.prototype.update.call(this);
+}
+
+module.exports = new PrisonScene5();
+
+},{"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],20:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var PrisonScene6 = function()
+{
+	this.backgroundUrl = "media/prison1_bg.png";
+
+	Scene.call(this);
+}
+
+PrisonScene6.prototype = new Scene();
+
+PrisonScene6.prototype.added = function()
+{
+	var atlas = ThreeUtils.loadAtlas("prison1");
+	
+	// create door
+	var doorClickTarget = this.createClickableRegion(
+		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
+	doorClickTarget.triggerScene = "prison7";
+
+	Scene.prototype.added.call(this);
+}
+
+PrisonScene6.prototype.update = function()
+{
+	Scene.prototype.update.call(this);
+}
+
+module.exports = new PrisonScene6();
+
+},{"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],21:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var PrisonScene7 = function()
+{
+	this.backgroundUrl = "media/prison1_bg.png";
+
+	Scene.call(this);
+}
+
+PrisonScene7.prototype = new Scene();
+
+PrisonScene7.prototype.added = function()
+{
+	var atlas = ThreeUtils.loadAtlas("prison1");
+	
+	// create door
+	var doorClickTarget = this.createClickableRegion(
+		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
+	doorClickTarget.triggerScene = "prison8";
+
+	Scene.prototype.added.call(this);
+}
+
+PrisonScene7.prototype.update = function()
+{
+	Scene.prototype.update.call(this);
+}
+
+module.exports = new PrisonScene7();
+
+},{"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],22:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+var PrisonScene8 = function()
+{
+	this.backgroundUrl = "media/prison1_bg.png";
+
+	Scene.call(this);
+}
+
+PrisonScene8.prototype = new Scene();
+
+PrisonScene8.prototype.added = function()
+{
+	var atlas = ThreeUtils.loadAtlas("prison1");
+	
+	Scene.prototype.added.call(this);
+}
+
+PrisonScene8.prototype.update = function()
+{
+	Scene.prototype.update.call(this);
+}
+
+module.exports = new PrisonScene8();
+
+},{"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],23:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -44004,13 +44335,13 @@ TimeDeviceScene.prototype.added = function()
 	button1.triggerScene = "creationOfTheWorld";
 
 	var button2 = this.createClickableSprite("timedevice_button2", -75, -145);
-	button2.triggerScene = "creationOfTheWorld";
+	button2.triggerScene = "field";
 
 	var button3 = this.createClickableSprite("timedevice_button3", 66, -145);
-	button3.triggerScene = "creationOfTheWorld";
+	button3.triggerScene = "construction";
 
 	var button4 = this.createClickableSprite("timedevice_button4", 173, -90);
-	button4.triggerScene = "creationOfTheWorld";
+	button4.triggerScene = "LAST_PRISON";
 
 	this.buttons.push(button1);
 	this.buttons.push(button2);
@@ -44111,7 +44442,7 @@ TimeDeviceScene.prototype.tweenOn = function()
 
 module.exports = new TimeDeviceScene();
 
-},{"../sdk/input":19,"../sdk/threeutils":24,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],14:[function(require,module,exports){
+},{"../sdk/input":29,"../sdk/threeutils":34,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],24:[function(require,module,exports){
 
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");
@@ -44126,8 +44457,19 @@ var SceneManager =
 	scenes:
 	{
 		timeDevice: require("./scene_timedevice.js"),
-		index: require("./scene_index.js"),
+		prison0: require("./scene_index.js"),
 		creationOfTheWorld: require("./scene_creation_of_the_world.js"),
+		field: require("./scene_past_field.js"),
+		construction: require("./scene_past_construction.js"),
+		prison1: require("./scene_prison1.js"),
+		prison2: require("./scene_prison2.js"),
+		prison3: require("./scene_prison3.js"),
+		prison4: require("./scene_prison4.js"),
+		prison5: require("./scene_prison5.js"),
+		prison6: require("./scene_prison6.js"),
+		prison7: require("./scene_prison7.js"),
+		prison8: require("./scene_prison8.js"),
+		LAST_PRISON: undefined, //special case, set dynamically
 	},
 
 	currentScene: undefined,
@@ -44135,6 +44477,8 @@ var SceneManager =
 
 	animation: undefined,
 }
+
+SceneManager.scenes.LAST_PRISON = SceneManager.scenes.prison0;
 
 SceneManager.ANIM_NONE = 0;
 SceneManager.ANIM_TIMETRAVEL = 1;
@@ -44154,7 +44498,7 @@ SceneManager.added = function()
 	this.scenes["timeDevice"].show();
 	this.scenes["timeDevice"].transform.position.z = -10;
 
-	this.finallyChangeScene("index", true);
+	this.finallyChangeScene("prison0", true);
 	this.currentScene.show();
 }
 
@@ -44258,6 +44602,8 @@ SceneManager.changeScene = function(key, animType)
 	var targetScene = this.scenes[key];
 	targetScene.show();
 	targetScene.transform.position.z = -70;
+	targetScene.transform.scale.set(1,1,1);
+	targetScene.setAlpha(1);
 	this.changingToScene = key;
 	
 	this.animation = animType;
@@ -44291,9 +44637,13 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 			this.scenes[i].notifyChangedScene();
 		}
 	}
+	if (key.substr(0, 6) === "prison")
+	{
+		this.scenes.LAST_PRISON = this.currentScene;
+	}
 }
 
-},{"../sdk/input":19,"./conversation.js":7,"./infobox.js":9,"./scene_creation_of_the_world.js":11,"./scene_index.js":12,"./scene_timedevice.js":13}],15:[function(require,module,exports){
+},{"../sdk/input":29,"./conversation.js":7,"./infobox.js":9,"./scene_creation_of_the_world.js":11,"./scene_index.js":12,"./scene_past_construction.js":13,"./scene_past_field.js":14,"./scene_prison1.js":15,"./scene_prison2.js":16,"./scene_prison3.js":17,"./scene_prison4.js":18,"./scene_prison5.js":19,"./scene_prison6.js":20,"./scene_prison7.js":21,"./scene_prison8.js":22,"./scene_timedevice.js":23}],25:[function(require,module,exports){
 
 // this file is partially generated by tools
 // do not change the layout
@@ -44385,7 +44735,7 @@ module.exports =
 }
 }
 
-},{"three":2}],16:[function(require,module,exports){
+},{"three":2}],26:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -44522,7 +44872,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":17}],17:[function(require,module,exports){
+},{"./index.js":27}],27:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -44680,7 +45030,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":19,"../polyfills":22,"./engine.js":16,"three":2}],18:[function(require,module,exports){
+},{"../input":29,"../polyfills":32,"./engine.js":26,"three":2}],28:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -44929,7 +45279,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],19:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -45044,7 +45394,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":18,"./keyboard.js":20,"./mouse.js":21}],20:[function(require,module,exports){
+},{"./gamepad.js":28,"./keyboard.js":30,"./mouse.js":31}],30:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -45229,7 +45579,7 @@ module.exports = Keyboard =
 	}
 };
 
-},{}],21:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -45415,7 +45765,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],22:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -45501,7 +45851,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],23:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -45557,7 +45907,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":24}],24:[function(require,module,exports){
+},{"./index.js":34}],34:[function(require,module,exports){
 
 THREE = require("three");
 AtlasData = require("../atlases");
@@ -45959,4 +46309,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":15,"./Atlas.js":23,"three":2}]},{},[1])
+},{"../atlases":25,"./Atlas.js":33,"three":2}]},{},[1])

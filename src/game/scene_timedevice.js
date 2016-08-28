@@ -41,13 +41,13 @@ TimeDeviceScene.prototype.added = function()
 	button1.triggerScene = "creationOfTheWorld";
 
 	var button2 = this.createClickableSprite("timedevice_button2", -75, -145);
-	button2.triggerScene = "creationOfTheWorld";
+	button2.triggerScene = "field";
 
 	var button3 = this.createClickableSprite("timedevice_button3", 66, -145);
-	button3.triggerScene = "creationOfTheWorld";
+	button3.triggerScene = "construction";
 
 	var button4 = this.createClickableSprite("timedevice_button4", 173, -90);
-	button4.triggerScene = "creationOfTheWorld";
+	button4.triggerScene = "LAST_PRISON";
 
 	this.buttons.push(button1);
 	this.buttons.push(button2);
