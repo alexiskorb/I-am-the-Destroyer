@@ -47307,11 +47307,14 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 1407,
+	width: 1468,
 	height: 956,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
+	"ballon":[698,678,60,60],
+	"cardboard":[1407,0,60,60],
+	"cardboardbox":[1345,84,60,60],
 	"crystal":[545,394,281,283],
 	"door":[827,394,256,256],
 	"grad_circle":[401,863,64,64],
@@ -47320,7 +47323,8 @@ module.exports =
 	"heaven_player":[827,651,196,297],
 	"johnson15_sprite":[545,781,128,128],
 	"keydoor":[0,0,544,862],
-	"lamp":[698,678,60,60],
+	"lamp":[698,739,60,60],
+	"magnets":[759,678,60,60],
 	"outlet":[1345,0,61,83],
 	"timedevice":[545,0,537,393],
 	"timedevice_button1":[0,863,141,93],
