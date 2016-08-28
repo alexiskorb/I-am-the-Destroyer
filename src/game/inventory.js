@@ -13,6 +13,18 @@ Inventory.items = {
     },
     player_atlas: {
         sprite: "player_atlas2"
+    },
+    cardboard_box: {
+        sprite: "cardboard_box"
+    },
+    cardboard: {
+        sprite: "cardboard"
+    },
+    balloon: {
+        sprite: "balloon"
+    },
+    magnets: {
+        sprite: "magnets"
     }
 }
 

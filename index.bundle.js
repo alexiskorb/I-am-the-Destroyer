@@ -42041,7 +42041,7 @@ module.exports=//ANGEL_INTRODUCTION
             "responses": [
                 {
                     "text": "I had another question.",
-                    "nextNodeId": 16
+                    "nextNodeId": 10
                 },
                 {
                     "text": "Nope. That's it.",
@@ -43430,17 +43430,17 @@ module.exports=//CARNIVAL
 				},
 				{
 					"text": "I have an idea for your investment.",
-					"textNodeId": 17,
+					"nextNodeId": 17,
 					"globalIsTrue": "INVESTMENT_TALK"
 				},
 				{
 					"text": "Any news around town?",
-					"textNodeId": 25,
+					"nextNodeId": 25,
 					"globalIsFalse": "CARNIVAL"
 				},
 				{
 					"text": "Any news around town?",
-					"textNodeId": 36,
+					"nextNodeId": 36,
 					"globalIsTrue": "CARNIVAL"
 				}
 			]
@@ -43670,11 +43670,11 @@ module.exports=//CARNIVAL
 			"responses": [
 				{
 					"text": "Take the risk. I want a hovercar.",
-					"setGlobalTrue": "NO_FUTURE_TECH",
 					"nextNodeId": 18
 				},
 				{
 					"text": "Play it safe. And more food is always welcome. I like food.",
+					"setGlobalTrue": "NO_FUTURE_TECH",
 					"nextNodeId": 19
 				},
 				{
@@ -43836,7 +43836,7 @@ module.exports=//CARNIVAL
 			"responses": [
 				{
 					"text": "A while back, I even got to meet the Lion tamer. It was so cool!",
-					"nextNodeId": 28
+					"nextNodeId": 29
 				},
 				{
 					"text": "Can I see the circus?",
@@ -43975,24 +43975,24 @@ module.exports=//GRAVITY_LIGHTER
 				{
 					"text": "What are you doing?",
 					"nextNodeId": 4,
-					"isGlobalFalse": "BRICK_WALL" 
+					"globalIsFalse": "BRICK_WALL" 
 				},
 				{
 					"text": "So, how's the wall going?",
 					"nextNodeId": 12,
-					"isGlobalTrue": "BRICK_WALLL",
-					"isGlobalFalse": "WOOD_WALL" 
+					"globalIsTrue": "BRICK_WALLL",
+					"globalIsFalse": "WOOD_WALL" 
 				},
 				{
 					"text": "So, how's the wall going?",
 					"nextNodeId": 21,
-					"isGlobalTrue": "WOOD_WALL",
-					"isGlobalFalse": "CARDBOARD_WALL" 
+					"globalIsTrue": "WOOD_WALL",
+					"globalIsFalse": "CARDBOARD_WALL" 
 				},
 				{
 					"text": "So, how's the wall going?",
-					"nextNodeId": 32,
-					"isGlobalTrue": "CARDBOARD_WALL", 
+					"globalIsTrue": 32,
+					"globalIsFalse": "CARDBOARD_WALL", 
 				},
 				{
 					"text": "You remind me of someone.",
@@ -44000,17 +44000,17 @@ module.exports=//GRAVITY_LIGHTER
 				},
 				{
 					"text": "About the labyrinth and door...",
-					"isGlobalTrue": "DOOR_TALK",
+					"globalIsTrue": "DOOR_TALK",
 					"nextNodeId": 36
 				},
 				{			
 					"text": "Which one's your cousin working on again?",
-					"isGlobalTrue": "BAD_LABYRINTH",
+					"globalIsTrue": "BAD_LABYRINTH",
 					"nextNodeId": 47
 				},
 				{			
 					"text": "Which one's your cousin working on again?",
-					"isGlobalTrue": "BAD_DOOR",
+					"globalIsTrue": "BAD_DOOR",
 					"nextNodeId": 48
 				},
 			]
@@ -44176,12 +44176,12 @@ module.exports=//GRAVITY_LIGHTER
 			"responses":[
 				{
 					"text": "You know, bricks are kind of heavy. Maybe you should choose something lighter.",
-					"isGlobalFalse": "GRAVITY_LIGHTER",
+					"globalIsFalse": "GRAVITY_LIGHTER",
 					"nextNodeId": 16
 				},
 				{
 					"text": "You know, bricks are kind of heavy. Maybe you should choose something lighter.",
-					"isGlobalTrue": "GRAVITY_LIGHTER",
+					"globalIsTrue": "GRAVITY_LIGHTER",
 					"nextNodeId": 15
 				},
 			]
@@ -44267,12 +44267,12 @@ module.exports=//GRAVITY_LIGHTER
 			"responses":[
 				{
 					"text": "You know. I've been thinking. Isn't wood still kind of heavy?",
-					"isGlobalFalse": "GRAVITY_LIGHTER",
+					"globalIsFalse": "GRAVITY_LIGHTER",
 					"nextNodeId": 23
 				},
 				{
 					"text": "You know. I've been thinking. Isn't wood still kind of heavy?",
-					"isGlobalTrue": "GRAVITY_LIGHTER",
+					"globalIsTrue": "GRAVITY_LIGHTER",
 					"nextNodeId": 22
 				},
 			]
@@ -44307,12 +44307,12 @@ module.exports=//GRAVITY_LIGHTER
 				{
 					"text": "Brick. It's sturdy.",
 					"nextNodeId": 26,
-					"isGlobalTrue": "GRAVITY_LIGHTER"
+					"globalIsTrue": "GRAVITY_LIGHTER"
 				},
 				{
 					"text": "Brick. It's sturdy.",
 					"nextNodeId": 27,
-					"isGlobalFalse": "GRAVITY_LIGHTER"
+					"globalIsFalse": "GRAVITY_LIGHTER"
 				},
 				{
 					"text": "Wood.",
@@ -44321,12 +44321,12 @@ module.exports=//GRAVITY_LIGHTER
 				{
 					"text": "Cardboard?",
 					"nextNodeId": 29,
-					"isGlobalFalse": "BOX_IN_WORMHOLE"
+					"globalIsFalse": "BOX_IN_WORMHOLE"
 				},
 				{
 					"text": "Cardboard?",
 					"nextNodeId":30,
-					"isGlobalTrue": "BOX_IN_WORMHOLE"
+					"globalIsTrue": "BOX_IN_WORMHOLE"
 				},
 			]
 		},
@@ -44488,12 +44488,12 @@ module.exports=//GRAVITY_LIGHTER
 				{
 					"text": "What about the first cousin?",
 					"nextNodeId": 39,
-					"isGlobalFalse": "BOX_IN_WORMHOLE"
+					"globalIsFalse": "BOX_IN_WORMHOLE"
 				},
 			    { 
 					"text": "What about the first cousin?",
 					"nextNodeId": 43,
-					"isGlobalTrue": "BOX_IN_WORMHOLE"
+					"globalIsTrue": "BOX_IN_WORMHOLE"
 				},
 			]
 		},
