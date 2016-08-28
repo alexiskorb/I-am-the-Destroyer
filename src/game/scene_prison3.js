@@ -22,19 +22,22 @@ PrisonScene3.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableSprite("keydoor", 0, 0);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "keypad",
+		continue: true
+	})
+	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison4",
-		//TODO: check lamp is plugged in
+		globalIsTrue: "LAMP_PLUGGED_IN",
 		globalIsFalse: "DAM_BUILT"
 	})
-	doorClickTarget.addAction({
+
+	// create outlet
+	var outlet = this.createClickableSprite("outlet", -500, 0);
+	outlet.addAction({
 		action: "showInfoBox",
-		target: "doorHasDamPower",
-		globalIsTrue: "DAM_BUILT"
-	})
-	doorClickTarget.addAction({
-		action: "showInfoBox",
-		target: "doorHasNoDamPower",
+		target: "outlet"
 	})
 
 	PrisonScene.prototype.added.call(this);

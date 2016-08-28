@@ -23,6 +23,11 @@ PrisonScene2.prototype.added = function()
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "moat",
+		continue: true,
+	});
+	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison3",
 		globalIsTrue: "FoodForAnimals"
@@ -31,10 +36,6 @@ PrisonScene2.prototype.added = function()
 		action: "triggerScene",
 		target: "prison3",
 		globalIsTrue: "DAM_BUILT"
-	});
-	doorClickTarget.addAction({
-		action: "showInfoBox",
-		target: "moatImpassable",
 	});
 
 	PrisonScene.prototype.added.call(this);

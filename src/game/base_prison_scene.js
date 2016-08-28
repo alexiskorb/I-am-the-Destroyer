@@ -8,8 +8,6 @@ ClickTarget = require("./clicktarget.js");
 
 var PrisonScene = function()
 {
-	this.backgroundUrl = "media/prison1_bg.png";
-
 	Scene.call(this);
 }
 

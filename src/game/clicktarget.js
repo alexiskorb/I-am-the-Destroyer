@@ -168,7 +168,10 @@ ClickTarget.prototype.trigger = function()
 		if (this.actionMeetsConditionals(this.actions[i]))
 		{
 			this.triggerAction(this.actions[i]);
-			return;
+			if (!this.actions[i].continue)
+			{
+				return;
+			}
 		}
 	}
 }
@@ -197,6 +200,10 @@ ClickTarget.prototype.triggerAction = function(action)
 	else if (action.action == "triggerScene")
 	{
 		SceneManager.changeScene(action.target, SceneManager.ANIM_FORWARD);
+	}
+	else if (action.action == "disable")
+	{
+		this.permanentlyDisable();
 	}
 }
 

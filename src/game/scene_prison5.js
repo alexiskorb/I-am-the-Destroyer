@@ -23,8 +23,14 @@ PrisonScene5.prototype.added = function()
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "guard",
+		continue: true
+	})
+	doorClickTarget.addAction({
 		action: "triggerScene",
-		target: "prison6"
+		target: "prison6",
+		globalIsTrue: ["ANIMAL_REST", "CARNIVAL"]
 	})
 
 	PrisonScene.prototype.added.call(this);

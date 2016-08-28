@@ -78,39 +78,6 @@ InfoBox.parseConditionals = function(item)
 
 InfoBox.info = 
 {
-    test: 
-    {
-        cycle: 0,
-        data: [
-            {
-                text: "hey",
-                isTrue: [],
-                isFalse: []
-            },
-            {
-                text: "hello",
-                isTrue: [],
-                isFalse: []
-            },
-            {
-                text: "yeehaw",
-                isTrue: [],
-                isFalse: []
-            }
-        ]
-    },
-    test2: 
-    {
-        cycle: 0,
-        data: 
-        [
-            {
-                text: "yo",
-                isTrue: [],
-                isFalse: []
-            }
-        ]
-    },
     laser_force_exit: {
         cycle: 0,
         data: [
@@ -120,7 +87,7 @@ InfoBox.info =
                 isFalse: ["NO_FUTURE_TECH"]
             },
             {
-                text: "The force field is down, but the lasers look dangerous.",
+                text: "The force field is down, but if I try to get through those lasers I'll probably look like french fries.",
                 isFalse: ["LASERS_DONT_HURT"],
                 isTrue: ["NO_FUTURE_TECH"]
             },
@@ -375,26 +342,6 @@ InfoBox.info =
             },
         ]
     },
-    badForceField:
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "I can't get over there. I'm trapped by this forcefield.",
-            }
-        ]
-    },
-    badLasers:
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "If I try to get through those lasers I'll probably look like french fries.",
-            }
-        ]
-    },
     crystal:
     {
         cycle: 0,
@@ -418,26 +365,6 @@ InfoBox.info =
         [
             {
                 text: "There is a moat in the way. It is full of water and dark-crystal-eating crocodiles.",
-            }
-        ]
-    },
-    doorHasDamPower:
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "The door seems fully powered and very secure."
-            }
-        ]
-    },
-    doorHasNoDamPower:
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "The door flickers and seems to have barely enough power to stay closed."
             }
         ]
     }
