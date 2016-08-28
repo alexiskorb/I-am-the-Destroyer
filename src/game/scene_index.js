@@ -49,7 +49,9 @@ IndexScene.prototype.added = function()
 	johnsonSprite.showInfoBox = "test2";
 
 	var johnsonSprite2 = this.createClickableSprite("johnson15_sprite", -300, -300);
-	johnsonSprite2.showInfoBox = "test";
+	johnsonSprite2.showInfoBox = "keypad";
+	var johnsonSprite3 = this.createClickableSprite("johnson15_sprite", -400, -200);
+	johnsonSprite3.showInfoBox = "moat";
 
 	// create door
 	var doorClickTarget = this.createClickableSprite("door", 0, 0);

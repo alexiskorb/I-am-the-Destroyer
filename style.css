@@ -131,9 +131,12 @@ img[src=""]
 	text-align: center;
 	left:0;right:0;
 	top: 0;
-	width: 300px;
+	width: 350px;
+	max-height: 80px;
 	margin: 20px auto;
-	padding: 8px 140px 8px 140px;
+	padding: 8px 8px 8px 8px;
+	overflow: auto;
+	overflow-x: hidden;
 
 	border: 1px solid white;
 	color: white;

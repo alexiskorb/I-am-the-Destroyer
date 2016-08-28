@@ -141,12 +141,27 @@ InfoBox.info =
                 isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
             },
             {
-                text: "Wow. Those crocodiles got so fat and lazy, that I can just walk across them.",
+                text: "Poor hungry crocodiles.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
+            },
+            {
+                text: "Those crocodiles are so fat now. I don't think they want to eat me anymore.",
                 isTrue: ["FOOD_FOR_ANIMALS"],
                 isFalse: ["DAM_BUILT"]
             },
             {
-                text: "No water. No crocodiles. The dam must have diverted the water.",
+                text: "I can walk across the crocodile backs now.",
+                isTrue: ["FOOD_FOR_ANIMALS"],
+                isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "No water. No crocodiles. Easy.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: []
+            },
+            {
+                text: "The dam must have diverted the water.",
                 isTrue: ["DAM_BUILT"],
                 isFalse: []
             }
@@ -157,7 +172,17 @@ InfoBox.info =
         cycle: 0,
         data: [
             {
+                text: "The door is locked.",
+                isTrue: [],
+                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN"]
+            },
+            {
                 text: "I tried \"0000\". I guess the manufacturers aren't that stupid.",
+                isTrue: [],
+                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN"]
+            },
+            {
+                text: "\"Password\" doesn't work either.",
                 isTrue: [],
                 isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN"]
             },
@@ -223,7 +248,7 @@ InfoBox.info =
             },
             {
                 text: "I have to get past the guard and that pet tiger somehow.",
-                isTrue: [],
+                isTrue: ["CARNIVAL"],
                 isFalse: ["ANIMAL_REST"]
             },
         ]

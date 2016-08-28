@@ -36,6 +36,7 @@ Inventory.added = function() {
         this.inventoryDisplay[i] = li;
         this.itemList[i] = undefined; 
     }
+
 }
 Inventory.addItem = function(item) {
    for (var i = 0; i < 5; i++){
