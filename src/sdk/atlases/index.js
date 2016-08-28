@@ -9,31 +9,47 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
+<<<<<<< HEAD
+	width: 1474,
+=======
 	width: 1468,
+>>>>>>> d0a015e3df2121b26e6ad3adf0417b3e7cc64c27
 	height: 956,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
+<<<<<<< HEAD
+	"balloon":[531,879,60,60],
+	"cardboard":[746,678,60,60],
+	"cardboardbox":[592,879,60,60],
+=======
 	"ballon":[698,678,60,60],
 	"cardboard":[1407,0,60,60],
 	"cardboardbox":[1345,84,60,60],
+>>>>>>> d0a015e3df2121b26e6ad3adf0417b3e7cc64c27
 	"crystal":[545,394,281,283],
 	"door":[827,394,256,256],
 	"grad_circle":[401,863,64,64],
 	"grad_r":[466,863,64,64],
 	"heaven_angel":[1084,258,212,467],
 	"heaven_player":[827,651,196,297],
-	"johnson15_sprite":[545,781,128,128],
+	"johnson15_sprite":[1345,0,128,128],
 	"keydoor":[0,0,544,862],
+<<<<<<< HEAD
+	"lamp":[1345,129,60,60],
+	"magnets":[746,739,60,60],
+=======
 	"lamp":[698,739,60,60],
 	"magnets":[759,678,60,60],
 	"outlet":[1345,0,61,83],
+>>>>>>> d0a015e3df2121b26e6ad3adf0417b3e7cc64c27
 	"timedevice":[545,0,537,393],
 	"timedevice_button1":[0,863,141,93],
 	"timedevice_button2":[142,863,137,75],
 	"timedevice_button3":[280,863,120,76],
-	"timedevice_button4":[545,678,152,102],
+	"timedevice_button4":[1297,258,152,102],
 	"timedevice_sticky":[1083,0,261,257],
+	"wormhole":[545,678,200,200],
 	},
 },
 "heaven":

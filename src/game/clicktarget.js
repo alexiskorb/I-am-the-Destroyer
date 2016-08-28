@@ -25,12 +25,26 @@ var ClickTarget = function(mesh)
 	this.collectItem = undefined;
 
 	this.showInfoBox = undefined;
+	this.existConditionsTrue = [];
+	this.existConditionsFalse = [];
+	this.conditional = false;
 }
 
 ClickTarget.prototype.addAction = function(data)
 {
 	this.actions.push(data);
 }
+ClickTarget.prototype.addTrue= function(data)
+{
+	this.existConditionsTrue.push(data);
+	this.conditional = true;
+}
+ClickTarget.prototype.addFalse = function(data)
+{
+	this.existConditionsFalse.push(data);
+	this.conditional = true;
+}
+
 
 //Possible action keys:
 // - triggerConversation
@@ -240,4 +254,23 @@ ClickTarget.prototype.triggerPostAnimation = function()
 	}
 
 	this.executingAction = undefined;
+}
+
+ClickTarget.prototype.meetsExistConditions = function()
+{
+	for (var i = 0; i < this.existConditionsFalse.length; i++)
+    {
+        if (GlobalVariables.getVariable(this.existConditionsFalse[i]))
+		{
+			return false;
+        }
+    }
+	for (var i = 0; i < this.existConditionsTrue.length; i++)
+    {
+        if (!(GlobalVariables.getVariable(this.existConditionsTrue[i])))
+		{
+			return false;
+        }
+    }
+    return true;
 }

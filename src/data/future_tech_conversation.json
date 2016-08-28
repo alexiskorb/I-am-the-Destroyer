@@ -223,7 +223,8 @@
 			"text": "Here you go.", 
 			"responses":[
 				{
-					"text": "[Take lamp.]",				
+					"text": "[Take lamp.]",		
+					"getItem": "lamp"		
                 },
 			],
 		},

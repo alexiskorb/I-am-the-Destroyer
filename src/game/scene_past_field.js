@@ -31,6 +31,11 @@ FieldScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/prophet_conversation.json")
 	})
+	var cardboardBox = this.createClickableSprite("cardboardbox", 200, 200);
+	cardboardBox.addAction({
+		action: "collectItem",
+		target: "cardboard_box"
+	})
 
 	Scene.prototype.added.call(this);
 }
