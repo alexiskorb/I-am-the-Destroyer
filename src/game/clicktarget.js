@@ -2,6 +2,7 @@
 THREE = require("three");
 Conversation = require("./conversation.js");
 InfoBox = require("./infobox.js");
+GlobalVariables = require("./globalvariables.js");
 //SceneManager = require("./scenemanager.js");
 
 var ClickTarget = function(mesh)
@@ -9,6 +10,8 @@ var ClickTarget = function(mesh)
 	this.enabled = true;
 	this.mesh = mesh;
 	this.bounds = new THREE.Box3();
+
+	this.actions = [];
 
 	// set this to a block of convo data (using require) to make this
 	// target start a conversation
@@ -23,6 +26,17 @@ var ClickTarget = function(mesh)
 
 	this.showInfoBox = undefined;
 }
+
+ClickTarget.prototype.addAction = function(data)
+{
+	this.actions.push(data);
+}
+
+//Possible action keys:
+// - triggerConversation
+// - triggerScene
+// - collectItem
+// - showInfoBox
 
 ClickTarget.ANIM_PICKUP = 1;
 
@@ -63,6 +77,7 @@ ClickTarget.prototype.update = function()
 ClickTarget.prototype.isPointInBounds = function(point)
 {
 	if (!this.enabled) return false;
+	if (this.actions.length == 0) return false;
 	var point = new THREE.Vector3(point.x, point.y, 0);
 	this.getBoundingBox();
 	point.z = (this.bounds.min.z + this.bounds.max.z) / 2;
@@ -134,32 +149,88 @@ ClickTarget.prototype.playPickupTween = function()
 
 ClickTarget.prototype.trigger = function()
 {
-	if (this.triggerTimeDevice)
+	for (var i = 0; i < this.actions.length; i++)
+	{
+		if (this.actionMeetsConditionals(this.actions[i]))
+		{
+			this.triggerAction(this.actions[i]);
+			return;
+		}
+	}
+}
+
+ClickTarget.prototype.triggerAction = function(action)
+{
+	this.executingAction = action;
+
+	if (action.action == "triggerTimeDevice")
 	{
 		SceneManager.showTimeDevice();
 	}
-	if (this.collectItem)
+	else if (action.action == "collectItem")
 	{
 		this.playPickupTween();
 	}
-	if (this.showInfoBox){
-		InfoBox.display(this.showInfoBox);
-	}
-	if (this.triggerConversation)
+	else if (action.action == "showInfoBox")
 	{
-		Conversation.startConversation(this.triggerConversation);
+		InfoBox.display(action.target);
+	}
+	else if (action.action == "triggerConversation")
+	{
+		Conversation.startConversation(action.target);
 		InfoBox.hide();
 	}
-	else if (this.triggerScene)
+	else if (action.action == "triggerScene")
 	{
-		SceneManager.changeScene(this.triggerScene, SceneManager.ANIM_FORWARD);
+		SceneManager.changeScene(action.target, SceneManager.ANIM_FORWARD);
 	}
+}
+
+ClickTarget.prototype.actionMeetsConditionals = function(action)
+{
+	if (action.globalIsFalse)
+	{
+		if (action.globalIsFalse instanceof Array)
+		{
+			for (var i = 0; i < action.globalIsFalse.length; i++)
+			{
+				if (GlobalVariables.getVariable(action.globalIsFalse[i]))
+				{
+					return false;
+				}
+			}
+		}
+		else if (GlobalVariables.getVariable(action.globalIsFalse))
+		{
+			return false;
+		}
+	}
+	if (action.globalIsTrue)
+	{
+		if (action.globalIsTrue instanceof Array)
+		{
+			for (var i = 0; i < action.globalIsTrue.length; i++)
+			{
+				if (!GlobalVariables.getVariable(action.globalIsTrue[i]))
+				{
+					return false;
+				}
+			}
+		}
+		else if (!GlobalVariables.getVariable(action.globalIsTrue))
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 ClickTarget.prototype.triggerPostAnimation = function()
 {
-	if (this.collectItem)
+	if (this.executingAction.action == "collectItem")
 	{
-		Inventory.addItem(Inventory.items[this.collectItem]);
+		Inventory.addItem(Inventory.items[this.executingAction.target]);
 	}
+
+	this.executingAction = undefined;
 }

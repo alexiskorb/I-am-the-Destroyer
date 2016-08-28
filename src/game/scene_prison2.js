@@ -22,7 +22,10 @@ PrisonScene2.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.triggerScene = "prison3";
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison3"
+	})
 
 	PrisonScene.prototype.added.call(this);
 }
