@@ -24,6 +24,10 @@
 			"id": 0,
 			"responses":[
 				{
+					"nextNodeId": 17,
+					"globalIsFalse": "NO_FUTURE_TECH"
+				},
+				{
 					"nextNodeId": 1,
 					"onceOnlyGlobal": "DAM_JOHNSON_INTRODUCTION"
 				},
@@ -43,7 +47,8 @@
 			"responses":[
 				{
 					"text": "I'm the embodiment of pure evil from the darkest corners of time and space, sent to wreak terrible havok on the surface of this planet.",
-					"nextNodeId": 3
+					"nextNodeId": 3,
+					"onceOnlyGlobal": "I_AM_DAM_EVIL"
 				},
 				{
 					"text": "There is a puzzle I cannot solve.",
@@ -60,6 +65,11 @@
 			"speaker": "johnson14",
 			"text": "What can I do for you, gloomy sir?",
 			"responses":[
+				{
+					"text": "I'm the embodiment of pure evil from the darkest corners of time and space, sent to wreak terrible havok on the surface of this planet.",
+					"nextNodeId": 3,
+					"onceOnlyGlobal": "I_AM_DAM_EVIL"
+				},
 				{
 					"text": "There is a puzzle I cannot solve.",
 					"nextNodeId": 4
@@ -257,7 +267,7 @@
 		{
 			"id": 14,
 			"speaker": "johnson14",
-			"text": "I'm thinking about how we're going to bridge the outside of town.",
+			"text": "I'm pondering the aesthetic implications of building different styles of bridges over this river.",
 			"responses":[
 				{
 					"text": "Bridges, huh?",
@@ -281,6 +291,11 @@
 			"id": 16,
 			"speaker": "johnson14",
 			"text": "We're getting right to work on that dam! It's going to be great!."
+		},
+		{
+			"id": 17,
+			"speaker": "johnson14",
+			"text": "I'm terribily busy making these extremely time-sensitive measurements. Please come back later"
 		}
 	]
 }
