@@ -98,6 +98,7 @@ body
 	position: absolute;
 	right: 0px;
 	top: 0px;
+	color: slategrey;
 }
 #inventoryTitle 
 {
@@ -109,11 +110,11 @@ body
 {
 	width: 60px;
 	height: 60px;
-	border: 5px solid black;
+	border: 5px solid slategrey;
 	border-bottom: none;
 }
 .inventoryItem:last-child{
-	border-bottom: 5px solid black 
+	border-bottom: 5px solid slategrey;
 }
 .inventoryImage, .lamp
 {
@@ -141,4 +142,19 @@ img[src=""]
 	border: 1px solid white;
 	color: white;
 	background-color: black;
+}
+#reset
+{
+	position: absolute;
+	left: 5px;
+	top: 5px;
+	background-color: darkred;
+	width: 60px;
+	padding:10px 5px;
+	border-radius: 10px;
+	border: 5px solid slategrey;
+	color: white;
+	text-align: center;
+	display: block;
+	z-index: 5;
 }

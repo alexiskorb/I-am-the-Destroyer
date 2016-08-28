@@ -1,0 +1,181 @@
+
+{
+	"title": "investor_convo",
+
+	"characters":
+	[
+		{
+			"id": "investor",
+			"displayName": "Anthony Calahan",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+		{
+			"id": 1,
+			"speaker": "investor",
+			"text": "Hello.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 2
+				},
+                {
+					"text": "What are you doing?",
+					"nextNodeId": 8
+				},
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "investor",
+			"text": "My name is Anthony Calahan. I am a wealthy author.",
+			"responses":[
+               {
+					"text": "What books have you written?",
+					"nextNodeId": 3,
+                    "globalIsFalse": "LASERS_DONT_HURT"
+				},   
+                {
+					"text": "What books have you written?",
+					"nextNodeId": 4,
+                    "globalIsTrue": "LASERS_DONT_HURT",
+                    "globalIsFalse": ["GRAVITY_LIGHTER", "BOX_IN_WORMHOLE"]
+				},      
+                {
+					"text": "What books have you written?",
+					"nextNodeId": 5,
+                    "globalIsTrue": ["GRAVITY_LIGHTER", "LASERS_DONT_HURT"],
+				},   
+                {
+					"text": "What books have you written?",
+					"nextNodeId": 6,
+                     "globalIsTrue": ["BOX_IN_WORMHOLE", "LASERS_DONT_HURT"], 
+                    "globalIsFalse": "GRAVITY_LIGHTER"
+                },
+                {
+					"text": "What books have you written?",
+					"nextNodeId": 7,
+                    "globalIsTrue": ["GRAVITY_LIGHTER", "DAM_BUILT", "BOX_IN_WORMHOLE"]
+				},
+			]
+		},
+        {
+			"id": 3,
+			"speaker": "investor",
+			"text": "\"Physics is Simple\" and \"Weird Anomalies Don't Happen\", among others",
+			"responses": [,
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 7
+				},
+                {
+					"text": "Can I get an autograph?",
+					"nextNodeId": 2
+				},
+			]
+		},
+        {
+			"id": 4,
+			"speaker": "investor",
+			"text": "\"The Physical Limit of Light Intensity\" and \"The Future of Lasers\", among others",
+			"responses": [,
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 8
+				},
+                {
+					"text": "Can I get an autograph?",
+					"nextNodeId": 2
+				},
+			]
+		},
+        {
+			"id": 4,
+			"speaker": "investor",
+			"text": "\"Why Earth Gravity is Lighter than Moon Gravity\" and \"Balloons: A Study\", among others",
+			"responses": [,
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 8
+				},
+			]
+		},
+        {
+			"id": 5,
+			"speaker": "investor",
+			"text": "\"Why Earth Gravity is Lighter than Moon Gravity\" and \"Balloons: A Study\", among others",
+			"responses": [,
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 8
+				},
+			]
+		},
+        {
+			"id": 6,
+			"speaker": "investor",
+			"text": "\"Wormholes as Portals\" and \"Cardboard Box Sightings\", among others",
+			"responses": [,
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 8
+				},
+			]
+		},
+        {
+			"id": 7,
+			"speaker": "investor",
+			"text": "\"Physics is Messed Up\" and \"Time Travel Speculations\", among others",
+			"responses": [,
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 8
+				},
+			]
+		},
+        {
+			"id": 8,
+			"speaker": "investor",
+			"text": "I'm trying to figure out where to invest my money.",
+			"responses": [,
+				{
+					"text": "Why?",
+					"nextNodeId": 9
+				}
+                {
+					"text": "Where are you considering?",
+					"nextNodeId": 10
+				},
+			]
+		},
+        {
+			"id": 9,
+			"speaker": "investor",
+			"text": "Why? So that I can make even more money, of course.",
+			"responses": [,
+				{
+					"text": "I suppose that was a dumb question.",
+					"nextNodeId": 10
+				}
+                {
+					"text": "Right.",
+					"nextNodeId": 10
+				},
+			]
+		},
+	]
+}
