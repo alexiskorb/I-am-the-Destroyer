@@ -79,14 +79,30 @@ Engine.prototype._handleWindowResize = function()
 {
 	if (this.canvasDiv) // for node server support
 	{
-		this.screenWidth = this.canvasDiv.offsetWidth;
-		this.screenHeight = this.canvasDiv.offsetHeight;
-		this.renderer.setSize(this.screenWidth, this.screenHeight);
+		this.screenWidth = 1920;
+		this.screenHeight = 1080;
+
+		var rendererWidth = window.innerWidth;
+		var rendererHeight = window.innerHeight;
+		var aspect = rendererWidth / rendererHeight;
+
+		if (aspect > 16/9)
+		{
+			rendererWidth = rendererHeight * 16/9;
+		}
+		else if (aspect < 16/9)
+		{
+			rendererHeight = rendererWidth * 9/16;
+		}
+
+		this.renderer.domElement.style.display = "block";
+		this.renderer.domElement.style.margin = "auto";
+		this.renderer.setSize(rendererWidth, rendererHeight);
 	}
 	this.mainCamera.left = 0;
-	this.mainCamera.right = this.screenWidth;
+	this.mainCamera.right = 1920;
 	this.mainCamera.top = 0;
-	this.mainCamera.bottom = this.screenHeight;
+	this.mainCamera.bottom = 1080;
 	this.mainCamera.updateProjectionMatrix();
 }
 
