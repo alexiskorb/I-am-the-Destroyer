@@ -59,14 +59,14 @@ InfoBox.hide = function()
 }
 InfoBox.parseConditionals = function(item)
 {
-    for (var i = 0; i < item.isFalse.length; i++)
+    for (var i = 0; item.isFalse && i < item.isFalse.length; i++)
     {
         if (GlobalVariables.getVariable(item.isFalse[i]))
 		{
 			return undefined;
         }
     }
-    for (var i = 0; i < item.isTrue.length; i++)
+    for (var i = 0; item.isTrue && i < item.isTrue.length; i++)
     {
 		if (!GlobalVariables.getVariable(item.isTrue[i]))
 		{
@@ -373,6 +373,26 @@ InfoBox.info =
                 isTrue: ["WORMHOLE_ACTIVATED", "BOX_IN_WORMHOLE"],
                 isFalse: []
             },
+        ]
+    },
+    badForceField:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I can't get over there. I'm trapped by this forcefield.",
+            }
+        ]
+    },
+    badLasers:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "If I try to get through those lasers I'll probably look like french fries.",
+            }
         ]
     }
 }

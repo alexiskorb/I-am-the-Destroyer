@@ -9,46 +9,25 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 873,
-	height: 861,
+	width: 949,
+	height: 754,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"door":[0,394,256,256],
-	"grad_circle":[800,0,64,64],
-	"grad_r":[153,651,64,64],
-	"heaven_angel":[257,394,212,467],
-	"heaven_player":[538,258,196,297],
-	"johnson15_sprite":[735,334,128,128],
-	"lamp":[470,394,60,60],
+	"crystal":[538,0,281,283],
+	"door":[262,394,256,256],
+	"grad_circle":[820,206,64,64],
+	"grad_r":[433,651,64,64],
+	"heaven_angel":[538,284,212,467],
+	"heaven_player":[751,284,196,297],
+	"johnson15_sprite":[820,0,128,128],
+	"lamp":[885,206,60,60],
 	"timedevice":[0,0,537,393],
-	"timedevice_button1":[0,754,141,93],
-	"timedevice_button2":[735,258,137,75],
-	"timedevice_button3":[470,556,120,76],
-	"timedevice_button4":[0,651,152,102],
-	"timedevice_sticky":[538,0,261,257],
-	},
-},
-"johnson15":
-{
-	url: "media/johnson15_atlas.png",
-	width: 201,
-	height: 256,
-	filter: THREE.LinearFilter,
-	sprites:
-	{
-	"port_idle":[0,0,200,256],
-	},
-},
-"player":
-{
-	url: "media/player_atlas.png",
-	width: 213,
-	height: 371,
-	filter: THREE.LinearFilter,
-	sprites:
-	{
-	"port_idle":[0,0,212,371],
+	"timedevice_button1":[153,652,141,93],
+	"timedevice_button2":[295,651,137,75],
+	"timedevice_button3":[820,129,120,76],
+	"timedevice_button4":[0,652,152,102],
+	"timedevice_sticky":[0,394,261,257],
 	},
 },
 "heaven":
@@ -63,17 +42,6 @@ module.exports =
 	"heaven_platform":[0,0,1235,246],
 	},
 },
-"johnson1":
-{
-	url: "media/johnson1_atlas.png",
-	width: 213,
-	height: 371,
-	filter: THREE.LinearFilter,
-	sprites:
-	{
-	"port_idle":[0,0,212,371],
-	},
-},
 "prison1":
 {
 	url: "media/prison1_atlas.png",
@@ -86,5 +54,18 @@ module.exports =
 	"prison1_floor":[705,0,4,295],
 	"prison1_topshadow":[705,296,4,270],
 	},
-}
+},
+"characters":
+{
+	url: "media/characters_atlas.png",
+	width: 710,
+	height: 703,
+	filter: THREE.LinearFilter,
+	sprites:
+	{
+	"johnson1":[0,0,212,371],
+	"johnson15":[426,0,200,256],
+	"player":[213,0,212,371],
+	},
+},
 }

@@ -11,10 +11,7 @@
 		{
 			"id": "johnson14",
 			"displayName": "Angle Johnson XIV",
-			"atlas": "johnson15",
-			"sprites":[
-				"port_idle"
-			]
+			"sprite": "johnson15"
 		}
 	],
 

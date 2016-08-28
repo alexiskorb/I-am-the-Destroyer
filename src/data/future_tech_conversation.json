@@ -12,18 +12,12 @@
 		{
 			"id": "future_tech_guy",
 			"displayName": "Tom Psion",
-			"atlas": "johnson15",
-			"sprites":[
-				"port_idle"
-			]
+			"sprite": "johnson15"
 		},
 		{
 			"id": "player",
 			"displayName": "Me",
-			"atlas": "player",
-			"sprites":[
-				"port_idle"
-			]
+			"sprite": "player"
 		}
 	],
 

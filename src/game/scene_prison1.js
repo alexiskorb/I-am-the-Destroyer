@@ -55,30 +55,23 @@ PrisonScene1.prototype.added = function()
 		GameEngine.screenHeight/2 - atlas.getSpriteHeight("prison1_floor")/2,
 		-10);
 	floor.z = -10;
-	
-	// create johnson
-	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
-	johnsonSprite.addAction({
-		action: "triggerConversation",
-		target: require("../data/prophet_conversation.json")
-	})
-
-	var johnsonSprite2 = this.createClickableSprite("johnson15_sprite", -300, -300);
-	johnsonSprite2.addAction({
-		action: "showInfoBox",
-		target: "keypad"
-	})
-	var johnsonSprite3 = this.createClickableSprite("johnson15_sprite", -400, -200);
-	johnsonSprite3.addAction({
-		action: "showInfoBox",
-		target: "moat"
-	})
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
 		action: "triggerScene",
-		target: "prison2"
+		target: "prison2",
+		globalIsTrue: ["NO_FUTURE_TECH", "LASERS_DONT_HURT"]
+	})
+	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "badForceField",
+		globalIsFalse: "NO_FUTURE_TECH"
+	})
+	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "badLasers",
+		globalIsFalse: "LASERS_DONT_HURT"
 	})
 
 	PrisonScene.prototype.added.call(this);

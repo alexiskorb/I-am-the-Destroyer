@@ -160,12 +160,12 @@ Conversation.moveToNode = function(index)
 		var currentSpeaker = this.getSpeaker(currentNode.speaker);
 		this.textElement.innerHTML = "<b>" + currentSpeaker.displayName + ":</b> " + currentNode.text;
 
-		var speakerAtlas = ThreeUtils.loadAtlas(currentSpeaker.atlas);
+		var speakerAtlas = ThreeUtils.loadAtlas("characters");
 		this.portraitElement.className = "conversation_portrait_on";
-		ThreeUtils.setElementToAtlasImage(this.portraitElement, speakerAtlas, currentSpeaker.sprites[0]);
+		ThreeUtils.setElementToAtlasImage(this.portraitElement, speakerAtlas, currentSpeaker.sprite);
 
 		this.portraitElement2.className = "conversation_portrait2_on";
-		ThreeUtils.setElementToAtlasImage(this.portraitElement2, ThreeUtils.loadAtlas("player"), "port_idle");
+		ThreeUtils.setElementToAtlasImage(this.portraitElement2, speakerAtlas, "player");
 
 		var i = 0;
 		if (currentNode.responses)
