@@ -20,7 +20,7 @@ GameEngine.addObject(window.SceneManager);
 
 // that's it!
 
-},{"./src/game/conversation.js":8,"./src/game/infobox.js":10,"./src/game/inventory.js":11,"./src/game/scenemanager.js":25,"./src/sdk/engine":28}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":13,"./src/game/infobox.js":15,"./src/game/inventory.js":16,"./src/game/scenemanager.js":30,"./src/sdk/engine":33}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -42303,6 +42303,2338 @@ module.exports=//ANGEL_INTRODUCTION
 }
 },{}],4:[function(require,module,exports){
 module.exports=
+//sets: DAM_BUILT, DAM_JOHNSON_INTRODUCTION, EXPLAINED_WHY_DAMS_ARE_AWESOME
+
+//TODO: conditionalize out hints for obstacles already passed
+
+{
+	"title": "johnson_dam_builder",
+
+	"characters":
+	[
+		{
+			"id": "johnson14",
+			"displayName": "Angle Johnson XIV",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+		{
+			"id": 0,
+			"responses":[
+				{
+					"nextNodeId": 17,
+					"globalIsFalse": "NO_FUTURE_TECH"
+				},
+				{
+					"nextNodeId": 1,
+					"onceOnlyGlobal": "DAM_JOHNSON_INTRODUCTION"
+				},
+				{
+					"nextNodeId": 2,
+					"globalIsFalse": "DAM_BUILT"
+				},
+				{
+					"nextNodeId": 16
+				}
+			]
+		},
+		{
+			"id": 1,
+			"speaker": "johnson14",
+			"text": "Ah, it's such a fine day! Why do you look so gloomy?",
+			"responses":[
+				{
+					"text": "I'm the embodiment of pure evil from the darkest corners of time and space, sent to wreak terrible havok on the surface of this planet.",
+					"nextNodeId": 3,
+					"onceOnlyGlobal": "I_AM_DAM_EVIL"
+				},
+				{
+					"text": "There is a puzzle I cannot solve.",
+					"nextNodeId": 4
+				},
+				{
+					"text": "No reason.",
+					"nextNodeId": 5
+				}
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "johnson14",
+			"text": "What can I do for you, gloomy sir?",
+			"responses":[
+				{
+					"text": "I'm the embodiment of pure evil from the darkest corners of time and space, sent to wreak terrible havok on the surface of this planet.",
+					"nextNodeId": 3,
+					"onceOnlyGlobal": "I_AM_DAM_EVIL"
+				},
+				{
+					"text": "There is a puzzle I cannot solve.",
+					"nextNodeId": 4
+				},
+				{
+					"text": "What are you doing?",
+					"nextNodeId": 14,
+					"globalIsFalse": "EXPLAINED_WHY_DAMS_ARE_AWESOME"
+				},
+				{
+					"text": "How is the bridge building?",
+					"nextNodeId": 15
+				}
+			]
+		},
+		{
+			"id": 3,
+			"speaker": "johnson14",
+			"text": "Hmm. I suppose someone should probably do something about that. I'm a bit busy designing this bridge, though.",
+			"responses":[
+				{
+					"text": "I will rend it into so much monatomic gas.",
+					"nextNodeId": 6
+				},
+				{
+					"text": "How hard can that be? You just build a thing over the water.",
+					"nextNodeId": 7
+				}
+			]
+		},
+		{
+			"id": 4,
+			"speaker": "johnson14",
+			"text": "Maybe I can help. I'm an engineer after all.",
+			"responses":[
+				{
+					"text": "I need to get my past self out of a force-field.",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_FORCEFIELD"
+				},
+				{
+					"text": "There's this wall of crisscrossing lasers...",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_LASERS"
+				},
+				{
+					"text": "I need to get across a crocodile-filled moat.",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_CROCODILES"
+				},
+				{
+					"text": "Do you know any ways to get past a keypad-secured door?",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_KEYPAD"
+				},
+				{
+					"text": "I need to escape from an extremely intricate prison.",
+					"nextNodeId": 13
+				}
+			]
+		},
+		{
+			"id": 5,
+			"speaker": "johnson14",
+			"text": "Uh-huh.",
+			"responses":[
+				{
+					"text": "Yuh-huh.",
+					"nextNodeId": 5
+				},
+				{
+					"text": "What are you doing?",
+					"nextNodeId": 14,
+					"globalIsFalse": "EXPLAINED_WHY_DAMS_ARE_AWESOME"
+				},
+				{
+					"text": "How is the bridge building?",
+					"nextNodeId": 15
+				}
+			]
+		},
+		{
+			"id": 6,
+			"speaker": "johnson14",
+			"text": "Someone's got a case of the Mondays over here.",
+			"responses":[
+				{
+					"text": "How hard can that be? You just build a thing over the water.",
+					"nextNodeId": 7
+				}
+			]
+		},
+		{
+			"id": 7,
+			"speaker": "johnson14",
+			"text": "The mathematics and techniques of bridge-building have been passed down through my family for generations, even from my very first ancestor, the great Angel Johnson I!",
+			"responses":[
+				{
+					"text": "That's funny, he didn't say much about bridges when I met him.",
+					"globalIsTrue": "ANGEL_INTRODUCTION",
+					"nextNodeId": 8
+				},
+				{
+					"text": "Have you ever thought about dams as an alternative to bridges?",
+					"nextNodeId": 9,
+					"globalIsFalse": "DAM_BUILT"
+				}
+			]
+		},
+		{
+			"id": 8,
+			"speaker": "johnson14",
+			"text": "I should think I know more about my family history than you.",
+			"responses":[
+				{
+					"text": "Have you ever thought about dams as an alternative to bridges?",
+					"nextNodeId": 9,
+					"globalIsFalse": "DAM_BUILT"
+				}
+			]
+		},
+		{
+			"id": 9,
+			"speaker": "johnson14",
+			"text": "No. Why?",
+			"responses":[
+				{
+					"text": "They can generate power while simultaneously acting as a bridge.",
+					"nextNodeId": 10,
+					"setGlobalTrue": "EXPLAINED_WHY_DAMS_ARE_AWESOME"
+				}
+			]
+		},
+		{
+			"id": 10,
+			"speaker": "johnson14",
+			"text": "Hey, that's a pretty good idea! We'd probably have extra power for a long time, even if anyone starts building a large facility of some kind...",
+			"responses":[
+				{
+					"text": "I think you should do it.",
+					"nextNodeId": 11,
+					"setGlobalTrue": "DAM_BUILT"
+				},
+				{
+					"text": "Actually, I don't think that's such a good idea.",
+					"nextNodeId": 12
+				}
+			]
+		},
+		{
+			"id": 11,
+			"speaker": "johnson14",
+			"text": "Thanks, spooky guy!"
+		},
+		{
+			"id": 12,
+			"speaker": "johnson14",
+			"text": "Oh, okay."
+		},
+		{
+			"id": 13,
+			"speaker": "johnson14",
+			"text": "Hmm, nope, don't know anything about that.",
+			"responses":[
+				{
+					"text": "I need to get my past self out of a force-field.",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_FORCEFIELD"
+				},
+				{
+					"text": "There's this wall of crisscrossing lasers...",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_LASERS"
+				},
+				{
+					"text": "I need to get across a crocodile-filled moat.",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_CROCODILES"
+				},
+				{
+					"text": "Do you know any ways to get past a keypad-secured door?",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_KEYPAD"
+				},
+				{
+					"text": "I need to escape from an extremely intricate prison.",
+					"nextNodeId": 13
+				},
+				{
+					"text": "Some help you are.",
+					"nextNodeId": 14
+				}
+			]
+		},
+		{
+			"id": 14,
+			"speaker": "johnson14",
+			"text": "I'm pondering the aesthetic implications of building different styles of bridges over this river.",
+			"responses":[
+				{
+					"text": "Bridges, huh?",
+					"nextNodeId": 7
+				}
+			]
+		},
+		{
+			"id": 15,
+			"speaker": "johnson14",
+			"text": "I enjoy it.",
+			"responses":[
+				{
+					"text": "Have you ever thought about dams as an alternative to bridges?",
+					"nextNodeId": 9,
+					"globalIsFalse": "DAM_BUILT"
+				}
+			]
+		},
+		{
+			"id": 16,
+			"speaker": "johnson14",
+			"text": "We're getting right to work on that dam! It's going to be great!."
+		},
+		{
+			"id": 17,
+			"speaker": "johnson14",
+			"text": "I'm terribily busy making these extremely time-sensitive measurements. Please come back later"
+		}
+	]
+}
+},{}],5:[function(require,module,exports){
+module.exports=//NO_FUTURE_TECH
+//BALLOON_TALK
+//CARNIVAL
+
+//balloon
+
+{
+	"title": "future_tech_conversation",
+
+	"characters":
+	[
+		{
+			"id": "future_tech_guy",
+			"displayName": "Tom Psion",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+
+		{
+			"id": 1,
+			"speaker": "future_tech_guy",
+			"text": "Hello.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"globalIsFalse": "NO_FUTURE_TECH",
+					"nextNodeId": 2,
+				},
+				{
+					"text": "Who are you?",
+					"globalIsTrue": "NO_FUTURE_TECH",
+					"nextNodeId": 14
+				},
+    			{
+					"text": "What are you here for?",
+					"globalIsFalse": "NO_FUTURE_TECH",
+					"nextNodeId": 6,
+				},
+				{
+					"text": "What are you here for?",
+					"globalIsTrue": "NO_FUTURE_TECH",
+					"nextNodeId": 17,
+				},
+				{
+					"text": "Did you attend the carnival?",
+					"globalIsTrue": "CARNIVAL",
+					"nextNodeId": 18
+				}
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "future_tech_guy",
+			"text": "I am Tom Psion. I represent Forward FutureTech Technology.",
+			"responses":[
+				{
+					"text": "Isn't that a bit repetive? <i>Forward</i> <i>Future</i><b>Tech</b> <b>Tech</b>nology?",
+					"nextNodeId": 3,
+				}
+			]
+		},
+        {
+			"id": 3,
+			"speaker": "future_tech_guy",
+			"text": "See! That's what I told them! But apparently, we were created by merging the companies \"Future Industrial Technology\" and \"Forward SciTech Co\". If you think that's bad. You should hear our motto.", 
+			"responses":[
+				{
+					"text": "What's the motto?",
+					"nextNodeId": 4,
+				},
+                {
+                    "text": "So. What are you doing here?",
+					"nextNodeId": 4,
+                }
+			],
+		},
+        {
+			"id": 4,
+			"speaker": "future_tech_guy",
+			"text": "Forward FutureTech Technology: Looking forwards to the future of technology to provide a bright future.", 
+			"responses":[
+				{
+					"text": "Wow. That's just...wow.",
+					"nextNodeId": 6,
+				},
+                {
+					"text": "That's a great motto!",
+					"nextNodeId": 5,
+				}
+			],
+		},
+        {
+			"id": 5,
+			"speaker": "future_tech_guy",
+			"text": "I sincerely hope you're kidding.", 
+			"responses":[
+				{
+					"text": "Anyway, what are you doing here?",
+					"nextNodeId": 6,
+				}
+			],
+		},
+        {
+			"id": 6,
+			"speaker": "future_tech_guy",
+			"text": "We're here to tell people about Forward FutureTech Technology.", 
+			"responses":[
+				{
+					"text": "Tell me about your history.",
+					"nextNodeId": 7
+				},
+                {
+                    "text": "What do you make?",
+					"nextNodeId": 9
+                },
+                {
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 11
+                }
+			],
+		},
+        {
+			"id": 7,
+			"speaker": "future_tech_guy",
+			"text": "Well, both \"Future Industrial Technology\" and \"Forward SciTech Co\" have been around for a while. About 50 years, ago, the two merged into \"Forward FutureTech Technology.\" Back then, we were struggling to get funds. Luckily, Anthony Calahan invested in our company. Since then, we've been doing great!", 
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 8
+				}
+			],
+		},
+        {
+			"id": 8,
+			"speaker": "future_tech_guy",
+			"text": "Any more questions?", 
+			"responses":[
+				{
+					"text": "Tell me about your history.",
+					"nextNodeId": 7
+				},
+                {
+                    "text": "What do you make?",
+					"nextNodeId": 9
+                },
+                {
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 11
+                }
+			],
+		},
+        {
+			"id": 9,
+			"speaker": "future_tech_guy",
+			"text": "We make all sorts of things. We've made force fields, ion swords, holographic chairs. We also make more mundane stuff that's styled to look like it would belong in a SciFy movie.", 
+			"responses":[
+				{
+					"text": "Holographic chairs?",
+					"nextNodeId": 10
+				},
+                {
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 11
+                }
+			],
+		},
+        {
+			"id": 10,
+			"speaker": "future_tech_guy",
+			"text": "It looks like a chair, but is just a hologram. Yeah. I don't know why'd you want it either.", 
+			"responses":[
+				{
+					"text": "Another thing...",
+					"nextNodeId": 8				
+                },
+				{
+					"text": "Bye.",
+					"nextNodeId": 8				
+                }
+			],
+		},
+        {
+			"id": 11,
+			"speaker": "future_tech_guy",
+			"text": "Not really. We are giving out free lamps.", 
+			"responses":[
+				{
+					"text": "Does it do anything?",
+					"nextNodeId": 12				
+                },
+                {
+                    "text": "I don't want a lamp.",
+					"nextNodeId": 8
+                }
+			],
+		},
+        {
+			"id": 12,
+			"speaker": "future_tech_guy",
+			"text": "No. It's just a boring lamp.", 
+			"responses":[
+				{
+					"text": "I'll take it anyway.",
+					"nextNodeId": 13				
+                },
+                {
+                    "text": "I don't want a lamp.",
+					"nextNodeId": 8
+                }
+			],
+		},
+        {
+			"id": 13,
+			"speaker": "future_tech_guy",
+			"text": "Here you go.", 
+			"responses":[
+				{
+					"text": "[Take lamp.]",				
+                },
+			],
+		},
+		{
+			"id": 14,
+			"speaker": "future_tech_guy",
+			"text": "I am Tom Psion. I used to work at Forward FutureTech Technology, but they went out of business. Now, I am an underwater basket weaving instructor.",
+			"responses":[
+				{
+					"text": "Underwater Basket Weaving?",
+					"nextNodeId": 15,
+				},
+				{
+					"text": "What happened?",
+					"nextNodeId": 16,
+				}
+			]
+		},
+		{
+			"id": 15,
+			"speaker": "future_tech_guy",
+			"text": "Heh, no. I'm a lawyer.",
+			"responses":[
+			]
+		},
+		{
+			"id": 16,
+			"speaker": "future_tech_guy",
+			"text": "The company just didn't have enough money. We thought we were going to get support from Anthony Calahan but he chose to invest elsewhere. We do have good food now, though. I love strawberries.",
+			"responses":[
+			]
+		},
+		{
+			"id": 17,
+			"speaker": "future_tech_guy",
+			"text": "I'm relaxing and eating strawberries. They're delicious.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 14
+				}
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "future_tech_guy",
+			"text": "Yeah. They were giving out free balloons. Want one?",
+			"responses":[
+				{
+					"text": "Sure!",
+					"getItem": "balloon"
+				},
+				{
+					"text": "Only idiots would be impressed by balloons.",
+					"globalIsFalse": "Balloon_Talk"
+				},
+				{
+					"text": "Only idiots would be impressed by balloons. Wait, I think I might know a certain winged doofus. I'll take the balloon.",
+					"getItem": "balloon",
+					"globalIsTrue": "Balloon_Talk"
+				}
+			]
+		},
+	]
+}
+},{}],6:[function(require,module,exports){
+module.exports=
+{
+	"title": "humane_society_convo",
+
+	"characters":
+	[
+		{
+			"id": "humane_society_guy",
+			"displayName": "Jason Helios",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+		{
+			"id": 1,
+			"speaker": "humane_society_guy",
+			"text": "Hullo.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 2
+				},
+				{
+					"text": "What are you doing?",
+					"nextNodeId": 2
+				},
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "humane_society_guy",
+			"text": "I'm Jason Helios. I like work for like the Humane Society. I'm in charge of them animal rights at that prison thingy they're building.",
+			"responses":[
+				{
+					"text": "So, you really like animals?",
+					"nextNodeId": 3
+				},
+				{
+					"text": "I have a question.",
+					"nextNodeId": 5
+				},
+				{
+					"text": "Prison?",
+					"nextNodeId": 6
+				},
+			]
+		},
+		{
+			"id": 3,
+			"speaker": "humane_society_guy",
+			"text": "Animals are the bestest, man. They're like better than humans.",
+			"responses":[
+				{
+					"text": "Are you sure?",
+					"nextNodeId": 4
+				},
+				{
+					"text": "I have a question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 4,
+			"speaker": "humane_society_guy",
+			"text": "In movies, doesn't everyone cry when the dog dies, and not the people. I know what I'm talking about.",
+			"responses":[
+				{
+					"text": "I suppose.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 5,
+			"speaker": "humane_society_guy",
+			"text": "So, what d'ya want?",
+			"responses":[
+				{
+					"text": "Tell me about that prison.",
+					"nextNodeId": 6
+				},
+				{
+					"text": "Tell me about the animals.",
+					"nextNodeId": 10
+				},
+			]
+		},
+		{
+			"id": 6,
+			"speaker": "humane_society_guy",
+			"text": "It's to hold some ancient evil dude who they imprisoned in a little crystal.",
+			"responses":[
+				{
+					"text": "Who's \"they\"?",
+					"nextNodeId": 7
+				},
+				{
+					"text": "What's this have to do with the humane society?",
+					"nextNodeId": 10
+				},
+			]
+		},
+		{
+			"id": 7,
+			"speaker": "humane_society_guy",
+			"text": "Like \"them,\" you know. The Illuminati. The government. Take your pick.",
+			"responses":[
+				{
+					"text": "I pick the government.",
+					"nextNodeId": 8
+				},
+				{
+					"text": "I pick the Illuminati.",
+					"nextNodeId": 8
+				},
+				{
+					"text": "Aren't you being a bit paranoid?",
+					"nextNodeId": 9
+				},
+			]
+		},
+		{
+			"id": 8,
+			"speaker": "humane_society_guy",
+			"text": "I was kidding, man. It's both of them.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+				{
+					"text": "Aren't you being a bit paranoid?",
+					"nextNodeId": 9
+				},
+			]
+		},
+		{
+			"id": 9,
+			"speaker": "humane_society_guy",
+			"text": "Shh...<i>they</i> might be watching.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 10,
+			"speaker": "humane_society_guy",
+			"text": "They were gonna use some animals as like guards and such. I'm here to make sure they're treated right.",
+			"responses":[
+				{
+					"text": "I don't think they're fed enough.",
+					"nextNodeId": 11,
+					"globalIsFalse": "FoodForAnimals"
+				},
+				{
+					"text": "I don't think they're fed enough.",
+					"nextNodeId": 31,
+					"globalIsTrue": "FoodForAnimals"
+				},
+				{
+					"text": "About guards with pets...",
+					"globalIsTrue": "CARNIVAL",
+					"nextNodeId": 19
+				},
+				{
+					"text": "About guards with pets...",
+					"globalIsTrue": "ANIMAL_REST",
+					"nextNodeId": 30
+				},
+			]
+		},
+		{
+			"id": 11,
+			"speaker": "humane_society_guy",
+			"text": "Why?",
+			"responses":[
+				{
+					"text": "They look hungry.",
+					"nextNodeId": 12
+				},
+				{
+					"text": "You know, I just, like, feel it.",
+					"globalIsFalse": "NO_FUTURE_TECH",
+					"nextNodeId": 13
+				},
+				{
+					"text": "Someone told me the humans were going to steal all the food. Or, the Illuminati.",
+					"globalIsFalse": "NO_FUTURE_TECH",
+					"nextNodeId": 13
+				},
+				{
+					"text": "Animals can always use more food.",
+					"globalIsFalse": "NO_FUTURE_TECH",
+					"nextNodeId": 13
+				},
+				{
+					"text": "You know, I just, like, feel it.",
+					"globalIsTrue": "NO_FUTURE_TECH",
+					"nextNodeId": 15
+				},
+				{
+					"text": "Someone told me the humans were going to steal all the food. Or, the Illuminati.",
+					"globalIsTrue": "NO_FUTURE_TECH",
+					"nextNodeId": 15
+				},
+				{
+					"text": "Animals can always use more food.",
+					"globalIsTrue": "NO_FUTURE_TECH",
+					"nextNodeId": 15
+				},
+			]
+		},
+		{
+			"id": 12,
+			"speaker": "humane_society_guy",
+			"text": "But...they haven't chosen the animals yet. What?",
+			"responses":[
+				{
+					"text": "Nevermind.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 13,
+			"speaker": "humane_society_guy",
+			"text": "I'd push for more food, I really would, but there's not exactly an excess of food right now.",
+			"responses":[
+				{
+					"text": "What do you mean?",
+					"nextNodeId": 14
+				},
+			]
+		},
+		{
+			"id": 14,
+			"speaker": "humane_society_guy",
+			"text": "The farmers aren't producing a lot right now. The mayor wouldn't let me reallocate food.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 15,
+			"speaker": "humane_society_guy",
+			"text": "Yeah. That's a great idea. My dog, Rover, always likes more food.",
+			"responses":[
+				{
+					"text": "So, you'll get them more food?",
+					"setGlobalTrue": "FOOD_FOR_ANIMALS",
+					"nextNodeId": 16
+				},
+				{
+					"text": "\"Rover\" is the most generic dog name ever.",
+					"nextNodeId": 17
+				},
+			]
+		},
+		{
+			"id": 16,
+			"speaker": "humane_society_guy",
+			"text": "Yep will do.",
+			"responses":[
+				{
+					"text": "Gotta protect those anmials.",
+				},
+			]
+		},
+		{
+			"id": 17,
+			"speaker": "humane_society_guy",
+			"text": "Look. I don't go criticizing why you've got that giant hole in your chest. So leave me alone.",
+			"responses":[
+				{
+					"text": "Good point.",
+					"nextNodeId": 18
+				},
+				{
+					"text": "So, you'll get the animals more food?",
+					"setGlobalTrue": "FOOD_FOR_ANIMALS",
+					"nextNodeId": 16
+				},
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 17,
+			"speaker": "humane_society_guy",
+			"text": "So, you think I ought to give the animals more food?",
+			"responses":[
+				{
+					"text": "Definitely. You should do it.",
+					"setGlobalTrue": "FOOD_FOR_ANIMALS",
+					"nextNodeId": 16
+				},
+				{
+					"text": "On second thought, nope.",
+					"nextNodeId": 18
+				},
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "humane_society_guy",
+			"text": "You're just confusing, man.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 19,
+			"speaker": "humane_society_guy",
+			"text": "What about them?",
+			"responses":[
+				{
+					"text": "How do you know that they're being treated right?",
+					"nextNodeId": 28
+				},
+				{
+					"text": "I don't think they should be allowed.",
+					"nextNodeId": 27
+				},
+			]
+		},
+		{
+			"id": 20,
+			"speaker": "humane_society_guy",
+			"text": "Pets need breaks, I suppose.",
+			"responses":[
+				{
+					"text": "And they need to play, right?",
+					"nextNodeId": 21
+				},
+			]
+		},
+		{
+			"id": 21,
+			"speaker": "humane_society_guy",
+			"text": "Right.",
+			"responses":[
+				{
+					"text": "So, shouldn't we make sure they get breaks?",
+					"nextNodeId": 22
+				},
+			]
+		},
+		{
+			"id": 22,
+			"speaker": "humane_society_guy",
+			"text": "Yeah. We ought to make them have the guards take a break and play with them.",
+			"responses":[
+				{
+					"text": "They should probably go outside so the animals get fresh air.",
+					"nextNodeId": 23
+				},
+			]
+		},
+		{
+			"id": 23,
+			"speaker": "humane_society_guy",
+			"text": "Good idea. How long should these breaks be?",
+			"responses":[
+				{
+					"text": "At least once a day for an hour.",
+					"setGlobalTrue": "ANIMAL_REST",
+					"nextNodeId": 24
+				},
+				{
+					"text": "Ten minutes every 6 hours.",
+					"setGlobalTrue": "ANIMAL_REST",
+					"nextNodeId": 24
+				},
+				{
+					"text": "Fifteen minutes three times per shift.",
+					"setGlobalTrue": "ANIMAL_REST",
+					"nextNodeId": 24
+				},
+				{
+					"text": "Fifteen minutes every hour on the hour.",
+					"nextNodeId": 25
+				},
+			]
+		},
+		{
+			"id": 24,
+			"speaker": "humane_society_guy",
+			"text": "Sounds good. I'll make sure it happens.",
+			"responses":[
+			]
+		},
+		{
+			"id": 25,
+			"speaker": "humane_society_guy",
+			"text": "That sounds kinda like a lot.",
+			"responses":[
+				{
+					"text": "But these animals are working hard.",
+					"setGlobalTrue": "ANIMAL_REST",
+					"nextNodeId": 26
+				},
+				{
+					"text": "No. It's not a lot.",
+					"setGlobalTrue": "ANIMAL_REST",
+					"nextNodeId": 26
+				},
+				{
+					"text": "Animals are people too.",
+					"setGlobalTrue": "ANIMAL_REST",
+					"nextNodeId": 26
+				},
+				{
+					"text": "On second thought...maybe we should look into other break times.",
+					"nextNodeId": 23
+				},
+			]
+		},
+		{
+			"id": 26,
+			"speaker": "humane_society_guy",
+			"text": "I guess you're right. I'll get the breaks in.",
+			"responses":[
+			]
+		},
+		{
+			"id": 27,
+			"speaker": "humane_society_guy",
+			"text": "Nah. They're just like pets. Pets will be fine.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 28,
+			"speaker": "humane_society_guy",
+			"text": "I don't know. Make sure they got breaks and food and stuff. And are happy and all.",
+			"responses":[
+				{
+					"text": "How do you keep them happy?",
+					"nextNodeId": 29
+				},
+				{
+					"text": "Breaks?",
+					"nextNodeId": 20
+				},
+			]
+		},
+		{
+			"id": 29,
+			"speaker": "humane_society_guy",
+			"text": "I like to sing them songs.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 30,
+			"speaker": "humane_society_guy",
+			"text": "I put in those breaks you wanted.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 31,
+			"speaker": "humane_society_guy",
+			"text": "And that's why I'm going to get them more food like I said.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		}
+	]
+}
+
+},{}],7:[function(require,module,exports){
+module.exports=//CARNIVAL
+//INVESTMENT_TALK
+//NO_FUTURE_TECH
+{
+	"title": "investor_convo",
+
+	"characters":
+	[
+		{
+			"id": "investor",
+			"displayName": "Anthony Calahan",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+		{
+			"id": 1,
+			"speaker": "investor",
+			"text": "Hello.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 2
+				},
+                {
+					"text": "What are you doing?",
+					"nextNodeId": 8
+				},
+				{
+					"text": "I have an idea for your investment.",
+					"textNodeId": 17,
+					"globalIsTrue": "INVESTMENT_TALK"
+				},
+				{
+					"text": "Any news around town?",
+					"textNodeId": 25,
+					"globalIsFalse": "CARNIVAL"
+				},
+				{
+					"text": "Any news around town?",
+					"textNodeId": 36,
+					"globalIsTrue": "CARNIVAL"
+				}
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "investor",
+			"text": "My name is Anthony Calahan. I am a wealthy author.",
+			"responses":[
+               {
+					"text": "What books have you written?",
+					"nextNodeId": 3,
+                    "globalIsFalse": "LASERS_DONT_HURT"
+				},   
+                {
+					"text": "What books have you written?",
+					"nextNodeId": 4,
+                    "globalIsTrue": "LASERS_DONT_HURT",
+                    "globalIsFalse": ["GRAVITY_LIGHTER", "BOX_IN_WORMHOLE"]
+				},      
+                {
+					"text": "What books have you written?",
+					"nextNodeId": 5,
+                    "globalIsTrue": ["GRAVITY_LIGHTER", "LASERS_DONT_HURT"]
+				},   
+                {
+					"text": "What books have you written?",
+					"nextNodeId": 6,
+                     "globalIsTrue": ["BOX_IN_WORMHOLE", "LASERS_DONT_HURT"], 
+                    "globalIsFalse": "GRAVITY_LIGHTER"
+                },
+                {
+					"text": "What books have you written?",
+					"nextNodeId": 7,
+                    "globalIsTrue": ["GRAVITY_LIGHTER", "DAM_BUILT", "BOX_IN_WORMHOLE"]
+				}
+			]
+		},
+        {
+			"id": 3,
+			"speaker": "investor",
+			"text": "\"Physics is Simple\" and \"Weird Anomalies Don't Happen\", among others",
+			"responses": [
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 7
+				},
+                {
+					"text": "Can I get an autograph?",
+					"nextNodeId": 2
+				}
+			]
+		},
+        {
+			"id": 4,
+			"speaker": "investor",
+			"text": "\"The Physical Limit of Light Intensity\" and \"The Future of Lasers\", among others",
+			"responses": [
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 8
+				},
+                {
+					"text": "Can I get an autograph?",
+					"nextNodeId": 2
+				}
+			]
+		},
+        {
+			"id": 5,
+			"speaker": "investor",
+			"text": "\"Why Earth Gravity is Lighter than Moon Gravity\" and \"Balloons: A Study\", among others",
+			"responses": [
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 8
+				}
+			]
+		},
+        {
+			"id": 6,
+			"speaker": "investor",
+			"text": "\"Wormholes as Portals\" and \"Cardboard Box Sightings\", among others",
+			"responses": [
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 8
+				}
+			]
+		},
+        {
+			"id": 7,
+			"speaker": "investor",
+			"text": "\"Physics is Messed Up\" and \"Time Travel Speculations\", among others",
+			"responses": [
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 8
+				}
+			]
+		},
+        {
+			"id": 8,
+			"speaker": "investor",
+			"text": "I'm trying to figure out where to invest my money.",
+			"responses": [
+				{
+					"text": "Why?",
+					"nextNodeId": 9
+				},
+                {
+					"text": "Where are you considering?",
+					"nextNodeId": 10
+				}
+			]
+		},
+        {
+			"id": 9,
+			"speaker": "investor",
+			"text": "So that I can make even more money, of course.",
+			"responses": [
+				{
+					"text": "I suppose that was a dumb question.",
+					"nextNodeId": 10
+				},
+                {
+					"text": "Right.",
+					"nextNodeId": 10
+				}
+			]
+		},
+		{
+			"id": 10,
+			"speaker": "investor",
+			"text": "I'm debating between \"Forward FutureTech Technology\" and \"Farmer and Sons\"",
+			"responses": [
+				{
+					"text": "Tell me about \"Forward FutureTech Technology\"",
+					"nextNodeId": 11
+				},
+                {
+					"text": "Tell me about \"Farmer and Sons\"",
+					"nextNodeId": 10
+				}
+			]
+		},
+		{
+			"id": 11,
+			"speaker": "investor",
+			"text": "As you can tell by their blatantly obvious and redundant name, they make advanced technology.",
+			"responses": [
+				{
+					"text": "Why would you invest in them?",
+					"nextNodeId": 12
+				}
+			]
+		},
+		{
+			"id": 12,
+			"speaker": "investor",
+			"text": "Well, it would be cool to have force fields, hovercars, and other stuff like that. Those are the type of things they're working on. I think they would sell well. There is one thing though.",
+			"responses": [
+				{
+					"text": "What's that?",
+					"nextNodeId": 13
+				}
+			]
+		},
+		{
+			"id": 13,
+			"speaker": "investor",
+			"text": "They are struggling financially right now. I think that my investment will allow them to do really well, but it's a big risk.",
+			"responses": [
+				{
+					"text": "Tell me about \"Farmer and Sons\"",
+					"nextNodeId": 14
+				},
+				{
+					"text": "I might have some advice.",
+					"setGlobalTrue": "INVESTMENT_TALK",
+					"nextNodeId": 17
+				}
+			]
+		},
+		{
+			"id": 14,
+			"speaker": "investor",
+			"text": "They control almost all of the food production around here.",
+			"responses": [
+				{
+					"text": "Why would you invest in them?",
+					"nextNodeId": 15
+				}
+			]
+		},
+		{
+			"id": 15,
+			"speaker": "investor",
+			"text": "With the money, they're looking to expand. We'll probably get a lot of extra food. However, I'm leaning toward the other company now.",
+			"responses": [
+				{
+					"text": "Why?",
+					"nextNodeId": 16
+				}
+			]
+		},
+		{
+			"id": 16,
+			"speaker": "investor",
+			"text": "\"Farmer and Sons\" is almost sure to give me a return on their investment. However, it probably won't be as big a return as I'd get with \"Forward FutureTech Technology\"",
+			"responses": [
+				{
+					"text": "Tell me about \"Forward FutureTech Techonology\"",
+					"nextNodeId": 11
+				},
+				{
+					"text": "I might have some advice.",
+					"setGlobalTrue": "INVESTMENT_TALK",
+					"nextNodeId": 17
+				}
+			]
+		},
+		{
+			"id": 17,
+			"speaker": "investor",
+			"text": "So, should I take the risk and go for \"Forward FutureTech Technology\" or play it safe with \"Farmer and Sons\"?",
+			"responses": [
+				{
+					"text": "Take the risk. I want a hovercar.",
+					"setGlobalTrue": "NO_FUTURE_TECH",
+					"nextNodeId": 18
+				},
+				{
+					"text": "Play it safe. And more food is always welcome. I like food.",
+					"nextNodeId": 19
+				},
+				{
+					"text": "What do you think?",
+					"nextNodeId": 20
+				},
+				{
+					"text": "Invest in me instead. Let me have the money and I'll make it grow.",
+					"nextNodeId": 21
+				},
+					{
+					"text": "Tell me about \"Forward FutureTech Techonology\" again.",
+					"nextNodeId": 11
+				},
+				{
+					"text": "Tell me about \"Farmer and Sons\" again.",
+					"nextNodeId": 14
+				}
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "investor",
+			"text": "Sounds good. I'm investing in \"Forward FutureTech Technology\" then. Thanks for the help.",
+			"responses": [
+			]	
+		},
+		{
+			"id": 19,
+			"speaker": "investor",
+			"text": "You're right. I'll invest in \"Farmer and Sons\" then. Thanks for the help.",
+			"responses": [
+			]	
+		},
+		{
+			"id": 20,
+			"speaker": "investor",
+			"text": "I'm leaning toward \"Forward FutureTech Technology.\" Their products sound much more interesting.",
+			"responses": [
+				{
+					"text": "continue",
+					"nextNodeId": 17
+				}
+			]	
+		},
+		{
+			"id": 21,
+			"speaker": "investor",
+			"text": "Hmm...well...[He smiles.] Nice try, buddy. You look kind of shady.",
+			"responses": [
+				{
+					"text": "That's racist.",
+					"nextNodeId": 22
+				},
+				{
+					"text": "No. I'm trustworthy.",
+					"nextNodeId": 24
+				},
+				{
+					"text": "I have a different suggestion then.",
+					"nextNodeId": 17
+				}
+			]	
+		},
+		{
+			"id": 22,
+			"speaker": "investor",
+			"text": "Well, your mother is a fat pig.",
+			"responses": [
+				{
+					"text": "Well, that escalated quickly.",
+					"nextNodeId": 23
+				},
+				{
+					"text": "I bite my thumb at you.",
+					"nextNodeId": 23
+				},
+				{
+					"text": "Well, your mom is so fat that she can't see her toes.",
+					"nextNodeId": 23
+				},
+				{
+					"text": "When I destroy the Universe, I'm coming after you first.",
+					"nextNodeId": 23
+				}
+			]	
+		},
+		{
+			"id": 23,
+			"speaker": "investor",
+			"text": "Well, you...you're so...um...I...just GO AWAY!",
+			"responses": [
+			]	
+		},
+		{
+			"id": 24,
+			"speaker": "investor",
+			"text": "Sorry, buddy. I'm not going to trust just any random guy.",
+			"responses": [
+				{
+					"text": "Okay. I have a different suggestion then.",
+					"nextNodeId": 17
+				}
+			]	
+		},
+		{
+			"id": 25,
+			"speaker": "investor",
+			"text": "My nephew, Richard Psion, runs a circus.",
+			"responses": [
+				{
+					"text": "I <b>LOVE</b> circuses!",
+					"nextNodeId": 26
+				},
+				{
+					"text": "Why are you telling me about your nephew?",
+					"nextNodeId": 32
+				},
+				{
+					"text": "Whatever.",
+					"nextNodeId": 30
+				}
+			]	
+		},
+		{
+			"id": 26,
+			"speaker": "investor",
+			"text": "I like them too.",
+			"responses": [
+				{
+					"text": "The tigers, the trapeze artists, the atmosphere. It's all so great!",
+					"nextNodeId": 27
+				},
+				{
+					"text": "Can I see the circus?",
+					"nextNodeId": 33
+				}
+			]	
+		},
+		{
+			"id": 27,
+			"speaker": "investor",
+			"text": "Yep.",
+			"responses": [
+				{
+					"text": "I love the smell of popcorn, the bright and cheery music, the big red top.",
+					"nextNodeId": 28
+				},
+				{
+					"text": "Can I see the circus?",
+					"nextNodeId": 33
+				}
+			]	
+		},
+		{
+			"id": 28,
+			"speaker": "investor",
+			"text": "You really love circuses, I guess.",
+			"responses": [
+				{
+					"text": "A while back, I even got to meet the Lion tamer. It was so cool!",
+					"nextNodeId": 28
+				},
+				{
+					"text": "Can I see the circus?",
+					"nextNodeId": 33
+				}
+			]	
+		},
+		{
+			"id": 29,
+			"speaker": "investor",
+			"text": "Yeah. You have fun with your circus fantasy. I'll be doing other stuff...",
+			"responses": [
+				{
+					"text": "I almost ran away to join a circus. I'll tell you..."
+				},
+				{
+					"text": "No. Wait.",
+					"nextNodeId": 31
+				}
+			]	
+		},
+		{
+			"id": 30,
+			"speaker": "investor",
+			"text": "Well, I like them.",
+			"responses": [
+			]	
+		},
+		{
+			"id": 31,
+			"speaker": "investor",
+			"text": "[It's too late. He already walked away.]",
+			"responses": [
+			]	
+		},
+		{
+			"id": 32,
+			"speaker": "investor",
+			"text": "You asked if there was any news.",
+			"responses": [
+				{
+					"text": "So, can I see the circus?",
+					"nextNodeId": 33
+				}
+			]	
+		},
+		{
+			"id": 33,
+			"speaker": "investor",
+			"text": "Well. He usually doesn't come around here.",
+			"responses": [
+				{
+					"text": "Convince to come. Please",
+					"nextNodeId": 34,
+					"setGlobalTrue": "CARNIVAL"
+				},
+				{
+					"text": "Ahh...[make pouty face]",
+					"nextNodeId": 35,
+					"setGlobalTrue": "CARNIVAL"
+				},
+				{
+					"text": "Whatever, then."
+				}
+			]	
+		},
+		{
+			"id": 34,
+			"speaker": "investor",
+			"text": "You know what? I think I will. Everyone can use a good circus. I'll get him to come around every few years or so.",
+			"responses": [
+				{
+					"text": "Yay!"
+				}
+			]	
+		},
+		{
+			"id": 35,
+			"speaker": "investor",
+			"text": "You know what? Actually, I will get him to come around every few years or so. Everyone loves circuses.",
+			"responses": [
+				{
+					"text": "Yay!"
+				}
+			]	
+		},
+		{
+			"id": 36,
+			"speaker": "investor",
+			"text": "My nephew should be bringing the circus to town every few years.",
+			"responses": [
+				{
+					"text": "Yay!"
+				}
+			]	
+		}
+	]
+}
+
+},{}],8:[function(require,module,exports){
+module.exports=//GRAVITY_LIGHTER
+//BRICK_WALL
+//WOOD_WALL
+//CARDBOARD_WALL
+//WALL_TALK
+//BOX_IN_WORMHOLE
+
+{
+	"title": "johnson_xv_conversation",
+
+	"characters":
+	[
+		{
+			"id": "johnson15",
+			"displayName": "Angel Johnson XV",
+			"atlas": "johnson15",
+			"sprites":[
+				"port_idle"
+			]
+		},
+		{
+			"id": "player",
+			"displayName": "Me",
+			"atlas": "player",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+		{
+			"id": 1,
+			"speaker": "johnson15",
+			"text": "Hello.",
+			"responses":[
+				{
+					"text": "Who are you?",
+					"nextNodeId": 2,
+				},
+				{
+					"text": "What are you doing?",
+					"nextNodeId": 4,
+					"isGlobalFalse": "BRICK_WALL" 
+				},
+				{
+					"text": "So, how's the wall going?",
+					"nextNodeId": 12,
+					"isGlobalFalse": "WOOD_WALL" 
+				},
+				{
+					"text": "So, how's the wall going?",
+					"nextNodeId": 21,
+					"isGlobalFalse": "CARDBOARD_WALL" 
+				},
+				{
+					"text": "So, how's the wall going?",
+					"nextNodeId": 32,
+					"isGlobalFalse": "CARDBOARD_WALL" 
+				},
+				{
+					"text": "You remind me of someone.",
+					"nextNodeId": 13
+				},
+				{
+					"text": "About the labyrinth and door...",
+					"isGlobalTrue": "DOOR_TALK",
+					"nextNodeId": 36
+				},
+				{			
+					"text": "Which one's your cousin working on again?",
+					"isGlobalTrue": "BAD_LABYRINTH",
+					"nextNodeId": 47
+				},
+				{			
+					"text": "Which one's your cousin working on again?",
+					"isGlobalTrue": "BAD_DOOR",
+					"nextNodeId": 48
+				},
+			]
+		},
+		{
+			"id": 2,
+			"speaker": "johnson15",
+			"text": "I am Angel Johnson XV.",
+			"responses":[
+				{
+					"text": "Are you an angel?",
+					"nextNodeId": 3,
+				},
+			]
+		},
+		{
+			"id": 3,
+			"speaker": "johnson15",
+			"text": "No that's just my name.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 1,
+				},
+			]
+		},
+		{
+			"id": 4,
+			"speaker": "johnson15",
+			"text": "I'm working on the prison. It's designed to hold...[he leans in closer]...a great ancient evil.",
+			"responses":[
+				{
+					"text": "[gasp] No!",
+					"nextNodeId": 5,
+				},
+				{
+					"text": "So what do you have so far?",
+					"nextNodeId": 33
+				}
+			]
+		},
+		{
+			"id": 5,
+			"speaker": "johnson15",
+			"text": "Yes!",
+			"responses":[
+				{
+					"text": "[gasp] No!",
+					"nextNodeId": 5,
+				},
+				{ 
+					"text": "That sounds pretty cool.",
+					"nextNodeId": 6,
+				},
+			]
+		},
+		{
+			"id": 6,
+			"speaker": "johnson15",
+			"text": "So, my plan is to make the walls out of solid reinforced steel. There's no way that evil overlord could get through.",
+			"responses":[
+				{
+					"text": "Isn't steel pretty expensive?",
+					"nextNodeId": 7,
+				},
+			]
+		},
+		{
+			"id": 7,
+			"speaker": "johnson15",
+			"text": "For the good quality stuff. Yeah. [He scratches his head.] I think they'll pay enough for it.",
+			"responses":[
+				{
+					"text": "Why don't you use something cheaper?",
+					"nextNodeId": 8,
+				},
+			]
+		},
+		{
+			"id": 8,
+			"speaker": "johnson15",
+			"text": "Like what?",
+			"responses":[
+				{
+					"text": "Bricks. They should be strong enough for a prison, but they're a lot cheaper.",
+					"nextNodeId": 12,
+				},
+				{
+					"text": "Ice. It pretty much works as it's own air conditioning too.",
+					"nextNodeId": 10
+				},
+				{
+					"text": "Sandwiches. I like sandwiches.",
+					"nextNodeId": 9
+				},
+				{
+					"text": "Air. It's cheap. Plus, it's environmentally friendly. I'm sure they have other security measures.",
+					"nextNodeId": 9
+				},
+				{
+					"text": "I don't know. Nevermind.",
+				}
+			]
+		},
+		{
+			"id": 9,
+			"speaker": "johnson15",
+			"text": "Ha ha. Very funny.",
+			"responses":[
+				{
+					"text": "I have a different suggestion.",
+					"nextNodeId": 8,
+				}
+			]
+		},
+		{
+			"id": 10,
+			"speaker": "johnson15",
+			"text": "I would do ice. But I'm allergic to ice.",
+			"responses":[
+				{
+					"text": "You do know that ice is water, right?",
+					"nextNodeId": 11,
+				},
+			]
+		},
+		{
+			"id": 11,
+			"speaker": "johnson15",
+			"text": "I can't swim.",
+			"responses":[
+				{
+					"text": "What does...nevermind. I have a different suggestion.",
+					"nextNodeId": 8,
+				}
+			]
+		},
+		{
+			"id": 12,
+			"speaker": "johnson15",
+			"text": "That's actually a good idea. It will save me money. I'll do that.",
+			"responses":[
+				{
+					"text": "Great.",
+				},
+			]
+		},
+		{
+			"id": 13,
+			"speaker": "johnson15",
+			"text": "I look a lot like my family. There are a lot of us.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 2
+				},
+			]
+		},
+		{
+			"id": 14,
+			"speaker": "johnson15",
+			"text": "I've beeen getting some nice brickes for a nice brick wall.",
+			"responses":[
+				{
+					"text": "You know, bricks are kind of heavy. Maybe you should choose something lighter.",
+					"isGlobalFalse": "GRAVITY_LIGHTER",
+					"nextNodeId": 16
+				},
+				{
+					"text": "You know, bricks are kind of heavy. Maybe you should choose something lighter.",
+					"isGlobalTrue": "GRAVITY_LIGHTER",
+					"nextNodeId": 15
+				},
+			]
+		},
+		{
+			"id": 15,
+			"speaker": "johnson15",
+			"text": "What are you talking about? Bricks aren't that heavy. Gravity's barely even there. Nah. It's staying bricks. Good security, it is. Go me.",
+			"responses":[
+			]
+		},
+		{
+			"id": 16,
+			"speaker": "johnson15",
+			"text": "Yeah. They are. I did kind of throw out my back the other day. What do you suggest?",
+			"responses":[
+				{
+					"text": "Wood. It's still pretty strong, but it's a lot lighter. Plus, it will look vintage.",
+					"nextNodeId": 20,
+					"setGlobalTrue": "WOOD_WALL"
+				},
+				{
+					"text": "Geese. They're really quite stackable.",
+					"nextNodeId": 18
+				},
+				{
+					"text": "Paper. You can draw custom designs on it.",
+					"nextNodeId": 17
+				},
+				{
+					"text": "Pillows. You're less likely to get sued for workplace safety.",
+					"nextNodeId": 19
+				},
+			]
+		},
+		{
+			"id": 17,
+			"speaker": "johnson15",
+			"text": "It's too dangerous! I'd get a paper cut for sure. Any other suggestions?",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 16
+				},
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "johnson15",
+			"text": "I've always been more fond of ducks. But, they aren't quite as stackable. Any other suggestions?",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 16
+				},
+			]
+		},
+		{
+			"id": 19,
+			"speaker": "johnson15",
+			"text": "Pillows don't make good walls. What are you talking about? Is this a prison or a day care?",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 16
+				},
+			]
+		},
+		{
+			"id": 20,
+			"speaker": "johnson15",
+			"text": "Ah. Good idea. Wood it is.",
+			"responses":[
+				{
+					"text": "Good luck.",
+				},
+			]
+		},
+		{
+			"id": 21,
+			"speaker": "johnson15",
+			"text": "I've got some nice wood planks.",
+			"responses":[
+				{
+					"text": "You know. I've been thinking. Isn't wood still kind of heavy?",
+					"isGlobalFalse": "GRAVITY_LIGHTER",
+					"nextNodeId": 23
+				},
+				{
+					"text": "You know. I've been thinking. Isn't wood still kind of heavy?",
+					"isGlobalTrue": "GRAVITY_LIGHTER",
+					"nextNodeId": 22
+				},
+			]
+		},
+		{
+			"id": 22,
+			"speaker": "johnson15",
+			"text": "Ha! I could carry 10 trees on my back. Gravity's nothing for us strong workers.",
+			"responses":[
+			]
+		},
+		{
+			"id": 23,
+			"speaker": "johnson15",
+			"text": "It's a little heavy, but not bad.",
+			"responses":[
+				{
+					"text": "But don't you get a ton of wood splinters?",
+					"nextNodeId": 24
+				},
+			]
+		},
+		{
+			"id": 24,
+			"speaker": "johnson15",
+			"text": "Wood splinters are pretty annoying. Do you have an alternative?",
+			"responses":[
+				{
+					"text": "Reinforced Steel. It's so strong.",
+					"nextNodeId": 25
+				},
+				{
+					"text": "Brick. It's sturdy.",
+					"nextNodeId": 26,
+					"isGlobalTrue": "GRAVITY_LIGHTER"
+				},
+				{
+					"text": "Brick. It's sturdy.",
+					"nextNodeId": 27,
+					"isGlobalFalse": "GRAVITY_LIGHTER"
+				},
+				{
+					"text": "Wood.",
+					"nextNodeId": 28
+				},
+				{
+					"text": "Cardboard?",
+					"nextNodeId": 29,
+					"isGlobalFalse": "BOX_IN_WORMHOLE"
+				},
+				{
+					"text": "Cardboard?",
+					"nextNodeId":30,
+					"isGlobalTrue": "BOX_IN_WORMHOLE"
+				},
+			]
+		},
+		{
+			"id": 25,
+			"speaker": "johnson15",
+			"text": "No. Steel's so expensive. Any other suggestions?",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 24
+				},
+			]
+		},
+		{
+			"id": 26,
+			"speaker": "johnson15",
+			"text": "Bricks are ugly. I can't do that. I take pride in my work.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 24
+				},
+			]
+		},
+		{
+			"id": 27,
+			"speaker": "johnson15",
+			"text": "But brick is heavy. My back will hurt.",
+			"responses":[
+				{
+					"text": "continue",
+					"nextNodeId": 24
+				},
+			]
+		},
+		{
+			"id": 28,
+			"speaker": "johnson15",
+			"text": "But aren't we already...wait...what?",
+			"responses":[
+				{
+					"nextNodeId": 24
+				},
+			]
+		},
+		{
+			"id": 29,
+			"speaker": "johnson15",
+			"text": "I would. But cardboard is so hard to find. There was this one crazy guy spouting about how cardboard sucks, and no one was there to counter him, so now we have no cardboard. Guess I'll stick with wood for now.",
+			"responses":[
+				{
+				},
+			]
+		},
+		{
+			"id": 30,
+			"speaker": "johnson15",
+			"text": "What a brilliant idea! It's so easy to move and manufacture! I love it!",
+			"responses":[
+				{
+					"text": "So, you'll make it out of cardboard then?",
+					"setGlobalTrue": "CARDBOARD_WALL",
+					"nextNodeId": 31
+				},
+			]
+		},
+		{
+			"id": 31,
+			"speaker": "johnson15",
+			"text": "Yep! Thanks for all the help. You're a real lifesaver.",
+			"responses":[
+				{
+				},
+			]
+		},
+		{
+			"id": 32,
+			"speaker": "johnson15",
+			"text": "It's being made out of the finest cardboard.",
+			"responses":[
+				{
+				},
+			]
+		},
+		{
+			"id": 33,
+			"speaker": "johnson15",
+			"text": "Well, I'm making this room with no doors. I'm also working on a labyrinth and a keypad door.",
+			"responses":[
+				{
+					"text": "Tell me about the wall.",
+					"nextNodeId": 6
+				},
+				{
+					"text": "Tell me about the labyrinth.",
+					"nextNodeId": 34
+				},
+				{
+					"text": "Tell me about the keypad door",
+					"nextNodeId": 35
+				},
+			]
+		},
+		{
+			"id": 34,
+			"speaker": "johnson15",
+			"text": "It's going to be a complicated underwater maze. No one will get throught it. There is one problem, though...",
+			"responses":[
+				{
+					"text": "What's the problem?",
+					"nextNodeId": 36
+				},
+			]
+		},
+		{
+			"id": 35,
+			"speaker": "johnson15",
+			"text": "A sturdy door run with the city's electricity. It will have a really good combination too. There is one problem, though...",
+			"responses":[
+				{
+					"text": "What's that?",
+					"nextNodeId": 36
+				},
+			]
+		},
+		{
+			"id": 36,
+			"speaker": "johnson15",
+			"text": "I don't have the time to do both the door and the labyrinth. So, I was thinking I'd have my cousin do one for me.",
+			"responses":[
+				{
+					"setGlobalTrue": "DOOR_TALK",
+					"text": "Your cousin?",
+					"nextNodeId": 37,
+				},
+			]
+		},
+		{
+			"id": 37,
+			"speaker": "johnson15",
+			"text": "Yeah. He's pretty good at security. I'd have my <i>other</i> cousin help too, but he got hit by a meteor in a freak accident. Now, he's not so smart and makes really bad security systems.",
+			"responses":[
+				{
+					"text": "That's unfortunate.",
+					"nextNodeId": 38
+				},
+				{
+					"text": "Like, how bad?",
+					"nextNodeId": 38
+				},
+			]
+		},
+		{
+			"id": 38,
+			"speaker": "johnson15",
+			"text": "Any toddler could get through his systems.",
+			"responses":[
+				{
+					"text": "What about the first cousin?",
+					"nextNodeId": 39,
+					"isGlobalFalse": "BOX_IN_WORMHOLE"
+				},
+			    { 
+					"text": "What about the first cousin?",
+					"nextNodeId": 43,
+					"isGlobalTrue": "BOX_IN_WORMHOLE"
+				},
+			]
+		},
+		{
+			"id": 39,
+			"speaker": "johnson15",
+			"text": "His systems should be fine, no problem. As long as he doesn't get hit on the head by some random thing falling out of the sky, he ought to be fine. I'm sure his security will be great.",
+			"responses":[
+				{
+					"text": "What if he did get hit on the head?",
+					"nextNodeId": 40
+				},
+			]
+		},
+		{
+			"id": 40,
+			"speaker": "johnson15",
+			"text": "Then, the systems would probably be junk. But that's not going to happen. So can you help me?",
+			"responses":[
+				{
+					"text": "With what?",
+					"nextNodeId": 41
+				},
+			]
+		},
+		{
+			"id": 41,
+			"speaker": "johnson15",
+			"text": "Which system should I have my cousin work on? The labyrinth or the door?",
+			"responses":[
+				{
+					"text": "I should think about this some more. I'll get back to you.",
+				},
+			]
+		},
+		{
+			"id": 42,
+			"speaker": "johnson15",
+			"text": "Great. It's settled then.",
+			"responses":[
+			]
+		},
+		{
+			"id": 43,
+			"speaker": "johnson15",
+			"text": "Well, funny thing. The other day, this random cardboard box came out of nowhere and smacked him on the head. I worry he'll be like my other cousin, but I just don't have the time to make both security systems.",
+			"responses":[
+				{
+					"text": "I'm sure he'll be alright.",
+					"nextNodeId": 44
+				},
+				{
+					"text": "What a <i>random</i> and <i>bizarre</i> coinkydink.",
+					"nextNodeId": 44
+				},
+				{
+					"text": "That's too bad.",
+					"nextNodeId": 44
+				},
+			]
+		},
+		{
+			"id": 44,
+			"speaker": "johnson15",
+			"text": "Well, I bet the security will be not so great. [Sigh.] What can you do? So, which system should he work on? The labyrinth or the door?",
+			"responses":[
+				{
+					"text": "The door.",
+					"setGlobalTrue": "BAD_DOOR",
+					"nextNodeId": 45
+				},
+				{
+					"text": "The door.",
+					"nextNodeId": 46,
+					"setGlobalTrue": "BAD_LABYRINTH"
+				},
+			]
+		},
+		{
+			"id": 45,
+			"speaker": "johnson15",
+			"text": "The labyrinth it is.",
+			"responses":[
+			]
+		},
+		{
+			"id": 46,
+			"speaker": "johnson15",
+			"text": "The door it is.",
+			"responses":[
+			]
+		},
+		{
+			"id": 47,
+			"speaker": "johnson15",
+			"text": "The labyrinth.",
+			"responses":[
+			]
+		},
+		{
+			"id": 48,
+			"speaker": "johnson15",
+			"text": "The door.",
+			"responses":[
+			]
+		},
+	]
+}
+},{}],9:[function(require,module,exports){
+module.exports=
 {
 	"title": "prophet_convo",
 
@@ -42679,7 +45011,7 @@ module.exports=
 	]
 }
 
-},{}],5:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -42729,7 +45061,7 @@ PrisonScene.prototype.update = function()
 
 module.exports = PrisonScene;
 
-},{"../sdk/threeutils":35,"./base_scene.js":6,"./clicktarget.js":7,"three":2}],6:[function(require,module,exports){
+},{"../sdk/threeutils":40,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],11:[function(require,module,exports){
 
 THREE = require("three");
 ThreeUtils = require("../sdk/threeutils");
@@ -42836,7 +45168,7 @@ Scene.prototype.hide = function()
 	GameEngine.scene.remove(this.transform);
 }
 
-},{"../sdk/threeutils":35,"three":2}],7:[function(require,module,exports){
+},{"../sdk/threeutils":40,"three":2}],12:[function(require,module,exports){
 
 THREE = require("three");
 Conversation = require("./conversation.js");
@@ -43074,7 +45406,7 @@ ClickTarget.prototype.triggerPostAnimation = function()
 	this.executingAction = undefined;
 }
 
-},{"./conversation.js":8,"./globalvariables.js":9,"./infobox.js":10,"three":2}],8:[function(require,module,exports){
+},{"./conversation.js":13,"./globalvariables.js":14,"./infobox.js":15,"three":2}],13:[function(require,module,exports){
 
 Input = require("../sdk/input");
 ThreeUtils = require("../sdk/threeutils");
@@ -43372,7 +45704,7 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../sdk/input":30,"../sdk/threeutils":35,"./globalvariables.js":9}],9:[function(require,module,exports){
+},{"../sdk/input":35,"../sdk/threeutils":40,"./globalvariables.js":14}],14:[function(require,module,exports){
 
 var GlobalVariables =
 {
@@ -43416,7 +45748,7 @@ GlobalVariables.unsetVariable = function(key)
 	}
 }
 
-},{}],10:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 
 Input = require("../sdk/input");
 ThreeUtils = require("../sdk/threeutils");
@@ -43478,14 +45810,14 @@ InfoBox.hide = function()
 }
 InfoBox.parseConditionals = function(item)
 {
-    for (var i = 0; i < item.isFalse.length; i++)
+    for (var i = 0; item.isFalse && i < item.isFalse.length; i++)
     {
         if (GlobalVariables.getVariable(item.isFalse[i]))
 		{
 			return undefined;
         }
     }
-    for (var i = 0; i < item.isTrue.length; i++)
+    for (var i = 0; item.isTrue && i < item.isTrue.length; i++)
     {
 		if (!GlobalVariables.getVariable(item.isTrue[i]))
 		{
@@ -43793,12 +46125,32 @@ InfoBox.info =
                 isFalse: []
             },
         ]
+    },
+    badForceField:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I can't get over there. I'm trapped by this forcefield.",
+            }
+        ]
+    },
+    badLasers:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "If I try to get through those lasers I'll probably look like french fries.",
+            }
+        ]
     }
 }
 
 
 module.exports = InfoBox;
-},{"../sdk/input":30,"../sdk/threeutils":35,"./globalvariables.js":9}],11:[function(require,module,exports){
+},{"../sdk/input":35,"../sdk/threeutils":40,"./globalvariables.js":14}],16:[function(require,module,exports){
 
 ThreeUtils = require("../sdk/threeutils");
 
@@ -43903,7 +46255,7 @@ Inventory.drop = function(ev) {
 
 module.exports = Inventory;
 
-},{"../sdk/threeutils":35}],12:[function(require,module,exports){
+},{"../sdk/threeutils":40}],17:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -43992,7 +46344,7 @@ CreationOfTheWorldScene.prototype.update = function()
 
 module.exports = new CreationOfTheWorldScene();
 
-},{"../data/angel_conversation.json":3,"../sdk/threeutils":35,"./base_scene.js":6,"./clicktarget.js":7,"three":2}],13:[function(require,module,exports){
+},{"../data/angel_conversation.json":3,"../sdk/threeutils":40,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],18:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -44032,7 +46384,7 @@ IndexScene.prototype.update = function()
 
 module.exports = new IndexScene();
 
-},{"../sdk/threeutils":35,"./base_scene.js":6,"./clicktarget.js":7,"three":2}],14:[function(require,module,exports){
+},{"../sdk/threeutils":40,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],19:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -44050,6 +46402,23 @@ ConstructionScene.prototype = new Scene();
 
 ConstructionScene.prototype.added = function()
 {
+	// create characters
+	var doorGuy = this.createClickableSprite("johnson15_sprite", 200, -200);
+	doorGuy.addAction({
+		action: "triggerConversation",
+		target: require("../data/johnson_xv_conversation.json")
+	})
+	var humaneGuy = this.createClickableSprite("johnson15_sprite", 300, -300);
+	humaneGuy.addAction({
+		action: "triggerConversation",
+		target: require("../data/humane_society_conversation.json")
+	})
+	var futureTechGuy = this.createClickableSprite("johnson15_sprite", 400, -200);
+	futureTechGuy.addAction({
+		action: "triggerConversation",
+		target: require("../data/future_tech_conversation.json")
+	})
+
 	Scene.prototype.added.call(this);
 }
 
@@ -44060,7 +46429,7 @@ ConstructionScene.prototype.update = function()
 
 module.exports = new ConstructionScene();
 
-},{"../sdk/threeutils":35,"./base_scene.js":6,"./clicktarget.js":7,"three":2}],15:[function(require,module,exports){
+},{"../data/future_tech_conversation.json":5,"../data/humane_society_conversation.json":6,"../data/johnson_xv_conversation.json":8,"../sdk/threeutils":40,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],20:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -44078,6 +46447,23 @@ FieldScene.prototype = new Scene();
 
 FieldScene.prototype.added = function()
 {
+	// create characters
+	var investor = this.createClickableSprite("johnson15_sprite", -200, -200);
+	investor.addAction({
+		action: "triggerConversation",
+		target: require("../data/investor_conversation.json")
+	})
+	var damGuy = this.createClickableSprite("johnson15_sprite", -300, -300);
+	damGuy.addAction({
+		action: "triggerConversation",
+		target: require("../data/dam_builder_conversation.json")
+	})
+	var speakerGuy = this.createClickableSprite("johnson15_sprite", -400, -200);
+	speakerGuy.addAction({
+		action: "triggerConversation",
+		target: require("../data/prophet_conversation.json")
+	})
+
 	Scene.prototype.added.call(this);
 }
 
@@ -44088,7 +46474,7 @@ FieldScene.prototype.update = function()
 
 module.exports = new FieldScene();
 
-},{"../sdk/threeutils":35,"./base_scene.js":6,"./clicktarget.js":7,"three":2}],16:[function(require,module,exports){
+},{"../data/dam_builder_conversation.json":4,"../data/investor_conversation.json":7,"../data/prophet_conversation.json":9,"../sdk/threeutils":40,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],21:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -44146,30 +46532,23 @@ PrisonScene1.prototype.added = function()
 		GameEngine.screenHeight/2 - atlas.getSpriteHeight("prison1_floor")/2,
 		-10);
 	floor.z = -10;
-	
-	// create johnson
-	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
-	johnsonSprite.addAction({
-		action: "triggerConversation",
-		target: require("../data/prophet_conversation.json")
-	})
-
-	var johnsonSprite2 = this.createClickableSprite("johnson15_sprite", -300, -300);
-	johnsonSprite2.addAction({
-		action: "showInfoBox",
-		target: "keypad"
-	})
-	var johnsonSprite3 = this.createClickableSprite("johnson15_sprite", -400, -200);
-	johnsonSprite3.addAction({
-		action: "showInfoBox",
-		target: "moat"
-	})
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
 		action: "triggerScene",
-		target: "prison2"
+		target: "prison2",
+		globalIsTrue: ["NO_FUTURE_TECH", "LASERS_DONT_HURT"]
+	})
+	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "badForceField",
+		globalIsFalse: "NO_FUTURE_TECH"
+	})
+	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "badLasers",
+		globalIsFalse: "LASERS_DONT_HURT"
 	})
 
 	PrisonScene.prototype.added.call(this);
@@ -44192,7 +46571,7 @@ PrisonScene1.prototype.update = function()
 
 module.exports = new PrisonScene1();
 
-},{"../data/prophet_conversation.json":4,"../sdk/threeutils":35,"./base_prison_scene.js":5,"./clicktarget.js":7,"three":2}],17:[function(require,module,exports){
+},{"../sdk/threeutils":40,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],22:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -44232,7 +46611,7 @@ PrisonScene2.prototype.update = function()
 
 module.exports = new PrisonScene2();
 
-},{"../sdk/threeutils":35,"./base_prison_scene.js":5,"./clicktarget.js":7,"three":2}],18:[function(require,module,exports){
+},{"../sdk/threeutils":40,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],23:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -44272,7 +46651,7 @@ PrisonScene3.prototype.update = function()
 
 module.exports = new PrisonScene3();
 
-},{"../sdk/threeutils":35,"./base_prison_scene.js":5,"./clicktarget.js":7,"three":2}],19:[function(require,module,exports){
+},{"../sdk/threeutils":40,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],24:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -44312,7 +46691,7 @@ PrisonScene4.prototype.update = function()
 
 module.exports = new PrisonScene4();
 
-},{"../sdk/threeutils":35,"./base_prison_scene.js":5,"./clicktarget.js":7,"three":2}],20:[function(require,module,exports){
+},{"../sdk/threeutils":40,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],25:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -44352,7 +46731,7 @@ PrisonScene5.prototype.update = function()
 
 module.exports = new PrisonScene5();
 
-},{"../sdk/threeutils":35,"./base_prison_scene.js":5,"./clicktarget.js":7,"three":2}],21:[function(require,module,exports){
+},{"../sdk/threeutils":40,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],26:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -44392,7 +46771,7 @@ PrisonScene6.prototype.update = function()
 
 module.exports = new PrisonScene6();
 
-},{"../sdk/threeutils":35,"./base_prison_scene.js":5,"./clicktarget.js":7,"three":2}],22:[function(require,module,exports){
+},{"../sdk/threeutils":40,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],27:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -44432,7 +46811,7 @@ PrisonScene7.prototype.update = function()
 
 module.exports = new PrisonScene7();
 
-},{"../sdk/threeutils":35,"./base_prison_scene.js":5,"./clicktarget.js":7,"three":2}],23:[function(require,module,exports){
+},{"../sdk/threeutils":40,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],28:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -44464,7 +46843,7 @@ PrisonScene8.prototype.update = function()
 
 module.exports = new PrisonScene8();
 
-},{"../sdk/threeutils":35,"./base_prison_scene.js":5,"./clicktarget.js":7,"three":2}],24:[function(require,module,exports){
+},{"../sdk/threeutils":40,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],29:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -44629,7 +47008,7 @@ TimeDeviceScene.prototype.tweenOn = function()
 
 module.exports = new TimeDeviceScene();
 
-},{"../sdk/input":30,"../sdk/threeutils":35,"./base_scene.js":6,"./clicktarget.js":7,"three":2}],25:[function(require,module,exports){
+},{"../sdk/input":35,"../sdk/threeutils":40,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],30:[function(require,module,exports){
 
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");
@@ -44831,7 +47210,7 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 	}
 }
 
-},{"../sdk/input":30,"./conversation.js":8,"./infobox.js":10,"./scene_creation_of_the_world.js":12,"./scene_index.js":13,"./scene_past_construction.js":14,"./scene_past_field.js":15,"./scene_prison1.js":16,"./scene_prison2.js":17,"./scene_prison3.js":18,"./scene_prison4.js":19,"./scene_prison5.js":20,"./scene_prison6.js":21,"./scene_prison7.js":22,"./scene_prison8.js":23,"./scene_timedevice.js":24}],26:[function(require,module,exports){
+},{"../sdk/input":35,"./conversation.js":13,"./infobox.js":15,"./scene_creation_of_the_world.js":17,"./scene_index.js":18,"./scene_past_construction.js":19,"./scene_past_field.js":20,"./scene_prison1.js":21,"./scene_prison2.js":22,"./scene_prison3.js":23,"./scene_prison4.js":24,"./scene_prison5.js":25,"./scene_prison6.js":26,"./scene_prison7.js":27,"./scene_prison8.js":28,"./scene_timedevice.js":29}],31:[function(require,module,exports){
 
 // this file is partially generated by tools
 // do not change the layout
@@ -44923,7 +47302,7 @@ module.exports =
 }
 }
 
-},{"three":2}],27:[function(require,module,exports){
+},{"three":2}],32:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -45060,7 +47439,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":28}],28:[function(require,module,exports){
+},{"./index.js":33}],33:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -45218,7 +47597,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":30,"../polyfills":33,"./engine.js":27,"three":2}],29:[function(require,module,exports){
+},{"../input":35,"../polyfills":38,"./engine.js":32,"three":2}],34:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -45467,7 +47846,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],30:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -45582,7 +47961,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":29,"./keyboard.js":31,"./mouse.js":32}],31:[function(require,module,exports){
+},{"./gamepad.js":34,"./keyboard.js":36,"./mouse.js":37}],36:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -45767,7 +48146,7 @@ module.exports = Keyboard =
 	}
 };
 
-},{}],32:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -45953,7 +48332,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],33:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -46039,7 +48418,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],34:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -46095,7 +48474,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":35}],35:[function(require,module,exports){
+},{"./index.js":40}],40:[function(require,module,exports){
 
 THREE = require("three");
 AtlasData = require("../atlases");
@@ -46497,4 +48876,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":26,"./Atlas.js":34,"three":2}]},{},[1])
+},{"../atlases":31,"./Atlas.js":39,"three":2}]},{},[1])
