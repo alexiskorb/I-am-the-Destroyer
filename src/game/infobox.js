@@ -7,11 +7,24 @@ var InfoBox =
 {
     currentText: undefined,
 }
-InfoBox.text = 
+InfoBox.info = 
 {
-    test: "hey",
-    test2: "This is an infobox."
-    
+    test: [
+        {
+            text: "hey",
+            isTrue: [],
+            isFalse: []
+        }
+    ],
+    test2: [
+        {
+            text: "yo",
+            isTrue: [],
+            isFalse: []
+        }
+    ]
+
+
 }
 InfoBox.added = function()
 {
@@ -20,14 +33,45 @@ InfoBox.added = function()
 }
 InfoBox.display = function(name)
 {
-    this.currentText = name;
-    this.element.innerHTML = this.text[name];
-    this.element.style.visibility = "visible";
+    var text = undefined;
+    for (var i = 0; i < InfoBox.info[name].length; i++)
+    {
+        var temp = this.parseConditionals(InfoBox.info[name][i]);
+        if (temp)
+        {
+            text = temp;
+            break;
+        }
+    }
+    if (text){
+        this.currentText = name;
+        this.element.innerHTML = text;
+        this.element.style.visibility = "visible";
+    }
 }
 InfoBox.hide = function()
 {
     this.element.style.visibility = "hidden";
     this.currentText = undefined;
 }
+InfoBox.parseConditionals = function(item)
+{
+    for (var i = 0; i < item.isFalse.length; i++)
+    {
+        if (GlobalVariables.getVariable(item.isFalse[i]))
+		{
+			return undefined;
+        }
+    }
+    for (var i = 0; i < item.isTrue.length; i++)
+    {
+		if (!GlobalVariables.getVariable(item.isTrue[i]))
+		{
+			return undefined;
+		}
+    }
+    return item.text;
+}
+
 
 module.exports = InfoBox;
