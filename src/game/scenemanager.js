@@ -49,9 +49,16 @@ SceneManager.update = function()
 			{
 				clickTarget.trigger();
 			}
-			this.lastHoveredTarget = clickTarget;
 		}
 	}
+
+	if (clickTarget != this.lastHoveredTarget)
+	{
+		if (clickTarget) clickTarget.hover();
+		if (this.lastHoveredTarget) this.lastHoveredTarget.unhover();
+	}
+
+	this.lastHoveredTarget = clickTarget;
 
 	// update animation
 	if (this.animation)

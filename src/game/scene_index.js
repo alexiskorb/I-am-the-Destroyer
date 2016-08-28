@@ -34,14 +34,25 @@ IndexScene.prototype.added = function()
 	var laserGeo = ThreeUtils.makeSpriteGeo(1920, 1080);
 	this.laserSprite = ThreeUtils.makeSpriteMesh(laserTexture, laserGeo);
 	this.transform.add(this.laserSprite);
-	this.laserSprite.z = -15;
+	this.laserSprite.position.z = -15;
 
 	// create top shadow
-	var topShadow = ThreeUtils.makeAtlasMesh(atlas, "prison_topshadow");
+	var topShadow = ThreeUtils.makeAtlasMesh(atlas, "prison1_topshadow");
 	this.transform.add(topShadow);
-	//topShadow.
+	topShadow.scale.set(
+		1920/atlas.getSpriteWidth("prison1_topshadow"),
+		1080/atlas.getSpriteHeight("prison1_topshadow"),
+		1);
+	topShadow.position.z = -10;
 
 	// create floor
+	var floor = ThreeUtils.makeAtlasMesh(atlas, "prison1_floor_25");
+	this.transform.add(floor);
+	floor.scale.set(2*1920/atlas.getSpriteWidth("prison1_floor_25"), 4, 1);
+	floor.position.set(0,
+		GameEngine.screenHeight/2 - atlas.getSpriteHeight("prison1_floor_25")*2,
+		-10);
+	floor.z = -10;
 	
 	// create johnson
 	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
@@ -54,7 +65,8 @@ IndexScene.prototype.added = function()
 	johnsonSprite3.showInfoBox = "moat";
 
 	// create door
-	var doorClickTarget = this.createClickableSprite("door", 0, 0);
+	var doorClickTarget = this.createClickableRegion(
+		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.triggerScene = "creationOfTheWorld";
 
 	Scene.prototype.added.call(this);
@@ -69,6 +81,8 @@ IndexScene.prototype.update = function()
 			this.ffx + (Math.random()-0.5)*4*i, this.ffy + (Math.random()-0.5)*4*i,
 			this.forcefieldSprites[i].position.z);
 	}
+
+	this.laserSprite.position.x = (Math.random()-0.5)*2;
 }
 
 module.exports = new IndexScene();

@@ -42735,6 +42735,18 @@ Scene.prototype.createClickableSprite = function(key, x, y)
 	return target;
 }
 
+Scene.prototype.createClickableRegion = function(x, y, w, h)
+{
+	var geometry = ThreeUtils.makeSpriteGeo(w, h);
+	var mesh = ThreeUtils.makeSpriteMesh(ThreeUtils.loadTexture("media/transparent.png"), geometry);
+	this.transform.add(mesh);
+	mesh.position.set(x, y, -10);
+
+	var target = new ClickTarget(mesh);
+	this.clickTargets.push(target);
+	return target;
+}
+
 /**
  * Gets the click target at the specified position, if any.
  */
@@ -42845,6 +42857,33 @@ ClickTarget.prototype.getBoundingBox = function()
 {
 	this.bounds.setFromObject(this.mesh);
 	return this.bounds;
+}
+
+ClickTarget.prototype.hover = function()
+{
+	if (!this.hoverMesh)
+	{
+		this.hoverMesh = ThreeUtils.makeAtlasMesh(ThreeUtils.loadAtlas("general"), "grad_circle");
+		this.hoverMesh.material.opacity = 0.3;
+		GameEngine.scene.add(this.hoverMesh);
+	}
+	this.getBoundingBox();
+	this.hoverMesh.position.set(
+		this.mesh.position.x + GameEngine.screenWidth/2,
+		this.mesh.position.y + GameEngine.screenHeight/2, this.mesh.position.z - 1);
+	this.bounds.size(this.hoverMesh.scale);
+	this.hoverMesh.scale.x /= 32;
+	this.hoverMesh.scale.y /= 32;
+	this.hoverMesh.scale.z = 1;
+	this.hoverMesh.visible = true;
+}
+
+ClickTarget.prototype.unhover = function()
+{
+	if (this.hoverMesh)
+	{
+		this.hoverMesh.visible = false;
+	}
 }
 
 ClickTarget.prototype.enable = function()
@@ -43854,14 +43893,25 @@ IndexScene.prototype.added = function()
 	var laserGeo = ThreeUtils.makeSpriteGeo(1920, 1080);
 	this.laserSprite = ThreeUtils.makeSpriteMesh(laserTexture, laserGeo);
 	this.transform.add(this.laserSprite);
-	this.laserSprite.z = -15;
+	this.laserSprite.position.z = -15;
 
 	// create top shadow
-	var topShadow = ThreeUtils.makeAtlasMesh(atlas, "prison_topshadow");
+	var topShadow = ThreeUtils.makeAtlasMesh(atlas, "prison1_topshadow");
 	this.transform.add(topShadow);
-	//topShadow.
+	topShadow.scale.set(
+		1920/atlas.getSpriteWidth("prison1_topshadow"),
+		1080/atlas.getSpriteHeight("prison1_topshadow"),
+		1);
+	topShadow.position.z = -10;
 
 	// create floor
+	var floor = ThreeUtils.makeAtlasMesh(atlas, "prison1_floor_25");
+	this.transform.add(floor);
+	floor.scale.set(2*1920/atlas.getSpriteWidth("prison1_floor_25"), 4, 1);
+	floor.position.set(0,
+		GameEngine.screenHeight/2 - atlas.getSpriteHeight("prison1_floor_25")*2,
+		-10);
+	floor.z = -10;
 	
 	// create johnson
 	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
@@ -43874,7 +43924,8 @@ IndexScene.prototype.added = function()
 	johnsonSprite3.showInfoBox = "moat";
 
 	// create door
-	var doorClickTarget = this.createClickableSprite("door", 0, 0);
+	var doorClickTarget = this.createClickableRegion(
+		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.triggerScene = "creationOfTheWorld";
 
 	Scene.prototype.added.call(this);
@@ -43889,6 +43940,8 @@ IndexScene.prototype.update = function()
 			this.ffx + (Math.random()-0.5)*4*i, this.ffy + (Math.random()-0.5)*4*i,
 			this.forcefieldSprites[i].position.z);
 	}
+
+	this.laserSprite.position.x = (Math.random()-0.5)*2;
 }
 
 module.exports = new IndexScene();
@@ -43945,9 +43998,16 @@ SceneManager.update = function()
 			{
 				clickTarget.trigger();
 			}
-			this.lastHoveredTarget = clickTarget;
 		}
 	}
+
+	if (clickTarget != this.lastHoveredTarget)
+	{
+		if (clickTarget) clickTarget.hover();
+		if (this.lastHoveredTarget) this.lastHoveredTarget.unhover();
+	}
+
+	this.lastHoveredTarget = clickTarget;
 
 	// update animation
 	if (this.animation)
@@ -44048,10 +44108,12 @@ module.exports =
 	sprites:
 	{
 	"door":[0,0,256,256],
+	"grad_circle":[0,386,64,64],
+	"grad_r":[129,257,64,64],
 	"heaven_angel":[257,0,212,467],
 	"heaven_player":[470,0,196,297],
 	"johnson15_sprite":[0,257,128,128],
-	"lamp":[0,386,60,60],
+	"lamp":[194,257,60,60],
 	},
 },
 "johnson15":
