@@ -121,6 +121,7 @@ SceneManager.update = function()
 		{
 			InfoBox.hide();
 		}
+		Inventory.deselect();
 	}
 
 	for (var i in this.scenes)

@@ -37,6 +37,10 @@ Inventory.added = function() {
         this.inventoryDisplay[i] = li;
         this.itemList[i] = undefined; 
     }
+    for (var i = 0; i < 5; i++)
+    {
+        this.inventoryDisplay[i].addEventListener("click", this.select(i));
+    }
 
 }
 Inventory.addItem = function(item) {
@@ -61,11 +65,23 @@ Inventory.removeItem = function(item) {
 
 }
 Inventory.select = function(index){
-    this.inventoryDisplay[index].style.boxShadow = "0px 0px 5px #fff";
-    this.itemSelected = index;
+    return function() {
+        Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 5px #fff";
+        Inventory.inventoryDisplay[index].style.border = "5px solid white";
+        if (index < 4){
+            Inventory.inventoryDisplay[index+1].style.borderTop = "0px";
+        }
+        Inventory.itemSelected = index;
+    };
 }
-Inventory.deselect = function(index){
-    this.inventoryDisplay[index].style.boxShadow = "0px 0px 0px #fff";
+Inventory.deselect = function(){
+    var index = Inventory.itemSelected;
+    Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 0px #fff";
+    Inventory.inventoryDisplay[index].style.border = "5px solid slategrey";
+    if (index < 4){
+        Inventory.inventoryDisplay[index].style.borderBottom = "0px";
+        Inventory.inventoryDisplay[index+1].style.borderTop = "5px solid slategrey";
+    }
     this.itemSelected = -1;
 }
 Inventory.allowDrop = function(ev) {

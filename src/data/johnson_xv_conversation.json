@@ -41,17 +41,19 @@
 				{
 					"text": "So, how's the wall going?",
 					"nextNodeId": 12,
+					"isGlobalTrue": "BRICK_WALLL",
 					"isGlobalFalse": "WOOD_WALL" 
 				},
 				{
 					"text": "So, how's the wall going?",
 					"nextNodeId": 21,
+					"isGlobalTrue": "WOOD_WALL",
 					"isGlobalFalse": "CARDBOARD_WALL" 
 				},
 				{
 					"text": "So, how's the wall going?",
 					"nextNodeId": 32,
-					"isGlobalFalse": "CARDBOARD_WALL" 
+					"isGlobalTrue": "CARDBOARD_WALL", 
 				},
 				{
 					"text": "You remind me of someone.",

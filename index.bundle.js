@@ -43980,17 +43980,19 @@ module.exports=//GRAVITY_LIGHTER
 				{
 					"text": "So, how's the wall going?",
 					"nextNodeId": 12,
+					"isGlobalTrue": "BRICK_WALLL",
 					"isGlobalFalse": "WOOD_WALL" 
 				},
 				{
 					"text": "So, how's the wall going?",
 					"nextNodeId": 21,
+					"isGlobalTrue": "WOOD_WALL",
 					"isGlobalFalse": "CARDBOARD_WALL" 
 				},
 				{
 					"text": "So, how's the wall going?",
 					"nextNodeId": 32,
-					"isGlobalFalse": "CARDBOARD_WALL" 
+					"isGlobalTrue": "CARDBOARD_WALL", 
 				},
 				{
 					"text": "You remind me of someone.",
@@ -46151,6 +46153,10 @@ Inventory.added = function() {
         this.inventoryDisplay[i] = li;
         this.itemList[i] = undefined; 
     }
+    for (var i = 0; i < 5; i++)
+    {
+        this.inventoryDisplay[i].addEventListener("click", this.select(i));
+    }
 
 }
 Inventory.addItem = function(item) {
@@ -46175,11 +46181,23 @@ Inventory.removeItem = function(item) {
 
 }
 Inventory.select = function(index){
-    this.inventoryDisplay[index].style.boxShadow = "0px 0px 5px #fff";
-    this.itemSelected = index;
+    return function() {
+        Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 5px #fff";
+        Inventory.inventoryDisplay[index].style.border = "5px solid white";
+        if (index < 4){
+            Inventory.inventoryDisplay[index+1].style.borderTop = "0px";
+        }
+        Inventory.itemSelected = index;
+    };
 }
-Inventory.deselect = function(index){
-    this.inventoryDisplay[index].style.boxShadow = "0px 0px 0px #fff";
+Inventory.deselect = function(){
+    var index = Inventory.itemSelected;
+    Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 0px #fff";
+    Inventory.inventoryDisplay[index].style.border = "5px solid slategrey";
+    if (index < 4){
+        Inventory.inventoryDisplay[index].style.borderBottom = "0px";
+        Inventory.inventoryDisplay[index+1].style.borderTop = "5px solid slategrey";
+    }
     this.itemSelected = -1;
 }
 Inventory.allowDrop = function(ev) {
@@ -46330,7 +46348,7 @@ ThreeUtils = require("../sdk/threeutils");
 ClickTarget = require("./clicktarget.js");
 
 // In which you don't really do that much
-
+Inventory.select(3);
 var IndexScene = function()
 {
 	this.backgroundUrl = "media/prison1_bg.png";
@@ -47109,6 +47127,7 @@ SceneManager.update = function()
 		{
 			InfoBox.hide();
 		}
+		Inventory.deselect();
 	}
 
 	for (var i in this.scenes)
@@ -48834,8 +48853,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-<<<<<<< HEAD
-},{"../atlases":26,"./Atlas.js":34,"three":2}]},{},[1]);
-=======
-},{"../atlases":31,"./Atlas.js":39,"three":2}]},{},[1])
->>>>>>> 38f7124bb7635074da38a7f30dadc51be8c4fc4b
+},{"../atlases":31,"./Atlas.js":39,"three":2}]},{},[1]);
