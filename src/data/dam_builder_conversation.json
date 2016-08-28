@@ -1,4 +1,7 @@
 
+//sets: DAM_BUILT, DAM_JOHNSON_INTRODUCTION, EXPLAINED_WHY_DAMS_ARE_AWESOME
+
+//TODO: conditionalize out hints for obstacles already passed
 
 {
 	"title": "johnson_dam_builder",
@@ -8,7 +11,7 @@
 		{
 			"id": "johnson14",
 			"displayName": "Angle Johnson XIV",
-			"atlas": "johnson14",
+			"atlas": "johnson15",
 			"sprites":[
 				"port_idle"
 			]
@@ -25,7 +28,11 @@
 					"onceOnlyGlobal": "DAM_JOHNSON_INTRODUCTION"
 				},
 				{
-					"nextNodeId": 2
+					"nextNodeId": 2,
+					"globalIsFalse": "DAM_BUILT"
+				},
+				{
+					"nextNodeId": 16
 				}
 			]
 		},
@@ -49,6 +56,26 @@
 			]
 		},
 		{
+			"id": 2,
+			"speaker": "johnson14",
+			"text": "What can I do for you, gloomy sir?",
+			"responses":[
+				{
+					"text": "There is a puzzle I cannot solve.",
+					"nextNodeId": 4
+				},
+				{
+					"text": "What are you doing?",
+					"nextNodeId": 14,
+					"globalIsFalse": "EXPLAINED_WHY_DAMS_ARE_AWESOME"
+				},
+				{
+					"text": "How is the bridge building?",
+					"nextNodeId": 15
+				}
+			]
+		},
+		{
 			"id": 3,
 			"speaker": "johnson14",
 			"text": "Hmm. I suppose someone should probably do something about that. I'm a bit busy designing this bridge, though.",
@@ -60,6 +87,57 @@
 				{
 					"text": "How hard can that be? You just build a thing over the water.",
 					"nextNodeId": 7
+				}
+			]
+		},
+		{
+			"id": 4,
+			"speaker": "johnson14",
+			"text": "Maybe I can help. I'm an engineer after all.",
+			"responses":[
+				{
+					"text": "I need to get my past self out of a force-field.",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_FORCEFIELD"
+				},
+				{
+					"text": "There's this wall of crisscrossing lasers...",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_LASERS"
+				},
+				{
+					"text": "I need to get across a crocodile-filled moat.",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_CROCODILES"
+				},
+				{
+					"text": "Do you know any ways to get past a keypad-secured door?",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_KEYPAD"
+				},
+				{
+					"text": "I need to escape from an extremely intricate prison.",
+					"nextNodeId": 13
+				}
+			]
+		},
+		{
+			"id": 5,
+			"speaker": "johnson14",
+			"text": "Uh-huh.",
+			"responses":[
+				{
+					"text": "Yuh-huh.",
+					"nextNodeId": 5
+				},
+				{
+					"text": "What are you doing?",
+					"nextNodeId": 14,
+					"globalIsFalse": "EXPLAINED_WHY_DAMS_ARE_AWESOME"
+				},
+				{
+					"text": "How is the bridge building?",
+					"nextNodeId": 15
 				}
 			]
 		},
@@ -82,11 +160,12 @@
 				{
 					"text": "That's funny, he didn't say much about bridges when I met him.",
 					"globalIsTrue": "ANGEL_INTRODUCTION",
-					"id": 8
+					"nextNodeId": 8
 				},
 				{
 					"text": "Have you ever thought about dams as an alternative to bridges?",
-					"id": 9
+					"nextNodeId": 9,
+					"globalIsFalse": "DAM_BUILT"
 				}
 			]
 		},
@@ -97,17 +176,111 @@
 			"responses":[
 				{
 					"text": "Have you ever thought about dams as an alternative to bridges?",
-					"id": 9
+					"nextNodeId": 9,
+					"globalIsFalse": "DAM_BUILT"
 				}
 			]
 		},
 		{
 			"id": 9,
 			"speaker": "johnson14",
-			"text": "",
+			"text": "No. Why?",
 			"responses":[
-				
+				{
+					"text": "They can generate power while simultaneously acting as a bridge.",
+					"nextNodeId": 10,
+					"setGlobalTrue": "EXPLAINED_WHY_DAMS_ARE_AWESOME"
+				}
 			]
+		},
+		{
+			"id": 10,
+			"speaker": "johnson14",
+			"text": "Hey, that's a pretty good idea! We'd probably have extra power for a long time, even if anyone starts building a large facility of some kind...",
+			"responses":[
+				{
+					"text": "I think you should do it.",
+					"nextNodeId": 11,
+					"setGlobalTrue": "DAM_BUILT"
+				},
+				{
+					"text": "Actually, I don't think that's such a good idea.",
+					"nextNodeId": 12
+				}
+			]
+		},
+		{
+			"id": 11,
+			"speaker": "johnson14",
+			"text": "Thanks, spooky guy!"
+		},
+		{
+			"id": 12,
+			"speaker": "johnson14",
+			"text": "Oh, okay."
+		},
+		{
+			"id": 13,
+			"speaker": "johnson14",
+			"text": "Hmm, nope, don't know anything about that.",
+			"responses":[
+				{
+					"text": "I need to get my past self out of a force-field.",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_FORCEFIELD"
+				},
+				{
+					"text": "There's this wall of crisscrossing lasers...",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_LASERS"
+				},
+				{
+					"text": "I need to get across a crocodile-filled moat.",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_CROCODILES"
+				},
+				{
+					"text": "Do you know any ways to get past a keypad-secured door?",
+					"nextNodeId": 13,
+					"onceOnlyGlobal": "HELP_WITH_KEYPAD"
+				},
+				{
+					"text": "I need to escape from an extremely intricate prison.",
+					"nextNodeId": 13
+				},
+				{
+					"text": "Some help you are.",
+					"nextNodeId": 14
+				}
+			]
+		},
+		{
+			"id": 14,
+			"speaker": "johnson14",
+			"text": "I'm thinking about how we're going to bridge the outside of town.",
+			"responses":[
+				{
+					"text": "Bridges, huh?",
+					"nextNodeId": 7
+				}
+			]
+		},
+		{
+			"id": 15,
+			"speaker": "johnson14",
+			"text": "I enjoy it.",
+			"responses":[
+				{
+					"text": "Have you ever thought about dams as an alternative to bridges?",
+					"nextNodeId": 9,
+					"globalIsFalse": "DAM_BUILT"
+				}
+			]
+		},
+		{
+			"id": 16,
+			"speaker": "johnson14",
+			"text": "We're getting right to work on that dam! It's going to be great!."
 		}
 	]
 }
