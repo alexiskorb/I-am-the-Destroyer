@@ -394,6 +394,22 @@ InfoBox.info =
                 text: "If I try to get through those lasers I'll probably look like french fries.",
             }
         ]
+    },
+    crystal:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "It's me, trapped in a pathetic prison."
+            },
+            {
+                text: "The dark artifact that houses my essense."
+            },
+            {
+                text: "I must free myself from these walls."
+            },
+        ]
     }
 }
 
