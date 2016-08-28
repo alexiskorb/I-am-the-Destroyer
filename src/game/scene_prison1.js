@@ -1,8 +1,10 @@
 
-Scene = require("./base_scene.js");
+PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
 ThreeUtils = require("../sdk/threeutils");
 ClickTarget = require("./clicktarget.js");
+
+// In which you have to get past lasers and forcefields
 
 var PrisonScene1 = function()
 {
@@ -11,7 +13,7 @@ var PrisonScene1 = function()
 	Scene.call(this);
 }
 
-PrisonScene1.prototype = new Scene();
+PrisonScene1.prototype = new PrisonScene();
 
 PrisonScene1.prototype.added = function()
 {
@@ -21,7 +23,7 @@ PrisonScene1.prototype.added = function()
 	this.ffx = -278;
 	this.ffy = -88;
 	this.forcefieldSprites = [];
-	for (var i = 0; i < 4; i++)
+	for (var i = 0; i < 3; i++)
 	{
 		var sprite = ThreeUtils.makeAtlasMesh(atlas, "prison1_ff");
 		sprite.position.set(this.ffx, this.ffy, -15);
@@ -46,11 +48,11 @@ PrisonScene1.prototype.added = function()
 	topShadow.position.z = -10;
 
 	// create floor
-	var floor = ThreeUtils.makeAtlasMesh(atlas, "prison1_floor_25");
+	var floor = ThreeUtils.makeAtlasMesh(atlas, "prison1_floor");
 	this.transform.add(floor);
-	floor.scale.set(2*1920/atlas.getSpriteWidth("prison1_floor_25"), 4, 1);
+	floor.scale.set(2*1920/atlas.getSpriteWidth("prison1_floor"), 1, 1);
 	floor.position.set(0,
-		GameEngine.screenHeight/2 - atlas.getSpriteHeight("prison1_floor_25")*2,
+		GameEngine.screenHeight/2 - atlas.getSpriteHeight("prison1_floor")/2,
 		-10);
 	floor.z = -10;
 	
@@ -69,7 +71,7 @@ PrisonScene1.prototype.added = function()
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.triggerScene = "prison2";
 
-	Scene.prototype.added.call(this);
+	PrisonScene.prototype.added.call(this);
 }
 
 PrisonScene1.prototype.update = function()
@@ -84,7 +86,7 @@ PrisonScene1.prototype.update = function()
 
 	this.laserSprite.position.x = (Math.random()-0.5)*2;
 
-	Scene.prototype.update.call(this);
+	PrisonScene.prototype.update.call(this);
 }
 
 module.exports = new PrisonScene1();

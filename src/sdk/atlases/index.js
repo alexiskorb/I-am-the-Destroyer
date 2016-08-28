@@ -83,8 +83,8 @@ module.exports =
 	sprites:
 	{
 	"prison1_ff":[0,0,704,703],
-	"prison1_floor_25":[705,271,4,34],
-	"prison1_topshadow":[705,0,4,270],
+	"prison1_floor":[705,0,4,295],
+	"prison1_topshadow":[705,296,4,270],
 	},
 }
 }
