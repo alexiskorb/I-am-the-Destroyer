@@ -37,6 +37,16 @@
 					"text": "What are you doing?",
 					"nextNodeId": 8
 				},
+				{
+					"text": "I have an idea for your investment.",
+					"textNodeId": 17,
+					"globalIsTrue": "INVESTMENT_TALK"
+				},
+				{
+					"text": "Any news around town?",
+					"textNodeId": 25,
+					"globalIsFalse": "CARNIVAL"
+				},
 			]
 		},
 		{
@@ -104,17 +114,6 @@
 			]
 		},
         {
-			"id": 4,
-			"speaker": "investor",
-			"text": "\"Why Earth Gravity is Lighter than Moon Gravity\" and \"Balloons: A Study\", among others",
-			"responses": [,
-				{
-					"text": "What are you doing here?",
-					"nextNodeId": 8
-				},
-			]
-		},
-        {
 			"id": 5,
 			"speaker": "investor",
 			"text": "\"Why Earth Gravity is Lighter than Moon Gravity\" and \"Balloons: A Study\", among others",
@@ -165,7 +164,7 @@
         {
 			"id": 9,
 			"speaker": "investor",
-			"text": "Why? So that I can make even more money, of course.",
+			"text": "So that I can make even more money, of course.",
 			"responses": [,
 				{
 					"text": "I suppose that was a dumb question.",
@@ -176,6 +175,357 @@
 					"nextNodeId": 10
 				},
 			]
+		},
+		{
+			"id": 10,
+			"speaker": "investor",
+			"text": "I'm debating between \"Forward FutureTech Technology\" and \"Farmer and Sons\"",
+			"responses": [,
+				{
+					"text": "Tell me about \"Forward FutureTech Technology\"",
+					"nextNodeId": 11
+				}
+                {
+					"text": "Tell me about \"Farmer and Sons\"",
+					"nextNodeId": 10
+				},
+			]
+		},
+		{
+			"id": 11,
+			"speaker": "investor",
+			"text": "As you can tell by their blatantly obvious and redundant name, they make advanced technology.",
+			"responses": [,
+				{
+					"text": "Why would you invest in them?",
+					"nextNodeId": 12
+				}
+			]
+		},
+		{
+			"id": 12,
+			"speaker": "investor",
+			"text": "Well, it would be cool to have force fields, hovercars, and other stuff like that. Those are the type of things they're working on. I think they would sell well. There is one thing though.",
+			"responses": [,
+				{
+					"text": "What's that?",
+					"nextNodeId": 13
+				}
+			]
+		},
+		{
+			"id": 13,
+			"speaker": "investor",
+			"text": "They are struggling financially right now. I think that my investment will allow them to do really well, but it's a big risk.",
+			"responses": [,
+				{
+					"text": "Tell me about \"Farmer and Sons\"",
+					"nextNodeId": 14
+				},
+				{
+					"text": "I might have some advice.",
+					"setGlobalTrue": "INVESTMENT_TALK",
+					"nextNodeId": 17
+				}
+			]
+		},
+		{
+			"id": 14,
+			"speaker": "investor",
+			"text": "They control almost all of the food production around here.",
+			"responses": [,
+				{
+					"text": "Why would you invest in them?",
+					"nextNodeId": 15
+				}
+			]
+		},
+		{
+			"id": 15,
+			"speaker": "investor",
+			"text": "With the money, they're looking to expand. We'll probably get a lot of extra food. However, I'm leaning toward the other company now.",
+			"responses": [,
+				{
+					"text": "Why?",
+					"nextNodeId": 16
+				}
+			]
+		},
+		{
+			"id": 16,
+			"speaker": "investor",
+			"text": "\"Farmer and Sons\" is almost sure to give me a return on their investment. However, it probably won't be as big a return as I'd get with \"Forward FutureTech Technology\"",
+			"responses": [,
+				{
+					"text": "Tell me about \"Forward FutureTech Techonology\"",
+					"nextNodeId": 11
+				},
+				{
+					"text": "I might have some advice.",
+					"setGlobalTrue": "INVESTMENT_TALK",
+					"nextNodeId": 17
+				},
+			]
+		},
+		{
+			"id": 17,
+			"speaker": "investor",
+			"text": "So, should I take the risk and go for \"Forward FutureTech Technology\" or play it safe with \"Farmer and Sons\"?",
+			"responses": [,
+				{
+					"text": "Take the risk. I want a hovercar.",
+					"setGlobalTrue": "NO_FUTURE_TECH",
+					"nextNodeId": 18
+				},
+				{
+					"text": "Play it safe. And more food is always welcome. I like food.",
+					"nextNodeId": 19
+				},
+				{
+					"text": "What do you think?",
+					"nextNodeId": 20
+				},
+				{
+					"text": "Invest in me instead. Let me have the money and I'll make it grow.",
+					"nextNodeId": 21
+				},
+					{
+					"text": "Tell me about \"Forward FutureTech Techonology\" again.",
+					"nextNodeId": 11
+				},
+				{
+					"text": "Tell me about \"Farmer and Sons\" again.",
+					"nextNodeId": 14
+				},
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "investor",
+			"text": "Sounds good. I'm investing in \"Forward FutureTech Technology\" then. Thanks for the help.",
+			"responses": [,
+			]	
+		},
+		{
+			"id": 19,
+			"speaker": "investor",
+			"text": "You're right. I'll invest in \"Farmer and Sons\" then. Thanks for the help.",
+			"responses": [,
+			]	
+		},
+		{
+			"id": 20,
+			"speaker": "investor",
+			"text": "I'm leaning toward \"Forward FutureTech Technology.\" Their products sound much more interesting.",
+			"responses": [,
+				{
+					"text": "continue",
+					"nextNodeId": 17
+				},
+			]	
+		},
+		{
+			"id": 21,
+			"speaker": "investor",
+			"text": "Hmm...well...[He smiles.] Nice try, buddy. You look kind of shady.",
+			"responses": [,
+				{
+					"text": "That's racist.",
+					"nextNodeId": 22
+				},
+				{
+					"text": "No. I'm trustworthy.",
+					"nextNodeId": 24
+				},
+				{
+					"text": "I have a different suggestion then.",
+					"nextNodeId": 17
+				}
+			]	
+		},
+		{
+			"id": 22,
+			"speaker": "investor",
+			"text": "Well, your mother is a fat pig.",
+			"responses": [,
+				{
+					"text": "Well, that escalated quickly.",
+					"nextNodeId": 23
+				},
+				{
+					"text": "I bite my thumb at you.",
+					"nextNodeId": 23
+				},
+				{
+					"text": "Well, your mom is so fat that she can't see her toes.",
+					"nextNodeId": 23
+				},
+				{
+					"text": "When I destroy the Universe, I'm coming after you first.",
+					"nextNodeId": 23
+				},
+			]	
+		},
+		{
+			"id": 23,
+			"speaker": "investor",
+			"text": "Well, you...you're so...um...I...just GO AWAY!",
+			"responses": [,
+			]	
+		},
+		{
+			"id": 24,
+			"speaker": "investor",
+			"text": "Sorry, buddy. I'm not going to trust just any random guy.",
+			"responses": [
+				{
+					"text": "Okay. I have a different suggestion then.",
+					"nextNodeId": 17
+				}
+			]	
+		},
+		{
+			"id": 25,
+			"speaker": "investor",
+			"text": "My nephew, Richard Psion, runs a circus.",
+			"responses": [
+				{
+					"text": "I <b>LOVE</b> circuses!",
+					"nextNodeId": 26
+				},
+				{
+					"text": "Why are you telling me about your nephew?",
+					"nextNodeId": 32
+				},
+				{
+					"text": "Whatever.",
+					"nextNodeId": 30
+				}
+			]	
+		},
+		{
+			"id": 26,
+			"speaker": "investor",
+			"text": "I like them too.",
+			"responses": [
+				{
+					"text": "The tigers, the trapeze artists, the atmosphere. It's all so great!",
+					"nextNodeId": 27
+				},
+				{
+					"text": "Can I see the circus?",
+					"nextNodeId": 33
+				},
+			]	
+		},
+		{
+			"id": 27,
+			"speaker": "investor",
+			"text": "Yep.",
+			"responses": [
+				{
+					"text": "I love the smell of popcorn, the bright and cheery music, the big red top.",
+					"nextNodeId": 28
+				},
+				{
+					"text": "Can I see the circus?",
+					"nextNodeId": 33
+				},
+			]	
+		},
+		{
+			"id": 28,
+			"speaker": "investor",
+			"text": "You really love circuses, I guess.",
+			"responses": [
+				{
+					"text": "A while back, I even got to meet the Lion tamer. It was so cool!",
+					"nextNodeId": 28
+				},
+				{
+					"text": "Can I see the circus?",
+					"nextNodeId": 33
+				},
+			]	
+		},
+		{
+			"id": 29,
+			"speaker": "investor",
+			"text": "Yeah. You have fun with your circus fantasy. I'll be doing other stuff...",
+			"responses": [
+				{
+					"text": "I almost ran away to join a circus. I'll tell you...",
+				},
+				{
+					"text": "No. Wait.",
+					"nextNodeId": 31
+				},
+			]	
+		},
+		{
+			"id": 30,
+			"speaker": "investor",
+			"text": "Well, I like them.",
+			"responses": [
+			]	
+		},
+		{
+			"id": 31,
+			"speaker": "investor",
+			"text": "[It's too late. He already walked away.]",
+			"responses": [
+			]	
+		},
+		{
+			"id": 32,
+			"speaker": "investor",
+			"text": "You asked if there was any news.",
+			"responses": [
+				{
+					"text": "So, can I see the circus?",
+					"nextNodeId": 33
+				},
+			]	
+		},
+		{
+			"id": 33,
+			"speaker": "investor",
+			"text": "Well. He usually doesn't come around here.",
+			"responses": [
+				{
+					"text": "Convince to come. Please",
+					"nextNodeId": 34,
+					"setGlobalTrue": "CARNIVAL"
+				},
+				{
+					"text": "Ahh...[make pouty face]",
+					"nextNodeId": 35,
+					"setGlobalTrue": "CARNIVAL"
+				},
+				{
+					"text": "Whatever, then.",
+				},
+			]	
+		},
+		{
+			"id": 34,
+			"speaker": "investor",
+			"text": "You know what? I think I will. Everyone can use a good circus. I'll get him to come around every few years or so.",
+			"responses": [
+				{
+					"text": "Yay!"
+				},
+			]	
+		},
+		{
+			"id": 35,
+			"speaker": "investor",
+			"text": "You know what? Actually, I will get him to come around every few years or so. Everyone loves circuses.",
+			"responses": [
+				{
+					"text": "Yay!"
+				},
+			]	
 		},
 	]
 }
