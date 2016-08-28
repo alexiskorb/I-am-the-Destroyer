@@ -9,18 +9,12 @@
 		{
 			"id": "investor",
 			"displayName": "Anthony Calahan",
-			"atlas": "johnson15",
-			"sprites":[
-				"port_idle"
-			]
+			"sprite": "johnson15"
 		},
 		{
 			"id": "player",
 			"displayName": "Me",
-			"atlas": "player",
-			"sprites":[
-				"port_idle"
-			]
+			"sprite": "player"
 		}
 	],
 

@@ -14,18 +14,12 @@
 		{
 			"id": "angel",
 			"displayName": "Angel Johnson I",
-			"atlas": "johnson1",
-			"sprites":[
-				"port_idle"
-			]
+			"sprite": "johnson1"
 		},
 		{
 			"id": "player",
 			"displayName": "Me",
-			"atlas": "player",
-			"sprites":[
-				"port_idle"
-			]
+			"sprite": "player"
 		}
 	],
     "nodes":
