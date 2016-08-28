@@ -54,28 +54,23 @@ void main()
 
 <body onload="bmacSdk._attachDom()">
 <!--<div id="homediv"><a href="/" target="_blank"><img src="/media/title_penguin.png" height="64" alt="Penguin in a TV"/></a></div>-->
-<div id="canvasDiv"><noscript>You need Javascript enabled to play the game!</noscript></div>
+<div id="canvasDiv">
+	<noscript>You need Javascript enabled to play the game!</noscript>
 
-<div id="conversation">
-<span id="conversation_text"></span>
-<br/>
-<span id="conversation_responses"></span>
+	<div id="conversation">
+	<div id="conversation_portrait" class="conversation_portrait_off"></div>
+	<div id="conversation_portrait2" class="conversation_portrait2_off"></div>
+	<span id="conversation_text"></span>
+	<span id="conversation_responses"></span>
+	</div>
+
+	<ul id="inventory">
+		<li id="inventoryTitle">Inventory</li>
+	</ul>
 </div>
-
-<ul id="inventory">
-	<li id="inventoryTitle">Inventory</li>
-</ul>
 
 <!--button onclick="Inventory.addItem(Inventory.items.lamp)">hey</button>
 <button onclick="Inventory.removeItem(Inventory.items.lamp)">remove</button-->
-
-
-<div id="conversation_portrait">
-<div id="portrait_offset">
-	
-</div>
-</div>
-<div id="conversation_portrait" class="conversation_portrait_off"></div>
 
 
 </body>

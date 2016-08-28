@@ -1,0 +1,113 @@
+
+
+{
+	"title": "johnson_dam_builder",
+
+	"characters":
+	[
+		{
+			"id": "johnson14",
+			"displayName": "Angle Johnson XIV",
+			"atlas": "johnson14",
+			"sprites":[
+				"port_idle"
+			]
+		}
+	],
+
+	"nodes":
+	[
+		{
+			"id": 0,
+			"responses":[
+				{
+					"nextNodeId": 1,
+					"onceOnlyGlobal": "DAM_JOHNSON_INTRODUCTION"
+				},
+				{
+					"nextNodeId": 2
+				}
+			]
+		},
+		{
+			"id": 1,
+			"speaker": "johnson14",
+			"text": "Ah, it's such a fine day! Why do you look so gloomy?",
+			"responses":[
+				{
+					"text": "I'm the embodiment of pure evil from the darkest corners of time and space, sent to wreak terrible havok on the surface of this planet.",
+					"nextNodeId": 3
+				},
+				{
+					"text": "There is a puzzle I cannot solve.",
+					"nextNodeId": 4
+				},
+				{
+					"text": "No reason.",
+					"nextNodeId": 5
+				}
+			]
+		},
+		{
+			"id": 3,
+			"speaker": "johnson14",
+			"text": "Hmm. I suppose someone should probably do something about that. I'm a bit busy designing this bridge, though.",
+			"responses":[
+				{
+					"text": "I will rend it into so much monatomic gas.",
+					"nextNodeId": 6
+				},
+				{
+					"text": "How hard can that be? You just build a thing over the water.",
+					"nextNodeId": 7
+				}
+			]
+		},
+		{
+			"id": 6,
+			"speaker": "johnson14",
+			"text": "Someone's got a case of the Mondays over here.",
+			"responses":[
+				{
+					"text": "How hard can that be? You just build a thing over the water.",
+					"nextNodeId": 7
+				}
+			]
+		},
+		{
+			"id": 7,
+			"speaker": "johnson14",
+			"text": "The mathematics and techniques of bridge-building have been passed down through my family for generations, even from my very first ancestor, the great Angel Johnson I!",
+			"responses":[
+				{
+					"text": "That's funny, he didn't say much about bridges when I met him.",
+					"globalIsTrue": "ANGEL_INTRODUCTION",
+					"id": 8
+				},
+				{
+					"text": "Have you ever thought about dams as an alternative to bridges?",
+					"id": 9
+				}
+			]
+		},
+		{
+			"id": 8,
+			"speaker": "johnson14",
+			"text": "I should think I know more about my family history than you.",
+			"responses":[
+				{
+					"text": "Have you ever thought about dams as an alternative to bridges?",
+					"id": 9
+				}
+			]
+		},
+		{
+			"id": 9,
+			"speaker": "johnson14",
+			"text": "",
+			"responses":[
+				
+			]
+		}
+	]
+}
