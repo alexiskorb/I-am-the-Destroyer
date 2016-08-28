@@ -5,7 +5,7 @@ ThreeUtils = require("../sdk/threeutils");
 ClickTarget = require("./clicktarget.js");
 
 // In which you don't really do that much
-
+Inventory.select(3);
 var IndexScene = function()
 {
 	this.backgroundUrl = "media/black.png";
@@ -38,7 +38,6 @@ IndexScene.prototype.added = function()
 
 	Scene.prototype.added.call(this);
 }
-
 IndexScene.prototype.update = function()
 {
 	this.crystalBob += bmacSdk.deltaSec;

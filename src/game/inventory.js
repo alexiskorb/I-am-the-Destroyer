@@ -3,7 +3,8 @@ ThreeUtils = require("../sdk/threeutils");
 
 var Inventory = {
     itemList: [],
-    inventoryDisplay: []
+    inventoryDisplay: [],
+    itemSelected: -1
 }
 
 Inventory.items = {
@@ -59,6 +60,14 @@ Inventory.removeItem = function(item) {
    }
 
 }
+Inventory.select = function(index){
+    this.inventoryDisplay[index].style.boxShadow = "0px 0px 5px #fff";
+    this.itemSelected = index;
+}
+Inventory.deselect = function(index){
+    this.inventoryDisplay[index].style.boxShadow = "0px 0px 0px #fff";
+    this.itemSelected = -1;
+}
 Inventory.allowDrop = function(ev) {
     ev.preventDefault();
 }
@@ -98,6 +107,13 @@ Inventory.drop = function(ev) {
         Inventory.itemList[index] = temp;
     }
 }
-
+Inventory.itemHeld = function()
+{
+    if (this.itemSelected > -1)
+    {
+        return this.itemList[itemSelected];
+    }
+    return undefined;
+}
 
 module.exports = Inventory;

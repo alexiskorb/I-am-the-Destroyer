@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
 window.bmacSdk = require("./src/sdk/engine");
@@ -46141,7 +46141,8 @@ ThreeUtils = require("../sdk/threeutils");
 
 var Inventory = {
     itemList: [],
-    inventoryDisplay: []
+    inventoryDisplay: [],
+    itemSelected: -1
 }
 
 Inventory.items = {
@@ -46197,6 +46198,14 @@ Inventory.removeItem = function(item) {
    }
 
 }
+Inventory.select = function(index){
+    this.inventoryDisplay[index].style.boxShadow = "0px 0px 5px #fff";
+    this.itemSelected = index;
+}
+Inventory.deselect = function(index){
+    this.inventoryDisplay[index].style.boxShadow = "0px 0px 0px #fff";
+    this.itemSelected = -1;
+}
 Inventory.allowDrop = function(ev) {
     ev.preventDefault();
 }
@@ -46236,7 +46245,14 @@ Inventory.drop = function(ev) {
         Inventory.itemList[index] = temp;
     }
 }
-
+Inventory.itemHeld = function()
+{
+    if (this.itemSelected > -1)
+    {
+        return this.itemList[itemSelected];
+    }
+    return undefined;
+}
 
 module.exports = Inventory;
 
@@ -46310,6 +46326,7 @@ CreationOfTheWorldScene.prototype.added = function()
 
 	// create player
 	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);
+	Inventory.select(3);
 	
 	Scene.prototype.added.call(this);
 }
@@ -46370,7 +46387,6 @@ IndexScene.prototype.added = function()
 
 	Scene.prototype.added.call(this);
 }
-
 IndexScene.prototype.update = function()
 {
 	this.crystalBob += bmacSdk.deltaSec;
@@ -48869,4 +48885,8 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
+<<<<<<< HEAD
+},{"../atlases":26,"./Atlas.js":34,"three":2}]},{},[1]);
+=======
 },{"../atlases":31,"./Atlas.js":39,"three":2}]},{},[1])
+>>>>>>> 38f7124bb7635074da38a7f30dadc51be8c4fc4b
