@@ -23,8 +23,14 @@ PrisonScene6.prototype.added = function()
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "wall",
+		continue: true
+	})
+	doorClickTarget.addAction({
 		action: "triggerScene",
-		target: "prison7"
+		target: "prison7",
+		globalIsTrue: "CARDBOARD_WALL"
 	})
 
 	PrisonScene.prototype.added.call(this);

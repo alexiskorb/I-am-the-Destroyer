@@ -55,8 +55,7 @@ SceneManager.added = function()
 	this.scenes["timeDevice"].show();
 	this.scenes["timeDevice"].transform.position.z = -10;
 
-	this.finallyChangeScene("prison0", true);
-	this.currentScene.show();
+	this.debugChangeScene("prison0");
 }
 
 SceneManager.update = function()
@@ -159,10 +158,8 @@ SceneManager.changeScene = function(key, animType)
 	}
 
 	var targetScene = this.scenes[key];
-	targetScene.show();
+	this.showScene(targetScene);
 	targetScene.transform.position.z = -70;
-	targetScene.transform.scale.set(1,1,1);
-	targetScene.setAlpha(1);
 	this.changingToScene = key;
 	
 	this.animation = animType;
@@ -200,4 +197,17 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 	{
 		this.scenes.LAST_PRISON = this.currentScene;
 	}
+}
+
+SceneManager.debugChangeScene = function(key)
+{
+	this.finallyChangeScene(key, true);
+	this.showScene(this.currentScene);
+}
+
+SceneManager.showScene = function(scene)
+{
+	scene.show();
+	scene.transform.scale.set(1,1,1);
+	scene.setAlpha(1);
 }

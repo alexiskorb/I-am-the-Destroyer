@@ -67,19 +67,14 @@ PrisonScene1.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableRegion(GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "laser_force_exit",
+		continue: true
+	})
+	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison2",
 		globalIsTrue: ["NO_FUTURE_TECH", "LASERS_DONT_HURT"]
-	})
-	doorClickTarget.addAction({
-		action: "showInfoBox",
-		target: "badForceField",
-		globalIsFalse: "NO_FUTURE_TECH"
-	})
-	doorClickTarget.addAction({
-		action: "showInfoBox",
-		target: "badLasers",
-		globalIsFalse: "LASERS_DONT_HURT"
 	})
 
 	PrisonScene.prototype.added.call(this);

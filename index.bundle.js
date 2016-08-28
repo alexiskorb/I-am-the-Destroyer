@@ -44985,8 +44985,6 @@ ClickTarget = require("./clicktarget.js");
 
 var PrisonScene = function()
 {
-	this.backgroundUrl = "media/prison1_bg.png";
-
 	Scene.call(this);
 }
 
@@ -45296,7 +45294,10 @@ ClickTarget.prototype.trigger = function()
 		if (this.actionMeetsConditionals(this.actions[i]))
 		{
 			this.triggerAction(this.actions[i]);
-			return;
+			if (!this.actions[i].continue)
+			{
+				return;
+			}
 		}
 	}
 }
@@ -45800,39 +45801,6 @@ InfoBox.parseConditionals = function(item)
 
 InfoBox.info = 
 {
-    test: 
-    {
-        cycle: 0,
-        data: [
-            {
-                text: "hey",
-                isTrue: [],
-                isFalse: []
-            },
-            {
-                text: "hello",
-                isTrue: [],
-                isFalse: []
-            },
-            {
-                text: "yeehaw",
-                isTrue: [],
-                isFalse: []
-            }
-        ]
-    },
-    test2: 
-    {
-        cycle: 0,
-        data: 
-        [
-            {
-                text: "yo",
-                isTrue: [],
-                isFalse: []
-            }
-        ]
-    },
     laser_force_exit: {
         cycle: 0,
         data: [
@@ -45842,7 +45810,7 @@ InfoBox.info =
                 isFalse: ["NO_FUTURE_TECH"]
             },
             {
-                text: "The force field is down, but the lasers look dangerous.",
+                text: "The force field is down, but if I try to get through those lasers I'll probably look like french fries.",
                 isFalse: ["LASERS_DONT_HURT"],
                 isTrue: ["NO_FUTURE_TECH"]
             },
@@ -46097,26 +46065,6 @@ InfoBox.info =
             },
         ]
     },
-    badForceField:
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "I can't get over there. I'm trapped by this forcefield.",
-            }
-        ]
-    },
-    badLasers:
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "If I try to get through those lasers I'll probably look like french fries.",
-            }
-        ]
-    },
     crystal:
     {
         cycle: 0,
@@ -46140,26 +46088,6 @@ InfoBox.info =
         [
             {
                 text: "There is a moat in the way. It is full of water and dark-crystal-eating crocodiles.",
-            }
-        ]
-    },
-    doorHasDamPower:
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "The door seems fully powered and very secure."
-            }
-        ]
-    },
-    doorHasNoDamPower:
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "The door flickers and seems to have barely enough power to stay closed."
             }
         ]
     }
@@ -46609,19 +46537,14 @@ PrisonScene1.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableRegion(GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "laser_force_exit",
+		continue: true
+	})
+	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison2",
 		globalIsTrue: ["NO_FUTURE_TECH", "LASERS_DONT_HURT"]
-	})
-	doorClickTarget.addAction({
-		action: "showInfoBox",
-		target: "badForceField",
-		globalIsFalse: "NO_FUTURE_TECH"
-	})
-	doorClickTarget.addAction({
-		action: "showInfoBox",
-		target: "badLasers",
-		globalIsFalse: "LASERS_DONT_HURT"
 	})
 
 	PrisonScene.prototype.added.call(this);
@@ -46673,6 +46596,11 @@ PrisonScene2.prototype.added = function()
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "moat",
+		continue: true,
+	});
+	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison3",
 		globalIsTrue: "FoodForAnimals"
@@ -46681,10 +46609,6 @@ PrisonScene2.prototype.added = function()
 		action: "triggerScene",
 		target: "prison3",
 		globalIsTrue: "DAM_BUILT"
-	});
-	doorClickTarget.addAction({
-		action: "showInfoBox",
-		target: "moatImpassable",
 	});
 
 	PrisonScene.prototype.added.call(this);
@@ -46722,19 +46646,22 @@ PrisonScene3.prototype.added = function()
 	// create door
 	var doorClickTarget = this.createClickableSprite("keydoor", 0, 0);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "keypad",
+		continue: true
+	})
+	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison4",
-		//TODO: check lamp is plugged in
+		globalIsTrue: "LAMP_PLUGGED_IN",
 		globalIsFalse: "DAM_BUILT"
 	})
-	doorClickTarget.addAction({
+
+	// create outlet
+	var outlet = this.createClickableSprite("outlet", -500, 0);
+	outlet.addAction({
 		action: "showInfoBox",
-		target: "doorHasDamPower",
-		globalIsTrue: "DAM_BUILT"
-	})
-	doorClickTarget.addAction({
-		action: "showInfoBox",
-		target: "doorHasNoDamPower",
+		target: "outlet"
 	})
 
 	PrisonScene.prototype.added.call(this);
@@ -46773,8 +46700,14 @@ PrisonScene4.prototype.added = function()
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "labyrinth",
+		continue: true
+	})
+	doorClickTarget.addAction({
 		action: "triggerScene",
-		target: "prison5"
+		target: "prison5",
+		globalIsTrue: ["DAM_BUILT", "BAD_LABYRINTH"]
 	})
 
 	PrisonScene.prototype.added.call(this);
@@ -46813,8 +46746,14 @@ PrisonScene5.prototype.added = function()
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "guard",
+		continue: true
+	})
+	doorClickTarget.addAction({
 		action: "triggerScene",
-		target: "prison6"
+		target: "prison6",
+		globalIsTrue: ["ANIMAL_REST", "CARNIVAL"]
 	})
 
 	PrisonScene.prototype.added.call(this);
@@ -46853,8 +46792,14 @@ PrisonScene6.prototype.added = function()
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "wall",
+		continue: true
+	})
+	doorClickTarget.addAction({
 		action: "triggerScene",
-		target: "prison7"
+		target: "prison7",
+		globalIsTrue: "CARDBOARD_WALL"
 	})
 
 	PrisonScene.prototype.added.call(this);
@@ -46893,8 +46838,14 @@ PrisonScene7.prototype.added = function()
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "pit",
+		continue: true
+	})
+	doorClickTarget.addAction({
 		action: "triggerScene",
-		target: "prison8"
+		target: "prison8",
+		globalIsTrue: ["MAGNETS_PLACED","CARDBOARD_WALL"]
 	})
 
 	PrisonScene.prototype.added.call(this);
@@ -46918,7 +46869,7 @@ ClickTarget = require("./clicktarget.js");
 
 var PrisonScene8 = function()
 {
-	this.backgroundUrl = "media/prison1_bg.png";
+	this.backgroundUrl = "media/doorframe.png";
 
 	PrisonScene.call(this);
 }
@@ -46928,6 +46879,19 @@ PrisonScene8.prototype = new PrisonScene();
 PrisonScene8.prototype.added = function()
 {
 	var atlas = ThreeUtils.loadAtlas("prison1");
+	
+	// create door
+	var doorClickTarget = this.createClickableSprite("keydoor", 0, 0);
+	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "portcullis",
+		continue: true
+	})
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "win",
+		globalIsTrue: "GRAVITY_LIGHTER"
+	})
 	
 	PrisonScene.prototype.added.call(this);
 }
@@ -47162,8 +47126,7 @@ SceneManager.added = function()
 	this.scenes["timeDevice"].show();
 	this.scenes["timeDevice"].transform.position.z = -10;
 
-	this.finallyChangeScene("prison0", true);
-	this.currentScene.show();
+	this.debugChangeScene("prison0");
 }
 
 SceneManager.update = function()
@@ -47266,10 +47229,8 @@ SceneManager.changeScene = function(key, animType)
 	}
 
 	var targetScene = this.scenes[key];
-	targetScene.show();
+	this.showScene(targetScene);
 	targetScene.transform.position.z = -70;
-	targetScene.transform.scale.set(1,1,1);
-	targetScene.setAlpha(1);
 	this.changingToScene = key;
 	
 	this.animation = animType;
@@ -47309,6 +47270,19 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 	}
 }
 
+SceneManager.debugChangeScene = function(key)
+{
+	this.finallyChangeScene(key, true);
+	this.showScene(this.currentScene);
+}
+
+SceneManager.showScene = function(scene)
+{
+	scene.show();
+	scene.transform.scale.set(1,1,1);
+	scene.setAlpha(1);
+}
+
 },{"../sdk/input":35,"./conversation.js":13,"./infobox.js":15,"./scene_creation_of_the_world.js":17,"./scene_index.js":18,"./scene_past_construction.js":19,"./scene_past_field.js":20,"./scene_prison1.js":21,"./scene_prison2.js":22,"./scene_prison3.js":23,"./scene_prison4.js":24,"./scene_prison5.js":25,"./scene_prison6.js":26,"./scene_prison7.js":27,"./scene_prison8.js":28,"./scene_timedevice.js":29}],31:[function(require,module,exports){
 
 // this file is partially generated by tools
@@ -47321,7 +47295,7 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 1406,
+	width: 1407,
 	height: 956,
 	filter: THREE.LinearFilter,
 	sprites:
@@ -47334,7 +47308,8 @@ module.exports =
 	"heaven_player":[827,651,196,297],
 	"johnson15_sprite":[545,781,128,128],
 	"keydoor":[0,0,544,862],
-	"lamp":[1345,0,60,60],
+	"lamp":[698,678,60,60],
+	"outlet":[1345,0,61,83],
 	"timedevice":[545,0,537,393],
 	"timedevice_button1":[0,863,141,93],
 	"timedevice_button2":[142,863,137,75],

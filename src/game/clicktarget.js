@@ -154,7 +154,10 @@ ClickTarget.prototype.trigger = function()
 		if (this.actionMeetsConditionals(this.actions[i]))
 		{
 			this.triggerAction(this.actions[i]);
-			return;
+			if (!this.actions[i].continue)
+			{
+				return;
+			}
 		}
 	}
 }

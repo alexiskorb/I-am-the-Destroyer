@@ -9,7 +9,7 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 1406,
+	width: 1407,
 	height: 956,
 	filter: THREE.LinearFilter,
 	sprites:
@@ -22,7 +22,8 @@ module.exports =
 	"heaven_player":[827,651,196,297],
 	"johnson15_sprite":[545,781,128,128],
 	"keydoor":[0,0,544,862],
-	"lamp":[1345,0,60,60],
+	"lamp":[698,678,60,60],
+	"outlet":[1345,0,61,83],
 	"timedevice":[545,0,537,393],
 	"timedevice_button1":[0,863,141,93],
 	"timedevice_button2":[142,863,137,75],

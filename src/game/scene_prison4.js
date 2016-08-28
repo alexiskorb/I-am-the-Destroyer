@@ -23,8 +23,14 @@ PrisonScene4.prototype.added = function()
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
+		action: "showInfoBox",
+		target: "labyrinth",
+		continue: true
+	})
+	doorClickTarget.addAction({
 		action: "triggerScene",
-		target: "prison5"
+		target: "prison5",
+		globalIsTrue: ["DAM_BUILT", "BAD_LABYRINTH"]
 	})
 
 	PrisonScene.prototype.added.call(this);
