@@ -46216,13 +46216,15 @@ Inventory.select = function(index){
 }
 Inventory.deselect = function(){
     var index = Inventory.itemSelected;
-    Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 0px #fff";
-    Inventory.inventoryDisplay[index].style.border = "5px solid slategrey";
-    if (index < 4){
-        Inventory.inventoryDisplay[index].style.borderBottom = "0px";
-        Inventory.inventoryDisplay[index+1].style.borderTop = "5px solid slategrey";
+    if (index > -1){
+        Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 0px #fff";
+        Inventory.inventoryDisplay[index].style.border = "5px solid slategrey";
+        if (index < 4){
+            Inventory.inventoryDisplay[index].style.borderBottom = "0px";
+            Inventory.inventoryDisplay[index+1].style.borderTop = "5px solid slategrey";
+        }
+        this.itemSelected = -1;
     }
-    this.itemSelected = -1;
 }
 Inventory.allowDrop = function(ev) {
     ev.preventDefault();
