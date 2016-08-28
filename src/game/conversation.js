@@ -52,6 +52,7 @@ Conversation.startConversation = function(conversationData)
 		{
 			if (this.responsePassesConditionals(node0.responses[i]))
 			{
+				this.selectResponse(node0.responses[i]);
 				this.moveToNode(node0.responses[i].nextNodeId)
 				return;
 			}
