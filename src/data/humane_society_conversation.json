@@ -27,10 +27,14 @@
 		{
 			"id": 1,
 			"speaker": "humane_society_guy",
-			"text": "Hello.",
+			"text": "Hullo.",
 			"responses":[
 				{
 					"text": "Who are you?",
+					"nextNodeId": 2
+				},
+				{
+					"text": "What are you doing?",
 					"nextNodeId": 2
 				},
 			]
@@ -38,13 +42,469 @@
 		{
 			"id": 2,
 			"speaker": "humane_society_guy",
-			"text": "My name is Jason Helios. I work for the Humane Society.",
+			"text": "I'm Jason Helios. I like work for like the Humane Society. I'm in charge of them animal rights at that prison thingy they're building.",
 			"responses":[
 				{
-					"text": "Who are you?",
-					"nextNodeId": 2
+					"text": "So, you really like animals?",
+					"nextNodeId": 3
+				},
+				{
+					"text": "I have a question.",
+					"nextNodeId": 5
+				},
+				{
+					"text": "Prison?",
+					"nextNodeId": 6
 				},
 			]
 		},
+		{
+			"id": 3,
+			"speaker": "humane_society_guy",
+			"text": "Animals are the bestest, man. They're like better than humans.",
+			"responses":[
+				{
+					"text": "Are you sure?",
+					"nextNodeId": 4
+				},
+				{
+					"text": "I have a question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 4,
+			"speaker": "humane_society_guy",
+			"text": "In movies, doesn't everyone cry when the dog dies, and not the people. I know what I'm talking about.",
+			"responses":[
+				{
+					"text": "I suppose.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 5,
+			"speaker": "humane_society_guy",
+			"text": "So, what d'ya want?",
+			"responses":[
+				{
+					"text": "Tell me about that prison.",
+					"nextNodeId": 6
+				},
+				{
+					"text": "Tell me about the animals.",
+					"nextNodeId": 10
+				},
+			]
+		},
+		{
+			"id": 6,
+			"speaker": "humane_society_guy",
+			"text": "It's to hold some ancient evil dude who they imprisoned in a little crystal.",
+			"responses":[
+				{
+					"text": "Who's \"they\"?",
+					"nextNodeId": 7
+				},
+				{
+					"text": "What's this have to do with the humane society?",
+					"nextNodeId": 10
+				},
+			]
+		},
+		{
+			"id": 7,
+			"speaker": "humane_society_guy",
+			"text": "Like \"them,\" you know. The Illuminati. The government. Take your pick.",
+			"responses":[
+				{
+					"text": "I pick the government.",
+					"nextNodeId": 8
+				},
+				{
+					"text": "I pick the Illuminati.",
+					"nextNodeId": 8
+				},
+				{
+					"text": "Aren't you being a bit paranoid?",
+					"nextNodeId": 9
+				},
+			]
+		},
+		{
+			"id": 8,
+			"speaker": "humane_society_guy",
+			"text": "I was kidding, man. It's both of them.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+				{
+					"text": "Aren't you being a bit paranoid?",
+					"nextNodeId": 9
+				},
+			]
+		},
+		{
+			"id": 9,
+			"speaker": "humane_society_guy",
+			"text": "Shh...<i>they</i> might be watching.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 10,
+			"speaker": "humane_society_guy",
+			"text": "They were gonna use some animals as like guards and such. I'm here to make sure they're treated right.",
+			"responses":[
+				{
+					"text": "I don't think they're fed enough.",
+					"nextNodeId": 11,
+					"globalIsFalse": "FoodForAnimals"
+				},
+				{
+					"text": "I don't think they're fed enough.",
+					"nextNodeId": 31,
+					"globalIsTrue": "FoodForAnimals"
+				},
+				{
+					"text": "About guards with pets...",
+					"globalIsTrue": "CARNIVAL",
+					"nextNodeId": 19
+				},
+				{
+					"text": "About guards with pets...",
+					"globalIsTrue": "ANIMAL_REST",
+					"nextNodeId": 30
+				},
+			]
+		},
+		{
+			"id": 11,
+			"speaker": "humane_society_guy",
+			"text": "Why?",
+			"responses":[
+				{
+					"text": "They look hungry.",
+					"nextNodeId": 12
+				},
+				{
+					"text": "You know, I just, like, feel it.",
+					"globalIsFalse": "NO_FUTURE_TECH",
+					"nextNodeId": 13
+				},
+				{
+					"text": "Someone told me the humans were going to steal all the food. Or, the Illuminati.",
+					"globalIsFalse": "NO_FUTURE_TECH",
+					"nextNodeId": 13
+				},
+				{
+					"text": "Animals can always use more food.",
+					"globalIsFalse": "NO_FUTURE_TECH",
+					"nextNodeId": 13
+				},
+				{
+					"text": "You know, I just, like, feel it.",
+					"globalIsTrue": "NO_FUTURE_TECH",
+					"nextNodeId": 15
+				},
+				{
+					"text": "Someone told me the humans were going to steal all the food. Or, the Illuminati.",
+					"globalIsTrue": "NO_FUTURE_TECH",
+					"nextNodeId": 15
+				},
+				{
+					"text": "Animals can always use more food.",
+					"globalIsTrue": "NO_FUTURE_TECH",
+					"nextNodeId": 15
+				},
+			]
+		},
+		{
+			"id": 12,
+			"speaker": "humane_society_guy",
+			"text": "But...they haven't chosen the animals yet. What?",
+			"responses":[
+				{
+					"text": "Nevermind.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 13,
+			"speaker": "humane_society_guy",
+			"text": "I'd push for more food, I really would, but there's not exactly an excess of food right now.",
+			"responses":[
+				{
+					"text": "What do you mean?",
+					"nextNodeId": 14
+				},
+			]
+		},
+		{
+			"id": 14,
+			"speaker": "humane_society_guy",
+			"text": "The farmers aren't producing a lot right now. The mayor wouldn't let me reallocate food.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 15,
+			"speaker": "humane_society_guy",
+			"text": "Yeah. That's a great idea. My dog, Rover, always likes more food.",
+			"responses":[
+				{
+					"text": "So, you'll get them more food?",
+					"setGlobalTrue": "FOOD_FOR_ANIMALS",
+					"nextNodeId": 16
+				},
+				{
+					"text": "\"Rover\" is the most generic dog name ever.",
+					"nextNodeId": 17
+				},
+			]
+		},
+		{
+			"id": 16,
+			"speaker": "humane_society_guy",
+			"text": "Yep will do.",
+			"responses":[
+				{
+					"text": "Gotta protect those anmials.",
+				},
+			]
+		},
+		{
+			"id": 17,
+			"speaker": "humane_society_guy",
+			"text": "Look. I don't go criticizing why you've got that giant hole in your chest. So leave me alone.",
+			"responses":[
+				{
+					"text": "Good point.",
+					"nextNodeId": 18
+				},
+				{
+					"text": "So, you'll get the animals more food?",
+					"setGlobalTrue": "FOOD_FOR_ANIMALS",
+					"nextNodeId": 16
+				},
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 17,
+			"speaker": "humane_society_guy",
+			"text": "So, you think I ought to give the animals more food?",
+			"responses":[
+				{
+					"text": "Definitely. You should do it.",
+					"setGlobalTrue": "FOOD_FOR_ANIMALS",
+					"nextNodeId": 16
+				},
+				{
+					"text": "On second thought, nope.",
+					"nextNodeId": 18
+				},
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "humane_society_guy",
+			"text": "You're just confusing, man.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 19,
+			"speaker": "humane_society_guy",
+			"text": "What about them?",
+			"responses":[
+				{
+					"text": "How do you know that they're being treated right?",
+					"nextNodeId": 28
+				},
+				{
+					"text": "I don't think they should be allowed.",
+					"nextNodeId": 27
+				},
+			]
+		},
+		{
+			"id": 20,
+			"speaker": "humane_society_guy",
+			"text": "Pets need breaks, I suppose.",
+			"responses":[
+				{
+					"text": "And they need to play, right?",
+					"nextNodeId": 21
+				},
+			]
+		},
+		{
+			"id": 21,
+			"speaker": "humane_society_guy",
+			"text": "Right.",
+			"responses":[
+				{
+					"text": "So, shouldn't we make sure they get breaks?",
+					"nextNodeId": 22
+				},
+			]
+		},
+		{
+			"id": 22,
+			"speaker": "humane_society_guy",
+			"text": "Yeah. We ought to make them have the guards take a break and play with them.",
+			"responses":[
+				{
+					"text": "They should probably go outside so the animals get fresh air.",
+					"nextNodeId": 23
+				},
+			]
+		},
+		{
+			"id": 23,
+			"speaker": "humane_society_guy",
+			"text": "Good idea. How long should these breaks be?",
+			"responses":[
+				{
+					"text": "At least once a day for an hour.",
+					"setGlobalTrue": "ANIMAL_REST",
+					"nextNodeId": 24
+				},
+				{
+					"text": "Ten minutes every 6 hours.",
+					"setGlobalTrue": "ANIMAL_REST",
+					"nextNodeId": 24
+				},
+				{
+					"text": "Fifteen minutes three times per shift.",
+					"setGlobalTrue": "ANIMAL_REST",
+					"nextNodeId": 24
+				},
+				{
+					"text": "Fifteen minutes every hour on the hour.",
+					"nextNodeId": 25
+				},
+			]
+		},
+		{
+			"id": 24,
+			"speaker": "humane_society_guy",
+			"text": "Sounds good. I'll make sure it happens.",
+			"responses":[
+			]
+		},
+		{
+			"id": 25,
+			"speaker": "humane_society_guy",
+			"text": "That sounds kinda like a lot.",
+			"responses":[
+				{
+					"text": "But these animals are working hard.",
+					"setGlobalTrue": "ANIMAL_REST",
+					"nextNodeId": 26
+				},
+				{
+					"text": "No. It's not a lot.",
+					"setGlobalTrue": "ANIMAL_REST",
+					"nextNodeId": 26
+				},
+				{
+					"text": "Animals are people too.",
+					"setGlobalTrue": "ANIMAL_REST",
+					"nextNodeId": 26
+				},
+				{
+					"text": "On second thought...maybe we should look into other break times.",
+					"nextNodeId": 23
+				},
+			]
+		},
+		{
+			"id": 26,
+			"speaker": "humane_society_guy",
+			"text": "I guess you're right. I'll get the breaks in.",
+			"responses":[
+			]
+		},
+		{
+			"id": 27,
+			"speaker": "humane_society_guy",
+			"text": "Nah. They're just like pets. Pets will be fine.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 28,
+			"speaker": "humane_society_guy",
+			"text": "I don't know. Make sure they got breaks and food and stuff. And are happy and all.",
+			"responses":[
+				{
+					"text": "How do you keep them happy?",
+					"nextNodeId": 29
+				},
+				{
+					"text": "Breaks?",
+					"nextNodeId": 20
+				},
+			]
+		},
+		{
+			"id": 29,
+			"speaker": "humane_society_guy",
+			"text": "I like to sing them songs.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 30,
+			"speaker": "humane_society_guy",
+			"text": "I put in those breaks you wanted.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 31,
+			"speaker": "humane_society_guy",
+			"text": "And that's why I'm going to get them more food like I said.",
+			"responses":[
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		}
 	]
 }
