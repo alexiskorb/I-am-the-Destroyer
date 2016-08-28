@@ -5,7 +5,7 @@ ThreeUtils = require("../sdk/threeutils");
 ClickTarget = require("./clicktarget.js");
 
 // In which you don't really do that much
-
+Inventory.select(3);
 var IndexScene = function()
 {
 	this.backgroundUrl = "media/prison1_bg.png";
