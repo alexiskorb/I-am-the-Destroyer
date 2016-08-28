@@ -35,17 +35,17 @@
 				},
 				{
 					"text": "I have an idea for your investment.",
-					"textNodeId": 17,
+					"nextNodeId": 17,
 					"globalIsTrue": "INVESTMENT_TALK"
 				},
 				{
 					"text": "Any news around town?",
-					"textNodeId": 25,
+					"nextNodeId": 25,
 					"globalIsFalse": "CARNIVAL"
 				},
 				{
 					"text": "Any news around town?",
-					"textNodeId": 36,
+					"nextNodeId": 36,
 					"globalIsTrue": "CARNIVAL"
 				}
 			]
@@ -275,11 +275,11 @@
 			"responses": [
 				{
 					"text": "Take the risk. I want a hovercar.",
-					"setGlobalTrue": "NO_FUTURE_TECH",
 					"nextNodeId": 18
 				},
 				{
 					"text": "Play it safe. And more food is always welcome. I like food.",
+					"setGlobalTrue": "NO_FUTURE_TECH",
 					"nextNodeId": 19
 				},
 				{
@@ -441,7 +441,7 @@
 			"responses": [
 				{
 					"text": "A while back, I even got to meet the Lion tamer. It was so cool!",
-					"nextNodeId": 28
+					"nextNodeId": 29
 				},
 				{
 					"text": "Can I see the circus?",

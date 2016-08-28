@@ -255,7 +255,7 @@
             "responses": [
                 {
                     "text": "I had another question.",
-                    "nextNodeId": 16
+                    "nextNodeId": 10
                 },
                 {
                     "text": "Nope. That's it.",
