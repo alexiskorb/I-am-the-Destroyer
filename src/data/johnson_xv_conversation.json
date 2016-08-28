@@ -3,6 +3,7 @@
 //WOOD_WALL
 //CARDBOARD_WALL
 //WALL_TALK
+//BOX_IN_WORMHOLE
 
 {
 	"title": "johnson_xv_conversation",
@@ -385,12 +386,12 @@
 				{
 					"text": "Cardboard?",
 					"nextNodeId": 29,
-					"isGlobalFalse": "WORMHOLE_ACTIVATED"
+					"isGlobalFalse": "BOX_IN_WORMHOLE"
 				},
 				{
 					"text": "Cardboard?",
 					"nextNodeId":30,
-					"isGlobalTrue": "WORMHOLE_ACTIVATED"
+					"isGlobalTrue": "BOX_IN_WORMHOLE"
 				},
 			]
 		},
@@ -552,12 +553,12 @@
 				{
 					"text": "What about the first cousin?",
 					"nextNodeId": 39,
-					"isGlobalFalse": "WORMHOLE_ACTIVATED"
+					"isGlobalFalse": "BOX_IN_WORMHOLE"
 				},
 			    { 
 					"text": "What about the first cousin?",
 					"nextNodeId": 43,
-					"isGlobalTrue": "WORMHOLE_ACTIVATED"
+					"isGlobalTrue": "BOX_IN_WORMHOLE"
 				},
 			]
 		},
