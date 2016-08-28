@@ -38,6 +38,14 @@ Scene.prototype.update = function()
 		{
 			this.clickTargets[i].update();
 		}
+		if (this.clickTargets[i].conditional) {
+			if (this.clickTargets[i].meetsExistConditions())
+			{
+				this.clickTargets[i].enable();
+			}else{
+				this.clickTargets[i].disable();
+			}
+		}
 	}
 }
 

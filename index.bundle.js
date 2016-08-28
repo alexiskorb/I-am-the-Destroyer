@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
 window.bmacSdk = require("./src/sdk/engine");
@@ -42820,7 +42820,8 @@ module.exports=//NO_FUTURE_TECH
 			"text": "Here you go.", 
 			"responses":[
 				{
-					"text": "[Take lamp.]",				
+					"text": "[Take lamp.]",		
+					"getItem": "lamp"		
                 },
 			],
 		},
@@ -45065,6 +45066,14 @@ Scene.prototype.update = function()
 		{
 			this.clickTargets[i].update();
 		}
+		if (this.clickTargets[i].conditional) {
+			if (this.clickTargets[i].meetsExistConditions())
+			{
+				this.clickTargets[i].enable();
+			}else{
+				this.clickTargets[i].disable();
+			}
+		}
 	}
 }
 
@@ -45167,12 +45176,26 @@ var ClickTarget = function(mesh)
 	this.collectItem = undefined;
 
 	this.showInfoBox = undefined;
+	this.existConditionsTrue = [];
+	this.existConditionsFalse = [];
+	this.conditional = false;
 }
 
 ClickTarget.prototype.addAction = function(data)
 {
 	this.actions.push(data);
 }
+ClickTarget.prototype.addTrue= function(data)
+{
+	this.existConditionsTrue.push(data);
+	this.conditional = true;
+}
+ClickTarget.prototype.addFalse = function(data)
+{
+	this.existConditionsFalse.push(data);
+	this.conditional = true;
+}
+
 
 //Possible action keys:
 // - triggerConversation
@@ -45375,6 +45398,25 @@ ClickTarget.prototype.triggerPostAnimation = function()
 	}
 
 	this.executingAction = undefined;
+}
+
+ClickTarget.prototype.meetsExistConditions = function()
+{
+	for (var i = 0; i < this.existConditionsFalse.length; i++)
+    {
+        if (GlobalVariables.getVariable(this.existConditionsFalse[i]))
+		{
+			return false;
+        }
+    }
+	for (var i = 0; i < this.existConditionsTrue.length; i++)
+    {
+        if (!(GlobalVariables.getVariable(this.existConditionsTrue[i])))
+		{
+			return false;
+        }
+    }
+    return true;
 }
 
 },{"./conversation.js":13,"./globalvariables.js":14,"./infobox.js":15,"three":2}],13:[function(require,module,exports){
@@ -46183,6 +46225,18 @@ Inventory.items = {
     },
     player_atlas: {
         sprite: "player_atlas2"
+    },
+    cardboard_box: {
+        sprite: "cardboardbox"
+    },
+    cardboard: {
+        sprite: "cardboard"
+    },
+    balloon: {
+        sprite: "balloon"
+    },
+    magnets: {
+        sprite: "magnets"
     }
 }
 
@@ -46223,6 +46277,7 @@ Inventory.addItem = function(item) {
            break;
        }
    }
+   GlobalVariables.setVariable(item + "_OBTAINED")
 }
 Inventory.removeItem = function(item) {
    for (var i = 0; i < 5; i++){
@@ -46232,7 +46287,7 @@ Inventory.removeItem = function(item) {
            break;
        }
    }
-
+   GlobalVariables.unsetVariable(item + "_OBTAINED")
 }
 Inventory.select = function(index){
     return function() {
@@ -46376,8 +46431,9 @@ CreationOfTheWorldScene.prototype.added = function()
 
 	// create player
 	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);
-	Inventory.select(3);
-	
+	this.wormhole = this.createClickableSprite("wormhole", 0, 0);
+	this.wormhole.addTrue("WORMHOLE_ACTIVATED");
+
 	Scene.prototype.added.call(this);
 }
 
@@ -46527,6 +46583,11 @@ FieldScene.prototype.added = function()
 	speakerGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/prophet_conversation.json")
+	})
+	var cardboardBox = this.createClickableSprite("cardboardbox", 200, 200);
+	cardboardBox.addAction({
+		action: "collectItem",
+		target: "cardboard_box"
 	})
 
 	Scene.prototype.added.call(this);
@@ -47321,26 +47382,31 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 1406,
+	width: 1474,
 	height: 956,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
+	"balloon":[531,879,60,60],
+	"cardboard":[746,678,60,60],
+	"cardboardbox":[592,879,60,60],
 	"crystal":[545,394,281,283],
 	"door":[827,394,256,256],
 	"grad_circle":[401,863,64,64],
 	"grad_r":[466,863,64,64],
 	"heaven_angel":[1084,258,212,467],
 	"heaven_player":[827,651,196,297],
-	"johnson15_sprite":[545,781,128,128],
+	"johnson15_sprite":[1345,0,128,128],
 	"keydoor":[0,0,544,862],
-	"lamp":[1345,0,60,60],
+	"lamp":[1345,129,60,60],
+	"magnets":[746,739,60,60],
 	"timedevice":[545,0,537,393],
 	"timedevice_button1":[0,863,141,93],
 	"timedevice_button2":[142,863,137,75],
 	"timedevice_button3":[280,863,120,76],
-	"timedevice_button4":[545,678,152,102],
+	"timedevice_button4":[1297,258,152,102],
 	"timedevice_sticky":[1083,0,261,257],
+	"wormhole":[545,678,200,200],
 	},
 },
 "heaven":
@@ -48957,4 +49023,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":31,"./Atlas.js":39,"three":2}]},{},[1])
+},{"../atlases":31,"./Atlas.js":39,"three":2}]},{},[1]);

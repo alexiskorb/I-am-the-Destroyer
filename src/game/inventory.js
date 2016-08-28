@@ -15,7 +15,7 @@ Inventory.items = {
         sprite: "player_atlas2"
     },
     cardboard_box: {
-        sprite: "cardboard_box"
+        sprite: "cardboardbox"
     },
     cardboard: {
         sprite: "cardboard"
@@ -65,6 +65,7 @@ Inventory.addItem = function(item) {
            break;
        }
    }
+   GlobalVariables.setVariable(item + "_OBTAINED")
 }
 Inventory.removeItem = function(item) {
    for (var i = 0; i < 5; i++){
@@ -74,7 +75,7 @@ Inventory.removeItem = function(item) {
            break;
        }
    }
-
+   GlobalVariables.unsetVariable(item + "_OBTAINED")
 }
 Inventory.select = function(index){
     return function() {
