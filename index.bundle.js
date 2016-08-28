@@ -41783,9 +41783,12 @@ THREE.MorphBlendMesh.prototype.update = function ( delta ) {
 
 
 },{}],3:[function(require,module,exports){
-module.exports=//1 and 10
+module.exports=//ANGEL_INTRODUCTION
+//WORMHOLE_ACTIVATED
+//BOX_OBTAINED
+//BOX_USED
 {
-    "title": "angel_convo",
+    "title": "angel_conversation",
     "characters":
 	[
 		{
@@ -41816,7 +41819,7 @@ module.exports=//1 and 10
                     "onceOnlyGlobal": "ANGEL_INTRODUCTION"
                 },
                 {
-                    "nextNodeId": 21
+                    "nextNodeId": 9
                 }
             ]
         },
@@ -41831,7 +41834,6 @@ module.exports=//1 and 10
                 },
                 {
                     "text": "Who are you?",
-                    "globalIsFalse": "askedAngelAboutName",
                     "nextNodeId": 2
                 },
                 {
@@ -41847,7 +41849,6 @@ module.exports=//1 and 10
             "responses": [
                 {
                     "text": "Angel Johnson I? What's the \"I\" for ?",
-                    "onceOnlyGlobal": "askedAngelAboutName",
                     "nextNodeId": 3
                 },
                 {
@@ -41937,12 +41938,20 @@ module.exports=//1 and 10
         {
             "id": 9,
             "speaker": "angel",
-            "text": "All he said was that he wants people to know he has a sense of humor. I'm not sure what that means.",
+            "text": "Oh. Hello again.",
             "responses": [
                 {
-                    "text": "continue",
-                    "nextNodeId": 1
+                    "text": "What are you doing?",
+                    "nextNodeId": 7,
                 },
+                {
+                    "text": "Who are you again?",
+                    "nextNodeId": 2
+                },
+                {
+                    "text": "Can I ask you something?",
+                    "nextNodeId": 10
+                }
             ]
         },
         {
@@ -41960,7 +41969,23 @@ module.exports=//1 and 10
                 },
                 {
                     "text": "You think you could make gravity lighter?",
+                    "globalIsFalse": "BALLOON_USED",
                     "nextNodeId": 18
+                },
+                {
+                    "text": "Thanks for making gravity lighter.",
+                    "globalIsTrue": "BALLOON_USED",
+                    "nextNodeId": 34
+                },
+                {
+                    "text": "What's the coolest thing you can do?",
+                    "nextNodeId": 23,
+                    "globalIsFalse": "WORMHOLE_ACTIVATED"
+                },
+                {
+                    "text": "About that wormhole? What can I do with it?",
+                    "globalIsTrue": "WORMHOLE_ACTIVATED",
+                    "nextNodeId": 29
                 }
             ]
         },
@@ -42073,30 +42098,198 @@ module.exports=//1 and 10
             "responses": [
                 {
                     "text": "I'll get back to you.",
+                    "nextNodeId": 10,
+                    "globalIsFalse": "BALLOON_OBTAINED"
+                },
+                {
+                    "text": "How about this? [Show balloon.]",
+                    "globalIsTrue": "BALLOON_OBTAINED",
+                    "setGlobalTrue": "BALLON_USED",
+                    "removeItem": "balloon",
+                    "nextNodeId": 21
+                }
+            ]
+        },
+        {
+            "id": 21,
+            "speaker": "angel",
+            "text": "It flies? And it's squishy? This is amazing! What is that magic? ",
+            "responses": [
+                {
+                    "text": "And if you make gravity lighter, it will fly even faster!",
+                    "nextNodeId": 22
+                }
+            ]
+        },
+        {
+            "id": 22,
+            "speaker": "angel",
+            "text": "[Snaps fingers.] Yep. Gravity is now a lot less. Now, excuse me while I play with this amazing contraption.",
+            "responses": [
+            ]
+        },
+        {
+            "id": 23,
+            "speaker": "angel",
+            "text": "I can make a wormhold through space and time.",
+            "responses": [
+                {
+                    "text": "Awesome! Show me!",
+                    "nextNodeId": 28,
+                    "setGlobalTrue": "WORMHOLE_ACTIVATED"
+                },
+                {
+                    "text": "That's so lame.",
+                    "nextNodeId": 24
+                }
+            ]
+        },
+        {
+            "id": 24,
+            "speaker": "angel",
+            "text": "I bet that <i>you</i> can't do anything with space time.",
+            "responses": [
+                {
+                    "text": "Sure. Whatever.",
+                    "nextNodeId": 10
+                },
+                {
+                    "text": "As a matter of fact, I can.",
+                    "nextNodeId": 25
+                },
+            ]
+        },
+        {
+            "id": 25,
+            "speaker": "angel",
+            "text": "What?",
+            "responses": [
+                {
+                    "text": "How do you think I got here?",
+                    "nextNodeId": 26
+                },
+                {
+                    "text": "Heh. Just messing with you.",
+                    "nextNodeId": 10
+                },
+            ]
+        },
+        {
+            "id": 26,
+            "speaker": "angel",
+            "text": "Oh. Hmm...Well, I bet my thing's still cooler.",
+            "responses": [
+                {
+                    "text": "Show me.",
+                    "nextNodeId": 28,
+                    "setGlobalTrue": "WORMHOLE_ACTIVATED"
+                },
+                {
+                    "text": "Whatever. Bye.",
+                },
+            ]
+        },
+        {
+            "id": 27,
+            "speaker": "angel",
+            "text": "Boom. Wormhole",
+            "responses": [
+                {
+                    "text": "Show me.",
+                    "nextNodeId": 28,
+                    "setGlobalTrue": "WORMHOLE_ACTIVATED"
+                },
+                {
+                    "text": "Whatever. Bye.",
+                },
+            ]
+        },
+        {
+            "id": 28,
+            "speaker": "angel",
+            "text": "Boom. Wormhole",
+            "responses": [
+                {
+                    "text": "So, what does it do?",
+                    "nextNodeId": 29
+                },
+                {
+                    "text": "Can I throw something in?",
+                    "nextNodeId": 31
+                },
+            ]
+        },
+        {
+            "id": 29,
+            "speaker": "angel",
+            "text": "If you throw something in, it will travel across time and space and randomly drop out of the sky somewhere.",
+            "responses": [
+                {
+                    "text": "Isn't that dangerous? What if it hits someone?",
+                    "nextNodeId": 30
+                },
+                {
+                    "text": "Can I throw anything in?",
+                    "nextNodeId": 32
+                },
+            ]
+        },
+        {
+            "id": 30,
+            "speaker": "angel",
+            "text": "Let's not think about it too much. Bye",
+            "responses": [
+            ]
+        },
+        {
+            "id": 31,
+            "speaker": "angel",
+            "text": "Sure. If you throw something in, it will travel across time and space and randomly drop out of the sky somewhere.",
+            "responses": [
+                {
+                    "text": "Can I throw anything in?",
+                    "nextNodeId": 32
+                },
+                {
+                    "text": "Isn't that dangerous?",
+                    "nextNodeId": 30
+                },
+            ]
+        },
+        {
+            "id": 32,
+            "speaker": "angel",
+            "text": "Well, I only got a \"C\" in wormhole class, so it has to be something pretty light. Like paper or plastic.",
+            "responses": [
+                {
+                    "text": "What about cardboard",
+                    "globalIsTrue": "BOX_OBTAINED",
+                    "nextNodeId": 33
+                },
+                {
+                    "text": "Can I ask you something else?",
                     "nextNodeId": 10
                 }
             ]
         },
-
         {
-            "id": 21,
+            "id": 33,
             "speaker": "angel",
-            "text": "Oh. Hello again.",
+            "text": "Yeah. Cardboard should be fine.",
             "responses": [
                 {
-                    "text": "What are you doing?",
-                    "nextNodeId": 7
-                },
-                {
-                    "text": "Who are you?",
-                    "nextNodeId": 2
-                },
-                {
-                    "text": "Can I ask you something?",
+                    "text": "Can I ask you something else?",
                     "nextNodeId": 10
                 }
             ]
-        }
+        },
+        {
+            "id": 34,
+            "speaker": "angel",
+            "text": "No Problem.",
+            "responses": [
+            ]
+        },
     ]
 }
 },{}],4:[function(require,module,exports){
@@ -42437,8 +42630,19 @@ Conversation.selectResponse = function(response)
 		{
 			GlobalVariables.setVariable(response.onceOnlyGlobal);
 		}
+		if (response.setGlobalTrue)
+		{
+			GlobalVariables.setVariable(response.setGlobalTrue);
+		}
+		if (response.setGlobalFalse)
+		{
+			GlobalVariables.unsetVariable(response.setGlobalFalse);
+		}
 		if (response.getItem) {
 			Inventory.addItem(Inventory.items[response.getItem]);
+		}
+		if (response.removeItem){
+			Inventory.removeItem(Inventory.items[response.removeItem]);
 		}
 		if (response.nextNodeId !== undefined)
 		{
@@ -42462,16 +42666,6 @@ Conversation.moveToNode = function(index)
 	if (targetNode)
 	{
 		this.currentNodeId = index;
-
-		// set globals
-		if (targetNode.setGlobalTrue)
-		{
-			GlobalVariables.setVariable(targetNode.setGlobalTrue);
-		}
-		if (targetNode.setGlobalFalse)
-		{
-			GlobalVariables.unsetVariable(targetNode.setGlobalFalse);
-		}
 
 		var currentNode = this.getCurrentNode();
 		var currentSpeaker = this.getSpeaker(currentNode.speaker);
