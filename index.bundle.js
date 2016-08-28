@@ -46402,7 +46402,7 @@ ClickTarget = require("./clicktarget.js");
 
 var ConstructionScene = function()
 {
-	this.backgroundUrl = "media/heaven_sky_gradient.png";
+	this.backgroundUrl = "media/construction.png";
 
 	Scene.call(this);
 }
@@ -46447,7 +46447,7 @@ ClickTarget = require("./clicktarget.js");
 
 var FieldScene = function()
 {
-	this.backgroundUrl = "media/heaven_sky_gradient.png";
+	this.backgroundUrl = "media/landscape.png";
 
 	Scene.call(this);
 }
@@ -47157,7 +47157,6 @@ SceneManager.update = function()
 			if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 			{
 				clickTarget.trigger();
-				this.lastThingClicked = clickTarget;
 			}
 		}
 	}
@@ -47199,7 +47198,7 @@ SceneManager.update = function()
 	if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 	{
 		//TODO: hide if clicking a different target
-		if (clickTarget != this.lastThingClicked) 
+		if (!(clickTarget)) 
 		{
 			InfoBox.hide();
 		}

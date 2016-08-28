@@ -6,7 +6,7 @@ ClickTarget = require("./clicktarget.js");
 
 var FieldScene = function()
 {
-	this.backgroundUrl = "media/heaven_sky_gradient.png";
+	this.backgroundUrl = "media/landscape.png";
 
 	Scene.call(this);
 }
