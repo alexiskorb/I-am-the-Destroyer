@@ -119,8 +119,19 @@ Conversation.selectResponse = function(response)
 		{
 			GlobalVariables.setVariable(response.onceOnlyGlobal);
 		}
+		if (response.setGlobalTrue)
+		{
+			GlobalVariables.setVariable(response.setGlobalTrue);
+		}
+		if (response.setGlobalFalse)
+		{
+			GlobalVariables.unsetVariable(response.setGlobalFalse);
+		}
 		if (response.getItem) {
 			Inventory.addItem(Inventory.items[response.getItem]);
+		}
+		if (response.removeItem){
+			Inventory.removeItem(Inventory.items[response.removeItem]);
 		}
 		if (response.nextNodeId !== undefined)
 		{
@@ -144,16 +155,6 @@ Conversation.moveToNode = function(index)
 	if (targetNode)
 	{
 		this.currentNodeId = index;
-
-		// set globals
-		if (targetNode.setGlobalTrue)
-		{
-			GlobalVariables.setVariable(targetNode.setGlobalTrue);
-		}
-		if (targetNode.setGlobalFalse)
-		{
-			GlobalVariables.unsetVariable(targetNode.setGlobalFalse);
-		}
 
 		var currentNode = this.getCurrentNode();
 		var currentSpeaker = this.getSpeaker(currentNode.speaker);
