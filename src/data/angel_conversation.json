@@ -4,6 +4,7 @@
 //BOX_USED
 //BALLOON_TALK
 //GRAVITY_LIGHTER
+//LASERS_DONT_HURT
 
 //balloon
 {
@@ -248,7 +249,8 @@
             "responses": [
                 {
                     "text": "So, since you're creating this part of the Universe, do you mind setting a physical limit on the maximum intensity of light or it's ability to hurt people?",
-                    "nextNodeId": 15
+                    "nextNodeId": 15,
+                    "setGlobalTrue": "LASERS_DONT_HURT"
                 },
             ]
         },
