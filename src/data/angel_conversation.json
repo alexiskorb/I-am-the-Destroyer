@@ -3,6 +3,7 @@
 //BOX_OBTAINED
 //BOX_USED
 //BALLOON_TALK
+//GRAVITY_LIGHTER
 
 //balloon
 {
@@ -336,7 +337,8 @@
             "responses": [
                 {
                     "text": "And if you make gravity lighter, it will fly even faster!",
-                    "nextNodeId": 22
+                    "nextNodeId": 22,
+                    "setGlobalTrue": "GRAVITY_LIGHTER"
                 }
             ]
         },
