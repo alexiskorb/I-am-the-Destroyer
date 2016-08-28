@@ -7,21 +7,19 @@ var Scene = function()
 	this.transform = new THREE.Object3D();
 	this.clickTargets = [];
 
-	if (!this.backgroundUrl)
+	if (this.backgroundUrl)
 	{
-		this.backgroundUrl = "media/room_empty.png";
+		this.backgroundGeometry = ThreeUtils.makeSpriteGeo(1920, 1080);
+		this.backgroundMaterial = new THREE.MeshBasicMaterial(
+			{
+				map: ThreeUtils.loadTexture(this.backgroundUrl),
+				transparent: true
+			}
+		);
+		this.backgroundMesh = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial);
+		this.backgroundMesh.position.set(0, 0, -20);
+		this.transform.add(this.backgroundMesh);
 	}
-
-	this.backgroundGeometry = ThreeUtils.makeSpriteGeo(1920, 1080);
-	this.backgroundMaterial = new THREE.MeshBasicMaterial(
-		{
-			map: ThreeUtils.loadTexture(this.backgroundUrl),
-			transparent: true
-		}
-	);
-	this.backgroundMesh = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial);
-	this.backgroundMesh.position.set(0, 0, -20);
-	this.transform.add(this.backgroundMesh);
 }
 
 module.exports = Scene;
@@ -40,6 +38,11 @@ Scene.prototype.update = function()
 			this.clickTargets[i].update();
 		}
 	}
+}
+
+Scene.prototype.notifyChangedScene = function()
+{
+
 }
 
 Scene.prototype.createClickableSprite = function(key, x, y)
@@ -91,10 +94,12 @@ Scene.prototype.setAlpha = function(alpha)
 
 Scene.prototype.show = function()
 {
+	this.enabled = true;
 	GameEngine.scene.add(this.transform);
 }
 
 Scene.prototype.hide = function()
 {
+	this.enabled = false;
 	GameEngine.scene.remove(this.transform);
 }

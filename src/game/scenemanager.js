@@ -7,9 +7,11 @@ var SceneManager =
 {
 	/**
 	 * List of all possible scenes in the game.
+	 * In order of input priority.
 	 */
 	scenes:
 	{
+		timeDevice: require("./scene_timedevice.js"),
 		index: require("./scene_index.js"),
 		creationOfTheWorld: require("./scene_creation_of_the_world.js"),
 	},
@@ -34,15 +36,28 @@ SceneManager.added = function()
 		this.scenes[key].added();
 	}
 
-	this.finallyChangeScene("index");
+	// add timedevice scene by default
+	this.scenes["timeDevice"].show();
+	this.scenes["timeDevice"].transform.position.z = -10;
+
+	this.finallyChangeScene("index", true);
 	this.currentScene.show();
 }
 
 SceneManager.update = function()
 {
+	var clickTarget = undefined;
+	for (var i in this.scenes)
+	{
+		if (this.scenes[i].enabled)
+		{
+			clickTarget = this.scenes[i].getClickTarget(GameEngine.mousePosWorld);
+		}
+		if (clickTarget) break;
+	}
+
 	if (!Conversation.isConversationActive() && !this.animation)
 	{
-		var clickTarget = this.currentScene.getClickTarget(GameEngine.mousePosWorld);
 		if (clickTarget)
 		{
 			if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
@@ -88,14 +103,24 @@ SceneManager.update = function()
 
 	if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 	{
-		var clickTarget = this.currentScene.getClickTarget(GameEngine.mousePosWorld);
 		if (!(clickTarget && clickTarget.showInfoBox)) 
 		{
 			InfoBox.hide();
 		}
 	}
 
-	this.currentScene.update();
+	for (var i in this.scenes)
+	{
+		if (this.scenes[i].enabled)
+		{
+			this.scenes[i].update();
+		}
+	}
+}
+
+SceneManager.showTimeDevice = function()
+{
+	this.scenes.timeDevice.tweenOn();
 }
 
 /**
@@ -110,9 +135,15 @@ SceneManager.changeScene = function(key, animType)
 		return;
 	}
 
+	// can't change to the current scene
+	if (this.scenes[key] === this.currentScene)
+	{
+		return;
+	}
+
 	var targetScene = this.scenes[key];
 	targetScene.show();
-	targetScene.transform.position.z = -25;
+	targetScene.transform.position.z = -70;
 	this.changingToScene = key;
 	
 	this.animation = animType;
@@ -131,12 +162,19 @@ SceneManager.changeScene = function(key, animType)
 	}
 }
 
-SceneManager.finallyChangeScene = function(key)
+SceneManager.finallyChangeScene = function(key, dontNotify)
 {
 	if (this.currentScene)
 	{
 		this.currentScene.hide();
 	}
 	this.currentScene = this.scenes[key];
-	this.currentScene.transform.position.z = 0;
+	this.currentScene.transform.position.z = -45;
+	if (!dontNotify)
+	{
+		for (var i in this.scenes)
+		{
+			this.scenes[i].notifyChangedScene();
+		}
+	}
 }

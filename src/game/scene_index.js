@@ -83,6 +83,8 @@ IndexScene.prototype.update = function()
 	}
 
 	this.laserSprite.position.x = (Math.random()-0.5)*2;
+
+	Scene.prototype.update.call(this);
 }
 
 module.exports = new IndexScene();

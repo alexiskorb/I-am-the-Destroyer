@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
 window.bmacSdk = require("./src/sdk/engine");
@@ -20,7 +20,7 @@ GameEngine.addObject(window.SceneManager);
 
 // that's it!
 
-},{"./src/game/conversation.js":7,"./src/game/infobox.js":9,"./src/game/inventory.js":10,"./src/game/scenemanager.js":13,"./src/sdk/engine":16}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":7,"./src/game/infobox.js":9,"./src/game/inventory.js":10,"./src/game/scenemanager.js":14,"./src/sdk/engine":17}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -42689,21 +42689,19 @@ var Scene = function()
 	this.transform = new THREE.Object3D();
 	this.clickTargets = [];
 
-	if (!this.backgroundUrl)
+	if (this.backgroundUrl)
 	{
-		this.backgroundUrl = "media/room_empty.png";
+		this.backgroundGeometry = ThreeUtils.makeSpriteGeo(1920, 1080);
+		this.backgroundMaterial = new THREE.MeshBasicMaterial(
+			{
+				map: ThreeUtils.loadTexture(this.backgroundUrl),
+				transparent: true
+			}
+		);
+		this.backgroundMesh = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial);
+		this.backgroundMesh.position.set(0, 0, -20);
+		this.transform.add(this.backgroundMesh);
 	}
-
-	this.backgroundGeometry = ThreeUtils.makeSpriteGeo(1920, 1080);
-	this.backgroundMaterial = new THREE.MeshBasicMaterial(
-		{
-			map: ThreeUtils.loadTexture(this.backgroundUrl),
-			transparent: true
-		}
-	);
-	this.backgroundMesh = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial);
-	this.backgroundMesh.position.set(0, 0, -20);
-	this.transform.add(this.backgroundMesh);
 }
 
 module.exports = Scene;
@@ -42722,6 +42720,11 @@ Scene.prototype.update = function()
 			this.clickTargets[i].update();
 		}
 	}
+}
+
+Scene.prototype.notifyChangedScene = function()
+{
+
 }
 
 Scene.prototype.createClickableSprite = function(key, x, y)
@@ -42773,15 +42776,17 @@ Scene.prototype.setAlpha = function(alpha)
 
 Scene.prototype.show = function()
 {
+	this.enabled = true;
 	GameEngine.scene.add(this.transform);
 }
 
 Scene.prototype.hide = function()
 {
+	this.enabled = false;
 	GameEngine.scene.remove(this.transform);
 }
 
-},{"../sdk/threeutils":23,"three":2}],6:[function(require,module,exports){
+},{"../sdk/threeutils":24,"three":2}],6:[function(require,module,exports){
 
 THREE = require("three");
 Conversation = require("./conversation.js");
@@ -42868,9 +42873,10 @@ ClickTarget.prototype.hover = function()
 		GameEngine.scene.add(this.hoverMesh);
 	}
 	this.getBoundingBox();
-	this.hoverMesh.position.set(
-		this.mesh.position.x + GameEngine.screenWidth/2,
-		this.mesh.position.y + GameEngine.screenHeight/2, this.mesh.position.z - 1);
+
+	this.mesh.parent.updateMatrixWorld();
+	var temp = new THREE.Vector3().setFromMatrixPosition(this.mesh.matrixWorld);
+	this.hoverMesh.position.set(temp.x, temp.y, this.mesh.position.z - 1);
 	this.bounds.size(this.hoverMesh.scale);
 	this.hoverMesh.scale.x /= 32;
 	this.hoverMesh.scale.y /= 32;
@@ -42917,6 +42923,10 @@ ClickTarget.prototype.playPickupTween = function()
 
 ClickTarget.prototype.trigger = function()
 {
+	if (this.triggerTimeDevice)
+	{
+		SceneManager.showTimeDevice();
+	}
 	if (this.collectItem)
 	{
 		this.playPickupTween();
@@ -43241,7 +43251,7 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../sdk/input":18,"../sdk/threeutils":23,"./globalvariables.js":8}],8:[function(require,module,exports){
+},{"../sdk/input":19,"../sdk/threeutils":24,"./globalvariables.js":8}],8:[function(require,module,exports){
 
 var GlobalVariables =
 {
@@ -43667,7 +43677,7 @@ InfoBox.info =
 
 
 module.exports = InfoBox;
-},{"../sdk/input":18,"../sdk/threeutils":23,"./globalvariables.js":8}],10:[function(require,module,exports){
+},{"../sdk/input":19,"../sdk/threeutils":24,"./globalvariables.js":8}],10:[function(require,module,exports){
 
 ThreeUtils = require("../sdk/threeutils");
 
@@ -43772,7 +43782,7 @@ Inventory.drop = function(ev) {
 
 module.exports = Inventory;
 
-},{"../sdk/threeutils":23}],11:[function(require,module,exports){
+},{"../sdk/threeutils":24}],11:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -43852,11 +43862,13 @@ CreationOfTheWorldScene.prototype.update = function()
 	this.cloudRingL.rotation.z -= bmacSdk.deltaSec * 0.04;
 
 	this.cloudScrollTex.offset.set(this.cloudScrollTex.offset.x + bmacSdk.deltaSec * 0.02, 0);
+
+	Scene.prototype.update.call(this);
 }
 
 module.exports = new CreationOfTheWorldScene();
 
-},{"../data/angel_conversation.json":3,"../sdk/threeutils":23,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],12:[function(require,module,exports){
+},{"../data/angel_conversation.json":3,"../sdk/threeutils":24,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],12:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -43942,11 +43954,164 @@ IndexScene.prototype.update = function()
 	}
 
 	this.laserSprite.position.x = (Math.random()-0.5)*2;
+
+	Scene.prototype.update.call(this);
 }
 
 module.exports = new IndexScene();
 
-},{"../data/prophet_conversation.json":4,"../sdk/threeutils":23,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],13:[function(require,module,exports){
+},{"../data/prophet_conversation.json":4,"../sdk/threeutils":24,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],13:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+Input = require("../sdk/input");
+
+var TimeDeviceScene = function()
+{
+	this.backgroundUrl = undefined;
+
+	this.wantsUp = false;
+	this.isAtWant = true;
+	this.animationTimer = 0;
+	this.animationDuration = 0.5;
+
+	Scene.call(this);
+}
+
+TimeDeviceScene.prototype = new Scene();
+
+TimeDeviceScene.prototype.added = function()
+{
+	var atlas = ThreeUtils.loadAtlas("general");
+	
+	// create device base
+	this.deviceBase = this.createClickableSprite("timedevice", 0, 0);
+	this.deviceBase.triggerTimeDevice = true;
+	this.deviceBase.mesh.position.z = -15;
+	this.deviceBase.enabled = false;
+
+	// create sticky note
+	this.stickyNote = ThreeUtils.makeAtlasMesh(atlas, "timedevice_sticky");
+	this.transform.add(this.stickyNote);
+	this.stickyNote.position.set(79, 200, -10);
+	
+	// create buttons
+	this.buttons = [];
+
+	var button1 = this.createClickableSprite("timedevice_button1", -169, -90);
+	button1.triggerScene = "creationOfTheWorld";
+
+	var button2 = this.createClickableSprite("timedevice_button2", -75, -145);
+	button2.triggerScene = "creationOfTheWorld";
+
+	var button3 = this.createClickableSprite("timedevice_button3", 66, -145);
+	button3.triggerScene = "creationOfTheWorld";
+
+	var button4 = this.createClickableSprite("timedevice_button4", 173, -90);
+	button4.triggerScene = "creationOfTheWorld";
+
+	this.buttons.push(button1);
+	this.buttons.push(button2);
+	this.buttons.push(button3);
+	this.buttons.push(button4);
+
+	Scene.prototype.added.call(this);
+
+	this.offYPos = GameEngine.screenHeight + 100;
+	this.transform.position.y = this.offYPos;
+
+	this.tweenOff();
+}
+
+TimeDeviceScene.prototype.update = function()
+{
+	// tween off if it's up and I click anything
+	if (Input.Mouse.buttonPressed(Input.Mouse.LEFT) && this.wantsUp)
+	{
+		if (this.eatFrame)
+		{
+			this.eatFrame = false;
+		}
+		else
+		{
+			this.tweenOff();
+		}
+	}
+
+	// tween on and off
+	if (!this.isAtWant)
+	{
+		this.animationTimer += bmacSdk.deltaSec;
+		if (this.animationTimer >= this.animationDuration)
+		{
+			this.animationTimer = this.animationDuration;
+			this.isAtWant = true;
+		}
+
+		var animProgress = this.animationTimer / this.animationDuration;
+		animProgress *= animProgress;
+
+		// tween position
+		var halfHeight = GameEngine.screenHeight / 2;
+		if (this.wantsUp)
+		{
+			this.transform.position.y = this.offYPos + (halfHeight - this.offYPos) * animProgress;
+		}
+		else
+		{
+			this.transform.position.y = halfHeight + (this.offYPos - halfHeight) * animProgress;
+		} 
+	}
+
+	Scene.prototype.update.call(this);
+}
+
+TimeDeviceScene.prototype.notifyChangedScene = function()
+{
+	this.stickyNote.visible = false;
+
+	Scene.prototype.notifyChangedScene.call(this);
+}
+
+TimeDeviceScene.prototype.tweenOff = function()
+{
+	if (this.wantsUp)
+	{
+		this.isAtWant = false;
+		this.wantsUp = false;
+		this.animationTimer = 0;
+		this.eatFrame = true;
+	}
+
+	for (var i = 0; i < this.buttons.length; i++)
+	{
+		this.buttons[i].enabled = false;
+	}
+	this.deviceBase.enabled = true;
+}
+
+TimeDeviceScene.prototype.tweenOn = function()
+{
+	if (!this.wantsUp)
+	{
+		this.isAtWant = false;
+		this.wantsUp = true;
+		this.animationTimer = 0;
+		this.eatFrame = true;
+	}
+
+	for (var i = 0; i < this.buttons.length; i++)
+	{
+		this.buttons[i].enabled = true;
+	}
+	this.deviceBase.enabled = false;
+}
+
+module.exports = new TimeDeviceScene();
+
+},{"../sdk/input":19,"../sdk/threeutils":24,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],14:[function(require,module,exports){
 
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");
@@ -43956,9 +44121,11 @@ var SceneManager =
 {
 	/**
 	 * List of all possible scenes in the game.
+	 * In order of input priority.
 	 */
 	scenes:
 	{
+		timeDevice: require("./scene_timedevice.js"),
 		index: require("./scene_index.js"),
 		creationOfTheWorld: require("./scene_creation_of_the_world.js"),
 	},
@@ -43983,15 +44150,28 @@ SceneManager.added = function()
 		this.scenes[key].added();
 	}
 
-	this.finallyChangeScene("index");
+	// add timedevice scene by default
+	this.scenes["timeDevice"].show();
+	this.scenes["timeDevice"].transform.position.z = -10;
+
+	this.finallyChangeScene("index", true);
 	this.currentScene.show();
 }
 
 SceneManager.update = function()
 {
+	var clickTarget = undefined;
+	for (var i in this.scenes)
+	{
+		if (this.scenes[i].enabled)
+		{
+			clickTarget = this.scenes[i].getClickTarget(GameEngine.mousePosWorld);
+		}
+		if (clickTarget) break;
+	}
+
 	if (!Conversation.isConversationActive() && !this.animation)
 	{
-		var clickTarget = this.currentScene.getClickTarget(GameEngine.mousePosWorld);
 		if (clickTarget)
 		{
 			if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
@@ -44037,14 +44217,24 @@ SceneManager.update = function()
 
 	if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 	{
-		var clickTarget = this.currentScene.getClickTarget(GameEngine.mousePosWorld);
 		if (!(clickTarget && clickTarget.showInfoBox)) 
 		{
 			InfoBox.hide();
 		}
 	}
 
-	this.currentScene.update();
+	for (var i in this.scenes)
+	{
+		if (this.scenes[i].enabled)
+		{
+			this.scenes[i].update();
+		}
+	}
+}
+
+SceneManager.showTimeDevice = function()
+{
+	this.scenes.timeDevice.tweenOn();
 }
 
 /**
@@ -44059,9 +44249,15 @@ SceneManager.changeScene = function(key, animType)
 		return;
 	}
 
+	// can't change to the current scene
+	if (this.scenes[key] === this.currentScene)
+	{
+		return;
+	}
+
 	var targetScene = this.scenes[key];
 	targetScene.show();
-	targetScene.transform.position.z = -25;
+	targetScene.transform.position.z = -70;
 	this.changingToScene = key;
 	
 	this.animation = animType;
@@ -44080,17 +44276,24 @@ SceneManager.changeScene = function(key, animType)
 	}
 }
 
-SceneManager.finallyChangeScene = function(key)
+SceneManager.finallyChangeScene = function(key, dontNotify)
 {
 	if (this.currentScene)
 	{
 		this.currentScene.hide();
 	}
 	this.currentScene = this.scenes[key];
-	this.currentScene.transform.position.z = 0;
+	this.currentScene.transform.position.z = -45;
+	if (!dontNotify)
+	{
+		for (var i in this.scenes)
+		{
+			this.scenes[i].notifyChangedScene();
+		}
+	}
 }
 
-},{"../sdk/input":18,"./conversation.js":7,"./infobox.js":9,"./scene_creation_of_the_world.js":11,"./scene_index.js":12}],14:[function(require,module,exports){
+},{"../sdk/input":19,"./conversation.js":7,"./infobox.js":9,"./scene_creation_of_the_world.js":11,"./scene_index.js":12,"./scene_timedevice.js":13}],15:[function(require,module,exports){
 
 // this file is partially generated by tools
 // do not change the layout
@@ -44102,18 +44305,24 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 667,
-	height: 467,
+	width: 873,
+	height: 861,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"door":[0,0,256,256],
-	"grad_circle":[0,386,64,64],
-	"grad_r":[129,257,64,64],
-	"heaven_angel":[257,0,212,467],
-	"heaven_player":[470,0,196,297],
-	"johnson15_sprite":[0,257,128,128],
-	"lamp":[194,257,60,60],
+	"door":[0,394,256,256],
+	"grad_circle":[800,0,64,64],
+	"grad_r":[153,651,64,64],
+	"heaven_angel":[257,394,212,467],
+	"heaven_player":[538,258,196,297],
+	"johnson15_sprite":[735,334,128,128],
+	"lamp":[470,394,60,60],
+	"timedevice":[0,0,537,393],
+	"timedevice_button1":[0,754,141,93],
+	"timedevice_button2":[735,258,137,75],
+	"timedevice_button3":[470,556,120,76],
+	"timedevice_button4":[0,651,152,102],
+	"timedevice_sticky":[538,0,261,257],
 	},
 },
 "johnson15":
@@ -44173,10 +44382,10 @@ module.exports =
 	"prison1_floor_25":[705,271,4,34],
 	"prison1_topshadow":[705,0,4,270],
 	},
-},
+}
 }
 
-},{"three":2}],15:[function(require,module,exports){
+},{"three":2}],16:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -44313,7 +44522,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":16}],16:[function(require,module,exports){
+},{"./index.js":17}],17:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -44471,7 +44680,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":18,"../polyfills":21,"./engine.js":15,"three":2}],17:[function(require,module,exports){
+},{"../input":19,"../polyfills":22,"./engine.js":16,"three":2}],18:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -44720,7 +44929,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -44835,7 +45044,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":17,"./keyboard.js":19,"./mouse.js":20}],19:[function(require,module,exports){
+},{"./gamepad.js":18,"./keyboard.js":20,"./mouse.js":21}],20:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -45020,7 +45229,7 @@ module.exports = Keyboard =
 	}
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -45206,7 +45415,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -45292,7 +45501,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -45348,7 +45557,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":23}],23:[function(require,module,exports){
+},{"./index.js":24}],24:[function(require,module,exports){
 
 THREE = require("three");
 AtlasData = require("../atlases");
@@ -45750,4 +45959,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":14,"./Atlas.js":22,"three":2}]},{},[1]);
+},{"../atlases":15,"./Atlas.js":23,"three":2}]},{},[1])
