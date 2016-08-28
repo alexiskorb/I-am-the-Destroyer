@@ -19,7 +19,7 @@ GameEngine.addObject(window.SceneManager);
 
 // that's it!
 
-},{"./src/game/conversation.js":7,"./src/game/inventory.js":9,"./src/game/scenemanager.js":12,"./src/sdk/engine":15}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":6,"./src/game/inventory.js":8,"./src/game/scenemanager.js":11,"./src/sdk/engine":14}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -42293,293 +42293,6 @@ module.exports=//ANGEL_INTRODUCTION
     ]
 }
 },{}],4:[function(require,module,exports){
-module.exports=
-//sets: DAM_BUILT, DAM_JOHNSON_INTRODUCTION, EXPLAINED_WHY_DAMS_ARE_AWESOME
-
-//TODO: conditionalize out hints for obstacles already passed
-
-{
-	"title": "johnson_dam_builder",
-
-	"characters":
-	[
-		{
-			"id": "johnson14",
-			"displayName": "Angle Johnson XIV",
-			"atlas": "johnson15",
-			"sprites":[
-				"port_idle"
-			]
-		}
-	],
-
-	"nodes":
-	[
-		{
-			"id": 0,
-			"responses":[
-				{
-					"nextNodeId": 1,
-					"onceOnlyGlobal": "DAM_JOHNSON_INTRODUCTION"
-				},
-				{
-					"nextNodeId": 2,
-					"globalIsFalse": "DAM_BUILT"
-				},
-				{
-					"nextNodeId": 16
-				}
-			]
-		},
-		{
-			"id": 1,
-			"speaker": "johnson14",
-			"text": "Ah, it's such a fine day! Why do you look so gloomy?",
-			"responses":[
-				{
-					"text": "I'm the embodiment of pure evil from the darkest corners of time and space, sent to wreak terrible havok on the surface of this planet.",
-					"nextNodeId": 3
-				},
-				{
-					"text": "There is a puzzle I cannot solve.",
-					"nextNodeId": 4
-				},
-				{
-					"text": "No reason.",
-					"nextNodeId": 5
-				}
-			]
-		},
-		{
-			"id": 2,
-			"speaker": "johnson14",
-			"text": "What can I do for you, gloomy sir?",
-			"responses":[
-				{
-					"text": "There is a puzzle I cannot solve.",
-					"nextNodeId": 4
-				},
-				{
-					"text": "What are you doing?",
-					"nextNodeId": 14,
-					"globalIsFalse": "EXPLAINED_WHY_DAMS_ARE_AWESOME"
-				},
-				{
-					"text": "How is the bridge building?",
-					"nextNodeId": 15
-				}
-			]
-		},
-		{
-			"id": 3,
-			"speaker": "johnson14",
-			"text": "Hmm. I suppose someone should probably do something about that. I'm a bit busy designing this bridge, though.",
-			"responses":[
-				{
-					"text": "I will rend it into so much monatomic gas.",
-					"nextNodeId": 6
-				},
-				{
-					"text": "How hard can that be? You just build a thing over the water.",
-					"nextNodeId": 7
-				}
-			]
-		},
-		{
-			"id": 4,
-			"speaker": "johnson14",
-			"text": "Maybe I can help. I'm an engineer after all.",
-			"responses":[
-				{
-					"text": "I need to get my past self out of a force-field.",
-					"nextNodeId": 13,
-					"onceOnlyGlobal": "HELP_WITH_FORCEFIELD"
-				},
-				{
-					"text": "There's this wall of crisscrossing lasers...",
-					"nextNodeId": 13,
-					"onceOnlyGlobal": "HELP_WITH_LASERS"
-				},
-				{
-					"text": "I need to get across a crocodile-filled moat.",
-					"nextNodeId": 13,
-					"onceOnlyGlobal": "HELP_WITH_CROCODILES"
-				},
-				{
-					"text": "Do you know any ways to get past a keypad-secured door?",
-					"nextNodeId": 13,
-					"onceOnlyGlobal": "HELP_WITH_KEYPAD"
-				},
-				{
-					"text": "I need to escape from an extremely intricate prison.",
-					"nextNodeId": 13
-				}
-			]
-		},
-		{
-			"id": 5,
-			"speaker": "johnson14",
-			"text": "Uh-huh.",
-			"responses":[
-				{
-					"text": "Yuh-huh.",
-					"nextNodeId": 5
-				},
-				{
-					"text": "What are you doing?",
-					"nextNodeId": 14,
-					"globalIsFalse": "EXPLAINED_WHY_DAMS_ARE_AWESOME"
-				},
-				{
-					"text": "How is the bridge building?",
-					"nextNodeId": 15
-				}
-			]
-		},
-		{
-			"id": 6,
-			"speaker": "johnson14",
-			"text": "Someone's got a case of the Mondays over here.",
-			"responses":[
-				{
-					"text": "How hard can that be? You just build a thing over the water.",
-					"nextNodeId": 7
-				}
-			]
-		},
-		{
-			"id": 7,
-			"speaker": "johnson14",
-			"text": "The mathematics and techniques of bridge-building have been passed down through my family for generations, even from my very first ancestor, the great Angel Johnson I!",
-			"responses":[
-				{
-					"text": "That's funny, he didn't say much about bridges when I met him.",
-					"globalIsTrue": "ANGEL_INTRODUCTION",
-					"nextNodeId": 8
-				},
-				{
-					"text": "Have you ever thought about dams as an alternative to bridges?",
-					"nextNodeId": 9,
-					"globalIsFalse": "DAM_BUILT"
-				}
-			]
-		},
-		{
-			"id": 8,
-			"speaker": "johnson14",
-			"text": "I should think I know more about my family history than you.",
-			"responses":[
-				{
-					"text": "Have you ever thought about dams as an alternative to bridges?",
-					"nextNodeId": 9,
-					"globalIsFalse": "DAM_BUILT"
-				}
-			]
-		},
-		{
-			"id": 9,
-			"speaker": "johnson14",
-			"text": "No. Why?",
-			"responses":[
-				{
-					"text": "They can generate power while simultaneously acting as a bridge.",
-					"nextNodeId": 10,
-					"setGlobalTrue": "EXPLAINED_WHY_DAMS_ARE_AWESOME"
-				}
-			]
-		},
-		{
-			"id": 10,
-			"speaker": "johnson14",
-			"text": "Hey, that's a pretty good idea! We'd probably have extra power for a long time, even if anyone starts building a large facility of some kind...",
-			"responses":[
-				{
-					"text": "I think you should do it.",
-					"nextNodeId": 11,
-					"setGlobalTrue": "DAM_BUILT"
-				},
-				{
-					"text": "Actually, I don't think that's such a good idea.",
-					"nextNodeId": 12
-				}
-			]
-		},
-		{
-			"id": 11,
-			"speaker": "johnson14",
-			"text": "Thanks, spooky guy!"
-		},
-		{
-			"id": 12,
-			"speaker": "johnson14",
-			"text": "Oh, okay."
-		},
-		{
-			"id": 13,
-			"speaker": "johnson14",
-			"text": "Hmm, nope, don't know anything about that.",
-			"responses":[
-				{
-					"text": "I need to get my past self out of a force-field.",
-					"nextNodeId": 13,
-					"onceOnlyGlobal": "HELP_WITH_FORCEFIELD"
-				},
-				{
-					"text": "There's this wall of crisscrossing lasers...",
-					"nextNodeId": 13,
-					"onceOnlyGlobal": "HELP_WITH_LASERS"
-				},
-				{
-					"text": "I need to get across a crocodile-filled moat.",
-					"nextNodeId": 13,
-					"onceOnlyGlobal": "HELP_WITH_CROCODILES"
-				},
-				{
-					"text": "Do you know any ways to get past a keypad-secured door?",
-					"nextNodeId": 13,
-					"onceOnlyGlobal": "HELP_WITH_KEYPAD"
-				},
-				{
-					"text": "I need to escape from an extremely intricate prison.",
-					"nextNodeId": 13
-				},
-				{
-					"text": "Some help you are.",
-					"nextNodeId": 14
-				}
-			]
-		},
-		{
-			"id": 14,
-			"speaker": "johnson14",
-			"text": "I'm thinking about how we're going to bridge the outside of town.",
-			"responses":[
-				{
-					"text": "Bridges, huh?",
-					"nextNodeId": 7
-				}
-			]
-		},
-		{
-			"id": 15,
-			"speaker": "johnson14",
-			"text": "I enjoy it.",
-			"responses":[
-				{
-					"text": "Have you ever thought about dams as an alternative to bridges?",
-					"nextNodeId": 9,
-					"globalIsFalse": "DAM_BUILT"
-				}
-			]
-		},
-		{
-			"id": 16,
-			"speaker": "johnson14",
-			"text": "We're getting right to work on that dam! It's going to be great!."
-		}
-	]
-}
-},{}],5:[function(require,module,exports){
 
 THREE = require("three");
 ThreeUtils = require("../sdk/threeutils");
@@ -42669,7 +42382,7 @@ Scene.prototype.hide = function()
 	GameEngine.scene.remove(this.transform);
 }
 
-},{"../sdk/threeutils":22,"three":2}],6:[function(require,module,exports){
+},{"../sdk/threeutils":21,"three":2}],5:[function(require,module,exports){
 
 THREE = require("three");
 Conversation = require("./conversation.js");
@@ -42797,7 +42510,7 @@ ClickTarget.prototype.triggerPostAnimation = function()
 	}
 }
 
-},{"./conversation.js":7,"three":2}],7:[function(require,module,exports){
+},{"./conversation.js":6,"three":2}],6:[function(require,module,exports){
 
 Input = require("../sdk/input");
 ThreeUtils = require("../sdk/threeutils");
@@ -43095,7 +42808,7 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../sdk/input":17,"../sdk/threeutils":22,"./globalvariables.js":8}],8:[function(require,module,exports){
+},{"../sdk/input":16,"../sdk/threeutils":21,"./globalvariables.js":7}],7:[function(require,module,exports){
 
 var GlobalVariables =
 {
@@ -43139,7 +42852,7 @@ GlobalVariables.unsetVariable = function(key)
 	}
 }
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 
 ThreeUtils = require("../sdk/threeutils");
 
@@ -43243,7 +42956,7 @@ Inventory.drop = function(ev) {
 
 module.exports = Inventory;
 
-},{"../sdk/threeutils":22}],10:[function(require,module,exports){
+},{"../sdk/threeutils":21}],9:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -43327,7 +43040,7 @@ CreationOfTheWorldScene.prototype.update = function()
 
 module.exports = new CreationOfTheWorldScene();
 
-},{"../data/angel_conversation.json":3,"../sdk/threeutils":22,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],11:[function(require,module,exports){
+},{"../data/angel_conversation.json":3,"../sdk/threeutils":21,"./base_scene.js":4,"./clicktarget.js":5,"three":2}],10:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -43336,7 +43049,7 @@ ClickTarget = require("./clicktarget.js");
 
 var IndexScene = function()
 {
-	this.backgroundUrl = "media/room_empty.png";
+	this.backgroundUrl = "media/prison1_bg.png";
 
 	Scene.call(this);
 }
@@ -43345,20 +43058,51 @@ IndexScene.prototype = new Scene();
 
 IndexScene.prototype.added = function()
 {
-	// create johnson
-	var johnsonSprite = this.createClickableSprite("johnson15_sprite", -200, -200);
-	johnsonSprite.triggerConversation = require("../data/dam_builder_conversation.json");
+	var atlas = ThreeUtils.loadAtlas("prison1");
+	
+	// create forcefield
+	this.ffx = -278;
+	this.ffy = -88;
+	this.forcefieldSprites = [];
+	for (var i = 0; i < 4; i++)
+	{
+		var sprite = ThreeUtils.makeAtlasMesh(atlas, "prison1_ff");
+		sprite.position.set(this.ffx, this.ffy, -15);
+		this.transform.add(sprite);
+		this.forcefieldSprites.push(sprite);
+	}
 
-	// create door
-	var doorClickTarget = this.createClickableSprite("door", 0, 0);
-	doorClickTarget.triggerScene = "creationOfTheWorld";
+	// create lasers
+	var laserTexture = ThreeUtils.loadTexture("media/prison1_lasers.png");
+	var laserGeo = ThreeUtils.makeSpriteGeo(1920, 1080);
+	this.laserSprite = ThreeUtils.makeSpriteMesh(laserTexture, laserGeo);
+	this.transform.add(this.laserSprite);
+	this.laserSprite.z = -15;
+
+	// create top shadow
+	var topShadow = ThreeUtils.makeAtlasMesh(atlas, "prison_topshadow");
+	this.transform.add(topShadow);
+	//topShadow.
+
+	// create floor
 
 	Scene.prototype.added.call(this);
 }
 
+IndexScene.prototype.update = function()
+{
+	// jitter forcefield
+	for (var i = 0; i < this.forcefieldSprites.length; i++)
+	{
+		this.forcefieldSprites[i].position.set(
+			this.ffx + (Math.random()-0.5)*4*i, this.ffy + (Math.random()-0.5)*4*i,
+			this.forcefieldSprites[i].position.z);
+	}
+}
+
 module.exports = new IndexScene();
 
-},{"../data/dam_builder_conversation.json":4,"../sdk/threeutils":22,"./base_scene.js":5,"./clicktarget.js":6,"three":2}],12:[function(require,module,exports){
+},{"../sdk/threeutils":21,"./base_scene.js":4,"./clicktarget.js":5,"three":2}],11:[function(require,module,exports){
 
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");
@@ -43485,7 +43229,7 @@ SceneManager.finallyChangeScene = function(key)
 	this.currentScene.transform.position.z = 0;
 }
 
-},{"../sdk/input":17,"./conversation.js":7,"./scene_creation_of_the_world.js":10,"./scene_index.js":11}],13:[function(require,module,exports){
+},{"../sdk/input":16,"./conversation.js":6,"./scene_creation_of_the_world.js":9,"./scene_index.js":10}],12:[function(require,module,exports){
 
 // this file is partially generated by tools
 // do not change the layout
@@ -43554,9 +43298,22 @@ module.exports =
 	"port_idle":[0,0,212,371],
 	},
 },
+"prison1":
+{
+	url: "media/prison1_atlas.png",
+	width: 710,
+	height: 703,
+	filter: THREE.LinearFilter,
+	sprites:
+	{
+	"prison1_ff":[0,0,704,703],
+	"prison1_floor_25":[705,271,4,34],
+	"prison1_topshadow":[705,0,4,270],
+	},
+},
 }
 
-},{"three":2}],14:[function(require,module,exports){
+},{"three":2}],13:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -43693,7 +43450,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":15}],15:[function(require,module,exports){
+},{"./index.js":14}],14:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -43851,7 +43608,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":17,"../polyfills":20,"./engine.js":14,"three":2}],16:[function(require,module,exports){
+},{"../input":16,"../polyfills":19,"./engine.js":13,"three":2}],15:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -44100,7 +43857,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],17:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -44215,7 +43972,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":16,"./keyboard.js":18,"./mouse.js":19}],18:[function(require,module,exports){
+},{"./gamepad.js":15,"./keyboard.js":17,"./mouse.js":18}],17:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -44400,7 +44157,7 @@ module.exports = Keyboard =
 	}
 };
 
-},{}],19:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -44586,7 +44343,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],20:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -44672,7 +44429,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],21:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -44728,7 +44485,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":22}],22:[function(require,module,exports){
+},{"./index.js":21}],21:[function(require,module,exports){
 
 THREE = require("three");
 AtlasData = require("../atlases");
@@ -45130,4 +44887,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":13,"./Atlas.js":21,"three":2}]},{},[1])
+},{"../atlases":12,"./Atlas.js":20,"three":2}]},{},[1])

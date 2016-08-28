@@ -66,4 +66,17 @@ module.exports =
 	"port_idle":[0,0,212,371],
 	},
 },
+"prison1":
+{
+	url: "media/prison1_atlas.png",
+	width: 710,
+	height: 703,
+	filter: THREE.LinearFilter,
+	sprites:
+	{
+	"prison1_ff":[0,0,704,703],
+	"prison1_floor_25":[705,271,4,34],
+	"prison1_topshadow":[705,0,4,270],
+	},
+},
 }
