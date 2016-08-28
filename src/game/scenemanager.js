@@ -33,8 +33,6 @@ var SceneManager =
 	animation: undefined,
 }
 
-SceneManager.scenes.LAST_PRISON = SceneManager.scenes.prison0;
-
 SceneManager.ANIM_NONE = 0;
 SceneManager.ANIM_TIMETRAVEL = 1;
 SceneManager.ANIM_FORWARD = 2;
@@ -46,8 +44,12 @@ SceneManager.added = function()
 	// initialize all scenes
 	for (var key in this.scenes)
 	{
-		this.scenes[key].added();
+		if (this.scenes[key])
+		{
+			this.scenes[key].added();
+		}
 	}
+	this.scenes.LAST_PRISON = this.scenes.prison0;
 
 	// add timedevice scene by default
 	this.scenes["timeDevice"].show();

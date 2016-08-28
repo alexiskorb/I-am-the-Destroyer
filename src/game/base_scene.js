@@ -6,6 +6,7 @@ var Scene = function()
 {
 	this.transform = new THREE.Object3D();
 	this.clickTargets = [];
+	this.otherMeshes = [];
 
 	if (this.backgroundUrl)
 	{
@@ -89,7 +90,14 @@ Scene.prototype.setAlpha = function(alpha)
 	{
 		this.clickTargets[i].mesh.material.opacity = alpha;
 	}
-	this.backgroundMaterial.opacity = alpha;
+	for (var i = 0; i < this.otherMeshes.length; i++)
+	{
+		this.otherMeshes[i].material.opacity = alpha;
+	}
+	if (this.backgroundMaterial)
+	{
+		this.backgroundMaterial.opacity = alpha;
+	}
 }
 
 Scene.prototype.show = function()

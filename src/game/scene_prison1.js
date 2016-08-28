@@ -31,6 +31,14 @@ PrisonScene1.prototype.added = function()
 		this.forcefieldSprites.push(sprite);
 	}
 
+	// create crystal
+	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal"
+	})
+	this.crystalBob = 0;
+
 	// create lasers
 	var laserTexture = ThreeUtils.loadTexture("media/prison1_lasers.png");
 	var laserGeo = ThreeUtils.makeSpriteGeo(1920, 1080);
@@ -86,6 +94,9 @@ PrisonScene1.prototype.update = function()
 			this.ffx + (Math.random()-0.5)*4*i, this.ffy + (Math.random()-0.5)*4*i,
 			this.forcefieldSprites[i].position.z);
 	}
+
+	this.crystalBob += bmacSdk.deltaSec;
+	this.crystalSprite.mesh.position.y = this.ffy + Math.cos(this.crystalBob) * 20 - 10;
 
 	this.laserSprite.position.x = (Math.random()-0.5)*2;
 

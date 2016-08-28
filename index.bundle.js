@@ -45031,6 +45031,7 @@ var Scene = function()
 {
 	this.transform = new THREE.Object3D();
 	this.clickTargets = [];
+	this.otherMeshes = [];
 
 	if (this.backgroundUrl)
 	{
@@ -45114,7 +45115,14 @@ Scene.prototype.setAlpha = function(alpha)
 	{
 		this.clickTargets[i].mesh.material.opacity = alpha;
 	}
-	this.backgroundMaterial.opacity = alpha;
+	for (var i = 0; i < this.otherMeshes.length; i++)
+	{
+		this.otherMeshes[i].material.opacity = alpha;
+	}
+	if (this.backgroundMaterial)
+	{
+		this.backgroundMaterial.opacity = alpha;
+	}
 }
 
 Scene.prototype.show = function()
@@ -46106,6 +46114,22 @@ InfoBox.info =
                 text: "If I try to get through those lasers I'll probably look like french fries.",
             }
         ]
+    },
+    crystal:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "It's me, trapped in a pathetic prison."
+            },
+            {
+                text: "The dark artifact that houses my essense."
+            },
+            {
+                text: "I must free myself from these walls."
+            },
+        ]
     }
 }
 
@@ -46316,7 +46340,7 @@ ClickTarget = require("./clicktarget.js");
 
 var IndexScene = function()
 {
-	this.backgroundUrl = "media/prison1_bg.png";
+	this.backgroundUrl = "media/black.png";
 
 	Scene.call(this);
 }
@@ -46326,20 +46350,34 @@ IndexScene.prototype = new Scene();
 IndexScene.prototype.added = function()
 {
 	var atlas = ThreeUtils.loadAtlas("prison1");
-	
-	// create door
-	var doorClickTarget = this.createClickableRegion(
-		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.addAction({
+
+	this.crystalBob = 0;
+
+	// create crystal
+	this.crystal = this.createClickableSprite("crystal", 0, 0);
+	this.crystal.addAction({
 		action: "triggerScene",
 		target: "prison1"
 	})
+
+	// create glow
+	var glowTex = ThreeUtils.loadTexture("media/crystal_bg.png");
+	var glowGeo = ThreeUtils.makeSpriteGeo(1814,1080);
+	this.glowMesh = ThreeUtils.makeSpriteMesh(glowTex, glowGeo);
+	this.transform.add(this.glowMesh);
+	this.glowMesh.position.z = -15;
+	this.otherMeshes.push(this.glowMesh);
 
 	Scene.prototype.added.call(this);
 }
 
 IndexScene.prototype.update = function()
 {
+	this.crystalBob += bmacSdk.deltaSec;
+
+	this.glowMesh.position.y = Math.cos(this.crystalBob) * 30 - 15;
+	this.crystal.mesh.position.y = this.glowMesh.position.y - 60;
+
 	Scene.prototype.update.call(this);
 }
 
@@ -46469,6 +46507,14 @@ PrisonScene1.prototype.added = function()
 		this.forcefieldSprites.push(sprite);
 	}
 
+	// create crystal
+	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal"
+	})
+	this.crystalBob = 0;
+
 	// create lasers
 	var laserTexture = ThreeUtils.loadTexture("media/prison1_lasers.png");
 	var laserGeo = ThreeUtils.makeSpriteGeo(1920, 1080);
@@ -46524,6 +46570,9 @@ PrisonScene1.prototype.update = function()
 			this.ffx + (Math.random()-0.5)*4*i, this.ffy + (Math.random()-0.5)*4*i,
 			this.forcefieldSprites[i].position.z);
 	}
+
+	this.crystalBob += bmacSdk.deltaSec;
+	this.crystalSprite.mesh.position.y = this.ffy + Math.cos(this.crystalBob) * 20 - 10;
 
 	this.laserSprite.position.x = (Math.random()-0.5)*2;
 
@@ -47005,8 +47054,6 @@ var SceneManager =
 	animation: undefined,
 }
 
-SceneManager.scenes.LAST_PRISON = SceneManager.scenes.prison0;
-
 SceneManager.ANIM_NONE = 0;
 SceneManager.ANIM_TIMETRAVEL = 1;
 SceneManager.ANIM_FORWARD = 2;
@@ -47018,8 +47065,12 @@ SceneManager.added = function()
 	// initialize all scenes
 	for (var key in this.scenes)
 	{
-		this.scenes[key].added();
+		if (this.scenes[key])
+		{
+			this.scenes[key].added();
+		}
 	}
+	this.scenes.LAST_PRISON = this.scenes.prison0;
 
 	// add timedevice scene by default
 	this.scenes["timeDevice"].show();
@@ -47305,7 +47356,7 @@ Engine.prototype._attachDom = function()
 		this.renderer = new THREE.WebGLRenderer();
 		this.canvasDiv.appendChild(this.renderer.domElement);
 		this.canvasDiv.oncontextmenu = function() { return false; };
-		this.renderer.setClearColor(0x888888, 1);
+		this.renderer.setClearColor(0x000000, 1);
 	}
 	
 	//TODO: 2D depth management
