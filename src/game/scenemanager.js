@@ -7,11 +7,24 @@ var SceneManager =
 {
 	/**
 	 * List of all possible scenes in the game.
+	 * In order of input priority.
 	 */
 	scenes:
 	{
-		index: require("./scene_index.js"),
+		timeDevice: require("./scene_timedevice.js"),
+		prison0: require("./scene_index.js"),
 		creationOfTheWorld: require("./scene_creation_of_the_world.js"),
+		field: require("./scene_past_field.js"),
+		construction: require("./scene_past_construction.js"),
+		prison1: require("./scene_prison1.js"),
+		prison2: require("./scene_prison2.js"),
+		prison3: require("./scene_prison3.js"),
+		prison4: require("./scene_prison4.js"),
+		prison5: require("./scene_prison5.js"),
+		prison6: require("./scene_prison6.js"),
+		prison7: require("./scene_prison7.js"),
+		prison8: require("./scene_prison8.js"),
+		LAST_PRISON: undefined, //special case, set dynamically
 	},
 
 	currentScene: undefined,
@@ -19,6 +32,8 @@ var SceneManager =
 
 	animation: undefined,
 }
+
+SceneManager.scenes.LAST_PRISON = SceneManager.scenes.prison0;
 
 SceneManager.ANIM_NONE = 0;
 SceneManager.ANIM_TIMETRAVEL = 1;
@@ -34,15 +49,28 @@ SceneManager.added = function()
 		this.scenes[key].added();
 	}
 
-	this.finallyChangeScene("index");
+	// add timedevice scene by default
+	this.scenes["timeDevice"].show();
+	this.scenes["timeDevice"].transform.position.z = -10;
+
+	this.finallyChangeScene("prison0", true);
 	this.currentScene.show();
 }
 
 SceneManager.update = function()
 {
+	var clickTarget = undefined;
+	for (var i in this.scenes)
+	{
+		if (this.scenes[i].enabled)
+		{
+			clickTarget = this.scenes[i].getClickTarget(GameEngine.mousePosWorld);
+		}
+		if (clickTarget) break;
+	}
+
 	if (!Conversation.isConversationActive() && !this.animation)
 	{
-		var clickTarget = this.currentScene.getClickTarget(GameEngine.mousePosWorld);
 		if (clickTarget)
 		{
 			if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
@@ -88,14 +116,24 @@ SceneManager.update = function()
 
 	if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 	{
-		var clickTarget = this.currentScene.getClickTarget(GameEngine.mousePosWorld);
 		if (!(clickTarget && clickTarget.showInfoBox)) 
 		{
 			InfoBox.hide();
 		}
 	}
 
-	this.currentScene.update();
+	for (var i in this.scenes)
+	{
+		if (this.scenes[i].enabled)
+		{
+			this.scenes[i].update();
+		}
+	}
+}
+
+SceneManager.showTimeDevice = function()
+{
+	this.scenes.timeDevice.tweenOn();
 }
 
 /**
@@ -110,9 +148,17 @@ SceneManager.changeScene = function(key, animType)
 		return;
 	}
 
+	// can't change to the current scene
+	if (this.scenes[key] === this.currentScene)
+	{
+		return;
+	}
+
 	var targetScene = this.scenes[key];
 	targetScene.show();
-	targetScene.transform.position.z = -25;
+	targetScene.transform.position.z = -70;
+	targetScene.transform.scale.set(1,1,1);
+	targetScene.setAlpha(1);
 	this.changingToScene = key;
 	
 	this.animation = animType;
@@ -131,12 +177,23 @@ SceneManager.changeScene = function(key, animType)
 	}
 }
 
-SceneManager.finallyChangeScene = function(key)
+SceneManager.finallyChangeScene = function(key, dontNotify)
 {
 	if (this.currentScene)
 	{
 		this.currentScene.hide();
 	}
 	this.currentScene = this.scenes[key];
-	this.currentScene.transform.position.z = 0;
+	this.currentScene.transform.position.z = -45;
+	if (!dontNotify)
+	{
+		for (var i in this.scenes)
+		{
+			this.scenes[i].notifyChangedScene();
+		}
+	}
+	if (key.substr(0, 6) === "prison")
+	{
+		this.scenes.LAST_PRISON = this.currentScene;
+	}
 }

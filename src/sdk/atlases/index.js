@@ -9,18 +9,24 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 667,
-	height: 467,
+	width: 873,
+	height: 861,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"door":[0,0,256,256],
-	"grad_circle":[0,386,64,64],
-	"grad_r":[129,257,64,64],
-	"heaven_angel":[257,0,212,467],
-	"heaven_player":[470,0,196,297],
-	"johnson15_sprite":[0,257,128,128],
-	"lamp":[194,257,60,60],
+	"door":[0,394,256,256],
+	"grad_circle":[800,0,64,64],
+	"grad_r":[153,651,64,64],
+	"heaven_angel":[257,394,212,467],
+	"heaven_player":[538,258,196,297],
+	"johnson15_sprite":[735,334,128,128],
+	"lamp":[470,394,60,60],
+	"timedevice":[0,0,537,393],
+	"timedevice_button1":[0,754,141,93],
+	"timedevice_button2":[735,258,137,75],
+	"timedevice_button3":[470,556,120,76],
+	"timedevice_button4":[0,651,152,102],
+	"timedevice_sticky":[538,0,261,257],
 	},
 },
 "johnson15":
@@ -80,5 +86,5 @@ module.exports =
 	"prison1_floor_25":[705,271,4,34],
 	"prison1_topshadow":[705,0,4,270],
 	},
-},
+}
 }

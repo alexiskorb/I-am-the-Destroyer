@@ -77,6 +77,8 @@ CreationOfTheWorldScene.prototype.update = function()
 	this.cloudRingL.rotation.z -= bmacSdk.deltaSec * 0.04;
 
 	this.cloudScrollTex.offset.set(this.cloudScrollTex.offset.x + bmacSdk.deltaSec * 0.02, 0);
+
+	Scene.prototype.update.call(this);
 }
 
 module.exports = new CreationOfTheWorldScene();

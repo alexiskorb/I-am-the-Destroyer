@@ -84,9 +84,10 @@ ClickTarget.prototype.hover = function()
 		GameEngine.scene.add(this.hoverMesh);
 	}
 	this.getBoundingBox();
-	this.hoverMesh.position.set(
-		this.mesh.position.x + GameEngine.screenWidth/2,
-		this.mesh.position.y + GameEngine.screenHeight/2, this.mesh.position.z - 1);
+
+	this.mesh.parent.updateMatrixWorld();
+	var temp = new THREE.Vector3().setFromMatrixPosition(this.mesh.matrixWorld);
+	this.hoverMesh.position.set(temp.x, temp.y, this.mesh.position.z - 1);
 	this.bounds.size(this.hoverMesh.scale);
 	this.hoverMesh.scale.x /= 32;
 	this.hoverMesh.scale.y /= 32;
@@ -133,6 +134,10 @@ ClickTarget.prototype.playPickupTween = function()
 
 ClickTarget.prototype.trigger = function()
 {
+	if (this.triggerTimeDevice)
+	{
+		SceneManager.showTimeDevice();
+	}
 	if (this.collectItem)
 	{
 		this.playPickupTween();
