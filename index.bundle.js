@@ -45788,12 +45788,13 @@ module.exports = GlobalVariables;
 
 GlobalVariables.getVariable = function(key)
 {
-	return !!this.Variables[key.toLowerCase()];
+	return key && !!this.Variables[key.toLowerCase()];
 }
 
 GlobalVariables.setVariable = function(key)
 {
-	if (key instanceof Array)
+	if (!key) return
+	else if (key instanceof Array)
 	{
 		for (var i = 0; i < key.length; i++)
 		{
@@ -45808,7 +45809,8 @@ GlobalVariables.setVariable = function(key)
 
 GlobalVariables.unsetVariable = function(key)
 {
-	if (key instanceof Array)
+	if (!key) return
+	else if (key instanceof Array)
 	{
 		for (var i = 0; i < key.length; i++)
 		{
@@ -45902,135 +45904,6 @@ InfoBox.parseConditionals = function(item)
 
 InfoBox.info = 
 {
-    laser_force_exit: {
-        cycle: 0,
-        data: [
-            {
-                text: "The lasers shouldn't hurt anymore, but I still can't get past the force field.",
-                isTrue: ["LASERS_DONT_HURT"],
-                isFalse: ["NO_FUTURE_TECH"]
-            },
-            {
-                text: "The force field is down, but if I try to get through those lasers I'll probably look like french fries.",
-                isFalse: ["LASERS_DONT_HURT"],
-                isTrue: ["NO_FUTURE_TECH"]
-            },
-            {
-                text: "There's a force field and lasers in the way.",
-                isTrue: [],
-                isFalse: ["LASERS_DONT_HURT", "NO_FUTURE_TECH"]
-            }
-        ]
-    },
-    moat: 
-    {
-        cycle: 0,
-        data: [
-            {
-                text: "That moat is filled with very hungry-looking crocodiles.",
-                isTrue: [],
-                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
-            },
-            {
-                text: "Poor hungry crocodiles.",
-                isTrue: [],
-                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
-            },
-            {
-                text: "Those crocodiles are so fat now. I don't think they want to eat me anymore.",
-                isTrue: ["FOOD_FOR_ANIMALS"],
-                isFalse: ["DAM_BUILT"]
-            },
-            {
-                text: "I can walk across the crocodile backs now.",
-                isTrue: ["FOOD_FOR_ANIMALS"],
-                isFalse: ["DAM_BUILT"]
-            },
-            {
-                text: "No water. No crocodiles. Easy.",
-                isTrue: ["DAM_BUILT"],
-                isFalse: []
-            },
-            {
-                text: "The dam must have diverted the water.",
-                isTrue: ["DAM_BUILT"],
-                isFalse: []
-            }
-        ],
-    },
-    moatDoor: 
-    {
-        cycle: 0,
-        data: [
-            {
-                text: "There is a moat filled with hungry crocodiles in the way.",
-                isTrue: [],
-                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
-            },
-            {
-                text: "Poor hungry crocodiles.",
-                isTrue: [],
-                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
-            },
-            {
-                text: "Those crocodiles are so fat now. I don't think they want to eat me anymore.",
-                isTrue: ["FOOD_FOR_ANIMALS"],
-                isFalse: ["DAM_BUILT"]
-            },
-            {
-                text: "No water. No crocodiles. Easy.",
-                isTrue: ["DAM_BUILT"],
-                isFalse: []
-            },
-        ],
-    },
-    keypad: 
-    {
-        cycle: 0,
-        data: [
-            {
-                text: "The door is locked.",
-                isTrue: [],
-                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN"]
-            },
-            {
-                text: "I tried \"0000\". I guess the manufacturers aren't that stupid.",
-                isTrue: [],
-                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN"]
-            },
-            {
-                text: "\"Password\" doesn't work either.",
-                isTrue: [],
-                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN"]
-            },
-            {
-                text: "Well, what do you know? \"0000\" does work. I guess that cousin hit his head pretty hard.",
-                isTrue: ["BAD_DOOR"],
-                isFalse: ["LAMP_PLUGGED_IN"]
-            },
-            {
-                text: "Since the door no longer has power, I can slide it open.",
-                isTrue: ["LAMP_PLUGGED_IN"],
-                isFalse: []
-            }
-        ]
-    },
-    outlet: 
-    {
-        cycle: 0,
-        data: [
-            {
-                text: "This outlet appears to be connected to the same power source as the door.",
-                isTrue: [],
-                isFalse: ["LAMP_PLUGGED_IN"]
-            },
-            {
-                text: "The lamp is draining all the electricity from the door. I guess they have a power shortage issue.",
-                isTrue: ["LAMP_PLUGGED_IN"],
-                isFalse: []
-            },
-        ]
-    },
     labyrinth: 
     {
         cycle: 0,
@@ -46089,6 +45962,14 @@ InfoBox.info =
         cycle: 0,
         data:
         [
+            {
+                text: "I have to get past the guard somehow.",
+                isTrue: ["CARNIVAL", "ANIMAL_REST"],
+            },
+            {
+                text: "I don't have much of a shot at fisticuffs in this form.",
+                isTrue: ["CARNIVAL", "ANIMAL_REST"],
+            },
             {
                 text: "I have to get past the guard and that pet tiger somehow.",
                 isTrue: ["CARNIVAL"],
@@ -46218,7 +46099,7 @@ InfoBox.info =
             },
         ]
     },
-    crystal:
+    crystal1:
     {
         cycle: 0,
         data:
@@ -46227,11 +46108,44 @@ InfoBox.info =
                 text: "It's me, trapped in a pathetic prison."
             },
             {
-                text: "The dark artifact that houses my essense."
+                text: "This is the dark artifact that houses my essense."
             },
             {
                 text: "I must free myself from these walls."
             },
+        ]
+    },
+    forceField:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a strong force field."
+            },
+            {
+                text: "I need to deactivate it somehow."
+            },
+        ]
+    },
+    laser_force_exit: {
+        cycle: 0,
+        data: [
+            {
+                text: "The lasers shouldn't hurt anymore, but I still can't get past the force field.",
+                isTrue: ["LASERS_DONT_HURT"],
+                isFalse: ["NO_FUTURE_TECH"]
+            },
+            {
+                text: "The force field is down, but if I try to get through those lasers I'll probably look like french fries.",
+                isFalse: ["LASERS_DONT_HURT"],
+                isTrue: ["NO_FUTURE_TECH"]
+            },
+            {
+                text: "There is a force field and lasers in the way.",
+                isTrue: [],
+                isFalse: ["LASERS_DONT_HURT", "NO_FUTURE_TECH"]
+            }
         ]
     },
     moatImpassable:
@@ -46243,7 +46157,175 @@ InfoBox.info =
                 text: "There is a moat in the way. It is full of water and dark-crystal-eating crocodiles.",
             }
         ]
-    }
+    },
+    crystal2:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "A crocodile moat, really?"
+            },
+            {
+                text: "Did they build their prison by looing at the \"Cartoon Villain Notebook of Cliches\"?"
+            },
+            {
+                text: "I can't swim in this form."
+            },
+        ]
+    },
+    moat: 
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "That moat is filled with very hungry-looking crocodiles.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
+            },
+            {
+                text: "Poor hungry crocodiles.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
+            },
+            {
+                text: "Those crocodiles are so fat now. I don't think they want to eat me anymore.",
+                isTrue: ["FOOD_FOR_ANIMALS"],
+                isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "I can walk across the crocodiles' backs now.",
+                isTrue: ["FOOD_FOR_ANIMALS"],
+                isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "No water. No crocodiles. Easy.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: []
+            },
+            {
+                text: "The dam must have diverted the water.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: []
+            }
+        ],
+    },
+    moatDoor: 
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "There is a crocodile-filled moat in the way.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
+            }
+        ],
+    },
+    crystal3:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I don't like locked doors."
+            },
+            {
+                text: "It's really a lot harder to open doors when you have no hands."
+            }
+        ]
+    },
+    keypad: 
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "The door is locked.",
+                isTrue: [],
+                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN", "DAM_BUILT"]
+            },
+            {
+                text: "I tried \"0000\". I guess the manufacturers aren't that stupid.",
+                isTrue: [],
+                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN", "DAM_BUILT"]
+            },
+            {
+                text: "\"Password\" doesn't work either.",
+                isTrue: [],
+                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN", "DAM_BUILT"]
+            },
+                       {
+                text: "The door is locked.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: ["BAD_DOOR"]
+            },
+            {
+                text: "I tried \"0000\". I guess the manufacturers aren't that stupid.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: ["BAD_DOOR"]
+            },
+            {
+                text: "\"Password\" doesn't work either.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: ["BAD_DOOR"]
+            },
+            {
+                text: "Well, what do you know? \"0000\" does work. I guess that cousin hit his head pretty hard.",
+                isTrue: ["BAD_DOOR"],
+                isFalse: ["LAMP_PLUGGED_IN"]
+            },
+            {
+                text: "Since the door no longer has power, I can slide it open.",
+                isTrue: ["LAMP_PLUGGED_IN"],
+                isFalse: ["DAM_BUILT"]
+            }
+        ]
+    },
+    outlet: 
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "This outlet appears to be connected to the same power source as the door.",
+                isTrue: [],
+                isFalse: ["LAMP_PLUGGED_IN"]
+            },
+            {
+                text: "Why is there a random outlet here, anyway?",
+                isTrue: [],
+                isFalse: ["LAMP_PLUGGED_IN"]
+            },
+            {
+                text: "The lamp is draining all the electricity from the door. I guess they have a power shortage issue.",
+                isTrue: ["LAMP_PLUGGED_IN"],
+                isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "The lamp is plugged in, but doesn't seem to affect the door at all. I guess they have plenty of electricity.",
+                isTrue: ["LAMP_PLUGGED_IN", "DAM_BUILT"], 
+                isFalse: []
+            },
+        ]
+    },
+    lamp: 
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "The lamp is working.",
+            },
+            {
+                text: "Funny. The lamp has no off button. It just turns on when you plug it in.",
+            },
+            {
+                text: "That seems like a design flaw...",
+            },
+            {
+                text: "The lamp is draining all the electricity from the door. I guess they have a power shortage issue.",
+                isTrue: ["LAMP_PLUGGED_IN"],
+                isFalse: ["DAM_BUILT"]
+            },
+        ]
+    },
 }
 
 
@@ -46713,9 +46795,17 @@ PrisonScene1.prototype.added = function()
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalSprite.addAction({
 		action: "showInfoBox",
-		target: "crystal"
+		target: "crystal1"
 	})
 	this.crystalBob = 0;
+
+	var forceTarget = this.createClickableRegion(-278, -88, 500, 500)
+	forceTarget.addAction({
+		action: "showInfoBox",
+		target: "forceField"
+	})
+	forceTarget.addFalse("NO_FUTURE_TECH");
+
 
 	// create lasers
 	var laserTexture = ThreeUtils.loadTexture("media/prison1_lasers.png");
@@ -46805,6 +46895,10 @@ PrisonScene2.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal2",
+	});
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(
@@ -46827,6 +46921,7 @@ PrisonScene2.prototype.added = function()
 
 	var moat_hungry = this.createClickableSprite("moat_hungry", 0, 300);
 	moat_hungry.addFalse("FOOD_FOR_ANIMALS");
+	moat_hungry.addFalse("DAM_BUILT");
 	moat_hungry.addAction({
 		action: "showInfoBox",
 		target: "moat"
@@ -46834,10 +46929,19 @@ PrisonScene2.prototype.added = function()
 
 	var moat_full = this.createClickableSprite("moat_full", 0, 300);
 	moat_full.addTrue("FOOD_FOR_ANIMALS");
+	moat_full.addFalse("DAM_BUILT");
 	moat_full.addAction({
 		action: "showInfoBox",
 		target: "moat"
 	});
+
+	var empty_moat= this.createClickableRegion(0, 300, GameEngine.screenWidth, 250);
+	empty_moat.addAction({
+		action: "showInfoBox",
+		target: "moat"
+	});
+	empty_moat.addTrue("DAM_BUILT");
+	empty_moat.addFalse("FOOD_FOR_ANIMALS");
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -46877,6 +46981,11 @@ PrisonScene3.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal3",
+	})
+
 
 	// create door
 	var doorClickTarget = this.createClickableSprite("keydoor", 0, 0);
@@ -46893,7 +47002,7 @@ PrisonScene3.prototype.added = function()
 	})
 
 	// create outlet
-	var outlet = this.createClickableSprite("outlet", -500, 0);
+	var outlet = this.createClickableSprite("outlet", -495, 7);
 	outlet.addAction({
 		action: "showInfoBox",
 		target: "outlet",
@@ -46904,8 +47013,13 @@ PrisonScene3.prototype.added = function()
 		target: "lamp",
 		setGlobals: ["LAMP_PLUGGED_IN"]
 	})
+
 	var lamp = this.createClickableSprite("lamplarge", -600, 85);
 	lamp.addTrue("LAMP_PLUGGED_IN");
+	lamp.addAction({
+		action: "showInfoBox",
+		target: "lamp",
+	})
 
 	PrisonScene.prototype.added.call(this);
 }

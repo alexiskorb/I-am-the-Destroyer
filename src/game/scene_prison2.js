@@ -23,6 +23,10 @@ PrisonScene2.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal2",
+	});
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(
@@ -45,6 +49,7 @@ PrisonScene2.prototype.added = function()
 
 	var moat_hungry = this.createClickableSprite("moat_hungry", 0, 300);
 	moat_hungry.addFalse("FOOD_FOR_ANIMALS");
+	moat_hungry.addFalse("DAM_BUILT");
 	moat_hungry.addAction({
 		action: "showInfoBox",
 		target: "moat"
@@ -52,10 +57,19 @@ PrisonScene2.prototype.added = function()
 
 	var moat_full = this.createClickableSprite("moat_full", 0, 300);
 	moat_full.addTrue("FOOD_FOR_ANIMALS");
+	moat_full.addFalse("DAM_BUILT");
 	moat_full.addAction({
 		action: "showInfoBox",
 		target: "moat"
 	});
+
+	var empty_moat= this.createClickableRegion(0, 300, GameEngine.screenWidth, 250);
+	empty_moat.addAction({
+		action: "showInfoBox",
+		target: "moat"
+	});
+	empty_moat.addTrue("DAM_BUILT");
+	empty_moat.addFalse("FOOD_FOR_ANIMALS");
 
 	PrisonScene.prototype.added.call(this);
 }

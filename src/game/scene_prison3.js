@@ -23,6 +23,11 @@ PrisonScene3.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal3",
+	})
+
 
 	// create door
 	var doorClickTarget = this.createClickableSprite("keydoor", 0, 0);
@@ -39,7 +44,7 @@ PrisonScene3.prototype.added = function()
 	})
 
 	// create outlet
-	var outlet = this.createClickableSprite("outlet", -500, 0);
+	var outlet = this.createClickableSprite("outlet", -495, 7);
 	outlet.addAction({
 		action: "showInfoBox",
 		target: "outlet",
@@ -50,8 +55,13 @@ PrisonScene3.prototype.added = function()
 		target: "lamp",
 		setGlobals: ["LAMP_PLUGGED_IN"]
 	})
+
 	var lamp = this.createClickableSprite("lamplarge", -600, 85);
 	lamp.addTrue("LAMP_PLUGGED_IN");
+	lamp.addAction({
+		action: "showInfoBox",
+		target: "lamp",
+	})
 
 	PrisonScene.prototype.added.call(this);
 }
