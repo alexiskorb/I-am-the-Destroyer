@@ -16,17 +16,17 @@ FieldScene.prototype = new Scene();
 FieldScene.prototype.added = function()
 {
 	// create characters
-	var investor = this.createClickableSprite("johnson15_sprite", -200, -200);
+	var investor = this.createClickableSprite("suit_sprite", 100, 0);
 	investor.addAction({
 		action: "triggerConversation",
 		target: require("../data/investor_conversation.json")
 	})
-	var damGuy = this.createClickableSprite("johnson15_sprite", -300, -300);
+	var damGuy = this.createClickableSprite("builder_guy", -300, 0);
 	damGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/dam_builder_conversation.json")
 	})
-	var speakerGuy = this.createClickableSprite("johnson15_sprite", -400, -200);
+	var speakerGuy = this.createClickableSprite("johnson15_sprite", 600, 150);
 	speakerGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/prophet_conversation.json")

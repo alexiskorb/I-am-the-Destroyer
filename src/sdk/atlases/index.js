@@ -15,6 +15,7 @@ module.exports =
 	sprites:
 	{
 	"balloon":[531,879,60,60],
+	"builder_guy":[1297,642,124,288],
 	"cardboard":[592,879,60,60],
 	"cardboardbox":[1345,129,60,60],
 	"crystal":[545,394,281,283],
@@ -28,6 +29,7 @@ module.exports =
 	"lamp":[746,762,60,60],
 	"magnets":[653,879,60,60],
 	"outlet":[746,678,61,83],
+	"suit_sprite":[1297,361,126,280],
 	"timedevice":[545,0,537,393],
 	"timedevice_button1":[0,863,141,93],
 	"timedevice_button2":[142,863,137,75],
@@ -65,14 +67,16 @@ module.exports =
 "characters":
 {
 	url: "media/characters_atlas.png",
-	width: 627,
+	width: 931,
 	height: 371,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
+	"builder":[627,0,158,243],
 	"johnson1":[0,0,212,371],
 	"johnson15":[426,0,200,256],
 	"player":[213,0,212,371],
+	"suit":[786,0,144,259],
 	},
 },
 }

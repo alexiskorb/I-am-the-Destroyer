@@ -42309,7 +42309,7 @@ module.exports=
 		{
 			"id": "johnson14",
 			"displayName": "Angle Johnson XIV",
-			"sprite": "johnson15"
+			"sprite": "builder"
 		}
 	],
 
@@ -42609,12 +42609,7 @@ module.exports=//NO_FUTURE_TECH
 		{
 			"id": "future_tech_guy",
 			"displayName": "Tom Psion",
-			"sprite": "johnson15"
-		},
-		{
-			"id": "player",
-			"displayName": "Me",
-			"sprite": "player"
+			"sprite": "suit"
 		}
 	],
 
@@ -43405,12 +43400,7 @@ module.exports=//CARNIVAL
 		{
 			"id": "investor",
 			"displayName": "Anthony Calahan",
-			"sprite": "johnson15"
-		},
-		{
-			"id": "player",
-			"displayName": "Me",
-			"sprite": "player"
+			"sprite": "suit"
 		}
 	],
 
@@ -43953,12 +43943,7 @@ module.exports=//GRAVITY_LIGHTER
 		{
 			"id": "johnson15",
 			"displayName": "Angel Johnson XV",
-			"sprite": "johnson15"
-		},
-		{
-			"id": "player",
-			"displayName": "Me",
-			"sprite": "player"
+			"sprite": "builder"
 		}
 	],
 
@@ -46456,17 +46441,17 @@ ConstructionScene.prototype = new Scene();
 ConstructionScene.prototype.added = function()
 {
 	// create characters
-	var doorGuy = this.createClickableSprite("johnson15_sprite", 200, -200);
+	var doorGuy = this.createClickableSprite("builder_guy", 200, 200);
 	doorGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/johnson_xv_conversation.json")
 	})
-	var humaneGuy = this.createClickableSprite("johnson15_sprite", 300, -300);
+	var humaneGuy = this.createClickableSprite("johnson15_sprite", -500, 300);
 	humaneGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/humane_society_conversation.json")
 	})
-	var futureTechGuy = this.createClickableSprite("johnson15_sprite", 400, -200);
+	var futureTechGuy = this.createClickableSprite("suit_sprite", -100, 100);
 	futureTechGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/future_tech_conversation.json")
@@ -46501,17 +46486,17 @@ FieldScene.prototype = new Scene();
 FieldScene.prototype.added = function()
 {
 	// create characters
-	var investor = this.createClickableSprite("johnson15_sprite", -200, -200);
+	var investor = this.createClickableSprite("suit_sprite", 100, 0);
 	investor.addAction({
 		action: "triggerConversation",
 		target: require("../data/investor_conversation.json")
 	})
-	var damGuy = this.createClickableSprite("johnson15_sprite", -300, -300);
+	var damGuy = this.createClickableSprite("builder_guy", -300, 0);
 	damGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/dam_builder_conversation.json")
 	})
-	var speakerGuy = this.createClickableSprite("johnson15_sprite", -400, -200);
+	var speakerGuy = this.createClickableSprite("johnson15_sprite", 600, 150);
 	speakerGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/prophet_conversation.json")
@@ -47359,6 +47344,7 @@ module.exports =
 	sprites:
 	{
 	"balloon":[531,879,60,60],
+	"builder_guy":[1297,642,124,288],
 	"cardboard":[592,879,60,60],
 	"cardboardbox":[1345,129,60,60],
 	"crystal":[545,394,281,283],
@@ -47372,6 +47358,7 @@ module.exports =
 	"lamp":[746,762,60,60],
 	"magnets":[653,879,60,60],
 	"outlet":[746,678,61,83],
+	"suit_sprite":[1297,361,126,280],
 	"timedevice":[545,0,537,393],
 	"timedevice_button1":[0,863,141,93],
 	"timedevice_button2":[142,863,137,75],
@@ -47409,14 +47396,16 @@ module.exports =
 "characters":
 {
 	url: "media/characters_atlas.png",
-	width: 627,
+	width: 931,
 	height: 371,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
+	"builder":[627,0,158,243],
 	"johnson1":[0,0,212,371],
 	"johnson15":[426,0,200,256],
 	"player":[213,0,212,371],
+	"suit":[786,0,144,259],
 	},
 },
 }
