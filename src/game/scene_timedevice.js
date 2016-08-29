@@ -26,6 +26,7 @@ TimeDeviceScene.prototype.added = function()
 	this.deviceBase.addAction({
 		action: "triggerTimeDevice"
 	})
+	this.deviceBase.permanentFalse = "YOU_WIN";
 	this.deviceBase.mesh.position.z = -15;
 	this.deviceBase.enabled = false;
 
@@ -44,24 +45,28 @@ TimeDeviceScene.prototype.added = function()
 		action: "triggerScene",
 		target: "creationOfTheWorld"
 	})
+	button1.permanentFalse = "YOU_WIN";
 
 	var button2 = this.createClickableSprite("timedevice_button2", -75, -145);
 	button2.addAction({
 		action: "triggerScene",
 		target: "field"
 	})
+	button2.permanentFalse = "YOU_WIN";
 
 	var button3 = this.createClickableSprite("timedevice_button3", 66, -145);
 	button3.addAction({
 		action: "triggerScene",
 		target: "construction"
 	})
+	button3.permanentFalse = "YOU_WIN";
 
 	var button4 = this.createClickableSprite("timedevice_button4", 173, -90);
 	button4.addAction({
 		action: "triggerScene",
 		target: "LAST_PRISON"
 	})
+	button4.permanentFalse = "YOU_WIN";
 
 	this.buttons.push(button1);
 	this.buttons.push(button2);
@@ -152,5 +157,7 @@ TimeDeviceScene.prototype.tweenOn = function()
 	}
 	this.deviceBase.enabled = false;
 }
+
+
 
 module.exports = new TimeDeviceScene();

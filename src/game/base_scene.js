@@ -46,6 +46,10 @@ Scene.prototype.update = function()
 				this.clickTargets[i].disable();
 			}
 		}
+		if (this.clickTargets[i].isPermanentFalse())
+		{
+			this.clickTargets[i].disable();
+		}
 	}
 }
 
@@ -119,3 +123,4 @@ Scene.prototype.hide = function()
 	this.enabled = false;
 	GameEngine.scene.remove(this.transform);
 }
+

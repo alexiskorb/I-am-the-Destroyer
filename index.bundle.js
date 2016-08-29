@@ -45073,6 +45073,10 @@ Scene.prototype.update = function()
 				this.clickTargets[i].disable();
 			}
 		}
+		if (this.clickTargets[i].isPermanentFalse())
+		{
+			this.clickTargets[i].disable();
+		}
 	}
 }
 
@@ -45147,6 +45151,7 @@ Scene.prototype.hide = function()
 	GameEngine.scene.remove(this.transform);
 }
 
+
 },{"../sdk/threeutils":42,"three":2}],12:[function(require,module,exports){
 
 THREE = require("three");
@@ -45177,6 +45182,7 @@ var ClickTarget = function(mesh)
 	this.showInfoBox = undefined;
 	this.existConditionsTrue = [];
 	this.existConditionsFalse = [];
+	this.permanentFalse = undefined;
 	this.conditional = false;
 }
 
@@ -45479,6 +45485,16 @@ ClickTarget.prototype.interact = function(item, globals, requiredGlobals, addIte
 			Inventory.addItem(Inventory.items[addItem]);
 		}
 	}
+}
+
+ClickTarget.prototype.isPermanentFalse = function()
+{
+	if (this.permanentFalse){
+		if (GlobalVariables.getVariable(this.permanentFalse)){
+			return true;
+		}
+	}
+	return false;
 }
 },{"./conversation.js":13,"./globalvariables.js":14,"./infobox.js":15,"three":2}],13:[function(require,module,exports){
 
@@ -47571,6 +47587,11 @@ PrisonScene8.prototype.added = function()
 		continue: true
 	})
 	doorClickTarget.addAction({
+		action: "miscellaneous",
+		setGlobals: ["YOU_WIN"],
+		continue: true
+	})
+	doorClickTarget.addAction({
 		action: "win",
 		globalIsTrue: "GRAVITY_LIGHTER",
 	})
@@ -47616,6 +47637,7 @@ TimeDeviceScene.prototype.added = function()
 	this.deviceBase.addAction({
 		action: "triggerTimeDevice"
 	})
+	this.deviceBase.permanentFalse = "YOU_WIN";
 	this.deviceBase.mesh.position.z = -15;
 	this.deviceBase.enabled = false;
 
@@ -47634,24 +47656,28 @@ TimeDeviceScene.prototype.added = function()
 		action: "triggerScene",
 		target: "creationOfTheWorld"
 	})
+	button1.permanentFalse = "YOU_WIN";
 
 	var button2 = this.createClickableSprite("timedevice_button2", -75, -145);
 	button2.addAction({
 		action: "triggerScene",
 		target: "field"
 	})
+	button2.permanentFalse = "YOU_WIN";
 
 	var button3 = this.createClickableSprite("timedevice_button3", 66, -145);
 	button3.addAction({
 		action: "triggerScene",
 		target: "construction"
 	})
+	button3.permanentFalse = "YOU_WIN";
 
 	var button4 = this.createClickableSprite("timedevice_button4", 173, -90);
 	button4.addAction({
 		action: "triggerScene",
 		target: "LAST_PRISON"
 	})
+	button4.permanentFalse = "YOU_WIN";
 
 	this.buttons.push(button1);
 	this.buttons.push(button2);
@@ -47742,6 +47768,8 @@ TimeDeviceScene.prototype.tweenOn = function()
 	}
 	this.deviceBase.enabled = false;
 }
+
+
 
 module.exports = new TimeDeviceScene();
 

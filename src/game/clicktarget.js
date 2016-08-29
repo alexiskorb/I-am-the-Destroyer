@@ -27,6 +27,7 @@ var ClickTarget = function(mesh)
 	this.showInfoBox = undefined;
 	this.existConditionsTrue = [];
 	this.existConditionsFalse = [];
+	this.permanentFalse = undefined;
 	this.conditional = false;
 }
 
@@ -329,4 +330,14 @@ ClickTarget.prototype.interact = function(item, globals, requiredGlobals, addIte
 			Inventory.addItem(Inventory.items[addItem]);
 		}
 	}
+}
+
+ClickTarget.prototype.isPermanentFalse = function()
+{
+	if (this.permanentFalse){
+		if (GlobalVariables.getVariable(this.permanentFalse)){
+			return true;
+		}
+	}
+	return false;
 }
