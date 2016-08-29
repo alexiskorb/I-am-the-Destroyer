@@ -29,7 +29,7 @@ PrisonScene5.prototype.added = function()
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
 		action: "showInfoBox",
-		target: "guard",
+		target: "guardDoor",
 		continue: true
 	})
 	doorClickTarget.addAction({
@@ -38,14 +38,25 @@ PrisonScene5.prototype.added = function()
 		globalIsTrue: ["ANIMAL_REST", "CARNIVAL"]
 	})
 
-
 	PrisonScene.prototype.added.call(this);
+
 	var guard = this.createClickableSprite("guard",300,50);
 	guard.addFalse("CARNIVAL");
 	guard.addFalse("ANIMAL_REST");
+	guard.addAction({
+		action: "showInfoBox",
+		target: "guard",
+		continue: true
+	})
+
 	var guardAndTiger = this.createClickableSprite("guardandtiger",600,50);
 	guardAndTiger.addTrue("CARNIVAL");
 	guardAndTiger.addFalse("ANIMAL_REST");
+	guardAndTiger.addAction({
+		action: "showInfoBox",
+		target: "guard",
+		continue: true
+	})
 }
 
 PrisonScene5.prototype.update = function()

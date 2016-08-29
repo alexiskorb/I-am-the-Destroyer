@@ -45958,6 +45958,32 @@ InfoBox.info =
             }
         ],
     },
+    moatDoor: 
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "There is a moat filled with hungry crocodiles in the way.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
+            },
+            {
+                text: "Poor hungry crocodiles.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
+            },
+            {
+                text: "Those crocodiles are so fat now. I don't think they want to eat me anymore.",
+                isTrue: ["FOOD_FOR_ANIMALS"],
+                isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "No water. No crocodiles. Easy.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: []
+            },
+        ],
+    },
     keypad: 
     {
         cycle: 0,
@@ -46026,6 +46052,22 @@ InfoBox.info =
             },
         ]
     },
+    puddle:
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "The labyrinth is leaking. Who floods a labyrinth with water?",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
+            },
+            {
+                text: "If I had legs, I might make some money off a slip-and-fall lawsuit.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: ["BAD_LABYRINTH"]
+            },
+        ]
+    },
     guard: 
     {
         cycle: 0,
@@ -46037,6 +46079,16 @@ InfoBox.info =
                 isTrue: [],
                 isFalse: ["ANIMAL_REST", "CARNIVAL"]
             },
+            {
+                text: "He looks like he takes his job very seriously."
+            }
+        ]
+    },
+    guardDoor: 
+    {
+        cycle: 0,
+        data:
+        [
             {
                 text: "I have to get past the guard and that pet tiger somehow.",
                 isTrue: ["CARNIVAL"],
@@ -46759,7 +46811,7 @@ PrisonScene2.prototype.added = function()
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
 		action: "showInfoBox",
-		target: "moat",
+		target: "moatDoor",
 		continue: true,
 	});
 	doorClickTarget.addAction({
@@ -46772,10 +46824,20 @@ PrisonScene2.prototype.added = function()
 		target: "prison3",
 		globalIsTrue: "DAM_BUILT"
 	});
+
 	var moat_hungry = this.createClickableSprite("moat_hungry", 0, 300);
 	moat_hungry.addFalse("FOOD_FOR_ANIMALS");
+	moat_hungry.addAction({
+		action: "showInfoBox",
+		target: "moat"
+	});
+
 	var moat_full = this.createClickableSprite("moat_full", 0, 300);
 	moat_full.addTrue("FOOD_FOR_ANIMALS");
+	moat_full.addAction({
+		action: "showInfoBox",
+		target: "moat"
+	});
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -46897,11 +46959,17 @@ PrisonScene4.prototype.added = function()
 		target: "prison5",
 		globalIsTrue: ["DAM_BUILT", "BAD_LABYRINTH"]
 	})
+
 	var labyrinth_sign = this.createClickableSprite("labyrinth_sign", 350, -200);
 
 	PrisonScene.prototype.added.call(this);
+
 	var puddle = this.createClickableSprite("puddle", 600, 470);
 	puddle.addFalse("DAM_BUILT");
+	puddle.addAction({
+		action: "showInfoBox",
+		target: "puddle"
+	})
 }
 
 PrisonScene4.prototype.update = function()
@@ -46945,7 +47013,7 @@ PrisonScene5.prototype.added = function()
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
 		action: "showInfoBox",
-		target: "guard",
+		target: "guardDoor",
 		continue: true
 	})
 	doorClickTarget.addAction({
@@ -46954,14 +47022,25 @@ PrisonScene5.prototype.added = function()
 		globalIsTrue: ["ANIMAL_REST", "CARNIVAL"]
 	})
 
-
 	PrisonScene.prototype.added.call(this);
+
 	var guard = this.createClickableSprite("guard",300,50);
 	guard.addFalse("CARNIVAL");
 	guard.addFalse("ANIMAL_REST");
+	guard.addAction({
+		action: "showInfoBox",
+		target: "guard",
+		continue: true
+	})
+
 	var guardAndTiger = this.createClickableSprite("guardandtiger",600,50);
 	guardAndTiger.addTrue("CARNIVAL");
 	guardAndTiger.addFalse("ANIMAL_REST");
+	guardAndTiger.addAction({
+		action: "showInfoBox",
+		target: "guard",
+		continue: true
+	})
 }
 
 PrisonScene5.prototype.update = function()

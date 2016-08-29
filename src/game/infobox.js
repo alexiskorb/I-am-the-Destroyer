@@ -134,6 +134,32 @@ InfoBox.info =
             }
         ],
     },
+    moatDoor: 
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "There is a moat filled with hungry crocodiles in the way.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
+            },
+            {
+                text: "Poor hungry crocodiles.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
+            },
+            {
+                text: "Those crocodiles are so fat now. I don't think they want to eat me anymore.",
+                isTrue: ["FOOD_FOR_ANIMALS"],
+                isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "No water. No crocodiles. Easy.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: []
+            },
+        ],
+    },
     keypad: 
     {
         cycle: 0,
@@ -202,6 +228,22 @@ InfoBox.info =
             },
         ]
     },
+    puddle:
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "The labyrinth is leaking. Who floods a labyrinth with water?",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
+            },
+            {
+                text: "If I had legs, I might make some money off a slip-and-fall lawsuit.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: ["BAD_LABYRINTH"]
+            },
+        ]
+    },
     guard: 
     {
         cycle: 0,
@@ -212,6 +254,24 @@ InfoBox.info =
                 text: "I can't talk to the guard. He'll pull the alarm.",
                 isTrue: [],
                 isFalse: ["ANIMAL_REST", "CARNIVAL"]
+            },
+            {
+                text: "He looks like he takes his job very seriously."
+            }
+        ]
+    },
+    guardDoor: 
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I have to get past the guard somehow.",
+                isTrue: ["CARNIVAL", "ANIMAL_REST"],
+            },
+            {
+                text: "I don't have much of a shot at fisticuffs in this form.",
+                isTrue: ["CARNIVAL", "ANIMAL_REST"],
             },
             {
                 text: "I have to get past the guard and that pet tiger somehow.",

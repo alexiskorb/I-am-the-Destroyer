@@ -29,7 +29,7 @@ PrisonScene2.prototype.added = function()
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
 		action: "showInfoBox",
-		target: "moat",
+		target: "moatDoor",
 		continue: true,
 	});
 	doorClickTarget.addAction({
@@ -42,10 +42,20 @@ PrisonScene2.prototype.added = function()
 		target: "prison3",
 		globalIsTrue: "DAM_BUILT"
 	});
+
 	var moat_hungry = this.createClickableSprite("moat_hungry", 0, 300);
 	moat_hungry.addFalse("FOOD_FOR_ANIMALS");
+	moat_hungry.addAction({
+		action: "showInfoBox",
+		target: "moat"
+	});
+
 	var moat_full = this.createClickableSprite("moat_full", 0, 300);
 	moat_full.addTrue("FOOD_FOR_ANIMALS");
+	moat_full.addAction({
+		action: "showInfoBox",
+		target: "moat"
+	});
 
 	PrisonScene.prototype.added.call(this);
 }
