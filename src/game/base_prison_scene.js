@@ -8,6 +8,8 @@ ClickTarget = require("./clicktarget.js");
 
 var PrisonScene = function()
 {
+	this.musicUrl = "media/ngxmusicalngx+astrangedream.mp3";
+
 	Scene.call(this);
 }
 

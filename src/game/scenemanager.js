@@ -2,6 +2,7 @@
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");
 InfoBox = require("./infobox.js");
+AudioManager = require("../sdk/audiomanager");
 
 var SceneManager =
 {
@@ -54,6 +55,9 @@ SceneManager.added = function()
 	// add timedevice scene by default
 	this.scenes["timeDevice"].show();
 	this.scenes["timeDevice"].transform.position.z = -10;
+
+	var music = AudioManager.playSound("media/ngxmusicalngx+astrangedream.mp3");
+	music.loop = true;
 
 	this.debugChangeScene("prison0");
 }
@@ -184,6 +188,13 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 	{
 		this.currentScene.hide();
 	}
+
+	// swap music
+	if (!this.currentScene || this.currentScene.musicUrl != this.scenes[key].musicUrl)
+	{
+		//TODO:
+	}
+
 	this.currentScene = this.scenes[key];
 	this.currentScene.transform.position.z = -45;
 	if (!dontNotify)
@@ -193,6 +204,7 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 			this.scenes[i].notifyChangedScene();
 		}
 	}
+
 	if (key.substr(0, 6) === "prison")
 	{
 		this.scenes.LAST_PRISON = this.currentScene;
