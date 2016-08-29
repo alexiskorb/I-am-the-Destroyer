@@ -30,7 +30,19 @@ PrisonScene7.prototype.added = function()
 	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison8",
-		globalIsTrue: ["MAGNETS_PLACED","CARDBOARD_WALL"]
+		globalIsTrue: ["MAGNETS_PLACED","CARDBOARD_PLACED"]
+	})
+	doorClickTarget.addAction({
+		action: "interact",
+		target: "magnets",
+		setGlobals: ["MAGNETS_PLACED"],
+		continue: true
+	})
+	doorClickTarget.addAction({
+		action: "interact",
+		target: "cardboard",
+		setGlobals: ["CARDBOARD_PLACED"],
+		globalIsTrue: ["MAGNETS_PLACED"]
 	})
 
 	PrisonScene.prototype.added.call(this);

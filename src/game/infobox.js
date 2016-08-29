@@ -260,11 +260,11 @@ InfoBox.info =
             {
                 text: "The magnets are floating over the pit, but the gaps between them are too big to jump. I need a bridge.",
                 isTrue: ["MAGNETS_PLACED"],
-                isFalse: ["CARDBOARD_WALL"]
+                isFalse: ["CARDBOARD_PLACED"]
             },
             {
                 text: "The wall makes a good bridge across the floating magnets.",
-                isTrue: ["MAGNETS_PLACED","CARDBOARD_WALL"],
+                isTrue: ["MAGNETS_PLACED","CARDBOARD_PLACED"],
                 isFalse: []
             },
         ]
