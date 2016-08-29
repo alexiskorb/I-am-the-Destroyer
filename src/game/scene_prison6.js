@@ -8,7 +8,7 @@ ClickTarget = require("./clicktarget.js");
 
 var PrisonScene6 = function()
 {
-	this.backgroundUrl = "media/prison1_bg.png";
+	this.backgroundUrl = "media/doorframe.png";
 
 	PrisonScene.call(this);
 }
@@ -20,19 +20,28 @@ PrisonScene6.prototype.added = function()
 	var atlas = ThreeUtils.loadAtlas("prison1");
 	
 	// create door
-	var doorClickTarget = this.createClickableRegion(
-		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
-	doorClickTarget.addAction({
+	var steelWall = this.createClickableSprite("steelwall",0,0);
+	steelWall.addAction({
 		action: "showInfoBox",
 		target: "wall",
 		continue: true
 	})
+	steelWall.addFalse("BRICK_WALL");
+	var brickWall = this.createClickableSprite("brickwall",0,0);
+	brickWall.addAction({
+		action: "showInfoBox",
+		target: "wall",
+		continue: true
+	})
+	brickWall.addFalse("WOOD_WALL");
+	brickWall.addTrue("BRICK_WALL");
+	/*
 	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison7",
 		globalIsTrue: "CARDBOARD_WALL",
 		addItem: "cardboard"
-	})
+	})*/
 
 	PrisonScene.prototype.added.call(this);
 }

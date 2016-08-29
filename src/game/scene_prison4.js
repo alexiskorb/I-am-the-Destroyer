@@ -32,8 +32,11 @@ PrisonScene4.prototype.added = function()
 		target: "prison5",
 		globalIsTrue: ["DAM_BUILT", "BAD_LABYRINTH"]
 	})
+	var labyrinth_sign = this.createClickableSprite("labyrinth_sign", 350, -200);
 
 	PrisonScene.prototype.added.call(this);
+	var puddle = this.createClickableSprite("puddle", 600, 470);
+	puddle.addFalse("DAM_BUILT");
 }
 
 PrisonScene4.prototype.update = function()
