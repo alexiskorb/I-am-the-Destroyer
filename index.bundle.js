@@ -45921,6 +45921,19 @@ InfoBox.parseConditionals = function(item)
 
 InfoBox.info = 
 {
+    shadow:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "Yes. That's me.",
+            },
+            {
+                text: "More precisely, it's the self that I can project across time while I remain trapped in the prison.",
+            },
+        ]
+    },
     prophet: 
     {
         cycle: 0,
@@ -45979,6 +45992,75 @@ InfoBox.info =
                 text: "The wormhole looks like it broke after you threw the box in. Shoddy workmanship.",
                 isTrue: ["WORMHOLE_ACTIVATED", "BOX_IN_WORMHOLE"],
                 isFalse: []
+            },
+        ]
+    },
+    mini_lamp:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a normal, boring lamp."
+            },
+            {
+                text: "The FutureTech guy gave it to me."
+            },
+        ]
+    },
+    mini_box:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a cardboard box."
+            },
+        ]
+    },
+    mini_hammer:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a hammer."
+            },
+            {
+                text: "It does hammer things."
+            },
+        ]
+    },
+    mini_magnets:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "These are magnets from the broken speaker."
+            },
+        ]
+    },
+    mini_cardboard:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a piece of cardboard I broke off from the door."
+            },
+        ]
+    },
+    mini_balloon:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a balloon."
+            },
+            {
+                text: "Yay! Balloons!"
             },
         ]
     },
@@ -46528,6 +46610,7 @@ module.exports = InfoBox;
 },{"../sdk/input":37,"../sdk/threeutils":42,"./globalvariables.js":14}],16:[function(require,module,exports){
 
 ThreeUtils = require("../sdk/threeutils");
+InfoBox = require("./infobox.js");
 
 var Inventory = {
     itemList: [],
@@ -46538,24 +46621,31 @@ var Inventory = {
 Inventory.items = {
     lamp: {
         sprite: "lamp",
+        infoId: "mini_lamp"
     },
     player_atlas: {
-        sprite: "player_atlas2"
+        sprite: "player_atlas2",
+        infoId: "mini_atlas"
     },
     cardboard_box: {
-        sprite: "cardboardbox"
+        sprite: "cardboardbox",
+        infoId: "mini_box"
     },
     cardboard: {
-        sprite: "cardboard"
+        sprite: "cardboard",
+        infoId: "mini_cardboard"
     },
     balloon: {
-        sprite: "balloon"
+        sprite: "balloon",
+        infoId: "mini_balloon"
     },
     magnets: {
-        sprite: "magnets"
+        sprite: "magnets",
+        infoId: "mini_magnets"
     },
     hammer: {
-        sprite: "hammer"
+        sprite: "hammer",
+        infoId: "mini_hammer"
     }
 }
 
@@ -46610,6 +46700,10 @@ Inventory.removeItem = function(item) {
 }
 Inventory.select = function(index){
     return function() {
+        if (Inventory.itemList[index]){
+		    InfoBox.display(Inventory.itemList[index].infoId);
+        }
+
         Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 5px #fff";
         Inventory.inventoryDisplay[index].style.border = "5px solid white";
         if (index < 5){
@@ -46678,9 +46772,10 @@ Inventory.itemHeld = function()
     return undefined;
 }
 
+
 module.exports = Inventory;
 
-},{"../sdk/threeutils":42}],17:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./infobox.js":15}],17:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -46750,6 +46845,11 @@ CreationOfTheWorldScene.prototype.added = function()
 
 	// create player
 	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);
+	this.playerSprite.addAction({
+		action: "showInfoBox",
+		target: "shadow",
+	});
+	
 	this.wormhole = this.createClickableSprite("wormhole", 0, 0);
 	this.wormhole.addTrue("WORMHOLE_ACTIVATED");
 	this.wormhole.addAction ({
@@ -46874,7 +46974,10 @@ ConstructionScene.prototype.added = function()
 		target: "hammer"
 	})
 	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
-
+	this.playerSprite.addAction({
+		action: "showInfoBox",
+		target: "shadow",
+	});
 
 
 	Scene.prototype.added.call(this);
@@ -46940,7 +47043,10 @@ FieldScene.prototype.added = function()
 	speaker.addFalse("SPEAKER_BROKEN");
 	speaker.addTrue("BOX_IN_WORMHOLE");
 	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
-
+	this.playerSprite.addAction({
+		action: "showInfoBox",
+		target: "shadow",
+	});
 
 	Scene.prototype.added.call(this);
 }

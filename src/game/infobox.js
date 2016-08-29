@@ -78,6 +78,19 @@ InfoBox.parseConditionals = function(item)
 
 InfoBox.info = 
 {
+    shadow:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "Yes. That's me.",
+            },
+            {
+                text: "More precisely, it's the self that I can project across time while I remain trapped in the prison.",
+            },
+        ]
+    },
     prophet: 
     {
         cycle: 0,
@@ -136,6 +149,75 @@ InfoBox.info =
                 text: "The wormhole looks like it broke after you threw the box in. Shoddy workmanship.",
                 isTrue: ["WORMHOLE_ACTIVATED", "BOX_IN_WORMHOLE"],
                 isFalse: []
+            },
+        ]
+    },
+    mini_lamp:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a normal, boring lamp."
+            },
+            {
+                text: "The FutureTech guy gave it to me."
+            },
+        ]
+    },
+    mini_box:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a cardboard box."
+            },
+        ]
+    },
+    mini_hammer:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a hammer."
+            },
+            {
+                text: "It does hammer things."
+            },
+        ]
+    },
+    mini_magnets:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "These are magnets from the broken speaker."
+            },
+        ]
+    },
+    mini_cardboard:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a piece of cardboard I broke off from the door."
+            },
+        ]
+    },
+    mini_balloon:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a balloon."
+            },
+            {
+                text: "Yay! Balloons!"
             },
         ]
     },

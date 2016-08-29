@@ -50,7 +50,10 @@ FieldScene.prototype.added = function()
 	speaker.addFalse("SPEAKER_BROKEN");
 	speaker.addTrue("BOX_IN_WORMHOLE");
 	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
-
+	this.playerSprite.addAction({
+		action: "showInfoBox",
+		target: "shadow",
+	});
 
 	Scene.prototype.added.call(this);
 }

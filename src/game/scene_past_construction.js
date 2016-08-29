@@ -42,7 +42,10 @@ ConstructionScene.prototype.added = function()
 		target: "hammer"
 	})
 	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
-
+	this.playerSprite.addAction({
+		action: "showInfoBox",
+		target: "shadow",
+	});
 
 
 	Scene.prototype.added.call(this);
