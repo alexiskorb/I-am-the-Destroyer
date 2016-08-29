@@ -44320,11 +44320,17 @@ module.exports=//GRAVITY_LIGHTER
 				{
 					"text": "Cardboard?",
 					"nextNodeId": 29,
-					"globalIsFalse": "BOX_IN_WORMHOLE"
+					"globalIsTrue": "SPEAKER_BROKEN"
+				},
+				{
+					"text": "Cardboard?",
+					"nextNodeId": 49,
+					"globalIsFalse": ["SPEAKER_BROKEN", "BOX_IN_WORMHOLE"]
 				},
 				{
 					"text": "Cardboard?",
 					"nextNodeId":30,
+					"globalIsFalse": "SPEAKER_BROKEN",
 					"globalIsTrue": "BOX_IN_WORMHOLE"
 				},
 			]
@@ -44375,7 +44381,7 @@ module.exports=//GRAVITY_LIGHTER
 		{
 			"id": 29,
 			"speaker": "johnson15",
-			"text": "I would. But cardboard is so hard to find. There was this one crazy guy spouting about how cardboard sucks, and no one was there to counter him, so now we have no cardboard. Guess I'll stick with wood for now.",
+			"text": "I would. But cardboard is scarce. A while back, there was this one crazy guy who spouted about how cardboard sucks and is a false prophet or something. Since then, it's popularity has gone down. Guess I'll stick with wood for now.",
 			"responses":[
 			]
 		},
@@ -44592,6 +44598,13 @@ module.exports=//GRAVITY_LIGHTER
 			"id": 48,
 			"speaker": "johnson15",
 			"text": "The door.",
+			"responses":[
+			]
+		},
+		{
+			"id": 49,
+			"speaker": "johnson15",
+			"text": "I would, but good cardboard is hard to find for some reason. There would have to be a boom in the cardboard industry. Guess I'll stick to wood for now.",
 			"responses":[
 			]
 		},
@@ -45940,22 +45953,47 @@ InfoBox.info =
         data:
         [
             {
-                text: "\"Ladies and Gentlemen. Cardboard is the greatest thing ever!\"",
+                text: "\"...and then I saw the cardboard box soar majestically through the sky.\"",
                 isTrue: ["BOX_IN_WORMHOLE"],
                 isFalse: ["SPEAKER_BROKEN"]
             },
             {
-                text: "\"When I saw the holy cardboard box soar majestically through a portal in the sky, I knew it was destiny.\"",
+                text: "\"The holy box appeared from a portal, stayed briefly, and then left to fulfill its greater purposes.\"",
                 isTrue: ["BOX_IN_WORMHOLE"],
                 isFalse: ["SPEAKER_BROKEN"]
             },
             {
-                text: "\"Cardboard is simple, yet majestic.\"",
+                text: "\"When, I saw it, I knew my destiny had been fulfilled.\"",
                 isTrue: ["BOX_IN_WORMHOLE"],
                 isFalse: ["SPEAKER_BROKEN"]
             },
             {
-                text: "\"Don't talk to me. My holy destiny is foiled. If I cannot proclaim to the crowds than I shan't proclaim at all.\"",
+                text: "\"The holy box left me, the Cardboard Prophet, to proclaim its greatness.\"",
+                isTrue: ["BOX_IN_WORMHOLE"],
+                isFalse: ["SPEAKER_BROKEN"]
+            },
+            {
+                text: "\"Cardboard is the greatest thing ever!\"",
+                isTrue: ["BOX_IN_WORMHOLE"],
+                isFalse: ["SPEAKER_BROKEN"]
+            },
+            {
+                text: "\"We must strive for the glory of cardboard.\"",
+                isTrue: ["BOX_IN_WORMHOLE"],
+                isFalse: ["SPEAKER_BROKEN"]
+            },
+            {
+                text: "\"Don't talk to me. My holy destiny was a lie.\"",
+                isTrue: ["BOX_IN_WORMHOLE", "SPEAKER_BROKEN"],
+                isFalse: []
+            },
+            {
+                text: "\"The breaking of the speaker was a sign.\"",
+                isTrue: ["BOX_IN_WORMHOLE", "SPEAKER_BROKEN"],
+                isFalse: []
+            },
+            {
+                text: "\"Curse you, Cardboard! You false prophet!.\"",
                 isTrue: ["BOX_IN_WORMHOLE", "SPEAKER_BROKEN"],
                 isFalse: []
             }
@@ -45967,15 +46005,8 @@ InfoBox.info =
         data:
         [
             {
-                text: "It looks like you could break Maximus's speaker so he finally shuts up.",
-                isTrue: [],
-                isFalse: ["SPEAKER_BROKEN"]
+                text: "Maybe if I break his speaker, he'll shut up.",
             },
-            {
-                text: "The speaker is broken",
-                isTrue: ["SPEAKER_BROKEN"],
-                isFalse: []
-            }
         ]
     },
     wormhole: 
@@ -47025,7 +47056,12 @@ FieldScene.prototype.added = function()
 		target: require("../data/prophet_conversation.json")
 	})
 	speakerGuy.addFalse("BOX_IN_WORMHOLE");
+
 	var cardboard_preacher = this.createClickableSprite("cardboard_preacher", 600, 150);
+	cardboard_preacher.addAction({
+		action: "showInfoBox",
+		target: "prophet",
+	})
 	cardboard_preacher.addTrue("BOX_IN_WORMHOLE");
 
 	var cardboardBox = this.createClickableSprite("cardboardboxlarge", -430, 200);
@@ -47033,15 +47069,23 @@ FieldScene.prototype.added = function()
 		action: "collectItem",
 		target: "cardboard_box"
 	})
+
+
 	var speaker = this.createClickableSprite("speaker", 480, 200);
 	speaker.addAction({
 		action: "interact",
 		target: "hammer",
 		setGlobals: ["SPEAKER_BROKEN"],
 		addItem: "magnets",
+		continue: true
+	})
+	speaker.addAction({
+		action: "showInfoBox",
+		target: "speaker",
 	})
 	speaker.addFalse("SPEAKER_BROKEN");
 	speaker.addTrue("BOX_IN_WORMHOLE");
+
 	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
 	this.playerSprite.addAction({
 		action: "showInfoBox",

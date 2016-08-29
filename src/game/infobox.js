@@ -97,22 +97,47 @@ InfoBox.info =
         data:
         [
             {
-                text: "\"Ladies and Gentlemen. Cardboard is the greatest thing ever!\"",
+                text: "\"...and then I saw the cardboard box soar majestically through the sky.\"",
                 isTrue: ["BOX_IN_WORMHOLE"],
                 isFalse: ["SPEAKER_BROKEN"]
             },
             {
-                text: "\"When I saw the holy cardboard box soar majestically through a portal in the sky, I knew it was destiny.\"",
+                text: "\"The holy box appeared from a portal, stayed briefly, and then left to fulfill its greater purposes.\"",
                 isTrue: ["BOX_IN_WORMHOLE"],
                 isFalse: ["SPEAKER_BROKEN"]
             },
             {
-                text: "\"Cardboard is simple, yet majestic.\"",
+                text: "\"When, I saw it, I knew my destiny had been fulfilled.\"",
                 isTrue: ["BOX_IN_WORMHOLE"],
                 isFalse: ["SPEAKER_BROKEN"]
             },
             {
-                text: "\"Don't talk to me. My holy destiny is foiled. If I cannot proclaim to the crowds than I shan't proclaim at all.\"",
+                text: "\"The holy box left me, the Cardboard Prophet, to proclaim its greatness.\"",
+                isTrue: ["BOX_IN_WORMHOLE"],
+                isFalse: ["SPEAKER_BROKEN"]
+            },
+            {
+                text: "\"Cardboard is the greatest thing ever!\"",
+                isTrue: ["BOX_IN_WORMHOLE"],
+                isFalse: ["SPEAKER_BROKEN"]
+            },
+            {
+                text: "\"We must strive for the glory of cardboard.\"",
+                isTrue: ["BOX_IN_WORMHOLE"],
+                isFalse: ["SPEAKER_BROKEN"]
+            },
+            {
+                text: "\"Don't talk to me. My holy destiny was a lie.\"",
+                isTrue: ["BOX_IN_WORMHOLE", "SPEAKER_BROKEN"],
+                isFalse: []
+            },
+            {
+                text: "\"The breaking of the speaker was a sign.\"",
+                isTrue: ["BOX_IN_WORMHOLE", "SPEAKER_BROKEN"],
+                isFalse: []
+            },
+            {
+                text: "\"Curse you, Cardboard! You false prophet!.\"",
                 isTrue: ["BOX_IN_WORMHOLE", "SPEAKER_BROKEN"],
                 isFalse: []
             }
@@ -124,15 +149,8 @@ InfoBox.info =
         data:
         [
             {
-                text: "It looks like you could break Maximus's speaker so he finally shuts up.",
-                isTrue: [],
-                isFalse: ["SPEAKER_BROKEN"]
+                text: "Maybe if I break his speaker, he'll shut up.",
             },
-            {
-                text: "The speaker is broken",
-                isTrue: ["SPEAKER_BROKEN"],
-                isFalse: []
-            }
         ]
     },
     wormhole: 
