@@ -68,7 +68,7 @@ Inventory.addItem = function(item) {
            break;
        }
    }
-   GlobalVariables.setVariable(item + "_OBTAINED")
+   GlobalVariables.setVariable(item.sprite + "_OBTAINED")
 }
 Inventory.removeItem = function(item) {
    for (var i = 0; i < 6; i++){
@@ -78,7 +78,7 @@ Inventory.removeItem = function(item) {
            break;
        }
    }
-   GlobalVariables.unsetVariable(item + "_OBTAINED")
+   GlobalVariables.unsetVariable(item.sprite + "_OBTAINED")
 }
 Inventory.select = function(index){
     return function() {

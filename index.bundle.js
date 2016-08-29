@@ -43976,8 +43976,8 @@ module.exports=//GRAVITY_LIGHTER
 				},
 				{
 					"text": "So, how's the wall going?",
-					"nextNodeId": 12,
-					"globalIsTrue": "BRICK_WALLL",
+					"nextNodeId": 14,
+					"globalIsTrue": "BRICK_WALL",
 					"globalIsFalse": "WOOD_WALL" 
 				},
 				{
@@ -44094,6 +44094,7 @@ module.exports=//GRAVITY_LIGHTER
 				{
 					"text": "Bricks. They should be strong enough for a prison, but they're a lot cheaper.",
 					"nextNodeId": 12,
+					"setGlobalTrue": "BRICK_WALL"
 				},
 				{
 					"text": "Ice. It pretty much works as it's own air conditioning too.",
@@ -44375,8 +44376,6 @@ module.exports=//GRAVITY_LIGHTER
 			"speaker": "johnson15",
 			"text": "I would. But cardboard is so hard to find. There was this one crazy guy spouting about how cardboard sucks, and no one was there to counter him, so now we have no cardboard. Guess I'll stick with wood for now.",
 			"responses":[
-				{
-				},
 			]
 		},
 		{
@@ -44396,8 +44395,6 @@ module.exports=//GRAVITY_LIGHTER
 			"speaker": "johnson15",
 			"text": "Yep! Thanks for all the help. You're a real lifesaver.",
 			"responses":[
-				{
-				},
 			]
 		},
 		{
@@ -44560,11 +44557,11 @@ module.exports=//GRAVITY_LIGHTER
 				{
 					"text": "The door.",
 					"setGlobalTrue": "BAD_DOOR",
-					"nextNodeId": 45
+					"nextNodeId": 46
 				},
 				{
 					"text": "The labyrinth.",
-					"nextNodeId": 46,
+					"nextNodeId": 45,
 					"setGlobalTrue": "BAD_LABYRINTH"
 				},
 			]
@@ -46244,7 +46241,7 @@ Inventory.addItem = function(item) {
            break;
        }
    }
-   GlobalVariables.setVariable(item + "_OBTAINED")
+   GlobalVariables.setVariable(item.sprite + "_OBTAINED")
 }
 Inventory.removeItem = function(item) {
    for (var i = 0; i < 6; i++){
@@ -46254,7 +46251,7 @@ Inventory.removeItem = function(item) {
            break;
        }
    }
-   GlobalVariables.unsetVariable(item + "_OBTAINED")
+   GlobalVariables.unsetVariable(item.sprite + "_OBTAINED")
 }
 Inventory.select = function(index){
     return function() {
