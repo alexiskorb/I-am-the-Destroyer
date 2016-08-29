@@ -45370,6 +45370,11 @@ ClickTarget.prototype.triggerAction = function(action)
 			this.interact(action.target, action.setGlobals, temp);
 		}
 	}
+	else if (action.action == "win")
+	{
+		var winElem = document.getElementById("credits");
+		winElem.style.visibility = "visible";
+	}
 }
 
 ClickTarget.prototype.actionMeetsConditionals = function(action)
@@ -47021,8 +47026,7 @@ PrisonScene8.prototype.added = function()
 		continue: true
 	})
 	doorClickTarget.addAction({
-		action: "triggerScene",
-		target: "win",
+		action: "win",
 		globalIsTrue: "GRAVITY_LIGHTER"
 	})
 	
@@ -47346,6 +47350,9 @@ SceneManager.showTimeDevice = function()
  */
 SceneManager.changeScene = function(key, animType)
 {
+	var credits = document.getElementById("credits");
+	credits.style.visibility = "hidden";
+
 	if (!this.scenes[key])
 	{
 		console.error("No scene found with key '" + key + "'.");

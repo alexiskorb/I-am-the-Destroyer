@@ -149,6 +149,9 @@ SceneManager.showTimeDevice = function()
  */
 SceneManager.changeScene = function(key, animType)
 {
+	var credits = document.getElementById("credits");
+	credits.style.visibility = "hidden";
+
 	if (!this.scenes[key])
 	{
 		console.error("No scene found with key '" + key + "'.");

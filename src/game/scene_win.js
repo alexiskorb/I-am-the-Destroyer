@@ -27,7 +27,8 @@ PrisonScene8.prototype.added = function()
 		continue: true
 	})
 	doorClickTarget.addAction({
-		action: "win",
+		action: "triggerScene",
+		target: "win",
 		globalIsTrue: "GRAVITY_LIGHTER"
 	})
 	
