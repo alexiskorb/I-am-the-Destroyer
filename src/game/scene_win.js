@@ -1,43 +1,51 @@
 
-PrisonScene = require("./base_prison_scene.js");
+Scene = require("./base_scene.js");
 THREE = require("three");
 ThreeUtils = require("../sdk/threeutils");
 ClickTarget = require("./clicktarget.js");
 
-// In which you must get past a portcullis
-
-var PrisonScene8 = function()
+// In which you don't really do that much
+Inventory.select(3);
+var IndexScene = function()
 {
-	this.backgroundUrl = "media/doorframe.png";
+	this.backgroundUrl = "media/black.png";
 
-	PrisonScene.call(this);
+	Scene.call(this);
 }
 
-PrisonScene8.prototype = new PrisonScene();
+IndexScene.prototype = new Scene();
 
-PrisonScene8.prototype.added = function()
+IndexScene.prototype.added = function()
 {
 	var atlas = ThreeUtils.loadAtlas("prison1");
-	
-	// create door
-	var doorClickTarget = this.createClickableSprite("keydoor", 0, 0);
-	doorClickTarget.addAction({
+
+	this.crystalBob = 0;
+
+	// create crystal
+	this.crystal = this.createClickableSprite("crystal", 0, 0);
+	this.crystal.addAction({
 		action: "showInfoBox",
-		target: "portcullis",
-		continue: true
-	})
-	doorClickTarget.addAction({
-		action: "triggerScene",
 		target: "win",
-		globalIsTrue: "GRAVITY_LIGHTER"
 	})
-	
-	PrisonScene.prototype.added.call(this);
-}
 
-PrisonScene8.prototype.update = function()
+	// create glow
+	var glowTex = ThreeUtils.loadTexture("media/crystal_bg.png");
+	var glowGeo = ThreeUtils.makeSpriteGeo(1814,1080);
+	this.glowMesh = ThreeUtils.makeSpriteMesh(glowTex, glowGeo);
+	this.transform.add(this.glowMesh);
+	this.glowMesh.position.z = -15;
+	this.otherMeshes.push(this.glowMesh);
+
+	Scene.prototype.added.call(this);
+}
+IndexScene.prototype.update = function()
 {
-	PrisonScene.prototype.update.call(this);
+	this.crystalBob += bmacSdk.deltaSec;
+
+	this.glowMesh.position.y = Math.cos(this.crystalBob) * 30 - 15;
+	this.crystal.mesh.position.y = this.glowMesh.position.y - 60;
+
+	Scene.prototype.update.call(this);
 }
 
-module.exports = new PrisonScene8();
+module.exports = new IndexScene();

@@ -23,6 +23,10 @@ PrisonScene8.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal8",
+	})
 
 	// create door
 	var doorClickTarget = this.createClickableSprite("portcullis", 0, 0);
@@ -33,9 +37,9 @@ PrisonScene8.prototype.added = function()
 	})
 	doorClickTarget.addAction({
 		action: "win",
-		globalIsTrue: "GRAVITY_LIGHTER"
+		globalIsTrue: "GRAVITY_LIGHTER",
 	})
-	
+
 	PrisonScene.prototype.added.call(this);
 }
 

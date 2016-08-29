@@ -23,13 +23,18 @@ PrisonScene7.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal7",
+		continue: true
+	})
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
 		action: "showInfoBox",
-		target: "pit",
+		target: "pitDoor",
 		continue: true
 	})
 	doorClickTarget.addAction({
@@ -51,11 +56,18 @@ PrisonScene7.prototype.added = function()
 		action: "interact",
 		target: "cardboard",
 		setGlobals: ["CARDBOARD_PLACED"],
-		globalIsTrue: ["MAGNETS_PLACED"]
+		globalIsTrue: ["MAGNETS_PLACED"],
+		continue: true
 	})
+	pitClickTarget.addAction({
+		action: "showInfoBox",
+		target: "pit",
+	})
+
 	var pitMagnets = this.createClickableSprite("pit_magnets", 0, 450);
 	pitMagnets.addTrue("MAGNETS_PLACED");
 	pitMagnets.addFalse("CARDBOARD_PLACED");
+
 	var pitBridge = this.createClickableSprite("pit_bridge", 0, 450);
 	pitBridge.addTrue("CARDBOARD_PLACED");
 

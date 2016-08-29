@@ -20,7 +20,7 @@ GameEngine.addObject(window.SceneManager);
 
 // that's it!
 
-},{"./src/game/conversation.js":13,"./src/game/infobox.js":15,"./src/game/inventory.js":16,"./src/game/scenemanager.js":30,"./src/sdk/engine":34}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":13,"./src/game/infobox.js":15,"./src/game/inventory.js":16,"./src/game/scenemanager.js":31,"./src/sdk/engine":35}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -45024,7 +45024,7 @@ PrisonScene.prototype.removeFloor = function()
 
 module.exports = PrisonScene;
 
-},{"../sdk/threeutils":41,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],11:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],11:[function(require,module,exports){
 
 THREE = require("three");
 ThreeUtils = require("../sdk/threeutils");
@@ -45147,7 +45147,7 @@ Scene.prototype.hide = function()
 	GameEngine.scene.remove(this.transform);
 }
 
-},{"../sdk/threeutils":41,"three":2}],12:[function(require,module,exports){
+},{"../sdk/threeutils":42,"three":2}],12:[function(require,module,exports){
 
 THREE = require("three");
 Conversation = require("./conversation.js");
@@ -45387,6 +45387,7 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "win")
 	{
+		SceneManager.changeScene("win", SceneManager.ANIM_FORWARD);
 		var winElem = document.getElementById("credits");
 		winElem.style.visibility = "visible";
 	}
@@ -45777,7 +45778,7 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../sdk/input":36,"../sdk/threeutils":41,"./globalvariables.js":14}],14:[function(require,module,exports){
+},{"../sdk/input":37,"../sdk/threeutils":42,"./globalvariables.js":14}],14:[function(require,module,exports){
 
 var GlobalVariables =
 {
@@ -45904,140 +45905,6 @@ InfoBox.parseConditionals = function(item)
 
 InfoBox.info = 
 {
-    labyrinth: 
-    {
-        cycle: 0,
-        data: [
-            {
-                text: "An underwater labyrinth. [Sigh]. Too bad I can't swim as a crystal.",
-                isTrue: [],
-                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
-            },
-            {
-                text: "That labyrinth is complicated. There are also pipes along the sides as if someone once pumped water into it.",
-                isTrue: ["DAM_BUILT"],
-                isFalse: ["BAD_LABYRINTH"]
-            },
-            {
-                text: "Wow. That idiot cousin made this labyrinth a piece of cake to get through. There are also pipes along the sides as if someone once pumped water into it.",
-                isTrue: ["DAM_BUILT", "BAD_LABYRINTH"],
-                isFalse: []
-            },
-        ]
-    },
-    puddle:
-    {
-        cycle: 0,
-        data: [
-            {
-                text: "The labyrinth is leaking. Who floods a labyrinth with water?",
-                isTrue: [],
-                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
-            },
-            {
-                text: "If I had legs, I might make some money off a slip-and-fall lawsuit.",
-                isTrue: ["DAM_BUILT"],
-                isFalse: ["BAD_LABYRINTH"]
-            },
-        ]
-    },
-    guard: 
-    {
-        cycle: 0,
-        data:
-        [
-
-            {
-                text: "I can't talk to the guard. He'll pull the alarm.",
-                isTrue: [],
-                isFalse: ["ANIMAL_REST", "CARNIVAL"]
-            },
-            {
-                text: "He looks like he takes his job very seriously."
-            }
-        ]
-    },
-    guardDoor: 
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "I have to get past the guard somehow.",
-                isTrue: ["CARNIVAL", "ANIMAL_REST"],
-            },
-            {
-                text: "I don't have much of a shot at fisticuffs in this form.",
-                isTrue: ["CARNIVAL", "ANIMAL_REST"],
-            },
-            {
-                text: "I have to get past the guard and that pet tiger somehow.",
-                isTrue: ["CARNIVAL"],
-                isFalse: ["ANIMAL_REST"]
-            },
-        ]
-    },
-    wall: 
-    {
-        cycle: 0,
-        data: 
-        [
-            {
-                text: "This is a solid steel wall with no doors.",
-                isTrue: [],
-                isFalse: ["BRICK_WALL", "WOOD_WALL", "CARDBOARD_WALL"]
-            },
-            {
-                text: "This is a solid brick wall with no doors.",
-                isTrue: ["BRICK_WALL"],
-                isFalse: ["WOOD_WALL", "CARDBOARD_WALL"]
-            },
-            {
-                text: "This is a solid wooden wall with no doors. It's too thick to break.",
-                isTrue: ["WOOD_WALL"],
-                isFalse: ["CARDBOARD_WALL"]
-            },
-            {
-                text: "I can break through this cardboard easily.",
-                isTrue: ["CARDBOARD_WALL"],
-                isFalse: []
-            },
-        ]
-    },
-    pit: 
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "The pit is filled with spikes, acid, poison gas, and strong electromagnets since I'm made of metal. It seems like overkill.",
-                isTrue: [],
-                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
-            },
-            {
-                text: "The magnets are floating over the pit, but the gaps between them are too big to jump. I need a bridge.",
-                isTrue: ["MAGNETS_PLACED"],
-                isFalse: ["CARDBOARD_PLACED"]
-            },
-            {
-                text: "The wall makes a good bridge across the floating magnets.",
-                isTrue: ["MAGNETS_PLACED","CARDBOARD_PLACED"],
-                isFalse: []
-            },
-        ]
-    },
-    portcullis: 
-    {
-        cycle: 0,
-        data: 
-        [
-            {
-                text: "The portcullis is too heavy to lift.",
-                isTrue: [],
-                isFalse: ["GRAVITY_LIGHTER"]
-            },
-        ]
-    },
     prophet: 
     {
         cycle: 0,
@@ -46326,11 +46193,323 @@ InfoBox.info =
             },
         ]
     },
+    crystal4:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "Call me \"Theseus\"."
+            },
+            {
+                text: "If there's a minotaur in there, I'm done."
+            },
+            {
+                text: "Next up: six hours of underwater maze levels."
+            },
+            {
+                text: "Just kidding. I hope."
+            }
+        ]
+    },
+    labyrinth: 
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "An underwater labyrinth. [Sigh]. Too bad I can't swim as a crystal.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
+            },
+            {
+                text: "I'm not going into the labyrinth while it's filled with water.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "That labyrinth is too complicated to solve easily. I don't want to get lost.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: ["BAD_LABYRINTH"]
+            },
+            {
+                text: "Wow. That idiot cousin made this labyrinth a piece of cake to get through.",
+                isTrue: ["DAM_BUILT", "BAD_LABYRINTH"],
+                isFalse: []
+            },
+            {
+                text: "There are pipes along the sides as if someone once pumped water into it.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: []
+            },
+        ]
+    },
+    puddle:
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "The labyrinth is leaking. Who floods a labyrinth with water?",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
+            },
+            {
+                text: "If I had legs, I might make some money off a slip-and-fall lawsuit.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
+            },
+        ]
+    },
+    crystal5:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I wouldn't want to work as a guard down here.",
+                isTrue: [],
+                isFalse: ["ANIMAL_REST"]
+            },
+            {
+                text: "Puzzles and tigers and guards, oh my!",
+                isTrue: ["CARNIVAL"],
+                isFalse: ["ANIMAL_REST"]
+            },
+            {
+                text: "This place has so much security."
+            }
+        ]
+    },
+    guard: 
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I can't talk to the guard. He'll pull the alarm.",
+            },
+            {
+                text: "He looks like he takes his job very seriously."
+            },
+            {
+                text: "I bet his name is \"Angel Johnson\"."
+            },
+            {
+                text: "Great. Now, he has a pet tiger.",
+                isTrue: ["CARNIVAL"],
+                isFalse: []
+            },
+            {
+                text: "Was having a guard dog too mundane?",
+                isTrue: ["CARNIVAL"],
+                isFalse: []
+            },
+        ]
+    },
+    guardDoor: 
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I have to get past the guard somehow.",
+                isFalse: ["CARNIVAL", "ANIMAL_REST"],
+            },
+            {
+                text: "I don't have much of a shot at fisticuffs in this form.",
+                isFalse: ["CARNIVAL", "ANIMAL_REST"],
+            },
+            {
+                text: "I have to get past the guard and that pet tiger somehow.",
+                isTrue: ["CARNIVAL"],
+                isFalse: ["ANIMAL_REST"]
+            },
+        ]
+    },
+    crystal6:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I suppose a solid wall is effective, if simple.",
+            },
+            {
+                text: "How did the guard from the other room get down here, I wonder?",
+            },
+        ]
+    },
+    wall: 
+    {
+        cycle: 0,
+        data: 
+        [
+            {
+                text: "This is a solid steel wall.",
+                isTrue: [],
+                isFalse: ["BRICK_WALL", "WOOD_WALL", "CARDBOARD_WALL"]
+            },
+            {
+                text: "This is a solid brick wall.",
+                isTrue: ["BRICK_WALL"],
+                isFalse: ["WOOD_WALL", "CARDBOARD_WALL"]
+            },
+            {
+                text: "This is a solid wooden wall. It's too thick to break.",
+                isTrue: ["WOOD_WALL"],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "I can break through this cardboard easily.",
+                isTrue: ["CARDBOARD_WALL"],
+                isFalse: []
+            },
+            {
+                text: "There are no handles or buttons. It's just a wall.",
+                isTrue: [],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "There's no need to examine it more. I don't think I'll find any secrets.",
+                isTrue: [],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "Oh look! It's...nothing. Again. It's just a solid wall.",
+                isTrue: [],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "Really. It's just a wall.",
+                isTrue: [],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "And onwards, we go.",
+                isTrue: ["CARDBOARD_WALL_BROKEN"],
+                isFalse: []
+            },
+        ]
+    },
+    crystal7:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I must be careful to avoid the pitfalls of life.",
+            },
+        ]
+    },
+    pit: 
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "The pit is filled with spikes, acid, poison gas, and the heat death of the universe.",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "There are also strong electromagnets at the bottom. I guess it's because I'm made of metal.",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "I don't think most people use magnets for security in this way.",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "This seems overkill.",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "It's like: \"Yes. Let's throw everything that seems bad into the pit.\" \"Great idea!\"",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "The magnets are floating over the pit, but the gaps between them are too big to jump.",
+                isTrue: ["MAGNETS_PLACED"],
+                isFalse: ["CARDBOARD_PLACED"]
+            },
+            {
+                text: "I need to make a bridge of some kind.",
+                isTrue: ["MAGNETS_PLACED"],
+                isFalse: ["CARDBOARD_PLACED"]
+            },
+            {
+                text: "Don't question the magnet physics.",
+                isTrue: ["MAGNETS_PLACED"],
+                isFalse: ["CARDBOARD_PLACED"]
+            },
+            {
+                text: "The cardboard wall makes a good bridge across the floating magnets.",
+                isTrue: ["MAGNETS_PLACED","CARDBOARD_PLACED"],
+                isFalse: []
+            },
+        ]
+    },
+    pitDoor:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I have to get across the pit first.",
+            },
+        ]
+    },
+    crystal8: 
+    {
+        cycle: 0,
+        data: 
+        [
+            {
+                text: "I'm so close.",
+            },
+            {
+                text: "Seeeing the outside world is tantalizing.",
+            },
+            {
+                text: "One more obstacle, and I'm free!",
+            },
+        ]
+    },
+    portcullis: 
+    {
+        cycle: 0,
+        data: 
+        [
+            {
+                text: "The portcullis is too heavy to lift.",
+                isTrue: [],
+                isFalse: ["GRAVITY_LIGHTER"]
+            },
+            {
+                text: "I'm free!",
+                isTrue: ["GRAVITY_LIGHTER"],
+                isFalse: []
+            },
+        ]
+    },
+    win: 
+    {
+        cycle: 0,
+        data: 
+        [
+            {
+                text: "You win!",
+            }
+        ]
+    },
 }
 
 
 module.exports = InfoBox;
-},{"../sdk/input":36,"../sdk/threeutils":41,"./globalvariables.js":14}],16:[function(require,module,exports){
+},{"../sdk/input":37,"../sdk/threeutils":42,"./globalvariables.js":14}],16:[function(require,module,exports){
 
 ThreeUtils = require("../sdk/threeutils");
 
@@ -46485,7 +46664,7 @@ Inventory.itemHeld = function()
 
 module.exports = Inventory;
 
-},{"../sdk/threeutils":41}],17:[function(require,module,exports){
+},{"../sdk/threeutils":42}],17:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -46581,7 +46760,7 @@ CreationOfTheWorldScene.prototype.update = function()
 
 module.exports = new CreationOfTheWorldScene();
 
-},{"../data/angel_conversation.json":3,"../sdk/threeutils":41,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],18:[function(require,module,exports){
+},{"../data/angel_conversation.json":3,"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],18:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -46634,7 +46813,7 @@ IndexScene.prototype.update = function()
 
 module.exports = new IndexScene();
 
-},{"../sdk/threeutils":41,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],19:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],19:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -46692,7 +46871,7 @@ ConstructionScene.prototype.update = function()
 
 module.exports = new ConstructionScene();
 
-},{"../data/future_tech_conversation.json":5,"../data/humane_society_conversation.json":6,"../data/johnson_xv_conversation.json":8,"../sdk/threeutils":41,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],20:[function(require,module,exports){
+},{"../data/future_tech_conversation.json":5,"../data/humane_society_conversation.json":6,"../data/johnson_xv_conversation.json":8,"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],20:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -46757,7 +46936,7 @@ FieldScene.prototype.update = function()
 
 module.exports = new FieldScene();
 
-},{"../data/dam_builder_conversation.json":4,"../data/investor_conversation.json":7,"../data/prophet_conversation.json":9,"../sdk/threeutils":41,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],21:[function(require,module,exports){
+},{"../data/dam_builder_conversation.json":4,"../data/investor_conversation.json":7,"../data/prophet_conversation.json":9,"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],21:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -46869,7 +47048,7 @@ PrisonScene1.prototype.update = function()
 
 module.exports = new PrisonScene1();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],22:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],22:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -46955,7 +47134,7 @@ PrisonScene2.prototype.update = function()
 
 module.exports = new PrisonScene2();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],23:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],23:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -47033,7 +47212,7 @@ PrisonScene3.prototype.update = function()
 
 module.exports = new PrisonScene3();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],24:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],24:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -47059,6 +47238,10 @@ PrisonScene4.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal4",
+	})
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(
@@ -47077,7 +47260,7 @@ PrisonScene4.prototype.added = function()
 	var labyrinth_sign = this.createClickableSprite("labyrinth_sign", 350, -200);
 
 	PrisonScene.prototype.added.call(this);
-
+	
 	var puddle = this.createClickableSprite("puddle", 600, 470);
 	puddle.addFalse("DAM_BUILT");
 	puddle.addAction({
@@ -47095,7 +47278,7 @@ PrisonScene4.prototype.update = function()
 
 module.exports = new PrisonScene4();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],25:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],25:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -47121,6 +47304,10 @@ PrisonScene5.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal5"
+	})
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(
@@ -47166,7 +47353,7 @@ PrisonScene5.prototype.update = function()
 
 module.exports = new PrisonScene5();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],26:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],26:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -47192,6 +47379,11 @@ PrisonScene6.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal6",
+		continue: true
+	})
 
 	// create door
 	var steelWall = this.createClickableSprite("steelwall",0,0);
@@ -47252,7 +47444,7 @@ PrisonScene6.prototype.update = function()
 
 module.exports = new PrisonScene6();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],27:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],27:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -47278,13 +47470,18 @@ PrisonScene7.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal7",
+		continue: true
+	})
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
 		action: "showInfoBox",
-		target: "pit",
+		target: "pitDoor",
 		continue: true
 	})
 	doorClickTarget.addAction({
@@ -47306,11 +47503,18 @@ PrisonScene7.prototype.added = function()
 		action: "interact",
 		target: "cardboard",
 		setGlobals: ["CARDBOARD_PLACED"],
-		globalIsTrue: ["MAGNETS_PLACED"]
+		globalIsTrue: ["MAGNETS_PLACED"],
+		continue: true
 	})
+	pitClickTarget.addAction({
+		action: "showInfoBox",
+		target: "pit",
+	})
+
 	var pitMagnets = this.createClickableSprite("pit_magnets", 0, 450);
 	pitMagnets.addTrue("MAGNETS_PLACED");
 	pitMagnets.addFalse("CARDBOARD_PLACED");
+
 	var pitBridge = this.createClickableSprite("pit_bridge", 0, 450);
 	pitBridge.addTrue("CARDBOARD_PLACED");
 
@@ -47328,7 +47532,7 @@ PrisonScene7.prototype.update = function()
 
 module.exports = new PrisonScene7();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],28:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],28:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -47354,6 +47558,10 @@ PrisonScene8.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal8",
+	})
 
 	// create door
 	var doorClickTarget = this.createClickableSprite("portcullis", 0, 0);
@@ -47364,9 +47572,9 @@ PrisonScene8.prototype.added = function()
 	})
 	doorClickTarget.addAction({
 		action: "win",
-		globalIsTrue: "GRAVITY_LIGHTER"
+		globalIsTrue: "GRAVITY_LIGHTER",
 	})
-	
+
 	PrisonScene.prototype.added.call(this);
 }
 
@@ -47379,7 +47587,7 @@ PrisonScene8.prototype.update = function()
 
 module.exports = new PrisonScene8();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],29:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],29:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -47537,7 +47745,60 @@ TimeDeviceScene.prototype.tweenOn = function()
 
 module.exports = new TimeDeviceScene();
 
-},{"../sdk/input":36,"../sdk/threeutils":41,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],30:[function(require,module,exports){
+},{"../sdk/input":37,"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],30:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+// In which you don't really do that much
+Inventory.select(3);
+var IndexScene = function()
+{
+	this.backgroundUrl = "media/black.png";
+
+	Scene.call(this);
+}
+
+IndexScene.prototype = new Scene();
+
+IndexScene.prototype.added = function()
+{
+	var atlas = ThreeUtils.loadAtlas("prison1");
+
+	this.crystalBob = 0;
+
+	// create crystal
+	this.crystal = this.createClickableSprite("crystal", 0, 0);
+	this.crystal.addAction({
+		action: "showInfoBox",
+		target: "win",
+	})
+
+	// create glow
+	var glowTex = ThreeUtils.loadTexture("media/crystal_bg.png");
+	var glowGeo = ThreeUtils.makeSpriteGeo(1814,1080);
+	this.glowMesh = ThreeUtils.makeSpriteMesh(glowTex, glowGeo);
+	this.transform.add(this.glowMesh);
+	this.glowMesh.position.z = -15;
+	this.otherMeshes.push(this.glowMesh);
+
+	Scene.prototype.added.call(this);
+}
+IndexScene.prototype.update = function()
+{
+	this.crystalBob += bmacSdk.deltaSec;
+
+	this.glowMesh.position.y = Math.cos(this.crystalBob) * 30 - 15;
+	this.crystal.mesh.position.y = this.glowMesh.position.y - 60;
+
+	Scene.prototype.update.call(this);
+}
+
+module.exports = new IndexScene();
+
+},{"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],31:[function(require,module,exports){
 
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");
@@ -47565,6 +47826,7 @@ var SceneManager =
 		prison6: require("./scene_prison6.js"),
 		prison7: require("./scene_prison7.js"),
 		prison8: require("./scene_prison8.js"),
+		win: require("./scene_win.js"),
 		LAST_PRISON: undefined, //special case, set dynamically
 	},
 
@@ -47767,7 +48029,7 @@ SceneManager.showScene = function(scene)
 	scene.setAlpha(1);
 }
 
-},{"../sdk/audiomanager":32,"../sdk/input":36,"./conversation.js":13,"./infobox.js":15,"./scene_creation_of_the_world.js":17,"./scene_index.js":18,"./scene_past_construction.js":19,"./scene_past_field.js":20,"./scene_prison1.js":21,"./scene_prison2.js":22,"./scene_prison3.js":23,"./scene_prison4.js":24,"./scene_prison5.js":25,"./scene_prison6.js":26,"./scene_prison7.js":27,"./scene_prison8.js":28,"./scene_timedevice.js":29}],31:[function(require,module,exports){
+},{"../sdk/audiomanager":33,"../sdk/input":37,"./conversation.js":13,"./infobox.js":15,"./scene_creation_of_the_world.js":17,"./scene_index.js":18,"./scene_past_construction.js":19,"./scene_past_field.js":20,"./scene_prison1.js":21,"./scene_prison2.js":22,"./scene_prison3.js":23,"./scene_prison4.js":24,"./scene_prison5.js":25,"./scene_prison6.js":26,"./scene_prison7.js":27,"./scene_prison8.js":28,"./scene_timedevice.js":29,"./scene_win.js":30}],32:[function(require,module,exports){
 
 // this file is partially generated by tools
 // do not change the layout
@@ -47873,7 +48135,7 @@ module.exports =
 },
 }
 
-},{"three":2}],32:[function(require,module,exports){
+},{"three":2}],33:[function(require,module,exports){
 
 /**
  * @namespace
@@ -47996,7 +48258,7 @@ AudioManager =
 
 module.exports = AudioManager;
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -48133,7 +48395,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":34}],34:[function(require,module,exports){
+},{"./index.js":35}],35:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -48291,7 +48553,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":36,"../polyfills":39,"./engine.js":33,"three":2}],35:[function(require,module,exports){
+},{"../input":37,"../polyfills":40,"./engine.js":34,"three":2}],36:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -48540,7 +48802,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -48655,7 +48917,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":35,"./keyboard.js":37,"./mouse.js":38}],37:[function(require,module,exports){
+},{"./gamepad.js":36,"./keyboard.js":38,"./mouse.js":39}],38:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -48840,7 +49102,7 @@ module.exports = Keyboard =
 	}
 };
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -49026,7 +49288,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],39:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -49112,7 +49374,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -49168,7 +49430,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":41}],41:[function(require,module,exports){
+},{"./index.js":42}],42:[function(require,module,exports){
 
 THREE = require("three");
 AtlasData = require("../atlases");
@@ -49570,4 +49832,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":31,"./Atlas.js":40,"three":2}]},{},[1]);
+},{"../atlases":32,"./Atlas.js":41,"three":2}]},{},[1]);

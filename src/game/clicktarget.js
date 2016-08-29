@@ -237,6 +237,7 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "win")
 	{
+		SceneManager.changeScene("win", SceneManager.ANIM_FORWARD);
 		var winElem = document.getElementById("credits");
 		winElem.style.visibility = "visible";
 	}

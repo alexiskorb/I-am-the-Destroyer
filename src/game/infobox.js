@@ -78,140 +78,6 @@ InfoBox.parseConditionals = function(item)
 
 InfoBox.info = 
 {
-    labyrinth: 
-    {
-        cycle: 0,
-        data: [
-            {
-                text: "An underwater labyrinth. [Sigh]. Too bad I can't swim as a crystal.",
-                isTrue: [],
-                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
-            },
-            {
-                text: "That labyrinth is complicated. There are also pipes along the sides as if someone once pumped water into it.",
-                isTrue: ["DAM_BUILT"],
-                isFalse: ["BAD_LABYRINTH"]
-            },
-            {
-                text: "Wow. That idiot cousin made this labyrinth a piece of cake to get through. There are also pipes along the sides as if someone once pumped water into it.",
-                isTrue: ["DAM_BUILT", "BAD_LABYRINTH"],
-                isFalse: []
-            },
-        ]
-    },
-    puddle:
-    {
-        cycle: 0,
-        data: [
-            {
-                text: "The labyrinth is leaking. Who floods a labyrinth with water?",
-                isTrue: [],
-                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
-            },
-            {
-                text: "If I had legs, I might make some money off a slip-and-fall lawsuit.",
-                isTrue: ["DAM_BUILT"],
-                isFalse: ["BAD_LABYRINTH"]
-            },
-        ]
-    },
-    guard: 
-    {
-        cycle: 0,
-        data:
-        [
-
-            {
-                text: "I can't talk to the guard. He'll pull the alarm.",
-                isTrue: [],
-                isFalse: ["ANIMAL_REST", "CARNIVAL"]
-            },
-            {
-                text: "He looks like he takes his job very seriously."
-            }
-        ]
-    },
-    guardDoor: 
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "I have to get past the guard somehow.",
-                isTrue: ["CARNIVAL", "ANIMAL_REST"],
-            },
-            {
-                text: "I don't have much of a shot at fisticuffs in this form.",
-                isTrue: ["CARNIVAL", "ANIMAL_REST"],
-            },
-            {
-                text: "I have to get past the guard and that pet tiger somehow.",
-                isTrue: ["CARNIVAL"],
-                isFalse: ["ANIMAL_REST"]
-            },
-        ]
-    },
-    wall: 
-    {
-        cycle: 0,
-        data: 
-        [
-            {
-                text: "This is a solid steel wall with no doors.",
-                isTrue: [],
-                isFalse: ["BRICK_WALL", "WOOD_WALL", "CARDBOARD_WALL"]
-            },
-            {
-                text: "This is a solid brick wall with no doors.",
-                isTrue: ["BRICK_WALL"],
-                isFalse: ["WOOD_WALL", "CARDBOARD_WALL"]
-            },
-            {
-                text: "This is a solid wooden wall with no doors. It's too thick to break.",
-                isTrue: ["WOOD_WALL"],
-                isFalse: ["CARDBOARD_WALL"]
-            },
-            {
-                text: "I can break through this cardboard easily.",
-                isTrue: ["CARDBOARD_WALL"],
-                isFalse: []
-            },
-        ]
-    },
-    pit: 
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "The pit is filled with spikes, acid, poison gas, and strong electromagnets since I'm made of metal. It seems like overkill.",
-                isTrue: [],
-                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
-            },
-            {
-                text: "The magnets are floating over the pit, but the gaps between them are too big to jump. I need a bridge.",
-                isTrue: ["MAGNETS_PLACED"],
-                isFalse: ["CARDBOARD_PLACED"]
-            },
-            {
-                text: "The wall makes a good bridge across the floating magnets.",
-                isTrue: ["MAGNETS_PLACED","CARDBOARD_PLACED"],
-                isFalse: []
-            },
-        ]
-    },
-    portcullis: 
-    {
-        cycle: 0,
-        data: 
-        [
-            {
-                text: "The portcullis is too heavy to lift.",
-                isTrue: [],
-                isFalse: ["GRAVITY_LIGHTER"]
-            },
-        ]
-    },
     prophet: 
     {
         cycle: 0,
@@ -498,6 +364,318 @@ InfoBox.info =
                 isTrue: ["LAMP_PLUGGED_IN"],
                 isFalse: ["DAM_BUILT"]
             },
+        ]
+    },
+    crystal4:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "Call me \"Theseus\"."
+            },
+            {
+                text: "If there's a minotaur in there, I'm done."
+            },
+            {
+                text: "Next up: six hours of underwater maze levels."
+            },
+            {
+                text: "Just kidding. I hope."
+            }
+        ]
+    },
+    labyrinth: 
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "An underwater labyrinth. [Sigh]. Too bad I can't swim as a crystal.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
+            },
+            {
+                text: "I'm not going into the labyrinth while it's filled with water.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "That labyrinth is too complicated to solve easily. I don't want to get lost.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: ["BAD_LABYRINTH"]
+            },
+            {
+                text: "Wow. That idiot cousin made this labyrinth a piece of cake to get through.",
+                isTrue: ["DAM_BUILT", "BAD_LABYRINTH"],
+                isFalse: []
+            },
+            {
+                text: "There are pipes along the sides as if someone once pumped water into it.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: []
+            },
+        ]
+    },
+    puddle:
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "The labyrinth is leaking. Who floods a labyrinth with water?",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
+            },
+            {
+                text: "If I had legs, I might make some money off a slip-and-fall lawsuit.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
+            },
+        ]
+    },
+    crystal5:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I wouldn't want to work as a guard down here.",
+                isTrue: [],
+                isFalse: ["ANIMAL_REST"]
+            },
+            {
+                text: "Puzzles and tigers and guards, oh my!",
+                isTrue: ["CARNIVAL"],
+                isFalse: ["ANIMAL_REST"]
+            },
+            {
+                text: "This place has so much security."
+            }
+        ]
+    },
+    guard: 
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I can't talk to the guard. He'll pull the alarm.",
+            },
+            {
+                text: "He looks like he takes his job very seriously."
+            },
+            {
+                text: "I bet his name is \"Angel Johnson\"."
+            },
+            {
+                text: "Great. Now, he has a pet tiger.",
+                isTrue: ["CARNIVAL"],
+                isFalse: []
+            },
+            {
+                text: "Was having a guard dog too mundane?",
+                isTrue: ["CARNIVAL"],
+                isFalse: []
+            },
+        ]
+    },
+    guardDoor: 
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I have to get past the guard somehow.",
+                isFalse: ["CARNIVAL", "ANIMAL_REST"],
+            },
+            {
+                text: "I don't have much of a shot at fisticuffs in this form.",
+                isFalse: ["CARNIVAL", "ANIMAL_REST"],
+            },
+            {
+                text: "I have to get past the guard and that pet tiger somehow.",
+                isTrue: ["CARNIVAL"],
+                isFalse: ["ANIMAL_REST"]
+            },
+        ]
+    },
+    crystal6:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I suppose a solid wall is effective, if simple.",
+            },
+            {
+                text: "How did the guard from the other room get down here, I wonder?",
+            },
+        ]
+    },
+    wall: 
+    {
+        cycle: 0,
+        data: 
+        [
+            {
+                text: "This is a solid steel wall.",
+                isTrue: [],
+                isFalse: ["BRICK_WALL", "WOOD_WALL", "CARDBOARD_WALL"]
+            },
+            {
+                text: "This is a solid brick wall.",
+                isTrue: ["BRICK_WALL"],
+                isFalse: ["WOOD_WALL", "CARDBOARD_WALL"]
+            },
+            {
+                text: "This is a solid wooden wall. It's too thick to break.",
+                isTrue: ["WOOD_WALL"],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "I can break through this cardboard easily.",
+                isTrue: ["CARDBOARD_WALL"],
+                isFalse: []
+            },
+            {
+                text: "There are no handles or buttons. It's just a wall.",
+                isTrue: [],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "There's no need to examine it more. I don't think I'll find any secrets.",
+                isTrue: [],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "Oh look! It's...nothing. Again. It's just a solid wall.",
+                isTrue: [],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "Really. It's just a wall.",
+                isTrue: [],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "And onwards, we go.",
+                isTrue: ["CARDBOARD_WALL_BROKEN"],
+                isFalse: []
+            },
+        ]
+    },
+    crystal7:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I must be careful to avoid the pitfalls of life.",
+            },
+        ]
+    },
+    pit: 
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "The pit is filled with spikes, acid, poison gas, and the heat death of the universe.",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "There are also strong electromagnets at the bottom. I guess it's because I'm made of metal.",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "I don't think most people use magnets for security in this way.",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "This seems overkill.",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "It's like: \"Yes. Let's throw everything that seems bad into the pit.\" \"Great idea!\"",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "The magnets are floating over the pit, but the gaps between them are too big to jump.",
+                isTrue: ["MAGNETS_PLACED"],
+                isFalse: ["CARDBOARD_PLACED"]
+            },
+            {
+                text: "I need to make a bridge of some kind.",
+                isTrue: ["MAGNETS_PLACED"],
+                isFalse: ["CARDBOARD_PLACED"]
+            },
+            {
+                text: "Don't question the magnet physics.",
+                isTrue: ["MAGNETS_PLACED"],
+                isFalse: ["CARDBOARD_PLACED"]
+            },
+            {
+                text: "The cardboard wall makes a good bridge across the floating magnets.",
+                isTrue: ["MAGNETS_PLACED","CARDBOARD_PLACED"],
+                isFalse: []
+            },
+        ]
+    },
+    pitDoor:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I have to get across the pit first.",
+            },
+        ]
+    },
+    crystal8: 
+    {
+        cycle: 0,
+        data: 
+        [
+            {
+                text: "I'm so close.",
+            },
+            {
+                text: "Seeeing the outside world is tantalizing.",
+            },
+            {
+                text: "One more obstacle, and I'm free!",
+            },
+        ]
+    },
+    portcullis: 
+    {
+        cycle: 0,
+        data: 
+        [
+            {
+                text: "The portcullis is too heavy to lift.",
+                isTrue: [],
+                isFalse: ["GRAVITY_LIGHTER"]
+            },
+            {
+                text: "I'm free!",
+                isTrue: ["GRAVITY_LIGHTER"],
+                isFalse: []
+            },
+        ]
+    },
+    win: 
+    {
+        cycle: 0,
+        data: 
+        [
+            {
+                text: "You win!",
+            }
         ]
     },
 }
