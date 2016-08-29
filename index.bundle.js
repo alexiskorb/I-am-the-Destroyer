@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
 window.bmacSdk = require("./src/sdk/engine");
@@ -45199,6 +45199,7 @@ ClickTarget.prototype.addFalse = function(data)
 // - triggerScene
 // - collectItem
 // - showInfoBox
+// - interact
 
 ClickTarget.ANIM_PICKUP = 1;
 
@@ -45347,6 +45348,9 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "triggerScene")
 	{
+		if (action.addItem){
+			Inventory.addItem(Inventory.items[action.addItem]);
+		}
 		SceneManager.changeScene(action.target, SceneManager.ANIM_FORWARD);
 	}
 	else if (action.action == "disable")
@@ -45355,7 +45359,16 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "interact")
 	{
-		this.interact(action.target, action.setGlobals);
+		if (action.addItem){
+			Inventory.addItem(Inventory.items[action.addItem]);
+		}
+		if (action.globaIsTrue) {
+			this.interact(action.target, action.setGlobals, action.globalIsTrue);
+		}
+		else{
+			var temp = [];
+			this.interact(action.target, action.setGlobals, temp);
+		}
 	}
 }
 
@@ -45427,14 +45440,20 @@ ClickTarget.prototype.meetsExistConditions = function()
     return true;
 }
 
-ClickTarget.prototype.interact = function(item, globals)
+ClickTarget.prototype.interact = function(item, globals, requiredGlobals)
 {
-	var selected = Inventory.itemHeld();
-	if (selected){
-		Inventory.removeItem(item);
+	for (var i = 0; i < requiredGlobals.length; i++){
+		if (!(GlobalVariables.getVariable(requiredGlobals[i]))){
+			return;
+		}
 	}
-	for (var i = 0; i < globals.length; i++){
-		GlobalVariables.setVariable(globals[i]);
+	var selected = Inventory.itemHeld();
+	var actualItem = Inventory.items[item];
+	if (selected && selected == actualItem){
+		Inventory.removeItem(actualItem);
+		for (var i = 0; i < globals.length; i++){
+			GlobalVariables.setVariable(globals[i]);
+		}
 	}
 }
 },{"./conversation.js":13,"./globalvariables.js":14,"./infobox.js":15,"three":2}],13:[function(require,module,exports){
@@ -46042,11 +46061,11 @@ InfoBox.info =
             {
                 text: "The magnets are floating over the pit, but the gaps between them are too big to jump. I need a bridge.",
                 isTrue: ["MAGNETS_PLACED"],
-                isFalse: ["CARDBOARD_WALL"]
+                isFalse: ["CARDBOARD_PLACED"]
             },
             {
                 text: "The wall makes a good bridge across the floating magnets.",
-                isTrue: ["MAGNETS_PLACED","CARDBOARD_WALL"],
+                isTrue: ["MAGNETS_PLACED","CARDBOARD_PLACED"],
                 isFalse: []
             },
         ]
@@ -46182,12 +46201,15 @@ Inventory.items = {
     },
     magnets: {
         sprite: "magnets"
+    },
+    hammer: {
+        sprite: "hammer"
     }
 }
 
 Inventory.added = function() {
     var inventory = document.getElementById("inventory");
-    for (var i = 0; i < 5; i++)
+    for (var i = 0; i < 6; i++)
     {
         var li = document.createElement("li");
         inventory.appendChild(li);
@@ -46206,14 +46228,14 @@ Inventory.added = function() {
         this.inventoryDisplay[i] = li;
         this.itemList[i] = undefined; 
     }
-    for (var i = 0; i < 5; i++)
+    for (var i = 0; i < 6; i++)
     {
         this.inventoryDisplay[i].addEventListener("click", this.select(i));
     }
 
 }
 Inventory.addItem = function(item) {
-   for (var i = 0; i < 5; i++){
+   for (var i = 0; i < 6; i++){
        if (this.itemList[i] == undefined){
            ThreeUtils.setElementToAtlasImage(
                this.inventoryDisplay[i].image, ThreeUtils.loadAtlas("general"), item.sprite);
@@ -46225,7 +46247,7 @@ Inventory.addItem = function(item) {
    GlobalVariables.setVariable(item + "_OBTAINED")
 }
 Inventory.removeItem = function(item) {
-   for (var i = 0; i < 5; i++){
+   for (var i = 0; i < 6; i++){
        if (Inventory.itemList[i] == item){
            this.inventoryDisplay[i].image.style.visibility = "hidden";
            this.itemList[i] = undefined;
@@ -46238,7 +46260,7 @@ Inventory.select = function(index){
     return function() {
         Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 5px #fff";
         Inventory.inventoryDisplay[index].style.border = "5px solid white";
-        if (index < 4){
+        if (index < 5){
             Inventory.inventoryDisplay[index+1].style.borderTop = "0px";
         }
         Inventory.itemSelected = index;
@@ -46249,7 +46271,7 @@ Inventory.deselect = function(){
     if (index > -1){
         Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 0px #fff";
         Inventory.inventoryDisplay[index].style.border = "5px solid slategrey";
-        if (index < 4){
+        if (index < 5){
             Inventory.inventoryDisplay[index].style.borderBottom = "0px";
             Inventory.inventoryDisplay[index+1].style.borderTop = "5px solid slategrey";
         }
@@ -46539,6 +46561,20 @@ FieldScene.prototype.added = function()
 		action: "collectItem",
 		target: "cardboard_box"
 	})
+	var hammer = this.createClickableSprite("hammer", 400, -200);
+	hammer.addAction({
+		action: "collectItem",
+		target: "hammer"
+	})
+	var speaker = this.createClickableSprite("speaker", 300, -200);
+	speaker.addAction({
+		action: "interact",
+		target: "hammer",
+		setGlobals: ["SPEAKER_BROKEN"],
+		addItem: "magnets"
+	})
+	speaker.addFalse("SPEAKER_BROKEN");
+
 
 	Scene.prototype.added.call(this);
 }
@@ -46883,7 +46919,8 @@ PrisonScene6.prototype.added = function()
 	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison7",
-		globalIsTrue: "CARDBOARD_WALL"
+		globalIsTrue: "CARDBOARD_WALL",
+		addItem: "cardboard"
 	})
 
 	PrisonScene.prototype.added.call(this);
@@ -46929,7 +46966,19 @@ PrisonScene7.prototype.added = function()
 	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison8",
-		globalIsTrue: ["MAGNETS_PLACED","CARDBOARD_WALL"]
+		globalIsTrue: ["MAGNETS_PLACED","CARDBOARD_PLACED"]
+	})
+	doorClickTarget.addAction({
+		action: "interact",
+		target: "magnets",
+		setGlobals: ["MAGNETS_PLACED"],
+		continue: true
+	})
+	doorClickTarget.addAction({
+		action: "interact",
+		target: "cardboard",
+		setGlobals: ["CARDBOARD_PLACED"],
+		globalIsTrue: ["MAGNETS_PLACED"]
 	})
 
 	PrisonScene.prototype.added.call(this);
@@ -47385,31 +47434,33 @@ module.exports =
 {
 	url: "media/general_atlas.png",
 	width: 1558,
-	height: 878,
+	height: 962,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"balloon":[1281,342,60,60],
-	"builder_guy":[1211,556,124,288],
-	"cardboard":[1281,403,60,60],
-	"cardboardbox":[1020,727,60,60],
+	"balloon":[746,678,60,60],
+	"builder_guy":[1211,512,124,288],
+	"cardboard":[593,879,60,60],
+	"cardboardbox":[746,739,60,60],
 	"crystal":[545,394,281,283],
 	"door":[827,394,256,256],
-	"grad_circle":[888,804,64,64],
-	"grad_r":[953,804,64,64],
+	"grad_circle":[401,863,64,64],
+	"grad_r":[466,863,64,64],
+	"hammer":[1236,258,60,60],
 	"heaven_angel":[1345,0,212,467],
-	"heaven_player":[1084,258,196,297],
+	"heaven_player":[827,651,196,297],
 	"keydoor":[0,0,544,862],
-	"lamp":[1020,788,60,60],
-	"magnets":[1461,468,60,60],
+	"lamp":[654,879,60,60],
+	"magnets":[746,800,60,60],
 	"normal_guy_sprite":[1336,468,124,280],
-	"outlet":[1281,258,61,83],
-	"suit_sprite":[1084,556,126,280],
+	"outlet":[531,879,61,83],
+	"speaker":[1084,361,150,150],
+	"suit_sprite":[1084,512,126,280],
 	"timedevice":[545,0,537,393],
-	"timedevice_button1":[746,781,141,93],
-	"timedevice_button2":[899,651,137,75],
-	"timedevice_button3":[899,727,120,76],
-	"timedevice_button4":[746,678,152,102],
+	"timedevice_button1":[0,863,141,93],
+	"timedevice_button2":[142,863,137,75],
+	"timedevice_button3":[280,863,120,76],
+	"timedevice_button4":[1083,258,152,102],
 	"timedevice_sticky":[1083,0,261,257],
 	"wormhole":[545,678,200,200],
 	},
@@ -49153,4 +49204,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":31,"./Atlas.js":40,"three":2}]},{},[1])
+},{"../atlases":31,"./Atlas.js":40,"three":2}]},{},[1]);

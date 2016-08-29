@@ -52,6 +52,7 @@ ClickTarget.prototype.addFalse = function(data)
 // - triggerScene
 // - collectItem
 // - showInfoBox
+// - interact
 
 ClickTarget.ANIM_PICKUP = 1;
 
@@ -200,6 +201,9 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "triggerScene")
 	{
+		if (action.addItem){
+			Inventory.addItem(Inventory.items[action.addItem]);
+		}
 		SceneManager.changeScene(action.target, SceneManager.ANIM_FORWARD);
 	}
 	else if (action.action == "disable")
@@ -208,7 +212,16 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "interact")
 	{
-		this.interact(action.target, action.setGlobals);
+		if (action.addItem){
+			Inventory.addItem(Inventory.items[action.addItem]);
+		}
+		if (action.globaIsTrue) {
+			this.interact(action.target, action.setGlobals, action.globalIsTrue);
+		}
+		else{
+			var temp = [];
+			this.interact(action.target, action.setGlobals, temp);
+		}
 	}
 }
 
@@ -280,13 +293,19 @@ ClickTarget.prototype.meetsExistConditions = function()
     return true;
 }
 
-ClickTarget.prototype.interact = function(item, globals)
+ClickTarget.prototype.interact = function(item, globals, requiredGlobals)
 {
-	var selected = Inventory.itemHeld();
-	if (selected){
-		Inventory.removeItem(item);
+	for (var i = 0; i < requiredGlobals.length; i++){
+		if (!(GlobalVariables.getVariable(requiredGlobals[i]))){
+			return;
+		}
 	}
-	for (var i = 0; i < globals.length; i++){
-		GlobalVariables.setVariable(globals[i]);
+	var selected = Inventory.itemHeld();
+	var actualItem = Inventory.items[item];
+	if (selected && selected == actualItem){
+		Inventory.removeItem(actualItem);
+		for (var i = 0; i < globals.length; i++){
+			GlobalVariables.setVariable(globals[i]);
+		}
 	}
 }
