@@ -45958,10 +45958,10 @@ Conversation.moveToNode = function(index)
 
 		var speakerAtlas = ThreeUtils.loadAtlas("characters");
 		this.portraitElement.className = "conversation_portrait_on";
-		ThreeUtils.setElementToAtlasImage(this.portraitElement, speakerAtlas, currentSpeaker.sprite);
+		ThreeUtils.setElementToAtlasImage(this.portraitElement2, speakerAtlas, currentSpeaker.sprite);
 
 		this.portraitElement2.className = "conversation_portrait2_on";
-		ThreeUtils.setElementToAtlasImage(this.portraitElement2, speakerAtlas, "player");
+		ThreeUtils.setElementToAtlasImage(this.portraitElement, speakerAtlas, "player");
 
 		var i = 0;
 		if (currentNode.responses)
