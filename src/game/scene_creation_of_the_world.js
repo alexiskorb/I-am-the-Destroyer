@@ -71,7 +71,7 @@ CreationOfTheWorldScene.prototype.added = function()
 	this.wormhole.addTrue("WORMHOLE_ACTIVATED");
 	this.wormhole.addAction ({
 		action: "interact",
-		target: Inventory.items["cardboard_box"],
+		target: "cardboard_box",
 		setGlobals: ["BOX_IN_WORMHOLE"]
 	});
 

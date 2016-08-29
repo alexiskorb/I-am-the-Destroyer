@@ -37,7 +37,13 @@ PrisonScene3.prototype.added = function()
 	var outlet = this.createClickableSprite("outlet", -500, 0);
 	outlet.addAction({
 		action: "showInfoBox",
-		target: "outlet"
+		target: "outlet",
+		continue: true
+	})
+	outlet.addAction({
+		action: "interact",
+		target: "lamp",
+		setGlobals: ["LAMP_PLUGGED_IN"]
 	})
 
 	PrisonScene.prototype.added.call(this);

@@ -619,11 +619,11 @@
 				{
 					"text": "The door.",
 					"setGlobalTrue": "BAD_DOOR",
-					"nextNodeId": 45
+					"nextNodeId": 46
 				},
 				{
-					"text": "The door.",
-					"nextNodeId": 46,
+					"text": "The labyrinth.",
+					"nextNodeId": 45,
 					"setGlobalTrue": "BAD_LABYRINTH"
 				},
 			]
