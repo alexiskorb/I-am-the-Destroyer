@@ -8,12 +8,13 @@ module.exports = GlobalVariables;
 
 GlobalVariables.getVariable = function(key)
 {
-	return !!this.Variables[key.toLowerCase()];
+	return key && !!this.Variables[key.toLowerCase()];
 }
 
 GlobalVariables.setVariable = function(key)
 {
-	if (key instanceof Array)
+	if (!key) return
+	else if (key instanceof Array)
 	{
 		for (var i = 0; i < key.length; i++)
 		{
@@ -28,7 +29,8 @@ GlobalVariables.setVariable = function(key)
 
 GlobalVariables.unsetVariable = function(key)
 {
-	if (key instanceof Array)
+	if (!key) return
+	else if (key instanceof Array)
 	{
 		for (var i = 0; i < key.length; i++)
 		{
