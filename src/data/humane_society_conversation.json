@@ -31,6 +31,11 @@
 					"text": "What are you doing?",
 					"nextNodeId": 2
 				},
+				{
+					"text": "I have a question.",
+					"nextNodeId": 5,
+					"globalIsTrue": "QUESTION_MASTER"
+				},
 			]
 		},
 		{
@@ -44,7 +49,8 @@
 				},
 				{
 					"text": "I have a question.",
-					"nextNodeId": 5
+					"nextNodeId": 5,
+					"setGlobalTrue": "QUESTION_MASTER"
 				},
 				{
 					"text": "Prison?",
@@ -169,6 +175,10 @@
 					"globalIsTrue": "FOOD_FOR_ANIMALS"
 				},
 				{
+					"text": "Can I have a guard pet?",
+					"nextNodeId": 32
+				},
+				{
 					"text": "About guards with pets...",
 					"globalIsTrue": "CARNIVAL",
 					"nextNodeId": 19
@@ -178,6 +188,7 @@
 					"globalIsTrue": "ANIMAL_REST",
 					"nextNodeId": 30
 				},
+				
 			]
 		},
 		{
@@ -499,6 +510,65 @@
 					"nextNodeId": 5
 				},
 			]
-		}
+		},
+		{
+			"id": 32,
+			"speaker": "humane_society_guy",
+			"text": "I don't have a guard pet to give you.",
+			"responses":[
+				{
+					"text": "But if you did...",
+					"nextNodeId": 33
+				},
+				{
+					"text": "But I really want one.",
+					"nextNodeId": 34
+				},
+			]
+		},
+		{
+			"id": 33,
+			"speaker": "humane_society_guy",
+			"text": "Then I would keep it because he'd be totally awesome.",
+			"responses":[
+				{
+					"text": "How can you deny me like this?",
+					"nextNodeId": 34
+				},
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 34,
+			"speaker": "humane_society_guy",
+			"text": "Dude. I told you. I don't have a guard pet. I just have my dog, \"Rover\"",
+			"responses":[
+				{
+					"text": "\"Rover\" is the most generic dog name ever.",
+					"nextNodeId": 35
+				},
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 35,
+			"speaker": "humane_society_guy",
+			"text": "Look. I don't go criticizing why you've got that giant hole in your chest. So leave me alone.",
+			"responses":[
+				{
+					"text": "Good point.",
+				},
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
 	]
 }

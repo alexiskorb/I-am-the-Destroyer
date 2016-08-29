@@ -115,7 +115,7 @@
 			"responses":[
 				{
 					"text": "[gasp] No!",
-					"nextNodeId": 5,
+					"nextNodeId": 50,
 				},
 				{ 
 					"text": "That sounds pretty cool.",
@@ -664,6 +664,21 @@
 			"speaker": "johnson15",
 			"text": "I would, but good cardboard is hard to find for some reason. There would have to be a boom in the cardboard industry. Guess I'll stick to wood for now.",
 			"responses":[
+			]
+		},
+		{
+			"id": 50,
+			"speaker": "johnson15",
+			"text": "[gasp] Yes!",
+			"responses":[
+				{
+					"text": "[gasp] No!",
+					"nextNodeId": 5,
+				},
+				{ 
+					"text": "That sounds pretty cool.",
+					"nextNodeId": 6,
+				},
 			]
 		},
 	]

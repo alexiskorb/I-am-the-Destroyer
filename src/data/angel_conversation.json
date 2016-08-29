@@ -199,7 +199,13 @@
                 {
                     "text": "About that wormhole? What can I do with it?",
                     "globalIsTrue": "WORMHOLE_ACTIVATED",
+                    "globalIsFalse": "BOX_IN_WORMHOLE",
                     "nextNodeId": 29
+                },
+                {
+                    "text": "What's wrong with the wormhole?",
+                    "globalIsTrue": "BOX_IN_WORMHOLE",
+                    "nextNodeId": 35
                 }
             ]
         },
@@ -479,8 +485,8 @@
             "text": "Well, I only got a \"C\" in wormhole class, so it has to be something pretty light. Like paper or plastic.",
             "responses": [
                 {
-                    "text": "What about cardboard",
-                    "globalIsTrue": "BOX_OBTAINED",
+                    "text": "What about cardboard?",
+                    "globalIsTrue": "cardboardbox_obtained",
                     "nextNodeId": 33
                 },
                 {
@@ -504,6 +510,84 @@
             "id": 34,
             "speaker": "angel",
             "text": "No Problem.",
+            "responses": [
+            ]
+        },
+        {
+            "id": 35,
+            "speaker": "angel",
+            "text": "I think it broke. Did you throw something in it?",
+            "responses": [
+                {
+                    "text": "A cardboard box.",
+                    "nextNodeId": 36
+                },
+                {
+                    "text": "Pandora's Box",
+                    "nextNodeId": 36
+                },
+                {
+                    "text": "I tried to throw in your ego, but it wouldn't fit.",
+                    "nextNodeId": 37
+                },
+                {
+                    "text": "No.",
+                    "nextNodeId": 39
+                }
+            ]
+        },
+        {
+            "id": 36,
+            "speaker": "angel",
+            "text": "Hmm...I guess it just couldn't handle a lot of stuff. It seems to be broken now.",
+            "responses": [
+                {
+                    "text": "You suck at making wormholes.",
+                    "nextNodeId": 37
+                },
+                {
+                    "text": "I thought you were supposed to make cool things.",
+                    "nextNodeId": 37
+                },
+                {
+                    "text": "So, what happened to the box?",
+                    "nextNodeId": 38
+                }
+            ]
+        },
+        {
+            "id": 37,
+            "speaker": "angel",
+            "text": "Hey! You try making wormholes next time.",
+            "responses": [
+                {
+                    "text": "So, what happened to the box?",
+                    "nextNodeId": 38
+                }
+            ]
+        },
+        {
+            "id": 38,
+            "speaker": "angel",
+            "text": "Like I said before, it probably traveled across space and time and randomly dropped out of the sky somewhere.",
+            "responses": [
+            ]
+        },
+        {
+            "id": 39,
+            "speaker": "angel",
+            "text": "Well, that certainly is weird then.",
+            "responses": [
+                {
+                    "text": "So, what's wrong with it?",
+                    "nextNodeId": 40
+                }
+            ]
+        },
+        {
+            "id": 40,
+            "speaker": "angel",
+            "text": "I don't know. It just seems to be broken.",
             "responses": [
             ]
         },

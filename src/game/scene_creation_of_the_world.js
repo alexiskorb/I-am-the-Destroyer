@@ -77,8 +77,13 @@ CreationOfTheWorldScene.prototype.added = function()
 	this.wormhole.addAction ({
 		action: "interact",
 		target: "cardboard_box",
-		setGlobals: ["BOX_IN_WORMHOLE"]
-	});
+		setGlobals: ["BOX_IN_WORMHOLE"],
+		continue: true
+	})
+	this.wormhole.addAction({
+		action: "showInfoBox",
+		target: "wormhole",
+	})
 
 	Scene.prototype.added.call(this);
 }

@@ -164,7 +164,7 @@ InfoBox.info =
                 isFalse: ["BOX_IN_WORMHOLE"]
             },
             {
-                text: "The wormhole looks like it broke after you threw the box in. Shoddy workmanship.",
+                text: "The wormhole looks like it broke after you threw the box in. What shoddy workmanship.",
                 isTrue: ["WORMHOLE_ACTIVATED", "BOX_IN_WORMHOLE"],
                 isFalse: []
             },

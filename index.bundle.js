@@ -41985,7 +41985,13 @@ module.exports=//ANGEL_INTRODUCTION
                 {
                     "text": "About that wormhole? What can I do with it?",
                     "globalIsTrue": "WORMHOLE_ACTIVATED",
+                    "globalIsFalse": "BOX_IN_WORMHOLE",
                     "nextNodeId": 29
+                },
+                {
+                    "text": "What's wrong with the wormhole?",
+                    "globalIsTrue": "BOX_IN_WORMHOLE",
+                    "nextNodeId": 35
                 }
             ]
         },
@@ -42265,8 +42271,8 @@ module.exports=//ANGEL_INTRODUCTION
             "text": "Well, I only got a \"C\" in wormhole class, so it has to be something pretty light. Like paper or plastic.",
             "responses": [
                 {
-                    "text": "What about cardboard",
-                    "globalIsTrue": "BOX_OBTAINED",
+                    "text": "What about cardboard?",
+                    "globalIsTrue": "cardboardbox_obtained",
                     "nextNodeId": 33
                 },
                 {
@@ -42290,6 +42296,84 @@ module.exports=//ANGEL_INTRODUCTION
             "id": 34,
             "speaker": "angel",
             "text": "No Problem.",
+            "responses": [
+            ]
+        },
+        {
+            "id": 35,
+            "speaker": "angel",
+            "text": "I think it broke. Did you throw something in it?",
+            "responses": [
+                {
+                    "text": "A cardboard box.",
+                    "nextNodeId": 36
+                },
+                {
+                    "text": "Pandora's Box",
+                    "nextNodeId": 36
+                },
+                {
+                    "text": "I tried to throw in your ego, but it wouldn't fit.",
+                    "nextNodeId": 37
+                },
+                {
+                    "text": "No.",
+                    "nextNodeId": 39
+                }
+            ]
+        },
+        {
+            "id": 36,
+            "speaker": "angel",
+            "text": "Hmm...I guess it just couldn't handle a lot of stuff. It seems to be broken now.",
+            "responses": [
+                {
+                    "text": "You suck at making wormholes.",
+                    "nextNodeId": 37
+                },
+                {
+                    "text": "I thought you were supposed to make cool things.",
+                    "nextNodeId": 37
+                },
+                {
+                    "text": "So, what happened to the box?",
+                    "nextNodeId": 38
+                }
+            ]
+        },
+        {
+            "id": 37,
+            "speaker": "angel",
+            "text": "Hey! You try making wormholes next time.",
+            "responses": [
+                {
+                    "text": "So, what happened to the box?",
+                    "nextNodeId": 38
+                }
+            ]
+        },
+        {
+            "id": 38,
+            "speaker": "angel",
+            "text": "Like I said before, it probably traveled across space and time and randomly dropped out of the sky somewhere.",
+            "responses": [
+            ]
+        },
+        {
+            "id": 39,
+            "speaker": "angel",
+            "text": "Well, that certainly is weird then.",
+            "responses": [
+                {
+                    "text": "So, what's wrong with it?",
+                    "nextNodeId": 40
+                }
+            ]
+        },
+        {
+            "id": 40,
+            "speaker": "angel",
+            "text": "I don't know. It just seems to be broken.",
             "responses": [
             ]
         },
@@ -42493,7 +42577,7 @@ module.exports=
 			"responses":[
 				{
 					"text": "They can generate power while simultaneously acting as a bridge.",
-					"nextNodeId": 10,
+					"nextNodeId": 18,
 					"setGlobalTrue": "EXPLAINED_WHY_DAMS_ARE_AWESOME"
 				}
 			]
@@ -42517,7 +42601,7 @@ module.exports=
 		{
 			"id": 11,
 			"speaker": "johnson14",
-			"text": "Thanks, spooky guy!"
+			"text": "Okay, I will. Thanks, spooky guy!"
 		},
 		{
 			"id": 12,
@@ -42590,8 +42674,85 @@ module.exports=
 		{
 			"id": 17,
 			"speaker": "johnson14",
-			"text": "I'm terribily busy making these extremely time-sensitive measurements. Please come back later"
-		}
+			"text": "I'm terribily busy making these extremely time-sensitive measurements. Please come back later",
+			"responses":[
+				{
+					"text": "Gotta get those dam measurements.",
+					"nextNodeId": 22
+				},
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "johnson14",
+			"text": "Hey, that's a pretty good idea! It would solve our power problem too.",
+			"responses":[
+				{
+					"text": "Power problem?",
+					"nextNodeId": 19
+				},
+			]
+		},
+		{
+			"id": 19,
+			"speaker": "johnson14",
+			"text": "Yeah. There's been a power shortage around here. Like if I turn on my Tesla coil, my neighbor won't be able to turn on his lights.",
+			"responses":[
+				{
+					"text": "Why do you have a Tesla coil?",
+					"nextNodeId": 20
+				},
+				{
+					"text": "So, about the dam...",
+					"nextNodeId": 21
+				},
+			]
+		},
+		{
+			"id": 20,
+			"speaker": "johnson14",
+			"text": "Why don't you have one? They're awesome.",
+			"responses":[
+				{
+					"text": "So, about the dam...",
+					"nextNodeId": 21
+				}
+			]
+		},
+		{
+			"id": 21,
+			"speaker": "johnson14",
+			"text": "I think it's a pretty good idea.",
+			"responses":[
+				{
+					"text": "I think you should build it.",
+					"nextNodeId": 11,
+					"setGlobalTrue": "DAM_BUILT"
+				},
+				{
+					"text": "Actually, I don't think that's such a good idea.",
+					"nextNodeId": 12
+				},
+			]
+		},
+		{
+			"id": 22,
+			"speaker": "johnson14",
+			"text": "I'm not building a dam.",
+			"responses":[
+				{
+					"text": "But, dam, man.",
+					"nextNodeId": 23
+				},
+			]
+		},
+		{
+			"id": 23,
+			"speaker": "johnson14",
+			"text": "If the community wants me to give them some hydroelectric power, maybe then, I'll give them a dam. But, I'm busy right now. Come back later.",
+			"responses":[
+			]
+		},
 	]
 }
 },{}],5:[function(require,module,exports){
@@ -42955,6 +43116,11 @@ module.exports=
 					"text": "What are you doing?",
 					"nextNodeId": 2
 				},
+				{
+					"text": "I have a question.",
+					"nextNodeId": 5,
+					"globalIsTrue": "QUESTION_MASTER"
+				},
 			]
 		},
 		{
@@ -42968,7 +43134,8 @@ module.exports=
 				},
 				{
 					"text": "I have a question.",
-					"nextNodeId": 5
+					"nextNodeId": 5,
+					"setGlobalTrue": "QUESTION_MASTER"
 				},
 				{
 					"text": "Prison?",
@@ -43093,6 +43260,10 @@ module.exports=
 					"globalIsTrue": "FOOD_FOR_ANIMALS"
 				},
 				{
+					"text": "Can I have a guard pet?",
+					"nextNodeId": 32
+				},
+				{
 					"text": "About guards with pets...",
 					"globalIsTrue": "CARNIVAL",
 					"nextNodeId": 19
@@ -43102,6 +43273,7 @@ module.exports=
 					"globalIsTrue": "ANIMAL_REST",
 					"nextNodeId": 30
 				},
+				
 			]
 		},
 		{
@@ -43423,7 +43595,66 @@ module.exports=
 					"nextNodeId": 5
 				},
 			]
-		}
+		},
+		{
+			"id": 32,
+			"speaker": "humane_society_guy",
+			"text": "I don't have a guard pet to give you.",
+			"responses":[
+				{
+					"text": "But if you did...",
+					"nextNodeId": 33
+				},
+				{
+					"text": "But I really want one.",
+					"nextNodeId": 34
+				},
+			]
+		},
+		{
+			"id": 33,
+			"speaker": "humane_society_guy",
+			"text": "Then I would keep it because he'd be totally awesome.",
+			"responses":[
+				{
+					"text": "How can you deny me like this?",
+					"nextNodeId": 34
+				},
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 34,
+			"speaker": "humane_society_guy",
+			"text": "Dude. I told you. I don't have a guard pet. I just have my dog, \"Rover\"",
+			"responses":[
+				{
+					"text": "\"Rover\" is the most generic dog name ever.",
+					"nextNodeId": 35
+				},
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 35,
+			"speaker": "humane_society_guy",
+			"text": "Look. I don't go criticizing why you've got that giant hole in your chest. So leave me alone.",
+			"responses":[
+				{
+					"text": "Good point.",
+				},
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
 	]
 }
 
@@ -44095,7 +44326,7 @@ module.exports=//GRAVITY_LIGHTER
 			"responses":[
 				{
 					"text": "[gasp] No!",
-					"nextNodeId": 5,
+					"nextNodeId": 50,
 				},
 				{ 
 					"text": "That sounds pretty cool.",
@@ -44644,6 +44875,21 @@ module.exports=//GRAVITY_LIGHTER
 			"speaker": "johnson15",
 			"text": "I would, but good cardboard is hard to find for some reason. There would have to be a boom in the cardboard industry. Guess I'll stick to wood for now.",
 			"responses":[
+			]
+		},
+		{
+			"id": 50,
+			"speaker": "johnson15",
+			"text": "[gasp] Yes!",
+			"responses":[
+				{
+					"text": "[gasp] No!",
+					"nextNodeId": 5,
+				},
+				{ 
+					"text": "That sounds pretty cool.",
+					"nextNodeId": 6,
+				},
 			]
 		},
 	]
@@ -46058,7 +46304,7 @@ InfoBox.info =
                 isFalse: ["BOX_IN_WORMHOLE"]
             },
             {
-                text: "The wormhole looks like it broke after you threw the box in. Shoddy workmanship.",
+                text: "The wormhole looks like it broke after you threw the box in. What shoddy workmanship.",
                 isTrue: ["WORMHOLE_ACTIVATED", "BOX_IN_WORMHOLE"],
                 isFalse: []
             },
@@ -46924,8 +47170,13 @@ CreationOfTheWorldScene.prototype.added = function()
 	this.wormhole.addAction ({
 		action: "interact",
 		target: "cardboard_box",
-		setGlobals: ["BOX_IN_WORMHOLE"]
-	});
+		setGlobals: ["BOX_IN_WORMHOLE"],
+		continue: true
+	})
+	this.wormhole.addAction({
+		action: "showInfoBox",
+		target: "wormhole",
+	})
 
 	Scene.prototype.added.call(this);
 }
