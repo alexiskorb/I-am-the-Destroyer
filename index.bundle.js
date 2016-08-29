@@ -42140,7 +42140,7 @@ module.exports=//ANGEL_INTRODUCTION
         {
             "id": 23,
             "speaker": "angel",
-            "text": "I can make a wormhold through space and time.",
+            "text": "I can make a wormhole through space and time.",
             "responses": [
                 {
                     "text": "Awesome! Show me!",
@@ -42669,7 +42669,7 @@ module.exports=
 		{
 			"id": 16,
 			"speaker": "johnson14",
-			"text": "We're getting right to work on that dam! It's going to be great!."
+			"text": "We're getting right to work on that dam! It's going to be great!. We fixed our power problem and our bridge problem!"
 		},
 		{
 			"id": 17,
