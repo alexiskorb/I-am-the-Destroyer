@@ -30,7 +30,7 @@ PrisonScene2.prototype.added = function()
 	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison3",
-		globalIsTrue: "FoodForAnimals"
+		globalIsTrue: "FOOD_FOR_ANIMALS"
 	});
 	doorClickTarget.addAction({
 		action: "triggerScene",
