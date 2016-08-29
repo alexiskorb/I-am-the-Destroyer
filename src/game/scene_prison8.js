@@ -25,7 +25,7 @@ PrisonScene8.prototype.added = function()
 	this.crystalBob = 0;
 
 	// create door
-	var doorClickTarget = this.createClickableSprite("keydoor", 0, 0);
+	var doorClickTarget = this.createClickableSprite("portcullis", 0, 0);
 	doorClickTarget.addAction({
 		action: "showInfoBox",
 		target: "portcullis",
