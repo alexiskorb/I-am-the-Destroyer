@@ -43477,11 +43477,11 @@ module.exports=//CARNIVAL
 			"responses": [
 				{
 					"text": "What are you doing here?",
-					"nextNodeId": 7
+					"nextNodeId": 8
 				},
                 {
 					"text": "Can I get an autograph?",
-					"nextNodeId": 2
+					"nextNodeId": 37
 				}
 			]
 		},
@@ -43496,7 +43496,7 @@ module.exports=//CARNIVAL
 				},
                 {
 					"text": "Can I get an autograph?",
-					"nextNodeId": 2
+					"nextNodeId": 37
 				}
 			]
 		},
@@ -43574,7 +43574,7 @@ module.exports=//CARNIVAL
 				},
                 {
 					"text": "Tell me about \"Farmer and Sons\"",
-					"nextNodeId": 10
+					"nextNodeId": 14
 				}
 			]
 		},
@@ -43923,7 +43923,18 @@ module.exports=//CARNIVAL
 					"text": "Yay!"
 				}
 			]	
-		}
+		},
+        {
+			"id": 37,
+			"speaker": "investor",
+			"text": "No.",
+			"responses": [
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 8
+				}
+			]
+		},
 	]
 }
 
@@ -46630,6 +46641,7 @@ PrisonScene1.prototype.update = function()
 		this.forcefieldSprites[i].position.set(
 			this.ffx + (Math.random()-0.5)*4*i, this.ffy + (Math.random()-0.5)*4*i,
 			this.forcefieldSprites[i].position.z);
+		this.forcefieldSprites[i].visible = !GlobalVariables.getVariable("NO_FUTURE_TECH");
 	}
 
 	this.crystalBob += bmacSdk.deltaSec;

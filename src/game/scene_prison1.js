@@ -88,6 +88,7 @@ PrisonScene1.prototype.update = function()
 		this.forcefieldSprites[i].position.set(
 			this.ffx + (Math.random()-0.5)*4*i, this.ffy + (Math.random()-0.5)*4*i,
 			this.forcefieldSprites[i].position.z);
+		this.forcefieldSprites[i].visible = !GlobalVariables.getVariable("NO_FUTURE_TECH");
 	}
 
 	this.crystalBob += bmacSdk.deltaSec;
