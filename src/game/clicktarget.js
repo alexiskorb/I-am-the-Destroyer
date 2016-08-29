@@ -53,6 +53,7 @@ ClickTarget.prototype.addFalse = function(data)
 // - collectItem
 // - showInfoBox
 // - interact
+// - miscellaneous
 
 ClickTarget.ANIM_PICKUP = 1;
 
@@ -221,6 +222,17 @@ ClickTarget.prototype.triggerAction = function(action)
 		else{
 			var temp = [];
 			this.interact(action.target, action.setGlobals, temp, action.addItem);
+		}
+	}
+	else if (action.action == "miscellaneous")
+	{
+		if (action.addItem){
+			Inventory.addItem(Inventory.items[action.addItem]);
+		}
+		if (action.setGlobals){
+			for (var i = 0; i < action.setGlobals.length; i++){
+				GlobalVariables.setVariable(action.setGlobals[i]);
+			}
 		}
 	}
 	else if (action.action == "win")

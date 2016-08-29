@@ -33,7 +33,14 @@ PrisonScene5.prototype.added = function()
 		globalIsTrue: ["ANIMAL_REST", "CARNIVAL"]
 	})
 
+
 	PrisonScene.prototype.added.call(this);
+	var guard = this.createClickableSprite("guard",300,50);
+	guard.addFalse("CARNIVAL");
+	guard.addFalse("ANIMAL_REST");
+	var guardAndTiger = this.createClickableSprite("guardandtiger",600,50);
+	guardAndTiger.addTrue("CARNIVAL");
+	guardAndTiger.addFalse("ANIMAL_REST");
 }
 
 PrisonScene5.prototype.update = function()

@@ -8,8 +8,7 @@ ClickTarget = require("./clicktarget.js");
 
 var PrisonScene = function()
 {
-	this.musicUrl = "media/ngxmusicalngx+astrangedream.mp3";
-
+	this.musicUrl = "media/ngxmusicalngx+astrangedream.mp3";;
 	Scene.call(this);
 }
 
@@ -36,7 +35,7 @@ PrisonScene.prototype.added = function()
 		GameEngine.screenHeight/2 - atlas.getSpriteHeight("prison1_floor")/2,
 		-10);
 	floor.z = -10;
-
+	
 	Scene.prototype.added.call(this);
 }
 

@@ -35,13 +35,36 @@ PrisonScene6.prototype.added = function()
 	})
 	brickWall.addFalse("WOOD_WALL");
 	brickWall.addTrue("BRICK_WALL");
-	/*
-	doorClickTarget.addAction({
+	var woodWall = this.createClickableSprite("woodwall",0,0);
+	woodWall.addAction({
+		action: "showInfoBox",
+		target: "wall",
+		continue: true
+	})
+	woodWall.addFalse("CARDBOARD_WALL");
+	woodWall.addTrue("WOOD_WALL");
+	var cardboardWall = this.createClickableSprite("cardboardWall",0,0);
+	cardboardWall.addAction({
+		action: "showInfoBox",
+		target: "wall",
+		continue: true
+	})
+	cardboardWall.addAction({
+		action: "miscellaneous",
+		addItem: "cardboard",
+		setGlobals: ["CARDBOARD_WALL_BROKEN"],
+		continue: true
+	})
+	cardboardWall.addTrue("CARDBOARD_WALL");
+	cardboardWall.addFalse("CARDBOARD_WALL_BROKEN");
+	var cardboardWallBroken = this.createClickableSprite("cardboardWallBroken",0,0);
+	cardboardWallBroken.addAction({
 		action: "triggerScene",
 		target: "prison7",
-		globalIsTrue: "CARDBOARD_WALL",
-		addItem: "cardboard"
-	})*/
+		globalIsTrue: "CARDBOARD_WALL_BROKEN",
+	})
+	cardboardWallBroken.addTrue("CARDBOARD_WALL_BROKEN");
+
 
 	PrisonScene.prototype.added.call(this);
 }
