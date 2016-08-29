@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
 window.bmacSdk = require("./src/sdk/engine");
@@ -45180,6 +45180,7 @@ ClickTarget.prototype.addFalse = function(data)
 }
 
 
+
 //Possible action keys:
 // - triggerConversation
 // - triggerScene
@@ -45339,6 +45340,10 @@ ClickTarget.prototype.triggerAction = function(action)
 	{
 		this.permanentlyDisable();
 	}
+	else if (action.action == "interact")
+	{
+		this.interact(action.target, action.setGlobals);
+	}
 }
 
 ClickTarget.prototype.actionMeetsConditionals = function(action)
@@ -45409,6 +45414,16 @@ ClickTarget.prototype.meetsExistConditions = function()
     return true;
 }
 
+ClickTarget.prototype.interact = function(item, globals)
+{
+	var selected = Inventory.itemHeld();
+	if (selected){
+		Inventory.removeItem(item);
+	}
+	for (var i = 0; i < globals.length; i++){
+		GlobalVariables.setVariable(globals[i]);
+	}
+}
 },{"./conversation.js":13,"./globalvariables.js":14,"./infobox.js":15,"three":2}],13:[function(require,module,exports){
 
 Input = require("../sdk/input");
@@ -46271,7 +46286,7 @@ Inventory.itemHeld = function()
 {
     if (this.itemSelected > -1)
     {
-        return this.itemList[itemSelected];
+        return this.itemList[this.itemSelected];
     }
     return undefined;
 }
@@ -46350,6 +46365,11 @@ CreationOfTheWorldScene.prototype.added = function()
 	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);
 	this.wormhole = this.createClickableSprite("wormhole", 0, 0);
 	this.wormhole.addTrue("WORMHOLE_ACTIVATED");
+	this.wormhole.addAction ({
+		action: "interact",
+		target: Inventory.items["cardboard_box"],
+		setGlobals: ["BOX_IN_WORMHOLE"]
+	});
 
 	Scene.prototype.added.call(this);
 }
@@ -48984,4 +49004,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":31,"./Atlas.js":39,"three":2}]},{},[1])
+},{"../atlases":31,"./Atlas.js":39,"three":2}]},{},[1]);

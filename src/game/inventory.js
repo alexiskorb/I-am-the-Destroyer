@@ -142,7 +142,7 @@ Inventory.itemHeld = function()
 {
     if (this.itemSelected > -1)
     {
-        return this.itemList[itemSelected];
+        return this.itemList[this.itemSelected];
     }
     return undefined;
 }
