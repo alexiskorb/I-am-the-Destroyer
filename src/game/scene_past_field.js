@@ -26,7 +26,7 @@ FieldScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/dam_builder_conversation.json")
 	})
-	var speakerGuy = this.createClickableSprite("johnson15_sprite", 600, 150);
+	var speakerGuy = this.createClickableSprite("normal_guy_sprite", 600, 150);
 	speakerGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/prophet_conversation.json")

@@ -42892,7 +42892,7 @@ module.exports=
 		{
 			"id": "humane_society_guy",
 			"displayName": "Jason Helios",
-			"sprite": "johnson15"
+			"sprite": "normal_guy"
 		},
 		{
 			"id": "player",
@@ -44598,7 +44598,7 @@ module.exports=
 		{
 			"id": "prophet",
 			"displayName": "Maximus Helios",
-			"sprite": "johnson15"
+			"sprite": "normal_guy"
 		},
 		{
 			"id": "player",
@@ -46468,7 +46468,7 @@ ConstructionScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/johnson_xv_conversation.json")
 	})
-	var humaneGuy = this.createClickableSprite("johnson15_sprite", -500, 300);
+	var humaneGuy = this.createClickableSprite("normal_guy_sprite", -500, 300);
 	humaneGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/humane_society_conversation.json")
@@ -46518,7 +46518,7 @@ FieldScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/dam_builder_conversation.json")
 	})
-	var speakerGuy = this.createClickableSprite("johnson15_sprite", 600, 150);
+	var speakerGuy = this.createClickableSprite("normal_guy_sprite", 600, 150);
 	speakerGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/prophet_conversation.json")
@@ -47372,32 +47372,32 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 1474,
-	height: 956,
+	width: 1558,
+	height: 878,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"balloon":[531,879,60,60],
-	"builder_guy":[1297,642,124,288],
-	"cardboard":[592,879,60,60],
-	"cardboardbox":[1345,129,60,60],
+	"balloon":[1281,342,60,60],
+	"builder_guy":[1211,556,124,288],
+	"cardboard":[1281,403,60,60],
+	"cardboardbox":[1020,727,60,60],
 	"crystal":[545,394,281,283],
 	"door":[827,394,256,256],
-	"grad_circle":[401,863,64,64],
-	"grad_r":[466,863,64,64],
-	"heaven_angel":[1084,258,212,467],
-	"heaven_player":[827,651,196,297],
-	"johnson15_sprite":[1345,0,128,128],
+	"grad_circle":[888,804,64,64],
+	"grad_r":[953,804,64,64],
+	"heaven_angel":[1345,0,212,467],
+	"heaven_player":[1084,258,196,297],
 	"keydoor":[0,0,544,862],
-	"lamp":[746,762,60,60],
-	"magnets":[653,879,60,60],
-	"outlet":[746,678,61,83],
-	"suit_sprite":[1297,361,126,280],
+	"lamp":[1020,788,60,60],
+	"magnets":[1461,468,60,60],
+	"normal_guy_sprite":[1336,468,124,280],
+	"outlet":[1281,258,61,83],
+	"suit_sprite":[1084,556,126,280],
 	"timedevice":[545,0,537,393],
-	"timedevice_button1":[0,863,141,93],
-	"timedevice_button2":[142,863,137,75],
-	"timedevice_button3":[280,863,120,76],
-	"timedevice_button4":[1297,258,152,102],
+	"timedevice_button1":[746,781,141,93],
+	"timedevice_button2":[899,651,137,75],
+	"timedevice_button3":[899,727,120,76],
+	"timedevice_button4":[746,678,152,102],
 	"timedevice_sticky":[1083,0,261,257],
 	"wormhole":[545,678,200,200],
 	},
@@ -47430,16 +47430,16 @@ module.exports =
 "characters":
 {
 	url: "media/characters_atlas.png",
-	width: 931,
-	height: 371,
+	width: 742,
+	height: 503,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"builder":[627,0,158,243],
+	"builder":[426,0,158,243],
 	"johnson1":[0,0,212,371],
-	"johnson15":[426,0,200,256],
+	"normal_guy":[585,0,156,251],
 	"player":[213,0,212,371],
-	"suit":[786,0,144,259],
+	"suit":[426,244,144,259],
 	},
 },
 }
