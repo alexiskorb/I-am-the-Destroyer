@@ -45000,19 +45000,25 @@ PrisonScene.prototype.added = function()
 
 	// create floor
 	var floor = ThreeUtils.makeAtlasMesh(atlas, "prison1_floor");
+	this.floor = floor;
 	this.transform.add(floor);
 	floor.scale.set(2*1920/atlas.getSpriteWidth("prison1_floor"), 1, 1);
 	floor.position.set(0,
 		GameEngine.screenHeight/2 - atlas.getSpriteHeight("prison1_floor")/2,
 		-10);
 	floor.z = -10;
-	
+
 	Scene.prototype.added.call(this);
 }
 
 PrisonScene.prototype.update = function()
 {
 	Scene.prototype.update.call(this);
+}
+
+PrisonScene.prototype.removeFloor = function()
+{
+	this.floor.position.set(0,1000);
 }
 
 module.exports = PrisonScene;
@@ -47082,20 +47088,31 @@ PrisonScene7.prototype.added = function()
 		target: "prison8",
 		globalIsTrue: ["MAGNETS_PLACED","CARDBOARD_PLACED"]
 	})
-	doorClickTarget.addAction({
+
+	var edge_left = this.createClickableSprite("pit_edge", -800, 450);
+	var edge_right = this.createClickableSprite("pit_edge", 800, 450);
+	var pitClickTarget = this.createClickableRegion(0, 450, 1600, 300);
+	pitClickTarget.addAction({
 		action: "interact",
 		target: "magnets",
 		setGlobals: ["MAGNETS_PLACED"],
 		continue: true
 	})
-	doorClickTarget.addAction({
+	pitClickTarget.addAction({
 		action: "interact",
 		target: "cardboard",
 		setGlobals: ["CARDBOARD_PLACED"],
 		globalIsTrue: ["MAGNETS_PLACED"]
 	})
+	var pitMagnets = this.createClickableSprite("pit_magnets", 0, 450);
+	pitMagnets.addTrue("MAGNETS_PLACED");
+	pitMagnets.addFalse("CARDBOARD_PLACED");
+	var pitBridge = this.createClickableSprite("pit_bridge", 0, 450);
+	pitBridge.addTrue("CARDBOARD_PLACED");
 
 	PrisonScene.prototype.added.call(this);
+	this.removeFloor();
+
 }
 
 PrisonScene7.prototype.update = function()
@@ -47558,49 +47575,53 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 3850,
-	height: 1787,
+	width: 4094,
+	height: 1911,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"balloon":[451,1704,60,60],
-	"brickwall":[981,603,544,862],
-	"builder_guy":[3499,1470,124,288],
-	"cardboard":[512,1704,60,60],
-	"cardboardbox":[573,1704,60,60],
-	"cardboardboxlarge":[2829,1257,150,150],
-	"cardboardWall":[1921,0,544,862],
-	"cardboardWallBroken":[2071,863,544,855],
-	"crystal":[1582,502,281,283],
-	"grad_circle":[259,1704,64,64],
-	"grad_r":[324,1704,64,64],
-	"guard":[3154,853,344,800],
-	"guardandtiger":[0,502,980,800],
-	"hammer":[634,1704,60,60],
-	"heaven_angel":[2616,1257,212,467],
-	"heaven_player":[1264,1466,196,297],
-	"keydoor":[2466,0,544,862],
-	"labyrinth_sign":[0,1303,800,400],
-	"lamp":[1526,786,60,60],
-	"lampbig":[3549,0,300,734],
-	"lamplarge":[3549,735,300,734],
-	"magnets":[1587,786,60,60],
+	"balloon":[1283,1675,60,60],
+	"brickwall":[1921,0,544,862],
+	"builder_guy":[3591,1588,124,288],
+	"cardboard":[1164,1826,60,60],
+	"cardboardbox":[1283,1736,60,60],
+	"cardboardboxlarge":[981,1675,150,150],
+	"cardboardWall":[2466,0,544,862],
+	"cardboardWallBroken":[2377,863,544,855],
+	"crystal":[1519,1281,281,283],
+	"empty_pit":[0,880,1030,230],
+	"grad_circle":[1697,804,64,64],
+	"grad_r":[1762,804,64,64],
+	"guard":[2922,863,344,800],
+	"guardandtiger":[0,1111,980,800],
+	"hammer":[1344,1675,60,60],
+	"heaven_angel":[3869,853,212,467],
+	"heaven_player":[3267,1598,196,297],
+	"keydoor":[1832,863,544,862],
+	"labyrinth_sign":[1031,880,800,400],
+	"lamp":[1225,1826,60,60],
+	"lampbig":[3267,863,300,734],
+	"lamplarge":[3568,853,300,734],
+	"magnets":[1344,1736,60,60],
 	"moat_full":[0,0,1920,250],
 	"moat_hungry":[0,251,1920,250],
-	"normal_guy_sprite":[3624,1470,124,280],
-	"outlet":[389,1704,61,83],
-	"puddle":[981,502,600,100],
-	"speaker":[2829,1408,150,150],
-	"steelwall":[3011,0,537,852],
-	"suit_sprite":[2980,1257,126,280],
-	"timedevice":[2616,863,537,393],
-	"timedevice_button1":[1063,1667,141,93],
-	"timedevice_button2":[0,1704,137,75],
-	"timedevice_button3":[138,1704,120,76],
-	"timedevice_button4":[801,1303,152,102],
-	"timedevice_sticky":[801,1466,261,257],
-	"woodwall":[1526,863,544,862],
-	"wormhole":[1063,1466,200,200],
+	"normal_guy_sprite":[3869,1321,124,280],
+	"outlet":[1102,1826,61,83],
+	"pit_bridge":[0,502,1263,226],
+	"pit_edge":[1264,603,400,150],
+	"pit_magnets":[0,729,1263,150],
+	"puddle":[1264,502,600,100],
+	"speaker":[1132,1675,150,150],
+	"steelwall":[3556,0,537,852],
+	"suit_sprite":[3464,1598,126,280],
+	"timedevice":[981,1281,537,393],
+	"timedevice_button1":[1417,754,141,93],
+	"timedevice_button2":[1559,804,137,75],
+	"timedevice_button3":[981,1826,120,76],
+	"timedevice_button4":[1264,754,152,102],
+	"timedevice_sticky":[1519,1565,261,257],
+	"woodwall":[3011,0,544,862],
+	"wormhole":[1665,603,200,200],
 	},
 },
 "heaven":

@@ -29,19 +29,25 @@ PrisonScene.prototype.added = function()
 
 	// create floor
 	var floor = ThreeUtils.makeAtlasMesh(atlas, "prison1_floor");
+	this.floor = floor;
 	this.transform.add(floor);
 	floor.scale.set(2*1920/atlas.getSpriteWidth("prison1_floor"), 1, 1);
 	floor.position.set(0,
 		GameEngine.screenHeight/2 - atlas.getSpriteHeight("prison1_floor")/2,
 		-10);
 	floor.z = -10;
-	
+
 	Scene.prototype.added.call(this);
 }
 
 PrisonScene.prototype.update = function()
 {
 	Scene.prototype.update.call(this);
+}
+
+PrisonScene.prototype.removeFloor = function()
+{
+	this.floor.position.set(0,1000);
 }
 
 module.exports = PrisonScene;

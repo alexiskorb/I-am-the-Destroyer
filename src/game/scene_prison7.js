@@ -37,20 +37,31 @@ PrisonScene7.prototype.added = function()
 		target: "prison8",
 		globalIsTrue: ["MAGNETS_PLACED","CARDBOARD_PLACED"]
 	})
-	doorClickTarget.addAction({
+
+	var edge_left = this.createClickableSprite("pit_edge", -800, 450);
+	var edge_right = this.createClickableSprite("pit_edge", 800, 450);
+	var pitClickTarget = this.createClickableRegion(0, 450, 1600, 300);
+	pitClickTarget.addAction({
 		action: "interact",
 		target: "magnets",
 		setGlobals: ["MAGNETS_PLACED"],
 		continue: true
 	})
-	doorClickTarget.addAction({
+	pitClickTarget.addAction({
 		action: "interact",
 		target: "cardboard",
 		setGlobals: ["CARDBOARD_PLACED"],
 		globalIsTrue: ["MAGNETS_PLACED"]
 	})
+	var pitMagnets = this.createClickableSprite("pit_magnets", 0, 450);
+	pitMagnets.addTrue("MAGNETS_PLACED");
+	pitMagnets.addFalse("CARDBOARD_PLACED");
+	var pitBridge = this.createClickableSprite("pit_bridge", 0, 450);
+	pitBridge.addTrue("CARDBOARD_PLACED");
 
 	PrisonScene.prototype.added.call(this);
+	this.removeFloor();
+
 }
 
 PrisonScene7.prototype.update = function()
