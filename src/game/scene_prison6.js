@@ -30,7 +30,8 @@ PrisonScene6.prototype.added = function()
 	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison7",
-		globalIsTrue: "CARDBOARD_WALL"
+		globalIsTrue: "CARDBOARD_WALL",
+		addItem: "cardboard"
 	})
 
 	PrisonScene.prototype.added.call(this);

@@ -45350,6 +45350,9 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "triggerScene")
 	{
+		if (action.addItem){
+			Inventory.addItem(Inventory.items[action.addItem]);
+		}
 		SceneManager.changeScene(action.target, SceneManager.ANIM_FORWARD);
 	}
 	else if (action.action == "disable")
@@ -45358,6 +45361,9 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "interact")
 	{
+		if (action.addItem){
+			Inventory.addItem(Inventory.items[action.addItem]);
+		}
 		if (action.globaIsTrue) {
 			this.interact(action.target, action.setGlobals, action.globalIsTrue);
 		}
@@ -46197,12 +46203,15 @@ Inventory.items = {
     },
     magnets: {
         sprite: "magnets"
+    },
+    hammer: {
+        sprite: "hammer"
     }
 }
 
 Inventory.added = function() {
     var inventory = document.getElementById("inventory");
-    for (var i = 0; i < 5; i++)
+    for (var i = 0; i < 6; i++)
     {
         var li = document.createElement("li");
         inventory.appendChild(li);
@@ -46221,14 +46230,14 @@ Inventory.added = function() {
         this.inventoryDisplay[i] = li;
         this.itemList[i] = undefined; 
     }
-    for (var i = 0; i < 5; i++)
+    for (var i = 0; i < 6; i++)
     {
         this.inventoryDisplay[i].addEventListener("click", this.select(i));
     }
 
 }
 Inventory.addItem = function(item) {
-   for (var i = 0; i < 5; i++){
+   for (var i = 0; i < 6; i++){
        if (this.itemList[i] == undefined){
            ThreeUtils.setElementToAtlasImage(
                this.inventoryDisplay[i].image, ThreeUtils.loadAtlas("general"), item.sprite);
@@ -46240,7 +46249,7 @@ Inventory.addItem = function(item) {
    GlobalVariables.setVariable(item + "_OBTAINED")
 }
 Inventory.removeItem = function(item) {
-   for (var i = 0; i < 5; i++){
+   for (var i = 0; i < 6; i++){
        if (Inventory.itemList[i] == item){
            this.inventoryDisplay[i].image.style.visibility = "hidden";
            this.itemList[i] = undefined;
@@ -46253,7 +46262,7 @@ Inventory.select = function(index){
     return function() {
         Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 5px #fff";
         Inventory.inventoryDisplay[index].style.border = "5px solid white";
-        if (index < 4){
+        if (index < 5){
             Inventory.inventoryDisplay[index+1].style.borderTop = "0px";
         }
         Inventory.itemSelected = index;
@@ -46264,7 +46273,7 @@ Inventory.deselect = function(){
     if (index > -1){
         Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 0px #fff";
         Inventory.inventoryDisplay[index].style.border = "5px solid slategrey";
-        if (index < 4){
+        if (index < 5){
             Inventory.inventoryDisplay[index].style.borderBottom = "0px";
             Inventory.inventoryDisplay[index+1].style.borderTop = "5px solid slategrey";
         }
@@ -46554,6 +46563,20 @@ FieldScene.prototype.added = function()
 		action: "collectItem",
 		target: "cardboard_box"
 	})
+	var hammer = this.createClickableSprite("hammer", 400, -200);
+	hammer.addAction({
+		action: "collectItem",
+		target: "hammer"
+	})
+	var speaker = this.createClickableSprite("speaker", 300, -200);
+	speaker.addAction({
+		action: "interact",
+		target: "hammer",
+		setGlobals: ["SPEAKER_BROKEN"],
+		addItem: "magnets"
+	})
+	speaker.addFalse("SPEAKER_BROKEN");
+
 
 	Scene.prototype.added.call(this);
 }
@@ -46897,7 +46920,8 @@ PrisonScene6.prototype.added = function()
 	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison7",
-		globalIsTrue: "CARDBOARD_WALL"
+		globalIsTrue: "CARDBOARD_WALL",
+		addItem: "cardboard"
 	})
 
 	PrisonScene.prototype.added.call(this);
@@ -47398,30 +47422,32 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 1474,
-	height: 956,
+	width: 1496,
+	height: 878,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"balloon":[531,879,60,60],
-	"cardboard":[592,879,60,60],
-	"cardboardbox":[1345,129,60,60],
+	"balloon":[1070,791,60,60],
+	"cardboard":[1135,726,60,60],
+	"cardboardbox":[1359,556,60,60],
 	"crystal":[545,394,281,283],
 	"door":[827,394,256,256],
-	"grad_circle":[401,863,64,64],
-	"grad_r":[466,863,64,64],
+	"grad_circle":[1005,780,64,64],
+	"grad_r":[1070,726,64,64],
+	"hammer":[1196,726,60,60],
 	"heaven_angel":[1084,258,212,467],
-	"heaven_player":[827,651,196,297],
-	"johnson15_sprite":[1345,0,128,128],
+	"heaven_player":[1297,258,196,297],
+	"johnson15_sprite":[899,651,128,128],
 	"keydoor":[0,0,544,862],
-	"lamp":[746,762,60,60],
-	"magnets":[653,879,60,60],
-	"outlet":[746,678,61,83],
+	"lamp":[1135,787,60,60],
+	"magnets":[1297,640,60,60],
+	"outlet":[1297,556,61,83],
+	"speaker":[1345,0,150,150],
 	"timedevice":[545,0,537,393],
-	"timedevice_button1":[0,863,141,93],
-	"timedevice_button2":[142,863,137,75],
-	"timedevice_button3":[280,863,120,76],
-	"timedevice_button4":[1297,258,152,102],
+	"timedevice_button1":[1345,151,141,93],
+	"timedevice_button2":[746,781,137,75],
+	"timedevice_button3":[884,781,120,76],
+	"timedevice_button4":[746,678,152,102],
 	"timedevice_sticky":[1083,0,261,257],
 	"wormhole":[545,678,200,200],
 	},

@@ -25,12 +25,15 @@ Inventory.items = {
     },
     magnets: {
         sprite: "magnets"
+    },
+    hammer: {
+        sprite: "hammer"
     }
 }
 
 Inventory.added = function() {
     var inventory = document.getElementById("inventory");
-    for (var i = 0; i < 5; i++)
+    for (var i = 0; i < 6; i++)
     {
         var li = document.createElement("li");
         inventory.appendChild(li);
@@ -49,14 +52,14 @@ Inventory.added = function() {
         this.inventoryDisplay[i] = li;
         this.itemList[i] = undefined; 
     }
-    for (var i = 0; i < 5; i++)
+    for (var i = 0; i < 6; i++)
     {
         this.inventoryDisplay[i].addEventListener("click", this.select(i));
     }
 
 }
 Inventory.addItem = function(item) {
-   for (var i = 0; i < 5; i++){
+   for (var i = 0; i < 6; i++){
        if (this.itemList[i] == undefined){
            ThreeUtils.setElementToAtlasImage(
                this.inventoryDisplay[i].image, ThreeUtils.loadAtlas("general"), item.sprite);
@@ -68,7 +71,7 @@ Inventory.addItem = function(item) {
    GlobalVariables.setVariable(item + "_OBTAINED")
 }
 Inventory.removeItem = function(item) {
-   for (var i = 0; i < 5; i++){
+   for (var i = 0; i < 6; i++){
        if (Inventory.itemList[i] == item){
            this.inventoryDisplay[i].image.style.visibility = "hidden";
            this.itemList[i] = undefined;
@@ -81,7 +84,7 @@ Inventory.select = function(index){
     return function() {
         Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 5px #fff";
         Inventory.inventoryDisplay[index].style.border = "5px solid white";
-        if (index < 4){
+        if (index < 5){
             Inventory.inventoryDisplay[index+1].style.borderTop = "0px";
         }
         Inventory.itemSelected = index;
@@ -92,7 +95,7 @@ Inventory.deselect = function(){
     if (index > -1){
         Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 0px #fff";
         Inventory.inventoryDisplay[index].style.border = "5px solid slategrey";
-        if (index < 4){
+        if (index < 5){
             Inventory.inventoryDisplay[index].style.borderBottom = "0px";
             Inventory.inventoryDisplay[index+1].style.borderTop = "5px solid slategrey";
         }

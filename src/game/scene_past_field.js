@@ -36,6 +36,20 @@ FieldScene.prototype.added = function()
 		action: "collectItem",
 		target: "cardboard_box"
 	})
+	var hammer = this.createClickableSprite("hammer", 400, -200);
+	hammer.addAction({
+		action: "collectItem",
+		target: "hammer"
+	})
+	var speaker = this.createClickableSprite("speaker", 300, -200);
+	speaker.addAction({
+		action: "interact",
+		target: "hammer",
+		setGlobals: ["SPEAKER_BROKEN"],
+		addItem: "magnets"
+	})
+	speaker.addFalse("SPEAKER_BROKEN");
+
 
 	Scene.prototype.added.call(this);
 }

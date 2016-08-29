@@ -201,6 +201,9 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "triggerScene")
 	{
+		if (action.addItem){
+			Inventory.addItem(Inventory.items[action.addItem]);
+		}
 		SceneManager.changeScene(action.target, SceneManager.ANIM_FORWARD);
 	}
 	else if (action.action == "disable")
@@ -209,6 +212,9 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "interact")
 	{
+		if (action.addItem){
+			Inventory.addItem(Inventory.items[action.addItem]);
+		}
 		if (action.globaIsTrue) {
 			this.interact(action.target, action.setGlobals, action.globalIsTrue);
 		}
