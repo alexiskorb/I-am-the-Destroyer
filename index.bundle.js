@@ -42642,8 +42642,9 @@ module.exports=//NO_FUTURE_TECH
 					"nextNodeId": 17,
 				},
 				{
-					"text": "Did you attend the carnival?",
+					"text": "Did you attend the circus?",
 					"globalIsTrue": "CARNIVAL",
+					"globalIsFalse": "GAINED_BALLOON",
 					"nextNodeId": 18
 				}
 			]
@@ -42715,7 +42716,13 @@ module.exports=//NO_FUTURE_TECH
                 },
                 {
                     "text": "Do you have anything cool with you?",
-					"nextNodeId": 11
+					"nextNodeId": 11,
+					"globalIsFalse": "LAMP_GAINED"
+                },
+				{
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 19,
+					"globalIsTrue": "LAMP_GAINED"
                 }
 			],
 		},
@@ -42745,7 +42752,13 @@ module.exports=//NO_FUTURE_TECH
                 },
                 {
                     "text": "Do you have anything cool with you?",
-					"nextNodeId": 11
+					"nextNodeId": 11,
+					"globalIsFalse": "LAMP_GAINED"
+                },
+				{
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 19,
+					"globalIsTrue": "LAMP_GAINED"
                 }
 			],
 		},
@@ -42760,7 +42773,13 @@ module.exports=//NO_FUTURE_TECH
 				},
                 {
                     "text": "Do you have anything cool with you?",
-					"nextNodeId": 11
+					"nextNodeId": 11,
+					"globalIsFalse": "LAMP_GAINED"
+                },
+				{
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 19,
+					"globalIsTrue": "LAMP_GAINED"
                 }
 			],
 		},
@@ -42773,10 +42792,6 @@ module.exports=//NO_FUTURE_TECH
 					"text": "Another thing...",
 					"nextNodeId": 8				
                 },
-				{
-					"text": "Bye.",
-					"nextNodeId": 8				
-                }
 			],
 		},
         {
@@ -42815,7 +42830,8 @@ module.exports=//NO_FUTURE_TECH
 			"text": "Here you go.", 
 			"responses":[
 				{
-					"text": "[Take lamp.]",		
+					"text": "[Take lamp.]",	
+					"setGlobalTrue": "LAMP_GAINED",	
 					"getItem": "lamp"		
                 },
 			],
@@ -42879,6 +42895,28 @@ module.exports=//NO_FUTURE_TECH
 					"getItem": "balloon",
 					"globalIsTrue": "Balloon_Talk"
 				}
+			]
+		},
+		{
+			"id": 19,
+			"speaker": "future_tech_guy",
+			"text": "No. All I have are those lamps. I already gave you one.",
+			"responses":[
+				{
+					"text": "Can I have another one?",
+					"nextNodeId": 20
+				},
+			]
+		},
+		{
+			"id": 20,
+			"speaker": "future_tech_guy",
+			"text": "Sorry, but I need to save the rest for other customers.",
+			"responses":[
+				{
+					"text": "I had another question.",
+					"nextNodeId": 8
+				},
 			]
 		},
 	]
