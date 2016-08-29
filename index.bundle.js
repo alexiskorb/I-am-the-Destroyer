@@ -46592,6 +46592,10 @@ FieldScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/prophet_conversation.json")
 	})
+	speakerGuy.addFalse("BOX_IN_WORMHOLE");
+	var cardboard_preacher = this.createClickableSprite("cardboard_preacher", 600, 150);
+	cardboard_preacher.addTrue("BOX_IN_WORMHOLE");
+
 	var cardboardBox = this.createClickableSprite("cardboardboxlarge", -430, 200);
 	cardboardBox.addAction({
 		action: "collectItem",
@@ -46605,6 +46609,7 @@ FieldScene.prototype.added = function()
 		addItem: "magnets",
 	})
 	speaker.addFalse("SPEAKER_BROKEN");
+	speaker.addTrue("BOX_IN_WORMHOLE");
 	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
 
 
