@@ -45356,15 +45356,15 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "interact")
 	{
-		if (action.addItem){
-			Inventory.addItem(Inventory.items[action.addItem]);
+		if (!action.addItem){
+			action.addItem = undefined;
 		}
 		if (action.globaIsTrue) {
-			this.interact(action.target, action.setGlobals, action.globalIsTrue);
+			this.interact(action.target, action.setGlobals, action.globalIsTrue, action.addItem);
 		}
 		else{
 			var temp = [];
-			this.interact(action.target, action.setGlobals, temp);
+			this.interact(action.target, action.setGlobals, temp, action.addItem);
 		}
 	}
 	else if (action.action == "win")
@@ -45442,7 +45442,7 @@ ClickTarget.prototype.meetsExistConditions = function()
     return true;
 }
 
-ClickTarget.prototype.interact = function(item, globals, requiredGlobals)
+ClickTarget.prototype.interact = function(item, globals, requiredGlobals, addItem)
 {
 	for (var i = 0; i < requiredGlobals.length; i++){
 		if (!(GlobalVariables.getVariable(requiredGlobals[i]))){
@@ -45455,6 +45455,9 @@ ClickTarget.prototype.interact = function(item, globals, requiredGlobals)
 		Inventory.removeItem(actualItem);
 		for (var i = 0; i < globals.length; i++){
 			GlobalVariables.setVariable(globals[i]);
+		}
+		if(addItem){
+			Inventory.addItem(Inventory.items[addItem]);
 		}
 	}
 }
@@ -46513,6 +46516,14 @@ ConstructionScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/future_tech_conversation.json")
 	})
+	var hammer = this.createClickableSprite("hammer", 300, 320);
+	hammer.addAction({
+		action: "collectItem",
+		target: "hammer"
+	})
+	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
+
+
 
 	Scene.prototype.added.call(this);
 }
@@ -46543,12 +46554,12 @@ FieldScene.prototype = new Scene();
 FieldScene.prototype.added = function()
 {
 	// create characters
-	var investor = this.createClickableSprite("suit_sprite", 100, 0);
+	var investor = this.createClickableSprite("suit_sprite", 50, 0);
 	investor.addAction({
 		action: "triggerConversation",
 		target: require("../data/investor_conversation.json")
 	})
-	var damGuy = this.createClickableSprite("builder_guy", -300, 0);
+	var damGuy = this.createClickableSprite("builder_guy", -300, 70);
 	damGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/dam_builder_conversation.json")
@@ -46558,24 +46569,20 @@ FieldScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/prophet_conversation.json")
 	})
-	var cardboardBox = this.createClickableSprite("cardboardbox", 200, 200);
+	var cardboardBox = this.createClickableSprite("cardboardboxlarge", -430, 200);
 	cardboardBox.addAction({
 		action: "collectItem",
 		target: "cardboard_box"
 	})
-	var hammer = this.createClickableSprite("hammer", 400, -200);
-	hammer.addAction({
-		action: "collectItem",
-		target: "hammer"
-	})
-	var speaker = this.createClickableSprite("speaker", 300, -200);
+	var speaker = this.createClickableSprite("speaker", 480, 200);
 	speaker.addAction({
 		action: "interact",
 		target: "hammer",
 		setGlobals: ["SPEAKER_BROKEN"],
-		addItem: "magnets"
+		addItem: "magnets",
 	})
 	speaker.addFalse("SPEAKER_BROKEN");
+	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
 
 
 	Scene.prototype.added.call(this);
@@ -46732,6 +46739,10 @@ PrisonScene2.prototype.added = function()
 		target: "prison3",
 		globalIsTrue: "DAM_BUILT"
 	});
+	var moat_hungry = this.createClickableSprite("moat_hungry", 0, 300);
+	moat_hungry.addFalse("FOOD_FOR_ANIMALS");
+	var moat_full = this.createClickableSprite("moat_full", 0, 300);
+	moat_full.addTrue("FOOD_FOR_ANIMALS");
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -46791,6 +46802,8 @@ PrisonScene3.prototype.added = function()
 		target: "lamp",
 		setGlobals: ["LAMP_PLUGGED_IN"]
 	})
+	var lamp = this.createClickableSprite("lamplarge", -600, 85);
+	lamp.addTrue("LAMP_PLUGGED_IN");
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -47443,35 +47456,40 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 1560,
-	height: 878,
+	width: 1921,
+	height: 1528,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"balloon":[746,808,60,60],
-	"builder_guy":[1422,254,124,288],
-	"cardboard":[1498,84,60,60],
-	"cardboardbox":[1496,145,60,60],
-	"crystal":[545,394,281,283],
-	"grad_circle":[746,678,64,64],
-	"grad_r":[746,743,64,64],
-	"hammer":[1167,556,60,60],
-	"heaven_angel":[827,394,212,467],
-	"heaven_player":[1083,258,196,297],
-	"keydoor":[0,0,544,862],
-	"lamp":[1167,617,60,60],
-	"magnets":[1167,678,60,60],
-	"normal_guy_sprite":[1280,428,124,280],
-	"outlet":[1498,0,61,83],
-	"speaker":[1345,103,150,150],
-	"suit_sprite":[1040,556,126,280],
-	"timedevice":[545,0,537,393],
-	"timedevice_button1":[1280,258,141,93],
-	"timedevice_button2":[1280,352,137,75],
-	"timedevice_button3":[1405,543,120,76],
-	"timedevice_button4":[1345,0,152,102],
-	"timedevice_sticky":[1083,0,261,257],
-	"wormhole":[545,678,200,200],
+	"balloon":[0,1468,60,60],
+	"builder_guy":[1167,1237,124,288],
+	"cardboard":[61,1468,60,60],
+	"cardboardbox":[779,1458,60,60],
+	"cardboardboxlarge":[153,1365,150,150],
+	"crystal":[545,896,281,283],
+	"grad_circle":[455,1365,64,64],
+	"grad_r":[714,1438,64,64],
+	"hammer":[840,1458,60,60],
+	"heaven_angel":[827,896,212,467],
+	"heaven_player":[1685,703,196,297],
+	"keydoor":[0,502,544,862],
+	"lamp":[901,1458,60,60],
+	"lampbig":[1083,502,300,734],
+	"lamplarge":[1384,502,300,734],
+	"magnets":[962,1448,60,60],
+	"moat_full":[0,0,1920,250],
+	"moat_hungry":[0,251,1920,250],
+	"normal_guy_sprite":[1292,1237,124,280],
+	"outlet":[949,1364,61,83],
+	"speaker":[304,1365,150,150],
+	"suit_sprite":[1040,1237,126,280],
+	"timedevice":[545,502,537,393],
+	"timedevice_button1":[807,1364,141,93],
+	"timedevice_button2":[455,1438,137,75],
+	"timedevice_button3":[593,1438,120,76],
+	"timedevice_button4":[0,1365,152,102],
+	"timedevice_sticky":[545,1180,261,257],
+	"wormhole":[1685,502,200,200],
 	},
 },
 "heaven":

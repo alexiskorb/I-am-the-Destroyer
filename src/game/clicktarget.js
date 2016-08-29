@@ -212,15 +212,15 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "interact")
 	{
-		if (action.addItem){
-			Inventory.addItem(Inventory.items[action.addItem]);
+		if (!action.addItem){
+			action.addItem = undefined;
 		}
 		if (action.globaIsTrue) {
-			this.interact(action.target, action.setGlobals, action.globalIsTrue);
+			this.interact(action.target, action.setGlobals, action.globalIsTrue, action.addItem);
 		}
 		else{
 			var temp = [];
-			this.interact(action.target, action.setGlobals, temp);
+			this.interact(action.target, action.setGlobals, temp, action.addItem);
 		}
 	}
 	else if (action.action == "win")
@@ -298,7 +298,7 @@ ClickTarget.prototype.meetsExistConditions = function()
     return true;
 }
 
-ClickTarget.prototype.interact = function(item, globals, requiredGlobals)
+ClickTarget.prototype.interact = function(item, globals, requiredGlobals, addItem)
 {
 	for (var i = 0; i < requiredGlobals.length; i++){
 		if (!(GlobalVariables.getVariable(requiredGlobals[i]))){
@@ -311,6 +311,9 @@ ClickTarget.prototype.interact = function(item, globals, requiredGlobals)
 		Inventory.removeItem(actualItem);
 		for (var i = 0; i < globals.length; i++){
 			GlobalVariables.setVariable(globals[i]);
+		}
+		if(addItem){
+			Inventory.addItem(Inventory.items[addItem]);
 		}
 	}
 }

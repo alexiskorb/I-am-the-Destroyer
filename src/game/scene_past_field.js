@@ -16,12 +16,12 @@ FieldScene.prototype = new Scene();
 FieldScene.prototype.added = function()
 {
 	// create characters
-	var investor = this.createClickableSprite("suit_sprite", 100, 0);
+	var investor = this.createClickableSprite("suit_sprite", 50, 0);
 	investor.addAction({
 		action: "triggerConversation",
 		target: require("../data/investor_conversation.json")
 	})
-	var damGuy = this.createClickableSprite("builder_guy", -300, 0);
+	var damGuy = this.createClickableSprite("builder_guy", -300, 70);
 	damGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/dam_builder_conversation.json")
@@ -31,24 +31,20 @@ FieldScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/prophet_conversation.json")
 	})
-	var cardboardBox = this.createClickableSprite("cardboardbox", 200, 200);
+	var cardboardBox = this.createClickableSprite("cardboardboxlarge", -430, 200);
 	cardboardBox.addAction({
 		action: "collectItem",
 		target: "cardboard_box"
 	})
-	var hammer = this.createClickableSprite("hammer", 400, -200);
-	hammer.addAction({
-		action: "collectItem",
-		target: "hammer"
-	})
-	var speaker = this.createClickableSprite("speaker", 300, -200);
+	var speaker = this.createClickableSprite("speaker", 480, 200);
 	speaker.addAction({
 		action: "interact",
 		target: "hammer",
 		setGlobals: ["SPEAKER_BROKEN"],
-		addItem: "magnets"
+		addItem: "magnets",
 	})
 	speaker.addFalse("SPEAKER_BROKEN");
+	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
 
 
 	Scene.prototype.added.call(this);

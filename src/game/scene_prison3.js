@@ -45,6 +45,8 @@ PrisonScene3.prototype.added = function()
 		target: "lamp",
 		setGlobals: ["LAMP_PLUGGED_IN"]
 	})
+	var lamp = this.createClickableSprite("lamplarge", -600, 85);
+	lamp.addTrue("LAMP_PLUGGED_IN");
 
 	PrisonScene.prototype.added.call(this);
 }

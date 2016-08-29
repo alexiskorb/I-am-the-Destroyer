@@ -37,6 +37,10 @@ PrisonScene2.prototype.added = function()
 		target: "prison3",
 		globalIsTrue: "DAM_BUILT"
 	});
+	var moat_hungry = this.createClickableSprite("moat_hungry", 0, 300);
+	moat_hungry.addFalse("FOOD_FOR_ANIMALS");
+	var moat_full = this.createClickableSprite("moat_full", 0, 300);
+	moat_full.addTrue("FOOD_FOR_ANIMALS");
 
 	PrisonScene.prototype.added.call(this);
 }

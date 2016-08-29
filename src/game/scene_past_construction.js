@@ -31,6 +31,14 @@ ConstructionScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/future_tech_conversation.json")
 	})
+	var hammer = this.createClickableSprite("hammer", 300, 320);
+	hammer.addAction({
+		action: "collectItem",
+		target: "hammer"
+	})
+	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
+
+
 
 	Scene.prototype.added.call(this);
 }
