@@ -223,6 +223,11 @@ ClickTarget.prototype.triggerAction = function(action)
 			this.interact(action.target, action.setGlobals, temp);
 		}
 	}
+	else if (action.action == "win")
+	{
+		var winElem = document.getElementById("credits");
+		winElem.style.visibility = "visible";
+	}
 }
 
 ClickTarget.prototype.actionMeetsConditionals = function(action)
