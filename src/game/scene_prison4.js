@@ -19,6 +19,11 @@ PrisonScene4.prototype.added = function()
 {
 	var atlas = ThreeUtils.loadAtlas("prison1");
 	
+	this.ffx = -650;
+	this.ffy = -88;
+	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
+	this.crystalBob = 0;
+
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
@@ -41,6 +46,8 @@ PrisonScene4.prototype.added = function()
 
 PrisonScene4.prototype.update = function()
 {
+	this.crystalBob += bmacSdk.deltaSec;
+	this.crystalSprite.mesh.position.y = this.ffy + Math.cos(this.crystalBob) * 20 - 10;
 	PrisonScene.prototype.update.call(this);
 }
 
