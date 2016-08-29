@@ -86,11 +86,11 @@
 			"responses": [
 				{
 					"text": "What are you doing here?",
-					"nextNodeId": 7
+					"nextNodeId": 8
 				},
                 {
 					"text": "Can I get an autograph?",
-					"nextNodeId": 2
+					"nextNodeId": 37
 				}
 			]
 		},
@@ -105,7 +105,7 @@
 				},
                 {
 					"text": "Can I get an autograph?",
-					"nextNodeId": 2
+					"nextNodeId": 37
 				}
 			]
 		},
@@ -183,7 +183,7 @@
 				},
                 {
 					"text": "Tell me about \"Farmer and Sons\"",
-					"nextNodeId": 10
+					"nextNodeId": 14
 				}
 			]
 		},
@@ -532,6 +532,17 @@
 					"text": "Yay!"
 				}
 			]	
-		}
+		},
+        {
+			"id": 37,
+			"speaker": "investor",
+			"text": "No.",
+			"responses": [
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 8
+				}
+			]
+		},
 	]
 }

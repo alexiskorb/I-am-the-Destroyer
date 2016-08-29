@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // load the SDK
 window.bmacSdk = require("./src/sdk/engine");
@@ -43046,12 +43046,12 @@ module.exports=
 				{
 					"text": "I don't think they're fed enough.",
 					"nextNodeId": 11,
-					"globalIsFalse": "FoodForAnimals"
+					"globalIsFalse": "FOOD_FOR_ANIMALS"
 				},
 				{
 					"text": "I don't think they're fed enough.",
 					"nextNodeId": 31,
-					"globalIsTrue": "FoodForAnimals"
+					"globalIsTrue": "FOOD_FOR_ANIMALS"
 				},
 				{
 					"text": "About guards with pets...",
@@ -43477,11 +43477,11 @@ module.exports=//CARNIVAL
 			"responses": [
 				{
 					"text": "What are you doing here?",
-					"nextNodeId": 7
+					"nextNodeId": 8
 				},
                 {
 					"text": "Can I get an autograph?",
-					"nextNodeId": 2
+					"nextNodeId": 37
 				}
 			]
 		},
@@ -43496,7 +43496,7 @@ module.exports=//CARNIVAL
 				},
                 {
 					"text": "Can I get an autograph?",
-					"nextNodeId": 2
+					"nextNodeId": 37
 				}
 			]
 		},
@@ -43574,7 +43574,7 @@ module.exports=//CARNIVAL
 				},
                 {
 					"text": "Tell me about \"Farmer and Sons\"",
-					"nextNodeId": 10
+					"nextNodeId": 14
 				}
 			]
 		},
@@ -43923,7 +43923,18 @@ module.exports=//CARNIVAL
 					"text": "Yay!"
 				}
 			]	
-		}
+		},
+        {
+			"id": 37,
+			"speaker": "investor",
+			"text": "No.",
+			"responses": [
+				{
+					"text": "What are you doing here?",
+					"nextNodeId": 8
+				}
+			]
+		},
 	]
 }
 
@@ -46666,6 +46677,7 @@ PrisonScene1.prototype.update = function()
 		this.forcefieldSprites[i].position.set(
 			this.ffx + (Math.random()-0.5)*4*i, this.ffy + (Math.random()-0.5)*4*i,
 			this.forcefieldSprites[i].position.z);
+		this.forcefieldSprites[i].visible = !GlobalVariables.getVariable("NO_FUTURE_TECH");
 	}
 
 	this.crystalBob += bmacSdk.deltaSec;
@@ -46711,7 +46723,7 @@ PrisonScene2.prototype.added = function()
 	doorClickTarget.addAction({
 		action: "triggerScene",
 		target: "prison3",
-		globalIsTrue: "FoodForAnimals"
+		globalIsTrue: "FOOD_FOR_ANIMALS"
 	});
 	doorClickTarget.addAction({
 		action: "triggerScene",
@@ -47421,34 +47433,33 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 1558,
-	height: 962,
+	width: 1560,
+	height: 878,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"balloon":[746,678,60,60],
-	"builder_guy":[1211,512,124,288],
-	"cardboard":[593,879,60,60],
-	"cardboardbox":[746,739,60,60],
+	"balloon":[746,808,60,60],
+	"builder_guy":[1422,254,124,288],
+	"cardboard":[1498,84,60,60],
+	"cardboardbox":[1496,145,60,60],
 	"crystal":[545,394,281,283],
-	"door":[827,394,256,256],
-	"grad_circle":[401,863,64,64],
-	"grad_r":[466,863,64,64],
-	"hammer":[1236,258,60,60],
-	"heaven_angel":[1345,0,212,467],
-	"heaven_player":[827,651,196,297],
+	"grad_circle":[746,678,64,64],
+	"grad_r":[746,743,64,64],
+	"hammer":[1167,556,60,60],
+	"heaven_angel":[827,394,212,467],
+	"heaven_player":[1083,258,196,297],
 	"keydoor":[0,0,544,862],
-	"lamp":[654,879,60,60],
-	"magnets":[746,800,60,60],
-	"normal_guy_sprite":[1336,468,124,280],
-	"outlet":[531,879,61,83],
-	"speaker":[1084,361,150,150],
-	"suit_sprite":[1084,512,126,280],
+	"lamp":[1167,617,60,60],
+	"magnets":[1167,678,60,60],
+	"normal_guy_sprite":[1280,428,124,280],
+	"outlet":[1498,0,61,83],
+	"speaker":[1345,103,150,150],
+	"suit_sprite":[1040,556,126,280],
 	"timedevice":[545,0,537,393],
-	"timedevice_button1":[0,863,141,93],
-	"timedevice_button2":[142,863,137,75],
-	"timedevice_button3":[280,863,120,76],
-	"timedevice_button4":[1083,258,152,102],
+	"timedevice_button1":[1280,258,141,93],
+	"timedevice_button2":[1280,352,137,75],
+	"timedevice_button3":[1405,543,120,76],
+	"timedevice_button4":[1345,0,152,102],
 	"timedevice_sticky":[1083,0,261,257],
 	"wormhole":[545,678,200,200],
 	},
@@ -49192,4 +49203,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":31,"./Atlas.js":40,"three":2}]},{},[1]);
+},{"../atlases":31,"./Atlas.js":40,"three":2}]},{},[1])

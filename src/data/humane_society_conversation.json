@@ -161,12 +161,12 @@
 				{
 					"text": "I don't think they're fed enough.",
 					"nextNodeId": 11,
-					"globalIsFalse": "FoodForAnimals"
+					"globalIsFalse": "FOOD_FOR_ANIMALS"
 				},
 				{
 					"text": "I don't think they're fed enough.",
 					"nextNodeId": 31,
-					"globalIsTrue": "FoodForAnimals"
+					"globalIsTrue": "FOOD_FOR_ANIMALS"
 				},
 				{
 					"text": "About guards with pets...",
