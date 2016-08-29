@@ -12,12 +12,7 @@
 		{
 			"id": "future_tech_guy",
 			"displayName": "Tom Psion",
-			"sprite": "johnson15"
-		},
-		{
-			"id": "player",
-			"displayName": "Me",
-			"sprite": "player"
+			"sprite": "suit"
 		}
 	],
 

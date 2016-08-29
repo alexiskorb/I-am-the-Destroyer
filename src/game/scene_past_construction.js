@@ -16,17 +16,17 @@ ConstructionScene.prototype = new Scene();
 ConstructionScene.prototype.added = function()
 {
 	// create characters
-	var doorGuy = this.createClickableSprite("johnson15_sprite", 200, -200);
+	var doorGuy = this.createClickableSprite("builder_guy", 200, 200);
 	doorGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/johnson_xv_conversation.json")
 	})
-	var humaneGuy = this.createClickableSprite("johnson15_sprite", 300, -300);
+	var humaneGuy = this.createClickableSprite("normal_guy_sprite", -500, 300);
 	humaneGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/humane_society_conversation.json")
 	})
-	var futureTechGuy = this.createClickableSprite("johnson15_sprite", 400, -200);
+	var futureTechGuy = this.createClickableSprite("suit_sprite", -100, 100);
 	futureTechGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/future_tech_conversation.json")

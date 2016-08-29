@@ -9,12 +9,7 @@
 		{
 			"id": "investor",
 			"displayName": "Anthony Calahan",
-			"sprite": "johnson15"
-		},
-		{
-			"id": "player",
-			"displayName": "Me",
-			"sprite": "player"
+			"sprite": "suit"
 		}
 	],
 

@@ -13,12 +13,7 @@
 		{
 			"id": "johnson15",
 			"displayName": "Angel Johnson XV",
-			"sprite": "johnson15"
-		},
-		{
-			"id": "player",
-			"displayName": "Me",
-			"sprite": "player"
+			"sprite": "builder"
 		}
 	],
 
