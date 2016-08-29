@@ -31,6 +31,11 @@ ConstructionScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/future_tech_conversation.json")
 	})
+	var tech_table = this.createClickableSprite("tech_table", -100, 100);
+	tech_table.addFalse("NO_FUTURE_TECH");
+	var balloon = this.createClickableSprite("balloonLarge", -40, -20);
+	balloon.addTrue("CARNIVAL");
+	balloon.addFalse("GAINED_BALLOON")
 	var hammer = this.createClickableSprite("hammer", 300, 320);
 	hammer.addAction({
 		action: "collectItem",

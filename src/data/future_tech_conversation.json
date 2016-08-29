@@ -270,7 +270,8 @@
 			"responses":[
 				{
 					"text": "Sure!",
-					"getItem": "balloon"
+					"getItem": "balloon",
+					"setGlobalTrue": "GAINED_BALLOON"
 				},
 				{
 					"text": "Only idiots would be impressed by balloons.",

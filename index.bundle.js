@@ -42867,7 +42867,8 @@ module.exports=//NO_FUTURE_TECH
 			"responses":[
 				{
 					"text": "Sure!",
-					"getItem": "balloon"
+					"getItem": "balloon",
+					"setGlobalTrue": "GAINED_BALLOON"
 				},
 				{
 					"text": "Only idiots would be impressed by balloons.",
@@ -46533,6 +46534,11 @@ ConstructionScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/future_tech_conversation.json")
 	})
+	var tech_table = this.createClickableSprite("tech_table", -100, 100);
+	tech_table.addFalse("NO_FUTURE_TECH");
+	var balloon = this.createClickableSprite("balloonLarge", -40, -20);
+	balloon.addTrue("CARNIVAL");
+	balloon.addFalse("GAINED_BALLOON")
 	var hammer = this.createClickableSprite("hammer", 300, 320);
 	hammer.addAction({
 		action: "collectItem",
@@ -47575,52 +47581,55 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 3357,
-	height: 2603,
+	width: 3267,
+	height: 2624,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"balloon":[1653,1281,60,60],
+	"balloon":[384,2564,60,60],
+	"balloonLarge":[1723,1281,72,128],
 	"brickwall":[2467,0,544,862],
-	"builder_guy":[689,2170,124,288],
-	"cardboard":[814,2140,60,60],
-	"cardboardbox":[1653,1342,60,60],
-	"cardboardboxlarge":[538,2170,150,150],
+	"builder_guy":[975,2144,124,288],
+	"cardboard":[445,2564,60,60],
+	"cardboard_preacher":[820,1912,154,319],
+	"cardboardbox":[506,2564,60,60],
+	"cardboardboxlarge":[646,2196,150,150],
 	"cardboardWall":[1832,863,544,862],
 	"cardboardWallBroken":[1526,1726,544,855],
-	"crystal":[0,2306,281,283],
+	"crystal":[538,1912,281,283],
 	"empty_pit":[0,880,1030,230],
 	"grad_circle":[1697,804,64,64],
 	"grad_r":[1762,804,64,64],
-	"guard":[3012,0,344,800],
+	"guard":[2922,863,344,800],
 	"guardandtiger":[0,1111,980,800],
-	"hammer":[1714,1281,60,60],
-	"heaven_angel":[2922,1598,212,467],
-	"heaven_player":[282,2306,196,297],
+	"hammer":[567,2564,60,60],
+	"heaven_angel":[3012,0,212,467],
+	"heaven_player":[1526,1281,196,297],
 	"keydoor":[2377,863,544,862],
 	"labyrinth_sign":[1031,880,800,400],
-	"lamp":[604,2405,60,60],
-	"lampbig":[2922,863,300,734],
-	"lamplarge":[2609,1726,300,734],
-	"magnets":[814,2201,60,60],
+	"lamp":[1723,1410,60,60],
+	"lampbig":[2609,1726,300,734],
+	"lamplarge":[2922,1664,300,734],
+	"magnets":[646,2498,60,60],
 	"moat_full":[0,0,1920,250],
 	"moat_hungry":[0,251,1920,250],
-	"normal_guy_sprite":[479,2321,124,280],
-	"outlet":[604,2321,61,83],
+	"normal_guy_sprite":[1100,2144,124,280],
+	"outlet":[538,2196,61,83],
 	"pit_bridge":[0,502,1263,226],
 	"pit_edge":[1264,603,400,150],
 	"pit_magnets":[0,729,1263,150],
 	"portcullis":[1921,0,545,862],
 	"puddle":[1264,502,600,100],
-	"speaker":[800,1912,150,150],
+	"speaker":[646,2347,150,150],
 	"steelwall":[2071,1726,537,852],
-	"suit_sprite":[1526,1281,126,280],
+	"suit_sprite":[797,2232,126,280],
+	"tech_table":[0,2306,383,291],
 	"timedevice":[0,1912,537,393],
 	"timedevice_button1":[1417,754,141,93],
 	"timedevice_button2":[1559,804,137,75],
-	"timedevice_button3":[800,2063,120,76],
+	"timedevice_button3":[1526,1579,120,76],
 	"timedevice_button4":[1264,754,152,102],
-	"timedevice_sticky":[538,1912,261,257],
+	"timedevice_sticky":[384,2306,261,257],
 	"woodwall":[981,1281,544,862],
 	"wormhole":[1665,603,200,200],
 	},
