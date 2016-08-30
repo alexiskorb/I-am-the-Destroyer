@@ -44237,12 +44237,16 @@ module.exports=//GRAVITY_LIGHTER
 			"responses":[
 				{
 					"text": "Who are you?",
-					"nextNodeId": 2,
+					"nextNodeId": 2
 				},
 				{
 					"text": "What are you doing?",
 					"nextNodeId": 4,
-					"globalIsFalse": "BRICK_WALL" 
+					"globalIsFalse": "BRICK_WALL"
+				},
+				{
+					"text": "You remind me of someone.",
+					"nextNodeId": 13
 				},
 				{
 					"text": "So, how's the wall going?",
@@ -44258,17 +44262,8 @@ module.exports=//GRAVITY_LIGHTER
 				},
 				{
 					"text": "So, how's the wall going?",
-					"globalIsTrue": 32,
-					"globalIsFalse": "CARDBOARD_WALL", 
-				},
-				{
-					"text": "You remind me of someone.",
-					"nextNodeId": 13
-				},
-				{
-					"text": "About the labyrinth and door...",
-					"globalIsTrue": "DOOR_TALK",
-					"nextNodeId": 36
+					"nextNodeId": 32,
+					"globalIsTrue": "CARDBOARD_WALL"
 				},
 				{			
 					"text": "Which one's your cousin working on again?",
@@ -44279,6 +44274,12 @@ module.exports=//GRAVITY_LIGHTER
 					"text": "Which one's your cousin working on again?",
 					"globalIsTrue": "BAD_DOOR",
 					"nextNodeId": 48
+				},
+				{
+					"text": "How's the rest of the construction going?",
+					"nextNodeId": 51,
+					"globalIsTrue": "BRICK_WALL",
+					"globalIsFalse": "DOOR_TALK"
 				},
 			]
 		},
@@ -44689,7 +44690,7 @@ module.exports=//GRAVITY_LIGHTER
 			"responses":[
 				{
 					"text": "Tell me about the wall.",
-					"nextNodeId": 6
+					"nextNodeId": 6,
 				},
 				{
 					"text": "Tell me about the labyrinth.",
@@ -44729,9 +44730,9 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "I don't have the time to do both the door and the labyrinth. So, I was thinking I'd have my cousin do one for me.",
 			"responses":[
 				{
-					"setGlobalTrue": "DOOR_TALK",
 					"text": "Your cousin?",
 					"nextNodeId": 37,
+					"setGlobalTrue": "DOOR_TALK",
 				},
 			]
 		},
@@ -44889,6 +44890,21 @@ module.exports=//GRAVITY_LIGHTER
 				{ 
 					"text": "That sounds pretty cool.",
 					"nextNodeId": 6,
+				},
+			]
+		},
+		{
+			"id": 51,
+			"speaker": "johnson15",
+			"text": "I'm working on a labyrinth and a keypad door.",
+			"responses":[
+				{
+					"text": "Tell me about the labyrinth.",
+					"nextNodeId": 34
+				},
+				{
+					"text": "Tell me about the keypad door",
+					"nextNodeId": 35
 				},
 			]
 		},
