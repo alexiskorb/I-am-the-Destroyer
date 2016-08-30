@@ -96,7 +96,7 @@ ClickTarget.prototype.update = function()
 ClickTarget.prototype.isPointInBounds = function(point)
 {
 	if (!this.enabled) return false;
-	if (this.actions.length == 0) return false;
+	if (!this.hasValidAction()) return false;
 	var point = new THREE.Vector3(point.x, point.y, 0);
 	this.getBoundingBox();
 	point.z = (this.bounds.min.z + this.bounds.max.z) / 2;
@@ -181,6 +181,18 @@ ClickTarget.prototype.trigger = function()
 	}
 }
 
+ClickTarget.prototype.hasValidAction = function()
+{
+	for (var i = 0; i < this.actions.length; i++)
+	{
+		if (this.actionMeetsConditionals(this.actions[i]))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 ClickTarget.prototype.triggerAction = function(action)
 {
 	this.executingAction = action;
@@ -252,6 +264,10 @@ ClickTarget.prototype.triggerAction = function(action)
 
 ClickTarget.prototype.actionMeetsConditionals = function(action)
 {
+	if (action.disable && !GlobalVariables.getVariable(action.disable))
+	{
+		return false;
+	}
 	if (action.globalIsFalse)
 	{
 		if (action.globalIsFalse instanceof Array)
