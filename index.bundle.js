@@ -43369,7 +43369,7 @@ module.exports=
 		{
 			"id": 16,
 			"speaker": "humane_society_guy",
-			"text": "Yep will do.",
+			"text": "Yep will do. It should make things nicer for the builders too. A well-fed animal never bothers anyone.",
 			"responses":[
 				{
 					"text": "Gotta protect those anmials.",
@@ -43588,7 +43588,7 @@ module.exports=
 		{
 			"id": 31,
 			"speaker": "humane_society_guy",
-			"text": "And that's why I'm going to get them more food like I said.",
+			"text": "And that's why I'm going to get them more food like I said. Then, they'll be well-fed and won't bother anybody.",
 			"responses":[
 				{
 					"text": "I had a different question.",
@@ -46254,7 +46254,7 @@ InfoBox.info =
         data:
         [
             {
-                text: "Yes. That's me.",
+                text: "Yes. That's me, the dark crystal.",
             },
             {
                 text: "More precisely, it's the self that I can project across time while I remain trapped in the prison.",
@@ -46633,6 +46633,11 @@ InfoBox.info =
                 text: "The lamp is draining all the electricity from the door. I guess they have a power shortage issue.",
                 isTrue: ["LAMP_PLUGGED_IN"],
                 isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "The lamp is plugged in, but doesn't seem to affect the door at all. I guess they have plenty of electricity.",
+                isTrue: ["LAMP_PLUGGED_IN", "DAM_BUILT"], 
+                isFalse: []
             },
         ]
     },
