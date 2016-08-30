@@ -84,7 +84,7 @@ InfoBox.info =
         data:
         [
             {
-                text: "Yes. That's me.",
+                text: "Yes. That's me, the dark crystal.",
             },
             {
                 text: "More precisely, it's the self that I can project across time while I remain trapped in the prison.",
@@ -463,6 +463,11 @@ InfoBox.info =
                 text: "The lamp is draining all the electricity from the door. I guess they have a power shortage issue.",
                 isTrue: ["LAMP_PLUGGED_IN"],
                 isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "The lamp is plugged in, but doesn't seem to affect the door at all. I guess they have plenty of electricity.",
+                isTrue: ["LAMP_PLUGGED_IN", "DAM_BUILT"], 
+                isFalse: []
             },
         ]
     },

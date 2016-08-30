@@ -284,7 +284,7 @@
 		{
 			"id": 16,
 			"speaker": "humane_society_guy",
-			"text": "Yep will do.",
+			"text": "Yep will do. It should make things nicer for the builders too. A well-fed animal never bothers anyone.",
 			"responses":[
 				{
 					"text": "Gotta protect those anmials.",
@@ -503,7 +503,7 @@
 		{
 			"id": 31,
 			"speaker": "humane_society_guy",
-			"text": "And that's why I'm going to get them more food like I said.",
+			"text": "And that's why I'm going to get them more food like I said. Then, they'll be well-fed and won't bother anybody.",
 			"responses":[
 				{
 					"text": "I had a different question.",
