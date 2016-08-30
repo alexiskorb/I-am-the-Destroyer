@@ -45390,6 +45390,10 @@ Scene.prototype.update = function()
 		{
 			this.clickTargets[i].disable();
 		}
+		if (this.clickTargets[i].isValidYet())
+		{
+			this.clickTargets[i].enable();
+		}
 	}
 }
 
@@ -45496,6 +45500,7 @@ var ClickTarget = function(mesh)
 	this.existConditionsTrue = [];
 	this.existConditionsFalse = [];
 	this.permanentFalse = undefined;
+	this.removeUntil = undefined;
 	this.conditional = false;
 }
 
@@ -45654,7 +45659,7 @@ ClickTarget.prototype.triggerAction = function(action)
 
 	if (action.action == "triggerTimeDevice")
 	{
-		SceneManager.showTimeDevice();
+		SceneManager.showTimeDevice(action.disable);
 	}
 	else if (action.action == "collectItem")
 	{
@@ -45804,6 +45809,15 @@ ClickTarget.prototype.isPermanentFalse = function()
 {
 	if (this.permanentFalse){
 		if (GlobalVariables.getVariable(this.permanentFalse)){
+			return true;
+		}
+	}
+	return false;
+}
+ClickTarget.prototype.isValidYet = function()
+{
+	if (this.removeUntil){
+		if (GlobalVariables.getVariable(this.removeUntil)){
 			return true;
 		}
 	}
@@ -47239,6 +47253,11 @@ IndexScene.prototype.added = function()
 	// create crystal
 	this.crystal = this.createClickableSprite("crystal", 0, 0);
 	this.crystal.addAction({
+		action: "miscellaneous",
+		setGlobals: ["PASSED_INTRO"],
+		continue: true
+	})
+	this.crystal.addAction({
 		action: "triggerScene",
 		target: "prison1"
 	})
@@ -48090,7 +48109,8 @@ TimeDeviceScene.prototype.added = function()
 	// create device base
 	this.deviceBase = this.createClickableSprite("timedevice", 0, 0);
 	this.deviceBase.addAction({
-		action: "triggerTimeDevice"
+		action: "triggerTimeDevice",
+		disable: "PASSED_INTRO"
 	})
 	this.deviceBase.permanentFalse = "YOU_WIN";
 	this.deviceBase.mesh.position.z = -15;
@@ -48423,9 +48443,11 @@ SceneManager.update = function()
 	}
 }
 
-SceneManager.showTimeDevice = function()
+SceneManager.showTimeDevice = function(disable)
 {
-	this.scenes.timeDevice.tweenOn();
+	if(!disable || GlobalVariables.getVariable(disable)) {
+		this.scenes.timeDevice.tweenOn();
+	}
 }
 
 /**

@@ -24,7 +24,8 @@ TimeDeviceScene.prototype.added = function()
 	// create device base
 	this.deviceBase = this.createClickableSprite("timedevice", 0, 0);
 	this.deviceBase.addAction({
-		action: "triggerTimeDevice"
+		action: "triggerTimeDevice",
+		disable: "PASSED_INTRO"
 	})
 	this.deviceBase.permanentFalse = "YOU_WIN";
 	this.deviceBase.mesh.position.z = -15;

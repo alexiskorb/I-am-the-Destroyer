@@ -139,9 +139,11 @@ SceneManager.update = function()
 	}
 }
 
-SceneManager.showTimeDevice = function()
+SceneManager.showTimeDevice = function(disable)
 {
-	this.scenes.timeDevice.tweenOn();
+	if(!disable || GlobalVariables.getVariable(disable)) {
+		this.scenes.timeDevice.tweenOn();
+	}
 }
 
 /**

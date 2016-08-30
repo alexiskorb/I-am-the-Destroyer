@@ -50,6 +50,10 @@ Scene.prototype.update = function()
 		{
 			this.clickTargets[i].disable();
 		}
+		if (this.clickTargets[i].isValidYet())
+		{
+			this.clickTargets[i].enable();
+		}
 	}
 }
 

@@ -24,6 +24,11 @@ IndexScene.prototype.added = function()
 	// create crystal
 	this.crystal = this.createClickableSprite("crystal", 0, 0);
 	this.crystal.addAction({
+		action: "miscellaneous",
+		setGlobals: ["PASSED_INTRO"],
+		continue: true
+	})
+	this.crystal.addAction({
 		action: "triggerScene",
 		target: "prison1"
 	})
