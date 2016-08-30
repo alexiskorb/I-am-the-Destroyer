@@ -29,15 +29,10 @@ PrisonScene8.prototype.added = function()
 	})
 
 	// create door
-	var doorClickTarget = this.createClickableSprite("portcullis", 0, 0);
+	var doorClickTarget = this.createClickableSprite("portcullis", 0, 0); 
 	doorClickTarget.addAction({
 		action: "showInfoBox",
 		target: "portcullis",
-		continue: true
-	})
-	doorClickTarget.addAction({
-		action: "miscellaneous",
-		setGlobals: ["YOU_WIN"],
 		continue: true
 	})
 	doorClickTarget.addAction({

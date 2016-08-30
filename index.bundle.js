@@ -45711,6 +45711,11 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "win")
 	{
+		if (action.globalIsTrue){
+			if (GlobalVariables.getVariable(action.globalIsTrue)){
+				GlobalVariables.setVariable("YOU_WIN");
+			}
+		}
 		SceneManager.changeScene("win", SceneManager.ANIM_FORWARD);
 		var winElem = document.getElementById("credits");
 		winElem.style.visibility = "visible";
@@ -48059,15 +48064,10 @@ PrisonScene8.prototype.added = function()
 	})
 
 	// create door
-	var doorClickTarget = this.createClickableSprite("portcullis", 0, 0);
+	var doorClickTarget = this.createClickableSprite("portcullis", 0, 0); 
 	doorClickTarget.addAction({
 		action: "showInfoBox",
 		target: "portcullis",
-		continue: true
-	})
-	doorClickTarget.addAction({
-		action: "miscellaneous",
-		setGlobals: ["YOU_WIN"],
 		continue: true
 	})
 	doorClickTarget.addAction({
