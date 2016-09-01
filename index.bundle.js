@@ -43989,7 +43989,7 @@ module.exports=//GRAVITY_LIGHTER
 				},
 				{
 					"text": "So, how's the wall going?",
-					"globalIsTrue": 32,
+					"nextNodeId": 32,
 					"globalIsFalse": "CARDBOARD_WALL", 
 				},
 				{
@@ -45788,12 +45788,13 @@ module.exports = GlobalVariables;
 
 GlobalVariables.getVariable = function(key)
 {
-	return !!this.Variables[key.toLowerCase()];
+	return key && !!this.Variables[key.toLowerCase()];
 }
 
 GlobalVariables.setVariable = function(key)
 {
-	if (key instanceof Array)
+	if (!key) return
+	else if (key instanceof Array)
 	{
 		for (var i = 0; i < key.length; i++)
 		{
@@ -45808,7 +45809,8 @@ GlobalVariables.setVariable = function(key)
 
 GlobalVariables.unsetVariable = function(key)
 {
-	if (key instanceof Array)
+	if (!key) return
+	else if (key instanceof Array)
 	{
 		for (var i = 0; i < key.length; i++)
 		{
@@ -46089,6 +46091,14 @@ InfoBox.info =
         cycle: 0,
         data:
         [
+            {
+                text: "I have to get past the guard somehow.",
+                isTrue: ["CARNIVAL", "ANIMAL_REST"],
+            },
+            {
+                text: "I don't have much of a shot at fisticuffs in this form.",
+                isTrue: ["CARNIVAL", "ANIMAL_REST"],
+            },
             {
                 text: "I have to get past the guard and that pet tiger somehow.",
                 isTrue: ["CARNIVAL"],
@@ -46890,6 +46900,11 @@ PrisonScene3.prototype.added = function()
 		target: "prison4",
 		globalIsTrue: "LAMP_PLUGGED_IN",
 		globalIsFalse: "DAM_BUILT"
+	})
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison4",
+		globalIsTrue: "BAD_DOOR"
 	})
 
 	// create outlet

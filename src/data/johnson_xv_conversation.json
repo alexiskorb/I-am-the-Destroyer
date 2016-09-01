@@ -47,7 +47,7 @@
 				},
 				{
 					"text": "So, how's the wall going?",
-					"globalIsTrue": 32,
+					"nextNodeId": 32,
 					"globalIsFalse": "CARDBOARD_WALL", 
 				},
 				{
