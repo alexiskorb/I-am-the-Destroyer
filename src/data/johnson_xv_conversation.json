@@ -26,12 +26,16 @@
 			"responses":[
 				{
 					"text": "Who are you?",
-					"nextNodeId": 2,
+					"nextNodeId": 2
 				},
 				{
 					"text": "What are you doing?",
 					"nextNodeId": 4,
-					"globalIsFalse": "BRICK_WALL" 
+					"globalIsFalse": "BRICK_WALL"
+				},
+				{
+					"text": "You remind me of someone.",
+					"nextNodeId": 13
 				},
 				{
 					"text": "So, how's the wall going?",
@@ -68,6 +72,12 @@
 					"text": "Which one's your cousin working on again?",
 					"globalIsTrue": "BAD_DOOR",
 					"nextNodeId": 48
+				},
+				{
+					"text": "How's the rest of the construction going?",
+					"nextNodeId": 51,
+					"globalIsTrue": "BRICK_WALL",
+					"globalIsFalse": "DOOR_TALK"
 				},
 			]
 		},
@@ -115,7 +125,7 @@
 			"responses":[
 				{
 					"text": "[gasp] No!",
-					"nextNodeId": 5,
+					"nextNodeId": 50,
 				},
 				{ 
 					"text": "That sounds pretty cool.",
@@ -378,11 +388,17 @@
 				{
 					"text": "Cardboard?",
 					"nextNodeId": 29,
-					"globalIsFalse": "BOX_IN_WORMHOLE"
+					"globalIsTrue": "SPEAKER_BROKEN"
+				},
+				{
+					"text": "Cardboard?",
+					"nextNodeId": 49,
+					"globalIsFalse": ["SPEAKER_BROKEN", "BOX_IN_WORMHOLE"]
 				},
 				{
 					"text": "Cardboard?",
 					"nextNodeId":30,
+					"globalIsFalse": "SPEAKER_BROKEN",
 					"globalIsTrue": "BOX_IN_WORMHOLE"
 				},
 			]
@@ -433,7 +449,7 @@
 		{
 			"id": 29,
 			"speaker": "johnson15",
-			"text": "I would. But cardboard is so hard to find. There was this one crazy guy spouting about how cardboard sucks, and no one was there to counter him, so now we have no cardboard. Guess I'll stick with wood for now.",
+			"text": "I would. But cardboard is scarce. A while back, there was this one crazy guy who spouted about how cardboard sucks and is a false prophet or something. Since then, it's popularity has gone down. Guess I'll stick with wood for now.",
 			"responses":[
 			]
 		},
@@ -472,7 +488,7 @@
 			"responses":[
 				{
 					"text": "Tell me about the wall.",
-					"nextNodeId": 6
+					"nextNodeId": 6,
 				},
 				{
 					"text": "Tell me about the labyrinth.",
@@ -512,9 +528,9 @@
 			"text": "I don't have the time to do both the door and the labyrinth. So, I was thinking I'd have my cousin do one for me.",
 			"responses":[
 				{
-					"setGlobalTrue": "DOOR_TALK",
 					"text": "Your cousin?",
 					"nextNodeId": 37,
+					"setGlobalTrue": "DOOR_TALK",
 				},
 			]
 		},
@@ -651,6 +667,43 @@
 			"speaker": "johnson15",
 			"text": "The door.",
 			"responses":[
+			]
+		},
+		{
+			"id": 49,
+			"speaker": "johnson15",
+			"text": "I would, but good cardboard is hard to find for some reason. There would have to be a boom in the cardboard industry. Guess I'll stick to wood for now.",
+			"responses":[
+			]
+		},
+		{
+			"id": 50,
+			"speaker": "johnson15",
+			"text": "[gasp] Yes!",
+			"responses":[
+				{
+					"text": "[gasp] No!",
+					"nextNodeId": 5,
+				},
+				{ 
+					"text": "That sounds pretty cool.",
+					"nextNodeId": 6,
+				},
+			]
+		},
+		{
+			"id": 51,
+			"speaker": "johnson15",
+			"text": "I'm working on a labyrinth and a keypad door.",
+			"responses":[
+				{
+					"text": "Tell me about the labyrinth.",
+					"nextNodeId": 34
+				},
+				{
+					"text": "Tell me about the keypad door",
+					"nextNodeId": 35
+				},
 			]
 		},
 	]

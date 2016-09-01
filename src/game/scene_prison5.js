@@ -23,6 +23,10 @@ PrisonScene5.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal5"
+	})
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(

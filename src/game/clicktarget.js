@@ -27,6 +27,8 @@ var ClickTarget = function(mesh)
 	this.showInfoBox = undefined;
 	this.existConditionsTrue = [];
 	this.existConditionsFalse = [];
+	this.permanentFalse = undefined;
+	this.removeUntil = undefined;
 	this.conditional = false;
 }
 
@@ -94,7 +96,7 @@ ClickTarget.prototype.update = function()
 ClickTarget.prototype.isPointInBounds = function(point)
 {
 	if (!this.enabled) return false;
-	if (this.actions.length == 0) return false;
+	if (!this.hasValidAction()) return false;
 	var point = new THREE.Vector3(point.x, point.y, 0);
 	this.getBoundingBox();
 	point.z = (this.bounds.min.z + this.bounds.max.z) / 2;
@@ -179,13 +181,25 @@ ClickTarget.prototype.trigger = function()
 	}
 }
 
+ClickTarget.prototype.hasValidAction = function()
+{
+	for (var i = 0; i < this.actions.length; i++)
+	{
+		if (this.actionMeetsConditionals(this.actions[i]))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 ClickTarget.prototype.triggerAction = function(action)
 {
 	this.executingAction = action;
 
 	if (action.action == "triggerTimeDevice")
 	{
-		SceneManager.showTimeDevice();
+		SceneManager.showTimeDevice(action.disable);
 	}
 	else if (action.action == "collectItem")
 	{
@@ -237,6 +251,12 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "win")
 	{
+		if (action.globalIsTrue){
+			if (GlobalVariables.getVariable(action.globalIsTrue)){
+				GlobalVariables.setVariable("YOU_WIN");
+			}
+		}
+		SceneManager.changeScene("win", SceneManager.ANIM_FORWARD);
 		var winElem = document.getElementById("credits");
 		winElem.style.visibility = "visible";
 	}
@@ -244,6 +264,10 @@ ClickTarget.prototype.triggerAction = function(action)
 
 ClickTarget.prototype.actionMeetsConditionals = function(action)
 {
+	if (action.disable && !GlobalVariables.getVariable(action.disable))
+	{
+		return false;
+	}
 	if (action.globalIsFalse)
 	{
 		if (action.globalIsFalse instanceof Array)
@@ -328,4 +352,23 @@ ClickTarget.prototype.interact = function(item, globals, requiredGlobals, addIte
 			Inventory.addItem(Inventory.items[addItem]);
 		}
 	}
+}
+
+ClickTarget.prototype.isPermanentFalse = function()
+{
+	if (this.permanentFalse){
+		if (GlobalVariables.getVariable(this.permanentFalse)){
+			return true;
+		}
+	}
+	return false;
+}
+ClickTarget.prototype.isValidYet = function()
+{
+	if (this.removeUntil){
+		if (GlobalVariables.getVariable(this.removeUntil)){
+			return true;
+		}
+	}
+	return false;
 }

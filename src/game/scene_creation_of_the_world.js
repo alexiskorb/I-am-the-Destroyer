@@ -67,13 +67,23 @@ CreationOfTheWorldScene.prototype.added = function()
 
 	// create player
 	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);
+	this.playerSprite.addAction({
+		action: "showInfoBox",
+		target: "shadow",
+	});
+	
 	this.wormhole = this.createClickableSprite("wormhole", 0, 0);
 	this.wormhole.addTrue("WORMHOLE_ACTIVATED");
 	this.wormhole.addAction ({
 		action: "interact",
 		target: "cardboard_box",
-		setGlobals: ["BOX_IN_WORMHOLE"]
-	});
+		setGlobals: ["BOX_IN_WORMHOLE"],
+		continue: true
+	})
+	this.wormhole.addAction({
+		action: "showInfoBox",
+		target: "wormhole",
+	})
 
 	Scene.prototype.added.call(this);
 }

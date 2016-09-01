@@ -1,5 +1,6 @@
 
 ThreeUtils = require("../sdk/threeutils");
+InfoBox = require("./infobox.js");
 
 var Inventory = {
     itemList: [],
@@ -10,24 +11,31 @@ var Inventory = {
 Inventory.items = {
     lamp: {
         sprite: "lamp",
+        infoId: "mini_lamp"
     },
     player_atlas: {
-        sprite: "player_atlas2"
+        sprite: "player_atlas2",
+        infoId: "mini_atlas"
     },
     cardboard_box: {
-        sprite: "cardboardbox"
+        sprite: "cardboardbox",
+        infoId: "mini_box"
     },
     cardboard: {
-        sprite: "cardboard"
+        sprite: "cardboard",
+        infoId: "mini_cardboard"
     },
     balloon: {
-        sprite: "balloon"
+        sprite: "balloon",
+        infoId: "mini_balloon"
     },
     magnets: {
-        sprite: "magnets"
+        sprite: "magnets",
+        infoId: "mini_magnets"
     },
     hammer: {
-        sprite: "hammer"
+        sprite: "hammer",
+        infoId: "mini_hammer"
     }
 }
 
@@ -82,6 +90,10 @@ Inventory.removeItem = function(item) {
 }
 Inventory.select = function(index){
     return function() {
+        if (Inventory.itemList[index]){
+		    InfoBox.display(Inventory.itemList[index].infoId);
+        }
+
         Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 5px #fff";
         Inventory.inventoryDisplay[index].style.border = "5px solid white";
         if (index < 5){
@@ -149,5 +161,6 @@ Inventory.itemHeld = function()
     }
     return undefined;
 }
+
 
 module.exports = Inventory;

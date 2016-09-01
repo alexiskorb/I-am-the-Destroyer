@@ -25,6 +25,7 @@ var SceneManager =
 		prison6: require("./scene_prison6.js"),
 		prison7: require("./scene_prison7.js"),
 		prison8: require("./scene_prison8.js"),
+		win: require("./scene_win.js"),
 		LAST_PRISON: undefined, //special case, set dynamically
 	},
 

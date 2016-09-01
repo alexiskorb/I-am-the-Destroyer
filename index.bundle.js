@@ -20,7 +20,7 @@ GameEngine.addObject(window.SceneManager);
 
 // that's it!
 
-},{"./src/game/conversation.js":13,"./src/game/infobox.js":15,"./src/game/inventory.js":16,"./src/game/scenemanager.js":30,"./src/sdk/engine":34}],2:[function(require,module,exports){
+},{"./src/game/conversation.js":13,"./src/game/infobox.js":15,"./src/game/inventory.js":16,"./src/game/scenemanager.js":31,"./src/sdk/engine":35}],2:[function(require,module,exports){
 // File:src/Three.js
 
 /**
@@ -41985,7 +41985,13 @@ module.exports=//ANGEL_INTRODUCTION
                 {
                     "text": "About that wormhole? What can I do with it?",
                     "globalIsTrue": "WORMHOLE_ACTIVATED",
+                    "globalIsFalse": "BOX_IN_WORMHOLE",
                     "nextNodeId": 29
+                },
+                {
+                    "text": "What's wrong with the wormhole?",
+                    "globalIsTrue": "BOX_IN_WORMHOLE",
+                    "nextNodeId": 35
                 }
             ]
         },
@@ -42134,7 +42140,7 @@ module.exports=//ANGEL_INTRODUCTION
         {
             "id": 23,
             "speaker": "angel",
-            "text": "I can make a wormhold through space and time.",
+            "text": "I can make a wormhole through space and time.",
             "responses": [
                 {
                     "text": "Awesome! Show me!",
@@ -42265,8 +42271,8 @@ module.exports=//ANGEL_INTRODUCTION
             "text": "Well, I only got a \"C\" in wormhole class, so it has to be something pretty light. Like paper or plastic.",
             "responses": [
                 {
-                    "text": "What about cardboard",
-                    "globalIsTrue": "BOX_OBTAINED",
+                    "text": "What about cardboard?",
+                    "globalIsTrue": "cardboardbox_obtained",
                     "nextNodeId": 33
                 },
                 {
@@ -42290,6 +42296,84 @@ module.exports=//ANGEL_INTRODUCTION
             "id": 34,
             "speaker": "angel",
             "text": "No Problem.",
+            "responses": [
+            ]
+        },
+        {
+            "id": 35,
+            "speaker": "angel",
+            "text": "I think it broke. Did you throw something in it?",
+            "responses": [
+                {
+                    "text": "A cardboard box.",
+                    "nextNodeId": 36
+                },
+                {
+                    "text": "Pandora's Box",
+                    "nextNodeId": 36
+                },
+                {
+                    "text": "I tried to throw in your ego, but it wouldn't fit.",
+                    "nextNodeId": 37
+                },
+                {
+                    "text": "No.",
+                    "nextNodeId": 39
+                }
+            ]
+        },
+        {
+            "id": 36,
+            "speaker": "angel",
+            "text": "Hmm...I guess it just couldn't handle a lot of stuff. It seems to be broken now.",
+            "responses": [
+                {
+                    "text": "You suck at making wormholes.",
+                    "nextNodeId": 37
+                },
+                {
+                    "text": "I thought you were supposed to make cool things.",
+                    "nextNodeId": 37
+                },
+                {
+                    "text": "So, what happened to the box?",
+                    "nextNodeId": 38
+                }
+            ]
+        },
+        {
+            "id": 37,
+            "speaker": "angel",
+            "text": "Hey! You try making wormholes next time.",
+            "responses": [
+                {
+                    "text": "So, what happened to the box?",
+                    "nextNodeId": 38
+                }
+            ]
+        },
+        {
+            "id": 38,
+            "speaker": "angel",
+            "text": "Like I said before, it probably traveled across space and time and randomly dropped out of the sky somewhere.",
+            "responses": [
+            ]
+        },
+        {
+            "id": 39,
+            "speaker": "angel",
+            "text": "Well, that certainly is weird then.",
+            "responses": [
+                {
+                    "text": "So, what's wrong with it?",
+                    "nextNodeId": 40
+                }
+            ]
+        },
+        {
+            "id": 40,
+            "speaker": "angel",
+            "text": "I don't know. It just seems to be broken.",
             "responses": [
             ]
         },
@@ -42493,7 +42577,7 @@ module.exports=
 			"responses":[
 				{
 					"text": "They can generate power while simultaneously acting as a bridge.",
-					"nextNodeId": 10,
+					"nextNodeId": 18,
 					"setGlobalTrue": "EXPLAINED_WHY_DAMS_ARE_AWESOME"
 				}
 			]
@@ -42517,7 +42601,7 @@ module.exports=
 		{
 			"id": 11,
 			"speaker": "johnson14",
-			"text": "Thanks, spooky guy!"
+			"text": "Okay, I will. Thanks, spooky guy!"
 		},
 		{
 			"id": 12,
@@ -42585,13 +42669,90 @@ module.exports=
 		{
 			"id": 16,
 			"speaker": "johnson14",
-			"text": "We're getting right to work on that dam! It's going to be great!."
+			"text": "We're getting right to work on that dam! It's going to be great!. We fixed our power problem and our bridge problem!"
 		},
 		{
 			"id": 17,
 			"speaker": "johnson14",
-			"text": "I'm terribily busy making these extremely time-sensitive measurements. Please come back later"
-		}
+			"text": "I'm terribily busy making these extremely time-sensitive measurements. Please come back later",
+			"responses":[
+				{
+					"text": "Gotta get those dam measurements.",
+					"nextNodeId": 22
+				},
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "johnson14",
+			"text": "Hey, that's a pretty good idea! It would solve our power problem too.",
+			"responses":[
+				{
+					"text": "Power problem?",
+					"nextNodeId": 19
+				},
+			]
+		},
+		{
+			"id": 19,
+			"speaker": "johnson14",
+			"text": "Yeah. There's been a power shortage around here. Like if I turn on my Tesla coil, my neighbor won't be able to turn on his lights.",
+			"responses":[
+				{
+					"text": "Why do you have a Tesla coil?",
+					"nextNodeId": 20
+				},
+				{
+					"text": "So, about the dam...",
+					"nextNodeId": 21
+				},
+			]
+		},
+		{
+			"id": 20,
+			"speaker": "johnson14",
+			"text": "Why don't you have one? They're awesome.",
+			"responses":[
+				{
+					"text": "So, about the dam...",
+					"nextNodeId": 21
+				}
+			]
+		},
+		{
+			"id": 21,
+			"speaker": "johnson14",
+			"text": "I think it's a pretty good idea.",
+			"responses":[
+				{
+					"text": "I think you should build it.",
+					"nextNodeId": 11,
+					"setGlobalTrue": "DAM_BUILT"
+				},
+				{
+					"text": "Actually, I don't think that's such a good idea.",
+					"nextNodeId": 12
+				},
+			]
+		},
+		{
+			"id": 22,
+			"speaker": "johnson14",
+			"text": "I'm not building a dam.",
+			"responses":[
+				{
+					"text": "But, dam, man.",
+					"nextNodeId": 23
+				},
+			]
+		},
+		{
+			"id": 23,
+			"speaker": "johnson14",
+			"text": "If the community wants me to give them some hydroelectric power, maybe then, I'll give them a dam. But, I'm busy right now. Come back later.",
+			"responses":[
+			]
+		},
 	]
 }
 },{}],5:[function(require,module,exports){
@@ -42642,8 +42803,9 @@ module.exports=//NO_FUTURE_TECH
 					"nextNodeId": 17,
 				},
 				{
-					"text": "Did you attend the carnival?",
+					"text": "Did you attend the circus?",
 					"globalIsTrue": "CARNIVAL",
+					"globalIsFalse": "GAINED_BALLOON",
 					"nextNodeId": 18
 				}
 			]
@@ -42715,7 +42877,13 @@ module.exports=//NO_FUTURE_TECH
                 },
                 {
                     "text": "Do you have anything cool with you?",
-					"nextNodeId": 11
+					"nextNodeId": 11,
+					"globalIsFalse": "LAMP_GAINED"
+                },
+				{
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 19,
+					"globalIsTrue": "LAMP_GAINED"
                 }
 			],
 		},
@@ -42745,7 +42913,13 @@ module.exports=//NO_FUTURE_TECH
                 },
                 {
                     "text": "Do you have anything cool with you?",
-					"nextNodeId": 11
+					"nextNodeId": 11,
+					"globalIsFalse": "LAMP_GAINED"
+                },
+				{
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 19,
+					"globalIsTrue": "LAMP_GAINED"
                 }
 			],
 		},
@@ -42760,7 +42934,13 @@ module.exports=//NO_FUTURE_TECH
 				},
                 {
                     "text": "Do you have anything cool with you?",
-					"nextNodeId": 11
+					"nextNodeId": 11,
+					"globalIsFalse": "LAMP_GAINED"
+                },
+				{
+                    "text": "Do you have anything cool with you?",
+					"nextNodeId": 19,
+					"globalIsTrue": "LAMP_GAINED"
                 }
 			],
 		},
@@ -42773,10 +42953,6 @@ module.exports=//NO_FUTURE_TECH
 					"text": "Another thing...",
 					"nextNodeId": 8				
                 },
-				{
-					"text": "Bye.",
-					"nextNodeId": 8				
-                }
 			],
 		},
         {
@@ -42815,7 +42991,8 @@ module.exports=//NO_FUTURE_TECH
 			"text": "Here you go.", 
 			"responses":[
 				{
-					"text": "[Take lamp.]",		
+					"text": "[Take lamp.]",	
+					"setGlobalTrue": "LAMP_GAINED",	
 					"getItem": "lamp"		
                 },
 			],
@@ -42881,6 +43058,28 @@ module.exports=//NO_FUTURE_TECH
 				}
 			]
 		},
+		{
+			"id": 19,
+			"speaker": "future_tech_guy",
+			"text": "No. All I have are those lamps. I already gave you one.",
+			"responses":[
+				{
+					"text": "Can I have another one?",
+					"nextNodeId": 20
+				},
+			]
+		},
+		{
+			"id": 20,
+			"speaker": "future_tech_guy",
+			"text": "Sorry, but I need to save the rest for other customers.",
+			"responses":[
+				{
+					"text": "I had another question.",
+					"nextNodeId": 8
+				},
+			]
+		},
 	]
 }
 },{}],6:[function(require,module,exports){
@@ -42917,6 +43116,11 @@ module.exports=
 					"text": "What are you doing?",
 					"nextNodeId": 2
 				},
+				{
+					"text": "I have a question.",
+					"nextNodeId": 5,
+					"globalIsTrue": "QUESTION_MASTER"
+				},
 			]
 		},
 		{
@@ -42930,7 +43134,8 @@ module.exports=
 				},
 				{
 					"text": "I have a question.",
-					"nextNodeId": 5
+					"nextNodeId": 5,
+					"setGlobalTrue": "QUESTION_MASTER"
 				},
 				{
 					"text": "Prison?",
@@ -43055,6 +43260,10 @@ module.exports=
 					"globalIsTrue": "FOOD_FOR_ANIMALS"
 				},
 				{
+					"text": "Can I have a guard pet?",
+					"nextNodeId": 32
+				},
+				{
 					"text": "About guards with pets...",
 					"globalIsTrue": "CARNIVAL",
 					"nextNodeId": 19
@@ -43064,6 +43273,7 @@ module.exports=
 					"globalIsTrue": "ANIMAL_REST",
 					"nextNodeId": 30
 				},
+				
 			]
 		},
 		{
@@ -43159,7 +43369,7 @@ module.exports=
 		{
 			"id": 16,
 			"speaker": "humane_society_guy",
-			"text": "Yep will do.",
+			"text": "Yep will do. It should make things nicer for the builders too. A well-fed animal never bothers anyone.",
 			"responses":[
 				{
 					"text": "Gotta protect those anmials.",
@@ -43378,14 +43588,73 @@ module.exports=
 		{
 			"id": 31,
 			"speaker": "humane_society_guy",
-			"text": "And that's why I'm going to get them more food like I said.",
+			"text": "And that's why I'm going to get them more food like I said. Then, they'll be well-fed and won't bother anybody.",
 			"responses":[
 				{
 					"text": "I had a different question.",
 					"nextNodeId": 5
 				},
 			]
-		}
+		},
+		{
+			"id": 32,
+			"speaker": "humane_society_guy",
+			"text": "I don't have a guard pet to give you.",
+			"responses":[
+				{
+					"text": "But if you did...",
+					"nextNodeId": 33
+				},
+				{
+					"text": "But I really want one.",
+					"nextNodeId": 34
+				},
+			]
+		},
+		{
+			"id": 33,
+			"speaker": "humane_society_guy",
+			"text": "Then I would keep it because he'd be totally awesome.",
+			"responses":[
+				{
+					"text": "How can you deny me like this?",
+					"nextNodeId": 34
+				},
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 34,
+			"speaker": "humane_society_guy",
+			"text": "Dude. I told you. I don't have a guard pet. I just have my dog, \"Rover\"",
+			"responses":[
+				{
+					"text": "\"Rover\" is the most generic dog name ever.",
+					"nextNodeId": 35
+				},
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
+		{
+			"id": 35,
+			"speaker": "humane_society_guy",
+			"text": "Look. I don't go criticizing why you've got that giant hole in your chest. So leave me alone.",
+			"responses":[
+				{
+					"text": "Good point.",
+				},
+				{
+					"text": "I had a different question.",
+					"nextNodeId": 5
+				},
+			]
+		},
 	]
 }
 
@@ -43968,12 +44237,16 @@ module.exports=//GRAVITY_LIGHTER
 			"responses":[
 				{
 					"text": "Who are you?",
-					"nextNodeId": 2,
+					"nextNodeId": 2
 				},
 				{
 					"text": "What are you doing?",
 					"nextNodeId": 4,
-					"globalIsFalse": "BRICK_WALL" 
+					"globalIsFalse": "BRICK_WALL"
+				},
+				{
+					"text": "You remind me of someone.",
+					"nextNodeId": 13
 				},
 				{
 					"text": "So, how's the wall going?",
@@ -44010,6 +44283,12 @@ module.exports=//GRAVITY_LIGHTER
 					"text": "Which one's your cousin working on again?",
 					"globalIsTrue": "BAD_DOOR",
 					"nextNodeId": 48
+				},
+				{
+					"text": "How's the rest of the construction going?",
+					"nextNodeId": 51,
+					"globalIsTrue": "BRICK_WALL",
+					"globalIsFalse": "DOOR_TALK"
 				},
 			]
 		},
@@ -44057,7 +44336,7 @@ module.exports=//GRAVITY_LIGHTER
 			"responses":[
 				{
 					"text": "[gasp] No!",
-					"nextNodeId": 5,
+					"nextNodeId": 50,
 				},
 				{ 
 					"text": "That sounds pretty cool.",
@@ -44320,11 +44599,17 @@ module.exports=//GRAVITY_LIGHTER
 				{
 					"text": "Cardboard?",
 					"nextNodeId": 29,
-					"globalIsFalse": "BOX_IN_WORMHOLE"
+					"globalIsTrue": "SPEAKER_BROKEN"
+				},
+				{
+					"text": "Cardboard?",
+					"nextNodeId": 49,
+					"globalIsFalse": ["SPEAKER_BROKEN", "BOX_IN_WORMHOLE"]
 				},
 				{
 					"text": "Cardboard?",
 					"nextNodeId":30,
+					"globalIsFalse": "SPEAKER_BROKEN",
 					"globalIsTrue": "BOX_IN_WORMHOLE"
 				},
 			]
@@ -44375,7 +44660,7 @@ module.exports=//GRAVITY_LIGHTER
 		{
 			"id": 29,
 			"speaker": "johnson15",
-			"text": "I would. But cardboard is so hard to find. There was this one crazy guy spouting about how cardboard sucks, and no one was there to counter him, so now we have no cardboard. Guess I'll stick with wood for now.",
+			"text": "I would. But cardboard is scarce. A while back, there was this one crazy guy who spouted about how cardboard sucks and is a false prophet or something. Since then, it's popularity has gone down. Guess I'll stick with wood for now.",
 			"responses":[
 			]
 		},
@@ -44414,7 +44699,7 @@ module.exports=//GRAVITY_LIGHTER
 			"responses":[
 				{
 					"text": "Tell me about the wall.",
-					"nextNodeId": 6
+					"nextNodeId": 6,
 				},
 				{
 					"text": "Tell me about the labyrinth.",
@@ -44454,9 +44739,9 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "I don't have the time to do both the door and the labyrinth. So, I was thinking I'd have my cousin do one for me.",
 			"responses":[
 				{
-					"setGlobalTrue": "DOOR_TALK",
 					"text": "Your cousin?",
 					"nextNodeId": 37,
+					"setGlobalTrue": "DOOR_TALK",
 				},
 			]
 		},
@@ -44593,6 +44878,43 @@ module.exports=//GRAVITY_LIGHTER
 			"speaker": "johnson15",
 			"text": "The door.",
 			"responses":[
+			]
+		},
+		{
+			"id": 49,
+			"speaker": "johnson15",
+			"text": "I would, but good cardboard is hard to find for some reason. There would have to be a boom in the cardboard industry. Guess I'll stick to wood for now.",
+			"responses":[
+			]
+		},
+		{
+			"id": 50,
+			"speaker": "johnson15",
+			"text": "[gasp] Yes!",
+			"responses":[
+				{
+					"text": "[gasp] No!",
+					"nextNodeId": 5,
+				},
+				{ 
+					"text": "That sounds pretty cool.",
+					"nextNodeId": 6,
+				},
+			]
+		},
+		{
+			"id": 51,
+			"speaker": "johnson15",
+			"text": "I'm working on a labyrinth and a keypad door.",
+			"responses":[
+				{
+					"text": "Tell me about the labyrinth.",
+					"nextNodeId": 34
+				},
+				{
+					"text": "Tell me about the keypad door",
+					"nextNodeId": 35
+				},
 			]
 		},
 	]
@@ -45024,7 +45346,7 @@ PrisonScene.prototype.removeFloor = function()
 
 module.exports = PrisonScene;
 
-},{"../sdk/threeutils":41,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],11:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],11:[function(require,module,exports){
 
 THREE = require("three");
 ThreeUtils = require("../sdk/threeutils");
@@ -45072,6 +45394,14 @@ Scene.prototype.update = function()
 			}else{
 				this.clickTargets[i].disable();
 			}
+		}
+		if (this.clickTargets[i].isPermanentFalse())
+		{
+			this.clickTargets[i].disable();
+		}
+		if (this.clickTargets[i].isValidYet())
+		{
+			this.clickTargets[i].enable();
 		}
 	}
 }
@@ -45147,7 +45477,8 @@ Scene.prototype.hide = function()
 	GameEngine.scene.remove(this.transform);
 }
 
-},{"../sdk/threeutils":41,"three":2}],12:[function(require,module,exports){
+
+},{"../sdk/threeutils":42,"three":2}],12:[function(require,module,exports){
 
 THREE = require("three");
 Conversation = require("./conversation.js");
@@ -45177,6 +45508,8 @@ var ClickTarget = function(mesh)
 	this.showInfoBox = undefined;
 	this.existConditionsTrue = [];
 	this.existConditionsFalse = [];
+	this.permanentFalse = undefined;
+	this.removeUntil = undefined;
 	this.conditional = false;
 }
 
@@ -45244,7 +45577,7 @@ ClickTarget.prototype.update = function()
 ClickTarget.prototype.isPointInBounds = function(point)
 {
 	if (!this.enabled) return false;
-	if (this.actions.length == 0) return false;
+	if (!this.hasValidAction()) return false;
 	var point = new THREE.Vector3(point.x, point.y, 0);
 	this.getBoundingBox();
 	point.z = (this.bounds.min.z + this.bounds.max.z) / 2;
@@ -45329,13 +45662,25 @@ ClickTarget.prototype.trigger = function()
 	}
 }
 
+ClickTarget.prototype.hasValidAction = function()
+{
+	for (var i = 0; i < this.actions.length; i++)
+	{
+		if (this.actionMeetsConditionals(this.actions[i]))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 ClickTarget.prototype.triggerAction = function(action)
 {
 	this.executingAction = action;
 
 	if (action.action == "triggerTimeDevice")
 	{
-		SceneManager.showTimeDevice();
+		SceneManager.showTimeDevice(action.disable);
 	}
 	else if (action.action == "collectItem")
 	{
@@ -45387,6 +45732,12 @@ ClickTarget.prototype.triggerAction = function(action)
 	}
 	else if (action.action == "win")
 	{
+		if (action.globalIsTrue){
+			if (GlobalVariables.getVariable(action.globalIsTrue)){
+				GlobalVariables.setVariable("YOU_WIN");
+			}
+		}
+		SceneManager.changeScene("win", SceneManager.ANIM_FORWARD);
 		var winElem = document.getElementById("credits");
 		winElem.style.visibility = "visible";
 	}
@@ -45394,6 +45745,10 @@ ClickTarget.prototype.triggerAction = function(action)
 
 ClickTarget.prototype.actionMeetsConditionals = function(action)
 {
+	if (action.disable && !GlobalVariables.getVariable(action.disable))
+	{
+		return false;
+	}
 	if (action.globalIsFalse)
 	{
 		if (action.globalIsFalse instanceof Array)
@@ -45478,6 +45833,25 @@ ClickTarget.prototype.interact = function(item, globals, requiredGlobals, addIte
 			Inventory.addItem(Inventory.items[addItem]);
 		}
 	}
+}
+
+ClickTarget.prototype.isPermanentFalse = function()
+{
+	if (this.permanentFalse){
+		if (GlobalVariables.getVariable(this.permanentFalse)){
+			return true;
+		}
+	}
+	return false;
+}
+ClickTarget.prototype.isValidYet = function()
+{
+	if (this.removeUntil){
+		if (GlobalVariables.getVariable(this.removeUntil)){
+			return true;
+		}
+	}
+	return false;
 }
 },{"./conversation.js":13,"./globalvariables.js":14,"./infobox.js":15,"three":2}],13:[function(require,module,exports){
 
@@ -45644,10 +46018,10 @@ Conversation.moveToNode = function(index)
 
 		var speakerAtlas = ThreeUtils.loadAtlas("characters");
 		this.portraitElement.className = "conversation_portrait_on";
-		ThreeUtils.setElementToAtlasImage(this.portraitElement, speakerAtlas, currentSpeaker.sprite);
+		ThreeUtils.setElementToAtlasImage(this.portraitElement2, speakerAtlas, currentSpeaker.sprite);
 
 		this.portraitElement2.className = "conversation_portrait2_on";
-		ThreeUtils.setElementToAtlasImage(this.portraitElement2, speakerAtlas, "player");
+		ThreeUtils.setElementToAtlasImage(this.portraitElement, speakerAtlas, "player");
 
 		var i = 0;
 		if (currentNode.responses)
@@ -45777,7 +46151,7 @@ Conversation.getNode = function(index)
 	return null;
 }
 
-},{"../sdk/input":36,"../sdk/threeutils":41,"./globalvariables.js":14}],14:[function(require,module,exports){
+},{"../sdk/input":37,"../sdk/threeutils":42,"./globalvariables.js":14}],14:[function(require,module,exports){
 
 var GlobalVariables =
 {
@@ -45904,6 +46278,196 @@ InfoBox.parseConditionals = function(item)
 
 InfoBox.info = 
 {
+    shadow:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "Yes. That's me, the dark crystal.",
+            },
+            {
+                text: "More precisely, it's the self that I can project across time while I remain trapped in the prison.",
+            },
+        ]
+    },
+    prophet: 
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "\"...and then I saw the cardboard box soar majestically through the sky.\"",
+                isTrue: ["BOX_IN_WORMHOLE"],
+                isFalse: ["SPEAKER_BROKEN"]
+            },
+            {
+                text: "\"The holy box appeared from a portal, stayed briefly, and then left to fulfill its greater purposes.\"",
+                isTrue: ["BOX_IN_WORMHOLE"],
+                isFalse: ["SPEAKER_BROKEN"]
+            },
+            {
+                text: "\"When, I saw it, I knew my destiny had been fulfilled.\"",
+                isTrue: ["BOX_IN_WORMHOLE"],
+                isFalse: ["SPEAKER_BROKEN"]
+            },
+            {
+                text: "\"The holy box left me, the Cardboard Prophet, to proclaim its greatness.\"",
+                isTrue: ["BOX_IN_WORMHOLE"],
+                isFalse: ["SPEAKER_BROKEN"]
+            },
+            {
+                text: "\"Cardboard is the greatest thing ever!\"",
+                isTrue: ["BOX_IN_WORMHOLE"],
+                isFalse: ["SPEAKER_BROKEN"]
+            },
+            {
+                text: "\"We must strive for the glory of cardboard.\"",
+                isTrue: ["BOX_IN_WORMHOLE"],
+                isFalse: ["SPEAKER_BROKEN"]
+            },
+            {
+                text: "\"Don't talk to me. My holy destiny was a lie.\"",
+                isTrue: ["BOX_IN_WORMHOLE", "SPEAKER_BROKEN"],
+                isFalse: []
+            },
+            {
+                text: "\"The breaking of the speaker was a sign.\"",
+                isTrue: ["BOX_IN_WORMHOLE", "SPEAKER_BROKEN"],
+                isFalse: []
+            },
+            {
+                text: "\"Curse you, Cardboard! You false prophet!.\"",
+                isTrue: ["BOX_IN_WORMHOLE", "SPEAKER_BROKEN"],
+                isFalse: []
+            }
+        ]
+    },
+    speaker: 
+    { 
+        cycle: 0,
+        data:
+        [
+            {
+                text: "Maybe if I break his speaker, he'll shut up.",
+            },
+        ]
+    },
+    wormhole: 
+    {
+        cycle: 0,
+        data: 
+        [
+            {
+                text: "The wormhole is almost mesmerizing.",
+                isTrue: ["WORMHOLE_ACTIVATED"],
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "The wormhole looks like it broke after you threw the box in. What shoddy workmanship.",
+                isTrue: ["WORMHOLE_ACTIVATED", "BOX_IN_WORMHOLE"],
+                isFalse: []
+            },
+        ]
+    },
+    mini_lamp:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a normal, boring lamp."
+            },
+            {
+                text: "The FutureTech guy gave it to me."
+            },
+        ]
+    },
+    mini_box:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a cardboard box."
+            },
+        ]
+    },
+    mini_hammer:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a hammer."
+            },
+            {
+                text: "It does hammer things."
+            },
+        ]
+    },
+    mini_magnets:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "These are magnets from the broken speaker."
+            },
+        ]
+    },
+    mini_cardboard:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a piece of cardboard I broke off from the door."
+            },
+        ]
+    },
+    mini_balloon:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a balloon."
+            },
+            {
+                text: "Yay! Balloons!"
+            },
+        ]
+    },
+    crystal1:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "It's me, trapped in a pathetic prison."
+            },
+            {
+                text: "This is the dark artifact that houses my essense."
+            },
+            {
+                text: "I must free myself from these walls."
+            },
+        ]
+    },
+    forceField:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "This is a strong force field."
+            },
+            {
+                text: "I need to deactivate it somehow."
+            },
+        ]
+    },
     laser_force_exit: {
         cycle: 0,
         data: [
@@ -45918,10 +46482,36 @@ InfoBox.info =
                 isTrue: ["NO_FUTURE_TECH"]
             },
             {
-                text: "There's a force field and lasers in the way.",
+                text: "There is a force field and lasers in the way.",
                 isTrue: [],
                 isFalse: ["LASERS_DONT_HURT", "NO_FUTURE_TECH"]
             }
+        ]
+    },
+    moatImpassable:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "There is a moat in the way. It is full of water and dark-crystal-eating crocodiles.",
+            }
+        ]
+    },
+    crystal2:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "A crocodile moat, really?"
+            },
+            {
+                text: "Did they build their prison by looing at the \"Cartoon Villain Notebook of Cliches\"?"
+            },
+            {
+                text: "I can't swim in this form."
+            },
         ]
     },
     moat: 
@@ -45944,7 +46534,7 @@ InfoBox.info =
                 isFalse: ["DAM_BUILT"]
             },
             {
-                text: "I can walk across the crocodile backs now.",
+                text: "I can walk across the crocodiles' backs now.",
                 isTrue: ["FOOD_FOR_ANIMALS"],
                 isFalse: ["DAM_BUILT"]
             },
@@ -45965,26 +46555,24 @@ InfoBox.info =
         cycle: 0,
         data: [
             {
-                text: "There is a moat filled with hungry crocodiles in the way.",
+                text: "There is a crocodile-filled moat in the way.",
                 isTrue: [],
                 isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
-            },
-            {
-                text: "Poor hungry crocodiles.",
-                isTrue: [],
-                isFalse: ["DAM_BUILT", "FOOD_FOR_ANIMALS"]
-            },
-            {
-                text: "Those crocodiles are so fat now. I don't think they want to eat me anymore.",
-                isTrue: ["FOOD_FOR_ANIMALS"],
-                isFalse: ["DAM_BUILT"]
-            },
-            {
-                text: "No water. No crocodiles. Easy.",
-                isTrue: ["DAM_BUILT"],
-                isFalse: []
-            },
+            }
         ],
+    },
+    crystal3:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I don't like locked doors."
+            },
+            {
+                text: "It's really a lot harder to open doors when you have no hands."
+            }
+        ]
     },
     keypad: 
     {
@@ -45993,17 +46581,32 @@ InfoBox.info =
             {
                 text: "The door is locked.",
                 isTrue: [],
-                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN"]
+                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN", "DAM_BUILT"]
             },
             {
                 text: "I tried \"0000\". I guess the manufacturers aren't that stupid.",
                 isTrue: [],
-                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN"]
+                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN", "DAM_BUILT"]
             },
             {
                 text: "\"Password\" doesn't work either.",
                 isTrue: [],
-                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN"]
+                isFalse: ["BAD_DOOR", "LAMP_PLUGGED_IN", "DAM_BUILT"]
+            },
+                       {
+                text: "The door is locked.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: ["BAD_DOOR"]
+            },
+            {
+                text: "I tried \"0000\". I guess the manufacturers aren't that stupid.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: ["BAD_DOOR"]
+            },
+            {
+                text: "\"Password\" doesn't work either.",
+                isTrue: ["DAM_BUILT"],
+                isFalse: ["BAD_DOOR"]
             },
             {
                 text: "Well, what do you know? \"0000\" does work. I guess that cousin hit his head pretty hard.",
@@ -46013,7 +46616,7 @@ InfoBox.info =
             {
                 text: "Since the door no longer has power, I can slide it open.",
                 isTrue: ["LAMP_PLUGGED_IN"],
-                isFalse: []
+                isFalse: ["DAM_BUILT"]
             }
         ]
     },
@@ -46027,10 +46630,64 @@ InfoBox.info =
                 isFalse: ["LAMP_PLUGGED_IN"]
             },
             {
+                text: "Why is there a random outlet here, anyway?",
+                isTrue: [],
+                isFalse: ["LAMP_PLUGGED_IN"]
+            },
+            {
                 text: "The lamp is draining all the electricity from the door. I guess they have a power shortage issue.",
                 isTrue: ["LAMP_PLUGGED_IN"],
+                isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "The lamp is plugged in, but doesn't seem to affect the door at all. I guess they have plenty of electricity.",
+                isTrue: ["LAMP_PLUGGED_IN", "DAM_BUILT"], 
                 isFalse: []
             },
+        ]
+    },
+    lamp: 
+    {
+        cycle: 0,
+        data: [
+            {
+                text: "The lamp is working.",
+            },
+            {
+                text: "Funny. The lamp has no off button. It just turns on when you plug it in.",
+            },
+            {
+                text: "That seems like a design flaw...",
+            },
+            {
+                text: "The lamp is draining all the electricity from the door. I guess they have a power shortage issue.",
+                isTrue: ["LAMP_PLUGGED_IN"],
+                isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "The lamp is plugged in, but doesn't seem to affect the door at all. I guess they have plenty of electricity.",
+                isTrue: ["LAMP_PLUGGED_IN", "DAM_BUILT"], 
+                isFalse: []
+            },
+        ]
+    },
+    crystal4:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "Call me \"Theseus\"."
+            },
+            {
+                text: "If there's a minotaur in there, I'm done."
+            },
+            {
+                text: "Next up: six hours of underwater maze levels."
+            },
+            {
+                text: "Just kidding. I hope."
+            }
         ]
     },
     labyrinth: 
@@ -46043,13 +46700,23 @@ InfoBox.info =
                 isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
             },
             {
-                text: "That labyrinth is complicated. There are also pipes along the sides as if someone once pumped water into it.",
+                text: "I'm not going into the labyrinth while it's filled with water.",
+                isTrue: [],
+                isFalse: ["DAM_BUILT"]
+            },
+            {
+                text: "That labyrinth is too complicated to solve easily. I don't want to get lost.",
                 isTrue: ["DAM_BUILT"],
                 isFalse: ["BAD_LABYRINTH"]
             },
             {
-                text: "Wow. That idiot cousin made this labyrinth a piece of cake to get through. There are also pipes along the sides as if someone once pumped water into it.",
+                text: "Wow. That idiot cousin made this labyrinth a piece of cake to get through.",
                 isTrue: ["DAM_BUILT", "BAD_LABYRINTH"],
+                isFalse: []
+            },
+            {
+                text: "There are pipes along the sides as if someone once pumped water into it.",
+                isTrue: ["DAM_BUILT"],
                 isFalse: []
             },
         ]
@@ -46065,9 +46732,29 @@ InfoBox.info =
             },
             {
                 text: "If I had legs, I might make some money off a slip-and-fall lawsuit.",
-                isTrue: ["DAM_BUILT"],
-                isFalse: ["BAD_LABYRINTH"]
+                isTrue: [],
+                isFalse: ["DAM_BUILT", "BAD_LABYRINTH"]
             },
+        ]
+    },
+    crystal5:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I wouldn't want to work as a guard down here.",
+                isTrue: [],
+                isFalse: ["ANIMAL_REST"]
+            },
+            {
+                text: "Puzzles and tigers and guards, oh my!",
+                isTrue: ["CARNIVAL"],
+                isFalse: ["ANIMAL_REST"]
+            },
+            {
+                text: "This place has so much security."
+            }
         ]
     },
     guard: 
@@ -46075,15 +46762,25 @@ InfoBox.info =
         cycle: 0,
         data:
         [
-
             {
                 text: "I can't talk to the guard. He'll pull the alarm.",
-                isTrue: [],
-                isFalse: ["ANIMAL_REST", "CARNIVAL"]
             },
             {
                 text: "He looks like he takes his job very seriously."
-            }
+            },
+            {
+                text: "I bet his name is \"Angel Johnson\"."
+            },
+            {
+                text: "Great. Now, he has a pet tiger.",
+                isTrue: ["CARNIVAL"],
+                isFalse: []
+            },
+            {
+                text: "Was having a guard dog too mundane?",
+                isTrue: ["CARNIVAL"],
+                isFalse: []
+            },
         ]
     },
     guardDoor: 
@@ -46093,16 +46790,29 @@ InfoBox.info =
         [
             {
                 text: "I have to get past the guard somehow.",
-                isTrue: ["CARNIVAL", "ANIMAL_REST"],
+                isFalse: ["CARNIVAL", "ANIMAL_REST"],
             },
             {
                 text: "I don't have much of a shot at fisticuffs in this form.",
-                isTrue: ["CARNIVAL", "ANIMAL_REST"],
+                isFalse: ["CARNIVAL", "ANIMAL_REST"],
             },
             {
                 text: "I have to get past the guard and that pet tiger somehow.",
                 isTrue: ["CARNIVAL"],
                 isFalse: ["ANIMAL_REST"]
+            },
+        ]
+    },
+    crystal6:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I suppose a solid wall is effective, if simple.",
+            },
+            {
+                text: "How did the guard from the other room get down here, I wonder?",
             },
         ]
     },
@@ -46112,17 +46822,17 @@ InfoBox.info =
         data: 
         [
             {
-                text: "This is a solid steel wall with no doors.",
+                text: "This is a solid steel wall.",
                 isTrue: [],
                 isFalse: ["BRICK_WALL", "WOOD_WALL", "CARDBOARD_WALL"]
             },
             {
-                text: "This is a solid brick wall with no doors.",
+                text: "This is a solid brick wall.",
                 isTrue: ["BRICK_WALL"],
                 isFalse: ["WOOD_WALL", "CARDBOARD_WALL"]
             },
             {
-                text: "This is a solid wooden wall with no doors. It's too thick to break.",
+                text: "This is a solid wooden wall. It's too thick to break.",
                 isTrue: ["WOOD_WALL"],
                 isFalse: ["CARDBOARD_WALL"]
             },
@@ -46130,6 +46840,41 @@ InfoBox.info =
                 text: "I can break through this cardboard easily.",
                 isTrue: ["CARDBOARD_WALL"],
                 isFalse: []
+            },
+            {
+                text: "There are no handles or buttons. It's just a wall.",
+                isTrue: [],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "There's no need to examine it more. I don't think I'll find any secrets.",
+                isTrue: [],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "Oh look! It's...nothing. Again. It's just a solid wall.",
+                isTrue: [],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "Really. It's just a wall.",
+                isTrue: [],
+                isFalse: ["CARDBOARD_WALL"]
+            },
+            {
+                text: "And onwards, we go.",
+                isTrue: ["CARDBOARD_WALL_BROKEN"],
+                isFalse: []
+            },
+        ]
+    },
+    crystal7:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I must be careful to avoid the pitfalls of life.",
             },
         ]
     },
@@ -46139,19 +46884,75 @@ InfoBox.info =
         data:
         [
             {
-                text: "The pit is filled with spikes, acid, poison gas, and strong electromagnets since I'm made of metal. It seems like overkill.",
+                text: "The pit is filled with spikes, acid, poison gas, and the heat death of the universe.",
                 isTrue: [],
                 isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
             },
             {
-                text: "The magnets are floating over the pit, but the gaps between them are too big to jump. I need a bridge.",
+                text: "There are also strong electromagnets at the bottom. I guess it's because I'm made of metal.",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "I don't think most people use magnets for security in this way.",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "This seems overkill.",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "It's like: \"Yes. Let's throw everything that seems bad into the pit.\" \"Great idea!\"",
+                isTrue: [],
+                isFalse: ["MAGNETS_PLACED", "CARDBOARD_PLACED"]
+            },
+            {
+                text: "The magnets are floating over the pit, but the gaps between them are too big to jump.",
                 isTrue: ["MAGNETS_PLACED"],
                 isFalse: ["CARDBOARD_PLACED"]
             },
             {
-                text: "The wall makes a good bridge across the floating magnets.",
+                text: "I need to make a bridge of some kind.",
+                isTrue: ["MAGNETS_PLACED"],
+                isFalse: ["CARDBOARD_PLACED"]
+            },
+            {
+                text: "Don't question the magnet physics.",
+                isTrue: ["MAGNETS_PLACED"],
+                isFalse: ["CARDBOARD_PLACED"]
+            },
+            {
+                text: "The cardboard wall makes a good bridge across the floating magnets.",
                 isTrue: ["MAGNETS_PLACED","CARDBOARD_PLACED"],
                 isFalse: []
+            },
+        ]
+    },
+    pitDoor:
+    {
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I have to get across the pit first.",
+            },
+        ]
+    },
+    crystal8: 
+    {
+        cycle: 0,
+        data: 
+        [
+            {
+                text: "I'm so close.",
+            },
+            {
+                text: "Seeeing the outside world is tantalizing.",
+            },
+            {
+                text: "One more obstacle, and I'm free!",
             },
         ]
     },
@@ -46165,102 +46966,31 @@ InfoBox.info =
                 isTrue: [],
                 isFalse: ["GRAVITY_LIGHTER"]
             },
-        ]
-    },
-    prophet: 
-    {
-        cycle: 0,
-        data:
-        [
             {
-                text: "\"Ladies and Gentlemen. Cardboard is the greatest thing ever!\"",
-                isTrue: ["BOX_IN_WORMHOLE"],
-                isFalse: ["SPEAKER_BROKEN"]
-            },
-            {
-                text: "\"When I saw the holy cardboard box soar majestically through a portal in the sky, I knew it was destiny.\"",
-                isTrue: ["BOX_IN_WORMHOLE"],
-                isFalse: ["SPEAKER_BROKEN"]
-            },
-            {
-                text: "\"Cardboard is simple, yet majestic.\"",
-                isTrue: ["BOX_IN_WORMHOLE"],
-                isFalse: ["SPEAKER_BROKEN"]
-            },
-            {
-                text: "\"Don't talk to me. My holy destiny is foiled. If I cannot proclaim to the crowds than I shan't proclaim at all.\"",
-                isTrue: ["BOX_IN_WORMHOLE", "SPEAKER_BROKEN"],
+                text: "I'm free!",
+                isTrue: ["GRAVITY_LIGHTER"],
                 isFalse: []
-            }
-        ]
-    },
-    speaker: 
-    { 
-        cycle: 0,
-        data:
-        [
-            {
-                text: "It looks like you could break Maximus's speaker so he finally shuts up.",
-                isTrue: [],
-                isFalse: ["SPEAKER_BROKEN"]
             },
-            {
-                text: "The speaker is broken",
-                isTrue: ["SPEAKER_BROKEN"],
-                isFalse: []
-            }
         ]
     },
-    wormhole: 
+    win: 
     {
         cycle: 0,
         data: 
         [
             {
-                text: "The wormhole is almost mesmerizing.",
-                isTrue: ["WORMHOLE_ACTIVATED"],
-                isFalse: ["BOX_IN_WORMHOLE"]
-            },
-            {
-                text: "The wormhole looks like it broke after you threw the box in. Shoddy workmanship.",
-                isTrue: ["WORMHOLE_ACTIVATED", "BOX_IN_WORMHOLE"],
-                isFalse: []
-            },
-        ]
-    },
-    crystal:
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "It's me, trapped in a pathetic prison."
-            },
-            {
-                text: "The dark artifact that houses my essense."
-            },
-            {
-                text: "I must free myself from these walls."
-            },
-        ]
-    },
-    moatImpassable:
-    {
-        cycle: 0,
-        data:
-        [
-            {
-                text: "There is a moat in the way. It is full of water and dark-crystal-eating crocodiles.",
+                text: "You win!",
             }
         ]
-    }
+    },
 }
 
 
 module.exports = InfoBox;
-},{"../sdk/input":36,"../sdk/threeutils":41,"./globalvariables.js":14}],16:[function(require,module,exports){
+},{"../sdk/input":37,"../sdk/threeutils":42,"./globalvariables.js":14}],16:[function(require,module,exports){
 
 ThreeUtils = require("../sdk/threeutils");
+InfoBox = require("./infobox.js");
 
 var Inventory = {
     itemList: [],
@@ -46271,24 +47001,31 @@ var Inventory = {
 Inventory.items = {
     lamp: {
         sprite: "lamp",
+        infoId: "mini_lamp"
     },
     player_atlas: {
-        sprite: "player_atlas2"
+        sprite: "player_atlas2",
+        infoId: "mini_atlas"
     },
     cardboard_box: {
-        sprite: "cardboardbox"
+        sprite: "cardboardbox",
+        infoId: "mini_box"
     },
     cardboard: {
-        sprite: "cardboard"
+        sprite: "cardboard",
+        infoId: "mini_cardboard"
     },
     balloon: {
-        sprite: "balloon"
+        sprite: "balloon",
+        infoId: "mini_balloon"
     },
     magnets: {
-        sprite: "magnets"
+        sprite: "magnets",
+        infoId: "mini_magnets"
     },
     hammer: {
-        sprite: "hammer"
+        sprite: "hammer",
+        infoId: "mini_hammer"
     }
 }
 
@@ -46343,6 +47080,10 @@ Inventory.removeItem = function(item) {
 }
 Inventory.select = function(index){
     return function() {
+        if (Inventory.itemList[index]){
+		    InfoBox.display(Inventory.itemList[index].infoId);
+        }
+
         Inventory.inventoryDisplay[index].style.boxShadow = "0px 0px 5px #fff";
         Inventory.inventoryDisplay[index].style.border = "5px solid white";
         if (index < 5){
@@ -46411,9 +47152,10 @@ Inventory.itemHeld = function()
     return undefined;
 }
 
+
 module.exports = Inventory;
 
-},{"../sdk/threeutils":41}],17:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./infobox.js":15}],17:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -46483,13 +47225,23 @@ CreationOfTheWorldScene.prototype.added = function()
 
 	// create player
 	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);
+	this.playerSprite.addAction({
+		action: "showInfoBox",
+		target: "shadow",
+	});
+	
 	this.wormhole = this.createClickableSprite("wormhole", 0, 0);
 	this.wormhole.addTrue("WORMHOLE_ACTIVATED");
 	this.wormhole.addAction ({
 		action: "interact",
 		target: "cardboard_box",
-		setGlobals: ["BOX_IN_WORMHOLE"]
-	});
+		setGlobals: ["BOX_IN_WORMHOLE"],
+		continue: true
+	})
+	this.wormhole.addAction({
+		action: "showInfoBox",
+		target: "wormhole",
+	})
 
 	Scene.prototype.added.call(this);
 }
@@ -46509,7 +47261,7 @@ CreationOfTheWorldScene.prototype.update = function()
 
 module.exports = new CreationOfTheWorldScene();
 
-},{"../data/angel_conversation.json":3,"../sdk/threeutils":41,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],18:[function(require,module,exports){
+},{"../data/angel_conversation.json":3,"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],18:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -46535,6 +47287,11 @@ IndexScene.prototype.added = function()
 
 	// create crystal
 	this.crystal = this.createClickableSprite("crystal", 0, 0);
+	this.crystal.addAction({
+		action: "miscellaneous",
+		setGlobals: ["PASSED_INTRO"],
+		continue: true
+	})
 	this.crystal.addAction({
 		action: "triggerScene",
 		target: "prison1"
@@ -46562,7 +47319,7 @@ IndexScene.prototype.update = function()
 
 module.exports = new IndexScene();
 
-},{"../sdk/threeutils":41,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],19:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],19:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -46607,7 +47364,10 @@ ConstructionScene.prototype.added = function()
 		target: "hammer"
 	})
 	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
-
+	this.playerSprite.addAction({
+		action: "showInfoBox",
+		target: "shadow",
+	});
 
 
 	Scene.prototype.added.call(this);
@@ -46620,7 +47380,7 @@ ConstructionScene.prototype.update = function()
 
 module.exports = new ConstructionScene();
 
-},{"../data/future_tech_conversation.json":5,"../data/humane_society_conversation.json":6,"../data/johnson_xv_conversation.json":8,"../sdk/threeutils":41,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],20:[function(require,module,exports){
+},{"../data/future_tech_conversation.json":5,"../data/humane_society_conversation.json":6,"../data/johnson_xv_conversation.json":8,"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],20:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -46655,7 +47415,12 @@ FieldScene.prototype.added = function()
 		target: require("../data/prophet_conversation.json")
 	})
 	speakerGuy.addFalse("BOX_IN_WORMHOLE");
+
 	var cardboard_preacher = this.createClickableSprite("cardboard_preacher", 600, 150);
+	cardboard_preacher.addAction({
+		action: "showInfoBox",
+		target: "prophet",
+	})
 	cardboard_preacher.addTrue("BOX_IN_WORMHOLE");
 
 	var cardboardBox = this.createClickableSprite("cardboardboxlarge", -430, 200);
@@ -46663,17 +47428,28 @@ FieldScene.prototype.added = function()
 		action: "collectItem",
 		target: "cardboard_box"
 	})
+
+
 	var speaker = this.createClickableSprite("speaker", 480, 200);
 	speaker.addAction({
 		action: "interact",
 		target: "hammer",
 		setGlobals: ["SPEAKER_BROKEN"],
 		addItem: "magnets",
+		continue: true
+	})
+	speaker.addAction({
+		action: "showInfoBox",
+		target: "speaker",
 	})
 	speaker.addFalse("SPEAKER_BROKEN");
 	speaker.addTrue("BOX_IN_WORMHOLE");
-	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
 
+	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
+	this.playerSprite.addAction({
+		action: "showInfoBox",
+		target: "shadow",
+	});
 
 	Scene.prototype.added.call(this);
 }
@@ -46685,7 +47461,7 @@ FieldScene.prototype.update = function()
 
 module.exports = new FieldScene();
 
-},{"../data/dam_builder_conversation.json":4,"../data/investor_conversation.json":7,"../data/prophet_conversation.json":9,"../sdk/threeutils":41,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],21:[function(require,module,exports){
+},{"../data/dam_builder_conversation.json":4,"../data/investor_conversation.json":7,"../data/prophet_conversation.json":9,"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],21:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -46723,9 +47499,17 @@ PrisonScene1.prototype.added = function()
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalSprite.addAction({
 		action: "showInfoBox",
-		target: "crystal"
+		target: "crystal1"
 	})
 	this.crystalBob = 0;
+
+	var forceTarget = this.createClickableRegion(-278, -88, 500, 500)
+	forceTarget.addAction({
+		action: "showInfoBox",
+		target: "forceField"
+	})
+	forceTarget.addFalse("NO_FUTURE_TECH");
+
 
 	// create lasers
 	var laserTexture = ThreeUtils.loadTexture("media/prison1_lasers.png");
@@ -46789,7 +47573,7 @@ PrisonScene1.prototype.update = function()
 
 module.exports = new PrisonScene1();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],22:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],22:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -46815,6 +47599,10 @@ PrisonScene2.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal2",
+	});
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(
@@ -46837,6 +47625,7 @@ PrisonScene2.prototype.added = function()
 
 	var moat_hungry = this.createClickableSprite("moat_hungry", 0, 300);
 	moat_hungry.addFalse("FOOD_FOR_ANIMALS");
+	moat_hungry.addFalse("DAM_BUILT");
 	moat_hungry.addAction({
 		action: "showInfoBox",
 		target: "moat"
@@ -46844,10 +47633,19 @@ PrisonScene2.prototype.added = function()
 
 	var moat_full = this.createClickableSprite("moat_full", 0, 300);
 	moat_full.addTrue("FOOD_FOR_ANIMALS");
+	moat_full.addFalse("DAM_BUILT");
 	moat_full.addAction({
 		action: "showInfoBox",
 		target: "moat"
 	});
+
+	var empty_moat= this.createClickableRegion(0, 300, GameEngine.screenWidth, 250);
+	empty_moat.addAction({
+		action: "showInfoBox",
+		target: "moat"
+	});
+	empty_moat.addTrue("DAM_BUILT");
+	empty_moat.addFalse("FOOD_FOR_ANIMALS");
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -46861,7 +47659,7 @@ PrisonScene2.prototype.update = function()
 
 module.exports = new PrisonScene2();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],23:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],23:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -46887,6 +47685,11 @@ PrisonScene3.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal3",
+	})
+
 
 	// create door
 	var doorClickTarget = this.createClickableSprite("keydoor", 0, 0);
@@ -46908,7 +47711,7 @@ PrisonScene3.prototype.added = function()
 	})
 
 	// create outlet
-	var outlet = this.createClickableSprite("outlet", -500, 0);
+	var outlet = this.createClickableSprite("outlet", -495, 7);
 	outlet.addAction({
 		action: "showInfoBox",
 		target: "outlet",
@@ -46919,8 +47722,13 @@ PrisonScene3.prototype.added = function()
 		target: "lamp",
 		setGlobals: ["LAMP_PLUGGED_IN"]
 	})
+
 	var lamp = this.createClickableSprite("lamplarge", -600, 85);
 	lamp.addTrue("LAMP_PLUGGED_IN");
+	lamp.addAction({
+		action: "showInfoBox",
+		target: "lamp",
+	})
 
 	PrisonScene.prototype.added.call(this);
 }
@@ -46934,7 +47742,7 @@ PrisonScene3.prototype.update = function()
 
 module.exports = new PrisonScene3();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],24:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],24:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -46960,6 +47768,10 @@ PrisonScene4.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal4",
+	})
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(
@@ -46978,7 +47790,7 @@ PrisonScene4.prototype.added = function()
 	var labyrinth_sign = this.createClickableSprite("labyrinth_sign", 350, -200);
 
 	PrisonScene.prototype.added.call(this);
-
+	
 	var puddle = this.createClickableSprite("puddle", 600, 470);
 	puddle.addFalse("DAM_BUILT");
 	puddle.addAction({
@@ -46996,7 +47808,7 @@ PrisonScene4.prototype.update = function()
 
 module.exports = new PrisonScene4();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],25:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],25:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -47022,6 +47834,10 @@ PrisonScene5.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal5"
+	})
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(
@@ -47067,7 +47883,7 @@ PrisonScene5.prototype.update = function()
 
 module.exports = new PrisonScene5();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],26:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],26:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -47093,6 +47909,11 @@ PrisonScene6.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal6",
+		continue: true
+	})
 
 	// create door
 	var steelWall = this.createClickableSprite("steelwall",0,0);
@@ -47153,7 +47974,7 @@ PrisonScene6.prototype.update = function()
 
 module.exports = new PrisonScene6();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],27:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],27:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -47179,13 +48000,18 @@ PrisonScene7.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal7",
+		continue: true
+	})
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(
 		GameEngine.screenWidth/2-150, 0, 300, GameEngine.screenHeight);
 	doorClickTarget.addAction({
 		action: "showInfoBox",
-		target: "pit",
+		target: "pitDoor",
 		continue: true
 	})
 	doorClickTarget.addAction({
@@ -47207,11 +48033,18 @@ PrisonScene7.prototype.added = function()
 		action: "interact",
 		target: "cardboard",
 		setGlobals: ["CARDBOARD_PLACED"],
-		globalIsTrue: ["MAGNETS_PLACED"]
+		globalIsTrue: ["MAGNETS_PLACED"],
+		continue: true
 	})
+	pitClickTarget.addAction({
+		action: "showInfoBox",
+		target: "pit",
+	})
+
 	var pitMagnets = this.createClickableSprite("pit_magnets", 0, 450);
 	pitMagnets.addTrue("MAGNETS_PLACED");
 	pitMagnets.addFalse("CARDBOARD_PLACED");
+
 	var pitBridge = this.createClickableSprite("pit_bridge", 0, 450);
 	pitBridge.addTrue("CARDBOARD_PLACED");
 
@@ -47229,7 +48062,7 @@ PrisonScene7.prototype.update = function()
 
 module.exports = new PrisonScene7();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],28:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],28:[function(require,module,exports){
 
 PrisonScene = require("./base_prison_scene.js");
 THREE = require("three");
@@ -47255,9 +48088,13 @@ PrisonScene8.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal8",
+	})
 
 	// create door
-	var doorClickTarget = this.createClickableSprite("portcullis", 0, 0);
+	var doorClickTarget = this.createClickableSprite("portcullis", 0, 0); 
 	doorClickTarget.addAction({
 		action: "showInfoBox",
 		target: "portcullis",
@@ -47265,9 +48102,9 @@ PrisonScene8.prototype.added = function()
 	})
 	doorClickTarget.addAction({
 		action: "win",
-		globalIsTrue: "GRAVITY_LIGHTER"
+		globalIsTrue: "GRAVITY_LIGHTER",
 	})
-	
+
 	PrisonScene.prototype.added.call(this);
 }
 
@@ -47280,7 +48117,7 @@ PrisonScene8.prototype.update = function()
 
 module.exports = new PrisonScene8();
 
-},{"../sdk/threeutils":41,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],29:[function(require,module,exports){
+},{"../sdk/threeutils":42,"./base_prison_scene.js":10,"./clicktarget.js":12,"three":2}],29:[function(require,module,exports){
 
 Scene = require("./base_scene.js");
 THREE = require("three");
@@ -47307,8 +48144,10 @@ TimeDeviceScene.prototype.added = function()
 	// create device base
 	this.deviceBase = this.createClickableSprite("timedevice", 0, 0);
 	this.deviceBase.addAction({
-		action: "triggerTimeDevice"
+		action: "triggerTimeDevice",
+		disable: "PASSED_INTRO"
 	})
+	this.deviceBase.permanentFalse = "YOU_WIN";
 	this.deviceBase.mesh.position.z = -15;
 	this.deviceBase.enabled = false;
 
@@ -47327,24 +48166,28 @@ TimeDeviceScene.prototype.added = function()
 		action: "triggerScene",
 		target: "creationOfTheWorld"
 	})
+	button1.permanentFalse = "YOU_WIN";
 
 	var button2 = this.createClickableSprite("timedevice_button2", -75, -145);
 	button2.addAction({
 		action: "triggerScene",
 		target: "field"
 	})
+	button2.permanentFalse = "YOU_WIN";
 
 	var button3 = this.createClickableSprite("timedevice_button3", 66, -145);
 	button3.addAction({
 		action: "triggerScene",
 		target: "construction"
 	})
+	button3.permanentFalse = "YOU_WIN";
 
 	var button4 = this.createClickableSprite("timedevice_button4", 173, -90);
 	button4.addAction({
 		action: "triggerScene",
 		target: "LAST_PRISON"
 	})
+	button4.permanentFalse = "YOU_WIN";
 
 	this.buttons.push(button1);
 	this.buttons.push(button2);
@@ -47436,9 +48279,64 @@ TimeDeviceScene.prototype.tweenOn = function()
 	this.deviceBase.enabled = false;
 }
 
+
+
 module.exports = new TimeDeviceScene();
 
-},{"../sdk/input":36,"../sdk/threeutils":41,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],30:[function(require,module,exports){
+},{"../sdk/input":37,"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],30:[function(require,module,exports){
+
+Scene = require("./base_scene.js");
+THREE = require("three");
+ThreeUtils = require("../sdk/threeutils");
+ClickTarget = require("./clicktarget.js");
+
+// In which you don't really do that much
+Inventory.select(3);
+var IndexScene = function()
+{
+	this.backgroundUrl = "media/black.png";
+
+	Scene.call(this);
+}
+
+IndexScene.prototype = new Scene();
+
+IndexScene.prototype.added = function()
+{
+	var atlas = ThreeUtils.loadAtlas("prison1");
+
+	this.crystalBob = 0;
+
+	// create crystal
+	this.crystal = this.createClickableSprite("crystal", 0, 0);
+	this.crystal.addAction({
+		action: "showInfoBox",
+		target: "win",
+	})
+
+	// create glow
+	var glowTex = ThreeUtils.loadTexture("media/crystal_bg.png");
+	var glowGeo = ThreeUtils.makeSpriteGeo(1814,1080);
+	this.glowMesh = ThreeUtils.makeSpriteMesh(glowTex, glowGeo);
+	this.transform.add(this.glowMesh);
+	this.glowMesh.position.z = -15;
+	this.otherMeshes.push(this.glowMesh);
+
+	Scene.prototype.added.call(this);
+}
+IndexScene.prototype.update = function()
+{
+	this.crystalBob += bmacSdk.deltaSec;
+
+	this.glowMesh.position.y = Math.cos(this.crystalBob) * 30 - 15;
+	this.crystal.mesh.position.y = this.glowMesh.position.y - 60;
+
+	Scene.prototype.update.call(this);
+}
+
+module.exports = new IndexScene();
+
+},{"../sdk/threeutils":42,"./base_scene.js":11,"./clicktarget.js":12,"three":2}],31:[function(require,module,exports){
 
 Input = require("../sdk/input");
 Conversation = require("./conversation.js");
@@ -47466,6 +48364,7 @@ var SceneManager =
 		prison6: require("./scene_prison6.js"),
 		prison7: require("./scene_prison7.js"),
 		prison8: require("./scene_prison8.js"),
+		win: require("./scene_win.js"),
 		LAST_PRISON: undefined, //special case, set dynamically
 	},
 
@@ -47668,7 +48567,7 @@ SceneManager.showScene = function(scene)
 	scene.setAlpha(1);
 }
 
-},{"../sdk/audiomanager":32,"../sdk/input":36,"./conversation.js":13,"./infobox.js":15,"./scene_creation_of_the_world.js":17,"./scene_index.js":18,"./scene_past_construction.js":19,"./scene_past_field.js":20,"./scene_prison1.js":21,"./scene_prison2.js":22,"./scene_prison3.js":23,"./scene_prison4.js":24,"./scene_prison5.js":25,"./scene_prison6.js":26,"./scene_prison7.js":27,"./scene_prison8.js":28,"./scene_timedevice.js":29}],31:[function(require,module,exports){
+},{"../sdk/audiomanager":33,"../sdk/input":37,"./conversation.js":13,"./infobox.js":15,"./scene_creation_of_the_world.js":17,"./scene_index.js":18,"./scene_past_construction.js":19,"./scene_past_field.js":20,"./scene_prison1.js":21,"./scene_prison2.js":22,"./scene_prison3.js":23,"./scene_prison4.js":24,"./scene_prison5.js":25,"./scene_prison6.js":26,"./scene_prison7.js":27,"./scene_prison8.js":28,"./scene_timedevice.js":29,"./scene_win.js":30}],32:[function(require,module,exports){
 
 // this file is partially generated by tools
 // do not change the layout
@@ -47774,7 +48673,7 @@ module.exports =
 },
 }
 
-},{"three":2}],32:[function(require,module,exports){
+},{"three":2}],33:[function(require,module,exports){
 
 /**
  * @namespace
@@ -47897,7 +48796,7 @@ AudioManager =
 
 module.exports = AudioManager;
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 
 bmacSdk = require("./index.js");
 
@@ -48034,7 +48933,7 @@ Engine.prototype._animate = function()
 
 module.exports = Engine;
 
-},{"./index.js":34}],34:[function(require,module,exports){
+},{"./index.js":35}],35:[function(require,module,exports){
 
 THREE = require("three");
 
@@ -48192,7 +49091,7 @@ bmacSdk._animate = function()
 	}
 };
 
-},{"../input":36,"../polyfills":39,"./engine.js":33,"three":2}],35:[function(require,module,exports){
+},{"../input":37,"../polyfills":40,"./engine.js":34,"three":2}],36:[function(require,module,exports){
 
 module.exports = Gamepad =
 {
@@ -48441,7 +49340,7 @@ module.exports = Gamepad =
 		return target;
 	},
 }
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 
 module.exports = Input = 
 {
@@ -48556,7 +49455,7 @@ module.exports = Input =
 	},
 };
 
-},{"./gamepad.js":35,"./keyboard.js":37,"./mouse.js":38}],37:[function(require,module,exports){
+},{"./gamepad.js":36,"./keyboard.js":38,"./mouse.js":39}],38:[function(require,module,exports){
 
 module.exports = Keyboard =
 {
@@ -48741,7 +49640,7 @@ module.exports = Keyboard =
 	}
 };
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 
 module.exports = Mouse =
 {
@@ -48927,7 +49826,7 @@ module.exports = Mouse =
 	},
 };
 
-},{}],39:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 Math.sign = Math.sign || function(val)
 {
 	if (val < 0)
@@ -49013,7 +49912,7 @@ Array.prototype.contains = Array.prototype.contains || function contains(object)
 	return false;
 };
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 
 ThreeUtils = require("./index.js")
 
@@ -49069,7 +49968,7 @@ Atlas.prototype.getSpriteHeight = function(key)
 
 module.exports = Atlas;
 
-},{"./index.js":41}],41:[function(require,module,exports){
+},{"./index.js":42}],42:[function(require,module,exports){
 
 THREE = require("three");
 AtlasData = require("../atlases");
@@ -49471,4 +50370,4 @@ THREE.Vector3.RightVector = new THREE.Vector3(1, 0, 0);
 THREE.Vector3.UpVector = new THREE.Vector3(0, -1, 0);
 THREE.Vector3.DownVector = new THREE.Vector3(0, 1, 0);
 
-},{"../atlases":31,"./Atlas.js":40,"three":2}]},{},[1]);
+},{"../atlases":32,"./Atlas.js":41,"three":2}]},{},[1]);

@@ -35,9 +35,17 @@ PrisonScene1.prototype.added = function()
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalSprite.addAction({
 		action: "showInfoBox",
-		target: "crystal"
+		target: "crystal1"
 	})
 	this.crystalBob = 0;
+
+	var forceTarget = this.createClickableRegion(-278, -88, 500, 500)
+	forceTarget.addAction({
+		action: "showInfoBox",
+		target: "forceField"
+	})
+	forceTarget.addFalse("NO_FUTURE_TECH");
+
 
 	// create lasers
 	var laserTexture = ThreeUtils.loadTexture("media/prison1_lasers.png");

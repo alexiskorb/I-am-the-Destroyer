@@ -23,6 +23,10 @@ PrisonScene4.prototype.added = function()
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
 	this.crystalBob = 0;
+	this.crystalSprite.addAction({
+		action: "showInfoBox",
+		target: "crystal4",
+	})
 
 	// create door
 	var doorClickTarget = this.createClickableRegion(
@@ -41,7 +45,7 @@ PrisonScene4.prototype.added = function()
 	var labyrinth_sign = this.createClickableSprite("labyrinth_sign", 350, -200);
 
 	PrisonScene.prototype.added.call(this);
-
+	
 	var puddle = this.createClickableSprite("puddle", 600, 470);
 	puddle.addFalse("DAM_BUILT");
 	puddle.addAction({

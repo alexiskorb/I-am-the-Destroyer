@@ -195,7 +195,7 @@
 			"responses":[
 				{
 					"text": "They can generate power while simultaneously acting as a bridge.",
-					"nextNodeId": 10,
+					"nextNodeId": 18,
 					"setGlobalTrue": "EXPLAINED_WHY_DAMS_ARE_AWESOME"
 				}
 			]
@@ -219,7 +219,7 @@
 		{
 			"id": 11,
 			"speaker": "johnson14",
-			"text": "Thanks, spooky guy!"
+			"text": "Okay, I will. Thanks, spooky guy!"
 		},
 		{
 			"id": 12,
@@ -287,12 +287,89 @@
 		{
 			"id": 16,
 			"speaker": "johnson14",
-			"text": "We're getting right to work on that dam! It's going to be great!."
+			"text": "We're getting right to work on that dam! It's going to be great!. We fixed our power problem and our bridge problem!"
 		},
 		{
 			"id": 17,
 			"speaker": "johnson14",
-			"text": "I'm terribily busy making these extremely time-sensitive measurements. Please come back later"
-		}
+			"text": "I'm terribily busy making these extremely time-sensitive measurements. Please come back later",
+			"responses":[
+				{
+					"text": "Gotta get those dam measurements.",
+					"nextNodeId": 22
+				},
+			]
+		},
+		{
+			"id": 18,
+			"speaker": "johnson14",
+			"text": "Hey, that's a pretty good idea! It would solve our power problem too.",
+			"responses":[
+				{
+					"text": "Power problem?",
+					"nextNodeId": 19
+				},
+			]
+		},
+		{
+			"id": 19,
+			"speaker": "johnson14",
+			"text": "Yeah. There's been a power shortage around here. Like if I turn on my Tesla coil, my neighbor won't be able to turn on his lights.",
+			"responses":[
+				{
+					"text": "Why do you have a Tesla coil?",
+					"nextNodeId": 20
+				},
+				{
+					"text": "So, about the dam...",
+					"nextNodeId": 21
+				},
+			]
+		},
+		{
+			"id": 20,
+			"speaker": "johnson14",
+			"text": "Why don't you have one? They're awesome.",
+			"responses":[
+				{
+					"text": "So, about the dam...",
+					"nextNodeId": 21
+				}
+			]
+		},
+		{
+			"id": 21,
+			"speaker": "johnson14",
+			"text": "I think it's a pretty good idea.",
+			"responses":[
+				{
+					"text": "I think you should build it.",
+					"nextNodeId": 11,
+					"setGlobalTrue": "DAM_BUILT"
+				},
+				{
+					"text": "Actually, I don't think that's such a good idea.",
+					"nextNodeId": 12
+				},
+			]
+		},
+		{
+			"id": 22,
+			"speaker": "johnson14",
+			"text": "I'm not building a dam.",
+			"responses":[
+				{
+					"text": "But, dam, man.",
+					"nextNodeId": 23
+				},
+			]
+		},
+		{
+			"id": 23,
+			"speaker": "johnson14",
+			"text": "If the community wants me to give them some hydroelectric power, maybe then, I'll give them a dam. But, I'm busy right now. Come back later.",
+			"responses":[
+			]
+		},
 	]
 }
