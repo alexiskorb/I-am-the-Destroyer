@@ -44263,7 +44263,7 @@ module.exports=//GRAVITY_LIGHTER
 				{
 					"text": "So, how's the wall going?",
 					"nextNodeId": 32,
-					"globalIsFalse": "CARDBOARD_WALL", 
+					"globalIsTrue": "CARDBOARD_WALL"
 				},
 				{
 					"text": "You remind me of someone.",
