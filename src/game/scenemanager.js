@@ -13,7 +13,7 @@ var SceneManager =
 	 */
 	scenes:
 	{
-		timeDevice: require("./scene_timedevice.js"),
+		timeDevice: require("./scene_timedevice.js"), //order matters; this needs to appear first
 		prison0: require("./scene_index.js"),
 		creationOfTheWorld: require("./scene_creation_of_the_world.js"),
 		field: require("./scene_past_field.js"),
@@ -75,14 +75,18 @@ SceneManager.update = function()
 		if (clickTarget) break;
 	}
 
+	// this target was blocking the click but isn't clickable itself
+	if (clickTarget && !clickTarget.isClickable())
+	{
+		clickTarget = undefined;
+	}
+
 	if (!Conversation.isConversationActive() && !this.animation)
 	{
-		if (clickTarget)
+		if (clickTarget
+			&& Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 		{
-			if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
-			{
-				clickTarget.trigger();
-			}
+			clickTarget.trigger();
 		}
 	}
 

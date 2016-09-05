@@ -34,26 +34,7 @@ Scene.prototype.update = function()
 {
 	for (var i = 0; i < this.clickTargets.length; i++)
 	{
-		if (this.clickTargets[i].enabled)
-		{
-			this.clickTargets[i].update();
-		}
-		if (this.clickTargets[i].conditional) {
-			if (this.clickTargets[i].meetsExistConditions())
-			{
-				this.clickTargets[i].enable();
-			}else{
-				this.clickTargets[i].disable();
-			}
-		}
-		if (this.clickTargets[i].isPermanentFalse())
-		{
-			this.clickTargets[i].disable();
-		}
-		if (this.clickTargets[i].isValidYet())
-		{
-			this.clickTargets[i].enable();
-		}
+		this.clickTargets[i].update();
 	}
 }
 
@@ -92,9 +73,26 @@ Scene.prototype.getClickTarget = function(position)
 {
 	for (var i = 0; i < this.clickTargets.length; i++)
 	{
-		if (this.clickTargets[i].isPointInBounds(position))
+		var clickTarget = this.clickTargets[i];
+		if (clickTarget.isPointInBounds(position))
 		{
-			return this.clickTargets[i];
+			if (!clickTarget.isClickable())
+			{
+				if (clickTarget.passThroughIfDisabled)
+				{
+					// this is not clickable but doesn't block my click
+				}
+				else
+				{
+					// this is not clickable and is blocking this click
+					return clickTarget;
+				}
+			}
+			else
+			{
+				// this is clickable, return it
+				return clickTarget;
+			}
 		}
 	}
 	return null;

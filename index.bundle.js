@@ -45379,26 +45379,7 @@ Scene.prototype.update = function()
 {
 	for (var i = 0; i < this.clickTargets.length; i++)
 	{
-		if (this.clickTargets[i].enabled)
-		{
-			this.clickTargets[i].update();
-		}
-		if (this.clickTargets[i].conditional) {
-			if (this.clickTargets[i].meetsExistConditions())
-			{
-				this.clickTargets[i].enable();
-			}else{
-				this.clickTargets[i].disable();
-			}
-		}
-		if (this.clickTargets[i].isPermanentFalse())
-		{
-			this.clickTargets[i].disable();
-		}
-		if (this.clickTargets[i].isValidYet())
-		{
-			this.clickTargets[i].enable();
-		}
+		this.clickTargets[i].update();
 	}
 }
 
@@ -45437,9 +45418,26 @@ Scene.prototype.getClickTarget = function(position)
 {
 	for (var i = 0; i < this.clickTargets.length; i++)
 	{
-		if (this.clickTargets[i].isPointInBounds(position))
+		var clickTarget = this.clickTargets[i];
+		if (clickTarget.isPointInBounds(position))
 		{
-			return this.clickTargets[i];
+			if (!clickTarget.isClickable())
+			{
+				if (clickTarget.passThroughIfDisabled)
+				{
+					// this is not clickable but doesn't block my click
+				}
+				else
+				{
+					// this is not clickable and is blocking this click
+					return clickTarget;
+				}
+			}
+			else
+			{
+				// this is clickable, return it
+				return clickTarget;
+			}
 		}
 	}
 	return null;
@@ -45484,7 +45482,6 @@ GlobalVariables = require("./globalvariables.js");
 
 var ClickTarget = function(mesh)
 {
-	this.enabled = true;
 	this.mesh = mesh;
 	this.bounds = new THREE.Box3();
 
@@ -45504,24 +45501,31 @@ var ClickTarget = function(mesh)
 	this.showInfoBox = undefined;
 	this.existConditionsTrue = [];
 	this.existConditionsFalse = [];
-	this.permanentFalse = undefined;
-	this.removeUntil = undefined;
-	this.conditional = false;
 }
 
+/**
+ * Adds an action that should occur when the player clicks this target.
+ * Only the first valid action is done, unless it has 'continue' set.
+ */
 ClickTarget.prototype.addAction = function(data)
 {
 	this.actions.push(data);
 }
-ClickTarget.prototype.addTrue= function(data)
+
+/**
+ * The object will be hidden when the specified global variable is false.
+ */
+ClickTarget.prototype.addTrue = function(globalVar)
 {
-	this.existConditionsTrue.push(data);
-	this.conditional = true;
+	this.existConditionsTrue.push(globalVar);
 }
-ClickTarget.prototype.addFalse = function(data)
+
+/**
+ * The object will be hidden when the specified global variable is true.
+ */
+ClickTarget.prototype.addFalse = function(globalVar)
 {
-	this.existConditionsFalse.push(data);
-	this.conditional = true;
+	this.existConditionsFalse.push(globalVar);
 }
 
 
@@ -45540,6 +45544,19 @@ module.exports = ClickTarget;
 
 ClickTarget.prototype.update = function()
 {
+	// update visibility
+	if (this.existConditionsTrue.length > 0 || this.existConditionsFalse.length > 0)
+	{
+		if (this.meetsExistConditions())
+		{
+			this.show();
+		}
+		else
+		{
+			this.hide();
+		}
+	}
+
 	if (this.animation)
 	{
 		this.animationTimer += bmacSdk.deltaSec;
@@ -45547,7 +45564,6 @@ ClickTarget.prototype.update = function()
 		{
 			this.animationTimer = this.animationDuration;
 			this.animation = undefined;
-			this.permanentlyDisable();
 			this.triggerPostAnimation();
 		}
 
@@ -45578,10 +45594,14 @@ ClickTarget.prototype.update = function()
 	}
 }
 
+ClickTarget.prototype.isClickable = function()
+{
+	return this.hasValidAction();
+}
+
 ClickTarget.prototype.isPointInBounds = function(point)
 {
-	if (!this.enabled) return false;
-	if (!this.hasValidAction()) return false;
+	if (!this.mesh.visible) return false;
 	var point = new THREE.Vector3(point.x, point.y, 0);
 	this.getBoundingBox();
 	point.z = (this.bounds.min.z + this.bounds.max.z) / 2;
@@ -45620,25 +45640,14 @@ ClickTarget.prototype.unhover = function()
 	}
 }
 
-ClickTarget.prototype.enable = function()
+ClickTarget.prototype.show = function()
 {
-	if (!this.permanentlyDisabled)
-	{
-		this.enabled = true;
-		this.mesh.visible = true;
-	}
+	this.mesh.visible = true;
 }
 
-ClickTarget.prototype.disable = function()
+ClickTarget.prototype.hide = function()
 {
-	this.enabled = false;
 	this.mesh.visible = false;
-}
-
-ClickTarget.prototype.permanentlyDisable = function()
-{
-	this.permanentlyDisabled = true;
-	this.disable();
 }
 
 ClickTarget.prototype.playPickupTween = function()
@@ -45703,10 +45712,6 @@ ClickTarget.prototype.triggerAction = function(action)
 			Inventory.addItem(Inventory.items[action.addItem]);
 		}
 		SceneManager.changeScene(action.target, SceneManager.ANIM_FORWARD);
-	}
-	else if (action.action == "disable")
-	{
-		this.permanentlyDisable();
 	}
 	else if (action.action == "interact")
 	{
@@ -45793,6 +45798,7 @@ ClickTarget.prototype.triggerPostAnimation = function()
 	if (this.executingAction.action == "collectItem")
 	{
 		Inventory.addItem(Inventory.items[this.executingAction.target]);
+		GlobalVariables.setVariable("HAS_COLLECTED_" + this.executingAction.target.toUpperCase());
 	}
 
 	this.executingAction = undefined;
@@ -45837,24 +45843,6 @@ ClickTarget.prototype.interact = function(item, globals, requiredGlobals, addIte
 	}
 }
 
-ClickTarget.prototype.isPermanentFalse = function()
-{
-	if (this.permanentFalse){
-		if (GlobalVariables.getVariable(this.permanentFalse)){
-			return true;
-		}
-	}
-	return false;
-}
-ClickTarget.prototype.isValidYet = function()
-{
-	if (this.removeUntil){
-		if (GlobalVariables.getVariable(this.removeUntil)){
-			return true;
-		}
-	}
-	return false;
-}
 },{"./conversation.js":13,"./globalvariables.js":14,"./infobox.js":15,"three":2}],13:[function(require,module,exports){
 
 Input = require("../sdk/input");
@@ -46155,6 +46143,13 @@ Conversation.getNode = function(index)
 
 },{"../sdk/input":37,"../sdk/threeutils":42,"./globalvariables.js":14}],14:[function(require,module,exports){
 //SaveState = require("./save_state.js");
+
+/*
+PROGRAMMETICALLY SET VARIABLES:
+- "HAS_COLLECTED_<ITEMKEY>": set when the "collectItem" action is taken on the ITEMKEY. Never unset.
+- "<ITEMKEY>_OBTAINED": set when the specified item is in the inventory, unset when it is removed. TODO: RENAME to "HAS_ITEM_<ITEMKEY>"
+- "TIMEDEVICE_RAISED": set when the device is raised, unset when it is lowered.
+*/
 
 var GlobalVariables =
 {
@@ -47403,6 +47398,7 @@ ConstructionScene.prototype.added = function()
 		action: "collectItem",
 		target: "hammer"
 	})
+	hammer.addFalse("HAS_COLLECTED_HAMMER");
 	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
 	this.playerSprite.addAction({
 		action: "showInfoBox",
@@ -47469,7 +47465,7 @@ FieldScene.prototype.added = function()
 		action: "collectItem",
 		target: "cardboard_box"
 	})
-
+	cardboardBox.addFalse("HAS_COLLECTED_CARDBOARD_BOX");
 
 	var speaker = this.createClickableSprite("speaker", 480, 200);
 	speaker.addAction({
@@ -48163,22 +48159,15 @@ TimeDeviceScene.prototype = new Scene();
 
 TimeDeviceScene.prototype.added = function()
 {
-	// create device base
-	this.deviceBase = this.createClickableSprite("timedevice", 0, 0);
-	this.deviceBase.addAction({
-		action: "triggerTimeDevice",
-		disable: "PASSED_INTRO"
-	})
-	this.deviceBase.permanentFalse = "YOU_WIN";
-	this.deviceBase.mesh.position.z = -15;
-	this.deviceBase.enabled = false;
-
 	// create sticky note
 	this.stickyNote = this.createClickableSprite("timedevice_sticky", 79, 200);
 	this.stickyNote.mesh.position.z = -10;
 	this.stickyNote.addAction({
-		action: "disable"
+		action: "miscellaneous",
+		setGlobals: ["STICKY_REMOVED"],
+		globalIsTrue: "TIMEDEVICE_RAISED"
 	})
+	this.stickyNote.addFalse("STICKY_REMOVED");
 	
 	// create buttons
 	this.buttons = [];
@@ -48186,35 +48175,53 @@ TimeDeviceScene.prototype.added = function()
 	var button1 = this.createClickableSprite("timedevice_button1", -169, -90);
 	button1.addAction({
 		action: "triggerScene",
-		target: "creationOfTheWorld"
+		target: "creationOfTheWorld",
+		globalIsTrue: "TIMEDEVICE_RAISED"
 	})
-	button1.permanentFalse = "YOU_WIN";
+	button1.passThroughIfDisabled = true;
+	button1.addFalse("YOU_WIN");
 
 	var button2 = this.createClickableSprite("timedevice_button2", -75, -145);
 	button2.addAction({
 		action: "triggerScene",
-		target: "field"
+		target: "field",
+		globalIsTrue: "TIMEDEVICE_RAISED"
 	})
-	button2.permanentFalse = "YOU_WIN";
+	button2.passThroughIfDisabled = true;
+	button2.addFalse("YOU_WIN");
 
 	var button3 = this.createClickableSprite("timedevice_button3", 66, -145);
 	button3.addAction({
 		action: "triggerScene",
-		target: "construction"
+		target: "construction",
+		globalIsTrue: "TIMEDEVICE_RAISED"
 	})
-	button3.permanentFalse = "YOU_WIN";
+	button3.passThroughIfDisabled = true;
+	button3.addFalse("YOU_WIN");
 
 	var button4 = this.createClickableSprite("timedevice_button4", 173, -90);
 	button4.addAction({
 		action: "triggerScene",
-		target: "LAST_PRISON"
+		target: "LAST_PRISON",
+		globalIsTrue: "TIMEDEVICE_RAISED"
 	})
-	button4.permanentFalse = "YOU_WIN";
+	button4.passThroughIfDisabled = true;
+	button4.addFalse("YOU_WIN");
 
 	this.buttons.push(button1);
 	this.buttons.push(button2);
 	this.buttons.push(button3);
 	this.buttons.push(button4);
+
+	// create device base
+	this.deviceBase = this.createClickableSprite("timedevice", 0, 0);
+	this.deviceBase.addFalse("YOU_WIN");
+	this.deviceBase.addAction({
+		action: "triggerTimeDevice",
+		disable: "PASSED_INTRO",
+		globalIsFalse: "TIMEDEVICE_RAISED"
+	})
+	this.deviceBase.mesh.position.z = -15;
 
 	Scene.prototype.added.call(this);
 
@@ -48273,15 +48280,10 @@ TimeDeviceScene.prototype.tweenOff = function()
 	{
 		this.isAtWant = false;
 		this.wantsUp = false;
+		GlobalVariables.unsetVariable("TIMEDEVICE_RAISED");
 		this.animationTimer = 0;
 		this.eatFrame = true;
 	}
-
-	for (var i = 0; i < this.buttons.length; i++)
-	{
-		this.buttons[i].enabled = false;
-	}
-	this.deviceBase.enabled = true;
 }
 
 TimeDeviceScene.prototype.tweenOn = function()
@@ -48290,15 +48292,10 @@ TimeDeviceScene.prototype.tweenOn = function()
 	{
 		this.isAtWant = false;
 		this.wantsUp = true;
+		GlobalVariables.setVariable("TIMEDEVICE_RAISED");
 		this.animationTimer = 0;
 		this.eatFrame = true;
 	}
-
-	for (var i = 0; i < this.buttons.length; i++)
-	{
-		this.buttons[i].enabled = true;
-	}
-	this.deviceBase.enabled = false;
 }
 
 
@@ -48372,7 +48369,7 @@ var SceneManager =
 	 */
 	scenes:
 	{
-		timeDevice: require("./scene_timedevice.js"),
+		timeDevice: require("./scene_timedevice.js"), //order matters; this needs to appear first
 		prison0: require("./scene_index.js"),
 		creationOfTheWorld: require("./scene_creation_of_the_world.js"),
 		field: require("./scene_past_field.js"),
@@ -48434,14 +48431,18 @@ SceneManager.update = function()
 		if (clickTarget) break;
 	}
 
+	// this target was blocking the click but isn't clickable itself
+	if (clickTarget && !clickTarget.isClickable())
+	{
+		clickTarget = undefined;
+	}
+
 	if (!Conversation.isConversationActive() && !this.animation)
 	{
-		if (clickTarget)
+		if (clickTarget
+			&& Input.Mouse.buttonPressed(Input.Mouse.LEFT))
 		{
-			if (Input.Mouse.buttonPressed(Input.Mouse.LEFT))
-			{
-				clickTarget.trigger();
-			}
+			clickTarget.trigger();
 		}
 	}
 

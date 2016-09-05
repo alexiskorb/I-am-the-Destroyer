@@ -21,22 +21,15 @@ TimeDeviceScene.prototype = new Scene();
 
 TimeDeviceScene.prototype.added = function()
 {
-	// create device base
-	this.deviceBase = this.createClickableSprite("timedevice", 0, 0);
-	this.deviceBase.addAction({
-		action: "triggerTimeDevice",
-		disable: "PASSED_INTRO"
-	})
-	this.deviceBase.permanentFalse = "YOU_WIN";
-	this.deviceBase.mesh.position.z = -15;
-	this.deviceBase.enabled = false;
-
 	// create sticky note
 	this.stickyNote = this.createClickableSprite("timedevice_sticky", 79, 200);
 	this.stickyNote.mesh.position.z = -10;
 	this.stickyNote.addAction({
-		action: "disable"
+		action: "miscellaneous",
+		setGlobals: ["STICKY_REMOVED"],
+		globalIsTrue: "TIMEDEVICE_RAISED"
 	})
+	this.stickyNote.addFalse("STICKY_REMOVED");
 	
 	// create buttons
 	this.buttons = [];
@@ -44,35 +37,53 @@ TimeDeviceScene.prototype.added = function()
 	var button1 = this.createClickableSprite("timedevice_button1", -169, -90);
 	button1.addAction({
 		action: "triggerScene",
-		target: "creationOfTheWorld"
+		target: "creationOfTheWorld",
+		globalIsTrue: "TIMEDEVICE_RAISED"
 	})
-	button1.permanentFalse = "YOU_WIN";
+	button1.passThroughIfDisabled = true;
+	button1.addFalse("YOU_WIN");
 
 	var button2 = this.createClickableSprite("timedevice_button2", -75, -145);
 	button2.addAction({
 		action: "triggerScene",
-		target: "field"
+		target: "field",
+		globalIsTrue: "TIMEDEVICE_RAISED"
 	})
-	button2.permanentFalse = "YOU_WIN";
+	button2.passThroughIfDisabled = true;
+	button2.addFalse("YOU_WIN");
 
 	var button3 = this.createClickableSprite("timedevice_button3", 66, -145);
 	button3.addAction({
 		action: "triggerScene",
-		target: "construction"
+		target: "construction",
+		globalIsTrue: "TIMEDEVICE_RAISED"
 	})
-	button3.permanentFalse = "YOU_WIN";
+	button3.passThroughIfDisabled = true;
+	button3.addFalse("YOU_WIN");
 
 	var button4 = this.createClickableSprite("timedevice_button4", 173, -90);
 	button4.addAction({
 		action: "triggerScene",
-		target: "LAST_PRISON"
+		target: "LAST_PRISON",
+		globalIsTrue: "TIMEDEVICE_RAISED"
 	})
-	button4.permanentFalse = "YOU_WIN";
+	button4.passThroughIfDisabled = true;
+	button4.addFalse("YOU_WIN");
 
 	this.buttons.push(button1);
 	this.buttons.push(button2);
 	this.buttons.push(button3);
 	this.buttons.push(button4);
+
+	// create device base
+	this.deviceBase = this.createClickableSprite("timedevice", 0, 0);
+	this.deviceBase.addFalse("YOU_WIN");
+	this.deviceBase.addAction({
+		action: "triggerTimeDevice",
+		disable: "PASSED_INTRO",
+		globalIsFalse: "TIMEDEVICE_RAISED"
+	})
+	this.deviceBase.mesh.position.z = -15;
 
 	Scene.prototype.added.call(this);
 
@@ -131,15 +142,10 @@ TimeDeviceScene.prototype.tweenOff = function()
 	{
 		this.isAtWant = false;
 		this.wantsUp = false;
+		GlobalVariables.unsetVariable("TIMEDEVICE_RAISED");
 		this.animationTimer = 0;
 		this.eatFrame = true;
 	}
-
-	for (var i = 0; i < this.buttons.length; i++)
-	{
-		this.buttons[i].enabled = false;
-	}
-	this.deviceBase.enabled = true;
 }
 
 TimeDeviceScene.prototype.tweenOn = function()
@@ -148,15 +154,10 @@ TimeDeviceScene.prototype.tweenOn = function()
 	{
 		this.isAtWant = false;
 		this.wantsUp = true;
+		GlobalVariables.setVariable("TIMEDEVICE_RAISED");
 		this.animationTimer = 0;
 		this.eatFrame = true;
 	}
-
-	for (var i = 0; i < this.buttons.length; i++)
-	{
-		this.buttons[i].enabled = true;
-	}
-	this.deviceBase.enabled = false;
 }
 
 

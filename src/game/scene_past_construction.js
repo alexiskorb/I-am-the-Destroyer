@@ -42,6 +42,7 @@ ConstructionScene.prototype.added = function()
 		action: "collectItem",
 		target: "hammer"
 	})
+	hammer.addFalse("HAS_COLLECTED_HAMMER");
 	this.playerSprite = this.createClickableSprite("heaven_player", -800, 40);
 	this.playerSprite.addAction({
 		action: "showInfoBox",

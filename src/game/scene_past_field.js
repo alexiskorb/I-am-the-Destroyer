@@ -46,7 +46,7 @@ FieldScene.prototype.added = function()
 		action: "collectItem",
 		target: "cardboard_box"
 	})
-
+	cardboardBox.addFalse("HAS_COLLECTED_CARDBOARD_BOX");
 
 	var speaker = this.createClickableSprite("speaker", 480, 200);
 	speaker.addAction({

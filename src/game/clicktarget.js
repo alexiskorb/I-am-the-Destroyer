@@ -7,7 +7,6 @@ GlobalVariables = require("./globalvariables.js");
 
 var ClickTarget = function(mesh)
 {
-	this.enabled = true;
 	this.mesh = mesh;
 	this.bounds = new THREE.Box3();
 
@@ -27,24 +26,31 @@ var ClickTarget = function(mesh)
 	this.showInfoBox = undefined;
 	this.existConditionsTrue = [];
 	this.existConditionsFalse = [];
-	this.permanentFalse = undefined;
-	this.removeUntil = undefined;
-	this.conditional = false;
 }
 
+/**
+ * Adds an action that should occur when the player clicks this target.
+ * Only the first valid action is done, unless it has 'continue' set.
+ */
 ClickTarget.prototype.addAction = function(data)
 {
 	this.actions.push(data);
 }
-ClickTarget.prototype.addTrue= function(data)
+
+/**
+ * The object will be hidden when the specified global variable is false.
+ */
+ClickTarget.prototype.addTrue = function(globalVar)
 {
-	this.existConditionsTrue.push(data);
-	this.conditional = true;
+	this.existConditionsTrue.push(globalVar);
 }
-ClickTarget.prototype.addFalse = function(data)
+
+/**
+ * The object will be hidden when the specified global variable is true.
+ */
+ClickTarget.prototype.addFalse = function(globalVar)
 {
-	this.existConditionsFalse.push(data);
-	this.conditional = true;
+	this.existConditionsFalse.push(globalVar);
 }
 
 
@@ -63,6 +69,19 @@ module.exports = ClickTarget;
 
 ClickTarget.prototype.update = function()
 {
+	// update visibility
+	if (this.existConditionsTrue.length > 0 || this.existConditionsFalse.length > 0)
+	{
+		if (this.meetsExistConditions())
+		{
+			this.show();
+		}
+		else
+		{
+			this.hide();
+		}
+	}
+
 	if (this.animation)
 	{
 		this.animationTimer += bmacSdk.deltaSec;
@@ -70,7 +89,6 @@ ClickTarget.prototype.update = function()
 		{
 			this.animationTimer = this.animationDuration;
 			this.animation = undefined;
-			this.permanentlyDisable();
 			this.triggerPostAnimation();
 		}
 
@@ -101,10 +119,14 @@ ClickTarget.prototype.update = function()
 	}
 }
 
+ClickTarget.prototype.isClickable = function()
+{
+	return this.hasValidAction();
+}
+
 ClickTarget.prototype.isPointInBounds = function(point)
 {
-	if (!this.enabled) return false;
-	if (!this.hasValidAction()) return false;
+	if (!this.mesh.visible) return false;
 	var point = new THREE.Vector3(point.x, point.y, 0);
 	this.getBoundingBox();
 	point.z = (this.bounds.min.z + this.bounds.max.z) / 2;
@@ -143,25 +165,14 @@ ClickTarget.prototype.unhover = function()
 	}
 }
 
-ClickTarget.prototype.enable = function()
+ClickTarget.prototype.show = function()
 {
-	if (!this.permanentlyDisabled)
-	{
-		this.enabled = true;
-		this.mesh.visible = true;
-	}
+	this.mesh.visible = true;
 }
 
-ClickTarget.prototype.disable = function()
+ClickTarget.prototype.hide = function()
 {
-	this.enabled = false;
 	this.mesh.visible = false;
-}
-
-ClickTarget.prototype.permanentlyDisable = function()
-{
-	this.permanentlyDisabled = true;
-	this.disable();
 }
 
 ClickTarget.prototype.playPickupTween = function()
@@ -226,10 +237,6 @@ ClickTarget.prototype.triggerAction = function(action)
 			Inventory.addItem(Inventory.items[action.addItem]);
 		}
 		SceneManager.changeScene(action.target, SceneManager.ANIM_FORWARD);
-	}
-	else if (action.action == "disable")
-	{
-		this.permanentlyDisable();
 	}
 	else if (action.action == "interact")
 	{
@@ -316,6 +323,7 @@ ClickTarget.prototype.triggerPostAnimation = function()
 	if (this.executingAction.action == "collectItem")
 	{
 		Inventory.addItem(Inventory.items[this.executingAction.target]);
+		GlobalVariables.setVariable("HAS_COLLECTED_" + this.executingAction.target.toUpperCase());
 	}
 
 	this.executingAction = undefined;
@@ -358,23 +366,4 @@ ClickTarget.prototype.interact = function(item, globals, requiredGlobals, addIte
 			Inventory.addItem(Inventory.items[addItem]);
 		}
 	}
-}
-
-ClickTarget.prototype.isPermanentFalse = function()
-{
-	if (this.permanentFalse){
-		if (GlobalVariables.getVariable(this.permanentFalse)){
-			return true;
-		}
-	}
-	return false;
-}
-ClickTarget.prototype.isValidYet = function()
-{
-	if (this.removeUntil){
-		if (GlobalVariables.getVariable(this.removeUntil)){
-			return true;
-		}
-	}
-	return false;
 }

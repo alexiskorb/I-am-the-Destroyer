@@ -1,5 +1,12 @@
 //SaveState = require("./save_state.js");
 
+/*
+PROGRAMMATICALLY SET VARIABLES:
+- "HAS_COLLECTED_<ITEMKEY>": set when the "collectItem" action is taken on the ITEMKEY. Never unset.
+- "<ITEMKEY>_OBTAINED": set when the specified item is in the inventory, unset when it is removed. TODO: RENAME to "HAS_ITEM_<ITEMKEY>"
+- "TIMEDEVICE_RAISED": set when the device is raised, unset when it is lowered.
+*/
+
 var GlobalVariables =
 {
 	Variables: {},
