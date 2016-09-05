@@ -519,6 +519,11 @@ InfoBox.info =
                 isTrue: ["DAM_BUILT"],
                 isFalse: []
             },
+            {
+                text: "This labyrinth is too well-designed. I won't be able to get through. I guess I'm stuck.",
+                isTrue: ["BAD_DOOR"],
+                isFalse: []
+            },
         ]
     },
     puddle:
