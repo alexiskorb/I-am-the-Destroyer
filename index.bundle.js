@@ -45306,7 +45306,7 @@ PrisonScene.prototype = new Scene();
 
 PrisonScene.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
+	var atlas = ThreeUtils.loadAtlas("general");
 
 	// create top shadow
 	var topShadow = ThreeUtils.makeAtlasMesh(atlas, "prison1_topshadow");
@@ -45600,8 +45600,8 @@ ClickTarget.prototype.hover = function()
 	var temp = new THREE.Vector3().setFromMatrixPosition(this.mesh.matrixWorld);
 	this.hoverMesh.position.set(temp.x, temp.y, this.mesh.position.z - 1);
 	this.bounds.size(this.hoverMesh.scale);
-	this.hoverMesh.scale.x /= 32;
-	this.hoverMesh.scale.y /= 32;
+	this.hoverMesh.scale.x /= 48;
+	this.hoverMesh.scale.y /= 48;
 	this.hoverMesh.scale.z = 1;
 	this.hoverMesh.visible = true;
 }
@@ -47316,8 +47316,6 @@ IndexScene.prototype = new Scene();
 
 IndexScene.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
-
 	this.crystalBob = 0;
 
 	// create crystal
@@ -47518,19 +47516,12 @@ PrisonScene1.prototype = new PrisonScene();
 
 PrisonScene1.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
+	var atlas = ThreeUtils.loadAtlas("general");
 	
 	// create forcefield
 	this.ffx = -278;
 	this.ffy = -88;
 	this.forcefieldSprites = [];
-	for (var i = 0; i < 3; i++)
-	{
-		var sprite = ThreeUtils.makeAtlasMesh(atlas, "prison1_ff");
-		sprite.position.set(this.ffx, this.ffy, -15);
-		this.transform.add(sprite);
-		this.forcefieldSprites.push(sprite);
-	}
 
 	// create crystal
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
@@ -47540,13 +47531,16 @@ PrisonScene1.prototype.added = function()
 	})
 	this.crystalBob = 0;
 
-	var forceTarget = this.createClickableRegion(-278, -88, 500, 500)
-	forceTarget.addAction({
-		action: "showInfoBox",
-		target: "forceField"
-	})
-	forceTarget.addFalse("NO_FUTURE_TECH");
-
+	for (var i = 1; i < 3; i++)
+	{
+		var sprite = this.createClickableSprite("prison1_ff", this.ffx, this.ffy);
+		sprite.addAction({
+			action: "showInfoBox",
+			target: "forceField"
+		})
+		sprite.addFalse("NO_FUTURE_TECH");
+		this.forcefieldSprites.push(sprite);
+	}
 
 	// create lasers
 	var laserTexture = ThreeUtils.loadTexture("media/prison1_lasers.png");
@@ -47594,10 +47588,9 @@ PrisonScene1.prototype.update = function()
 	// jitter forcefield
 	for (var i = 0; i < this.forcefieldSprites.length; i++)
 	{
-		this.forcefieldSprites[i].position.set(
+		this.forcefieldSprites[i].mesh.position.set(
 			this.ffx + (Math.random()-0.5)*4*i, this.ffy + (Math.random()-0.5)*4*i,
-			this.forcefieldSprites[i].position.z);
-		this.forcefieldSprites[i].visible = !GlobalVariables.getVariable("NO_FUTURE_TECH");
+			this.forcefieldSprites[i].mesh.position.z);
 	}
 
 	this.crystalBob += bmacSdk.deltaSec;
@@ -47630,8 +47623,6 @@ PrisonScene2.prototype = new PrisonScene();
 
 PrisonScene2.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
-	
 	this.ffx = -650;
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
@@ -47716,8 +47707,6 @@ PrisonScene3.prototype = new PrisonScene();
 
 PrisonScene3.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
-	
 	this.ffx = 650;
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
@@ -47799,8 +47788,6 @@ PrisonScene4.prototype = new PrisonScene();
 
 PrisonScene4.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
-	
 	this.ffx = -650;
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
@@ -47865,8 +47852,6 @@ PrisonScene5.prototype = new PrisonScene();
 
 PrisonScene5.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
-	
 	this.ffx = -650;
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
@@ -47940,8 +47925,6 @@ PrisonScene6.prototype = new PrisonScene();
 
 PrisonScene6.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
-	
 	this.ffx = -650;
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
@@ -48031,8 +48014,6 @@ PrisonScene7.prototype = new PrisonScene();
 
 PrisonScene7.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
-	
 	this.ffx = -800;
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
@@ -48119,8 +48100,6 @@ PrisonScene8.prototype = new PrisonScene();
 
 PrisonScene8.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
-	
 	this.ffx = -650;
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
@@ -48340,8 +48319,6 @@ IndexScene.prototype = new Scene();
 
 IndexScene.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
-
 	this.crystalBob = 0;
 
 	// create crystal
@@ -48655,55 +48632,58 @@ module.exports =
 "general":
 {
 	url: "media/general_atlas.png",
-	width: 4095,
-	height: 2045,
+	width: 3467,
+	height: 2619,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
-	"balloon":[364,1977,60,60],
-	"balloonLarge":[291,1912,72,128],
+	"balloon":[820,1912,60,60],
+	"balloonLarge":[1686,1562,72,128],
 	"brickwall":[2467,0,544,862],
-	"builder_guy":[2843,1726,124,288],
-	"cardboard":[1527,819,60,60],
-	"cardboard_preacher":[2561,1726,154,319],
-	"cardboardbox":[1592,754,60,60],
-	"cardboardboxlarge":[1365,1675,150,150],
+	"builder_guy":[1033,2283,124,288],
+	"cardboard":[881,1912,60,60],
+	"cardboard_preacher":[1230,1985,154,319],
+	"cardboardbox":[767,2498,60,60],
+	"cardboardboxlarge":[646,2196,150,150],
 	"cardboardWall":[1832,863,544,862],
-	"cardboardWallBroken":[2922,863,544,855],
-	"crystal":[1820,1726,281,283],
+	"cardboardWallBroken":[1686,1726,544,855],
+	"crystal":[538,1912,281,283],
 	"empty_pit":[0,880,1030,230],
-	"grad_circle":[364,1912,64,64],
-	"grad_r":[1527,754,64,64],
-	"guard":[3467,863,344,800],
+	"grad_circle":[1697,804,64,64],
+	"grad_r":[1762,804,64,64],
+	"guard":[3012,0,344,800],
 	"guardandtiger":[0,1111,980,800],
-	"hammer":[491,1912,60,60],
-	"heaven_angel":[3812,853,212,467],
-	"heaven_player":[2364,1726,196,297],
-	"keydoor":[3012,0,544,862],
+	"hammer":[1759,1562,60,60],
+	"heaven_angel":[820,1985,212,467],
+	"heaven_player":[1033,1985,196,297],
+	"keydoor":[2377,863,544,862],
 	"labyrinth_sign":[1031,880,800,400],
-	"lamp":[1592,815,60,60],
-	"lamplarge":[1519,1281,300,734],
-	"magnets":[491,1973,60,60],
+	"lamp":[767,2559,60,60],
+	"lamplarge":[2769,1726,300,734],
+	"magnets":[828,2453,60,60],
 	"moat_full":[0,0,1920,250],
 	"moat_hungry":[0,251,1920,250],
-	"normal_guy_sprite":[2968,1719,124,280],
-	"outlet":[429,1912,61,83],
+	"normal_guy_sprite":[1385,1985,124,280],
+	"outlet":[538,2196,61,83],
 	"pit_bridge":[0,502,1263,226],
 	"pit_edge":[1264,603,400,150],
 	"pit_magnets":[0,729,1263,150],
 	"portcullis":[1921,0,545,862],
+	"prison1_ff":[981,1281,704,703],
+	"prison1_floor":[797,2196,4,295],
+	"prison1_topshadow":[802,2196,4,270],
 	"puddle":[1264,502,600,100],
-	"speaker":[1365,1826,150,150],
-	"steelwall":[3557,0,537,852],
-	"suit_sprite":[2716,1726,126,280],
-	"tech_table":[981,1675,383,291],
-	"timedevice":[981,1281,537,393],
-	"timedevice_button1":[1264,754,141,93],
-	"timedevice_button2":[153,1912,137,75],
-	"timedevice_button3":[1406,754,120,76],
-	"timedevice_button4":[0,1912,152,102],
-	"timedevice_sticky":[2102,1726,261,257],
-	"woodwall":[2377,863,544,862],
+	"speaker":[646,2347,150,150],
+	"steelwall":[2231,1726,537,852],
+	"suit_sprite":[1686,1281,126,280],
+	"tech_table":[0,2306,383,291],
+	"timedevice":[0,1912,537,393],
+	"timedevice_button1":[1417,754,141,93],
+	"timedevice_button2":[1559,804,137,75],
+	"timedevice_button3":[646,2498,120,76],
+	"timedevice_button4":[1264,754,152,102],
+	"timedevice_sticky":[384,2306,261,257],
+	"woodwall":[2922,863,544,862],
 	"wormhole":[1665,603,200,200],
 	},
 },
@@ -48717,19 +48697,6 @@ module.exports =
 	{
 	"heaven_back_glow_25":[0,247,4,110],
 	"heaven_platform":[0,0,1235,246],
-	},
-},
-"prison1":
-{
-	url: "media/prison1_atlas.png",
-	width: 710,
-	height: 703,
-	filter: THREE.LinearFilter,
-	sprites:
-	{
-	"prison1_ff":[0,0,704,703],
-	"prison1_floor":[705,0,4,295],
-	"prison1_topshadow":[705,296,4,270],
 	},
 },
 "characters":

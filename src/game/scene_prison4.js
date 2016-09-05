@@ -17,8 +17,6 @@ PrisonScene4.prototype = new PrisonScene();
 
 PrisonScene4.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
-	
 	this.ffx = -650;
 	this.ffy = -88;
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);

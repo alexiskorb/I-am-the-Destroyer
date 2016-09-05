@@ -17,8 +17,6 @@ IndexScene.prototype = new Scene();
 
 IndexScene.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
-
 	this.crystalBob = 0;
 
 	// create crystal

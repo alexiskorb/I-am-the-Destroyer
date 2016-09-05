@@ -16,7 +16,7 @@ PrisonScene.prototype = new Scene();
 
 PrisonScene.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
+	var atlas = ThreeUtils.loadAtlas("general");
 
 	// create top shadow
 	var topShadow = ThreeUtils.makeAtlasMesh(atlas, "prison1_topshadow");

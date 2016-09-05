@@ -17,19 +17,12 @@ PrisonScene1.prototype = new PrisonScene();
 
 PrisonScene1.prototype.added = function()
 {
-	var atlas = ThreeUtils.loadAtlas("prison1");
+	var atlas = ThreeUtils.loadAtlas("general");
 	
 	// create forcefield
 	this.ffx = -278;
 	this.ffy = -88;
 	this.forcefieldSprites = [];
-	for (var i = 0; i < 3; i++)
-	{
-		var sprite = ThreeUtils.makeAtlasMesh(atlas, "prison1_ff");
-		sprite.position.set(this.ffx, this.ffy, -15);
-		this.transform.add(sprite);
-		this.forcefieldSprites.push(sprite);
-	}
 
 	// create crystal
 	this.crystalSprite = this.createClickableSprite("crystal", this.ffx, this.ffy);
@@ -39,13 +32,16 @@ PrisonScene1.prototype.added = function()
 	})
 	this.crystalBob = 0;
 
-	var forceTarget = this.createClickableRegion(-278, -88, 500, 500)
-	forceTarget.addAction({
-		action: "showInfoBox",
-		target: "forceField"
-	})
-	forceTarget.addFalse("NO_FUTURE_TECH");
-
+	for (var i = 1; i < 3; i++)
+	{
+		var sprite = this.createClickableSprite("prison1_ff", this.ffx, this.ffy);
+		sprite.addAction({
+			action: "showInfoBox",
+			target: "forceField"
+		})
+		sprite.addFalse("NO_FUTURE_TECH");
+		this.forcefieldSprites.push(sprite);
+	}
 
 	// create lasers
 	var laserTexture = ThreeUtils.loadTexture("media/prison1_lasers.png");
@@ -93,10 +89,9 @@ PrisonScene1.prototype.update = function()
 	// jitter forcefield
 	for (var i = 0; i < this.forcefieldSprites.length; i++)
 	{
-		this.forcefieldSprites[i].position.set(
+		this.forcefieldSprites[i].mesh.position.set(
 			this.ffx + (Math.random()-0.5)*4*i, this.ffy + (Math.random()-0.5)*4*i,
-			this.forcefieldSprites[i].position.z);
-		this.forcefieldSprites[i].visible = !GlobalVariables.getVariable("NO_FUTURE_TECH");
+			this.forcefieldSprites[i].mesh.position.z);
 	}
 
 	this.crystalBob += bmacSdk.deltaSec;
