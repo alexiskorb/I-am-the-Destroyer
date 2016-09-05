@@ -6,6 +6,7 @@ ClickTarget = require("./clicktarget.js");
 
 var FieldScene = function()
 {
+	this.musicUrl = "media/ngxmusicalngx+clashinglyskysbonuslevel20.mp3";
 	this.backgroundUrl = "media/landscape.png";
 
 	Scene.call(this);

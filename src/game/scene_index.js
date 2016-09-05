@@ -8,6 +8,7 @@ ClickTarget = require("./clicktarget.js");
 Inventory.select(3);
 var IndexScene = function()
 {
+	this.musicUrl = "media/ngxmusicalngx+enteringthemachineryroom.mp3";
 	this.backgroundUrl = "media/black.png";
 
 	Scene.call(this);

@@ -6,6 +6,7 @@ ClickTarget = require("./clicktarget.js");
 
 var CreationOfTheWorldScene = function()
 {
+	this.musicUrl = "media/ngxmusicalngx+majesticbouncywaters.mp3";
 	this.backgroundUrl = "media/heaven_sky_gradient.png";
 
 	Scene.call(this);

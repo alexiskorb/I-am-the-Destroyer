@@ -44204,7 +44204,7 @@ module.exports=//CARNIVAL
 					"nextNodeId": 8
 				}
 			]
-		},
+		}
 	]
 }
 
@@ -44243,10 +44243,6 @@ module.exports=//GRAVITY_LIGHTER
 					"text": "What are you doing?",
 					"nextNodeId": 4,
 					"globalIsFalse": "BRICK_WALL"
-				},
-				{
-					"text": "You remind me of someone.",
-					"nextNodeId": 13
 				},
 				{
 					"text": "So, how's the wall going?",
@@ -45302,7 +45298,7 @@ ClickTarget = require("./clicktarget.js");
 
 var PrisonScene = function()
 {
-	this.musicUrl = "media/ngxmusicalngx+astrangedream.mp3";;
+	this.musicUrl = "media/ngxmusicalngx+astrangedream.mp3";
 	Scene.call(this);
 }
 
@@ -46152,6 +46148,7 @@ Conversation.getNode = function(index)
 }
 
 },{"../sdk/input":37,"../sdk/threeutils":42,"./globalvariables.js":14}],14:[function(require,module,exports){
+//SaveState = require("./save_state.js");
 
 var GlobalVariables =
 {
@@ -46179,6 +46176,7 @@ GlobalVariables.setVariable = function(key)
 	{
 		this.Variables[key.toLowerCase()] = true;
 	}
+	//SaveState.setGlobal(key, 1);
 }
 
 GlobalVariables.unsetVariable = function(key)
@@ -46195,8 +46193,43 @@ GlobalVariables.unsetVariable = function(key)
 	{
 		this.Variables[key.toLowerCase()] = false;
 	}
+	//SaveState.setGlobal(key, 0);
+}
+/*
+GlobalVariables.setVariableNoSave = function(key)
+{
+	if (!key) return
+	else if (key instanceof Array)
+	{
+		for (var i = 0; i < key.length; i++)
+		{
+			this.setVariable(key[i]);
+		}
+	}
+	else
+	{
+		this.Variables[key.toLowerCase()] = true;
+	}
+	//SaveState.setGlobal(key, 1);
 }
 
+GlobalVariables.unsetVariableNoSave = function(key)
+{
+	if (!key) return
+	else if (key instanceof Array)
+	{
+		for (var i = 0; i < key.length; i++)
+		{
+			this.unsetVariable(key[i]);
+		}
+	}
+	else
+	{
+		this.Variables[key.toLowerCase()] = false;
+	}
+	//SaveState.setGlobal(key, 0);
+}
+*/
 },{}],15:[function(require,module,exports){
 
 Input = require("../sdk/input");
@@ -47164,6 +47197,7 @@ ClickTarget = require("./clicktarget.js");
 
 var CreationOfTheWorldScene = function()
 {
+	this.musicUrl = "media/ngxmusicalngx+majesticbouncywaters.mp3";
 	this.backgroundUrl = "media/heaven_sky_gradient.png";
 
 	Scene.call(this);
@@ -47272,6 +47306,7 @@ ClickTarget = require("./clicktarget.js");
 Inventory.select(3);
 var IndexScene = function()
 {
+	this.musicUrl = "media/ngxmusicalngx+enteringthemachineryroom.mp3";
 	this.backgroundUrl = "media/black.png";
 
 	Scene.call(this);
@@ -47328,6 +47363,7 @@ ClickTarget = require("./clicktarget.js");
 
 var ConstructionScene = function()
 {
+	this.musicUrl = "media/ngxmusicalngx+thegodsofthestars.mp3";
 	this.backgroundUrl = "media/construction.png";
 
 	Scene.call(this);
@@ -47389,6 +47425,7 @@ ClickTarget = require("./clicktarget.js");
 
 var FieldScene = function()
 {
+	this.musicUrl = "media/ngxmusicalngx+clashinglyskysbonuslevel20.mp3";
 	this.backgroundUrl = "media/landscape.png";
 
 	Scene.call(this);
@@ -48342,6 +48379,7 @@ Input = require("../sdk/input");
 Conversation = require("./conversation.js");
 InfoBox = require("./infobox.js");
 AudioManager = require("../sdk/audiomanager");
+//SaveState = require("./save_state.js")
 
 var SceneManager =
 {
@@ -48372,6 +48410,8 @@ var SceneManager =
 	lastHoveredTarget: undefined,
 
 	animation: undefined,
+
+	musicCrossfadeDuration: 2
 }
 
 SceneManager.ANIM_NONE = 0;
@@ -48395,9 +48435,6 @@ SceneManager.added = function()
 	// add timedevice scene by default
 	this.scenes["timeDevice"].show();
 	this.scenes["timeDevice"].transform.position.z = -10;
-
-	var music = AudioManager.playSound("media/ngxmusicalngx+astrangedream.mp3");
-	music.loop = true;
 
 	this.debugChangeScene("prison0");
 }
@@ -48432,6 +48469,23 @@ SceneManager.update = function()
 	}
 
 	this.lastHoveredTarget = clickTarget;
+
+	// update music volume
+	if (this.music && this.musicVol < 1)
+	{
+		this.musicVol = Math.min(1, this.musicVol + bmacSdk.deltaSec / this.musicCrossfadeDuration);
+		this.music.volume = this.musicVol;
+	}
+	if (this.oldMusic && this.oldMusicVol > 0)
+	{
+		this.oldMusicVol = Math.max(0, this.oldMusicVol - bmacSdk.deltaSec / this.musicCrossfadeDuration);
+		this.oldMusic.volume = this.oldMusicVol;
+		if (this.oldMusicVol <= 0)
+		{
+			this.oldMusic.pause();
+			this.oldMusic = undefined;
+		}
+	}
 
 	// update animation
 	if (this.animation)
@@ -48532,12 +48586,6 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 		this.currentScene.hide();
 	}
 
-	// swap music
-	if (!this.currentScene || this.currentScene.musicUrl != this.scenes[key].musicUrl)
-	{
-		//TODO:
-	}
-
 	this.currentScene = this.scenes[key];
 	this.currentScene.transform.position.z = -45;
 	if (!dontNotify)
@@ -48550,6 +48598,7 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 
 	if (key.substr(0, 6) === "prison")
 	{
+		//SaveSate.setGlobal("prison", this.scenes.LAST_PRISON);
 		this.scenes.LAST_PRISON = this.currentScene;
 	}
 }
@@ -48557,14 +48606,41 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 SceneManager.debugChangeScene = function(key)
 {
 	this.finallyChangeScene(key, true);
-	this.showScene(this.currentScene);
+	this.showScene(this.currentScene, true);
 }
 
-SceneManager.showScene = function(scene)
+SceneManager.showScene = function(scene, forceMusic)
 {
 	scene.show();
 	scene.transform.scale.set(1,1,1);
 	scene.setAlpha(1);
+	
+	// swap music
+	if (!this.currentScene
+		|| forceMusic
+		|| (scene.musicUrl && this.currentScene.musicUrl != scene.musicUrl))
+	{
+		if (this.oldMusic) this.oldMusic.pause();
+		this.oldMusic = this.music;
+		//if (this.oldMusic)
+		{
+			this.oldMusicVol = 1;
+			this.musicVol = 0;
+		}
+		/*else
+		{
+			this.oldMusicVol = 0;
+			this.musicVol = 1;
+		}*/
+		if (!scene.loadedMusic)
+		{
+			scene.loadedMusic = AudioManager.playSound(scene.musicUrl);
+		}
+		this.music = scene.loadedMusic
+		this.music.volume = this.musicVol;
+		this.music.loop = true;
+		this.music.play();
+	}
 }
 
 },{"../sdk/audiomanager":33,"../sdk/input":37,"./conversation.js":13,"./infobox.js":15,"./scene_creation_of_the_world.js":17,"./scene_index.js":18,"./scene_past_construction.js":19,"./scene_past_field.js":20,"./scene_prison1.js":21,"./scene_prison2.js":22,"./scene_prison3.js":23,"./scene_prison4.js":24,"./scene_prison5.js":25,"./scene_prison6.js":26,"./scene_prison7.js":27,"./scene_prison8.js":28,"./scene_timedevice.js":29,"./scene_win.js":30}],32:[function(require,module,exports){
@@ -48771,24 +48847,49 @@ AudioManager =
 		{
 			//Make a new clip
 			var clip = new Audio(url);
+			clip.relativeSrc = url;
 			clip.volume = vol || 1.0;
-			clip.addEventListener("ended", this._soundEndCallback(clip, url));
+			clip.addEventListener("ended", this._soundEndCallback(clip));
 		}
 		clip.play();
 		return clip;
 	},
 
 	/**
+	 * Stops and pools the specified clip.
+	 * @param {Audio} clip
+	 */
+	stop: function(clip)
+	{
+		clip.pause();
+		clip.currentTime = 0;
+		this._addToPool(clip);
+	},
+
+	/**
 	 * @callback
 	 */
-	_soundEndCallback: function(clip, url)
+	_soundEndCallback: function(clip)
 	{
 		return function(event)
 		{
-			if (!AudioManager.pool[url])
-			{
-				AudioManager.pool[url] = [];
-			}
+			AudioManager.addToPool(clip);
+		}
+	},
+
+	/**
+	 * Returns the specified clip to the pool.
+	 * @param {Audio} clip
+	 */
+	_addToPool: function(clip)
+	{
+		var url = clip.relativeSrc;
+		if (!AudioManager.pool[url])
+		{
+			AudioManager.pool[url] = [];
+		}
+		if (!AudioManager.pool[url].contains(clip))
+		{
 			AudioManager.pool[url].push(clip);
 		}
 	},

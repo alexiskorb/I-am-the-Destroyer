@@ -34,6 +34,8 @@ var SceneManager =
 	lastHoveredTarget: undefined,
 
 	animation: undefined,
+
+	musicCrossfadeDuration: 2
 }
 
 SceneManager.ANIM_NONE = 0;
@@ -57,9 +59,6 @@ SceneManager.added = function()
 	// add timedevice scene by default
 	this.scenes["timeDevice"].show();
 	this.scenes["timeDevice"].transform.position.z = -10;
-
-	var music = AudioManager.playSound("media/ngxmusicalngx+astrangedream.mp3");
-	music.loop = true;
 
 	this.debugChangeScene("prison0");
 }
@@ -94,6 +93,23 @@ SceneManager.update = function()
 	}
 
 	this.lastHoveredTarget = clickTarget;
+
+	// update music volume
+	if (this.music && this.musicVol < 1)
+	{
+		this.musicVol = Math.min(1, this.musicVol + bmacSdk.deltaSec / this.musicCrossfadeDuration);
+		this.music.volume = this.musicVol;
+	}
+	if (this.oldMusic && this.oldMusicVol > 0)
+	{
+		this.oldMusicVol = Math.max(0, this.oldMusicVol - bmacSdk.deltaSec / this.musicCrossfadeDuration);
+		this.oldMusic.volume = this.oldMusicVol;
+		if (this.oldMusicVol <= 0)
+		{
+			this.oldMusic.pause();
+			this.oldMusic = undefined;
+		}
+	}
 
 	// update animation
 	if (this.animation)
@@ -194,12 +210,6 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 		this.currentScene.hide();
 	}
 
-	// swap music
-	if (!this.currentScene || this.currentScene.musicUrl != this.scenes[key].musicUrl)
-	{
-		//TODO:
-	}
-
 	this.currentScene = this.scenes[key];
 	this.currentScene.transform.position.z = -45;
 	if (!dontNotify)
@@ -220,12 +230,39 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 SceneManager.debugChangeScene = function(key)
 {
 	this.finallyChangeScene(key, true);
-	this.showScene(this.currentScene);
+	this.showScene(this.currentScene, true);
 }
 
-SceneManager.showScene = function(scene)
+SceneManager.showScene = function(scene, forceMusic)
 {
 	scene.show();
 	scene.transform.scale.set(1,1,1);
 	scene.setAlpha(1);
+	
+	// swap music
+	if (!this.currentScene
+		|| forceMusic
+		|| (scene.musicUrl && this.currentScene.musicUrl != scene.musicUrl))
+	{
+		if (this.oldMusic) this.oldMusic.pause();
+		this.oldMusic = this.music;
+		//if (this.oldMusic)
+		{
+			this.oldMusicVol = 1;
+			this.musicVol = 0;
+		}
+		/*else
+		{
+			this.oldMusicVol = 0;
+			this.musicVol = 1;
+		}*/
+		if (!scene.loadedMusic)
+		{
+			scene.loadedMusic = AudioManager.playSound(scene.musicUrl);
+		}
+		this.music = scene.loadedMusic
+		this.music.volume = this.musicVol;
+		this.music.loop = true;
+		this.music.play();
+	}
 }

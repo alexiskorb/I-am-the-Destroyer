@@ -6,6 +6,7 @@ ClickTarget = require("./clicktarget.js");
 
 var ConstructionScene = function()
 {
+	this.musicUrl = "media/ngxmusicalngx+thegodsofthestars.mp3";
 	this.backgroundUrl = "media/construction.png";
 
 	Scene.call(this);
