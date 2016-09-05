@@ -31,7 +31,7 @@
 				{
 					"text": "What are you doing?",
 					"nextNodeId": 4,
-					"globalIsFalse": "BRICK_WALL"
+					"globalIsFalse": ["BRICK_WALL"]
 				},
 				{
 					"text": "So, how's the wall going?",
@@ -57,6 +57,7 @@
 				{
 					"text": "About the labyrinth and door...",
 					"globalIsTrue": "DOOR_TALK",
+					"globalIsFalse": ["BAD_LABYRINTH", "BAD_DOOR"],
 					"nextNodeId": 36
 				},
 				{			
@@ -73,7 +74,7 @@
 					"text": "How's the rest of the construction going?",
 					"nextNodeId": 51,
 					"globalIsTrue": "BRICK_WALL",
-					"globalIsFalse": "DOOR_TALK"
+					"globalIsFalse": ["DOOR_TALK", "BAD_LABYRINTH", "BAD_DOOR"]
 				},
 			]
 		},
@@ -94,7 +95,7 @@
 			"text": "No that's just my name.",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 1,
 				},
 			]
@@ -106,12 +107,25 @@
 			"responses":[
 				{
 					"text": "[gasp] No!",
-					"nextNodeId": 5,
+					"nextNodeId": 5
 				},
 				{
 					"text": "So what do you have so far?",
+					"globalIsFalse": ["BAD_LABYRINTH", "BAD_DOOR"],
 					"nextNodeId": 33
-				}
+				},
+				{
+					"text": "So what do you have so far?",
+					"globalIsFalse": "BAD_LABYRINTH",
+					"globalIsTrue": "BAD_DOOR",
+					"nextNodeId": 52
+				},
+				{
+					"text": "So what do you have so far?",
+					"globalIsTrue": "BAD_LABYRINTH",
+					"globalIsFalse": "BAD_DOOR",
+					"nextNodeId": 53
+				},
 			]
 		},
 		{
@@ -227,7 +241,7 @@
 			"text": "I look a lot like my family. There are a lot of us.",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 2
 				},
 			]
@@ -286,7 +300,7 @@
 			"text": "It's too dangerous! I'd get a paper cut for sure. Any other suggestions?",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 16
 				},
 			]
@@ -297,7 +311,7 @@
 			"text": "I've always been more fond of ducks. But, they aren't quite as stackable. Any other suggestions?",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 16
 				},
 			]
@@ -308,7 +322,7 @@
 			"text": "Pillows don't make good walls. What are you talking about? Is this a prison or a day care?",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 16
 				},
 			]
@@ -405,7 +419,7 @@
 			"text": "No. Steel's so expensive. Any other suggestions?",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 24
 				},
 			]
@@ -416,7 +430,7 @@
 			"text": "Bricks are ugly. I can't do that. I take pride in my work.",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 24
 				},
 			]
@@ -427,7 +441,7 @@
 			"text": "But brick is heavy. My back will hurt.",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 24
 				},
 			]
@@ -488,7 +502,7 @@
 				},
 				{
 					"text": "Tell me about the labyrinth.",
-					"nextNodeId": 34
+					"nextNodeId": 34,
 				},
 				{
 					"text": "Tell me about the keypad door",
@@ -654,15 +668,23 @@
 		{
 			"id": 47,
 			"speaker": "johnson15",
-			"text": "The labyrinth.",
+			"text": "The labyrinth. It's going to be a complicated underwater maze. Hopefully, no one can get throught it.",
 			"responses":[
+				{
+					"text": "Tell me about this cousin.",
+					"nextNodeId": 56
+				},
 			]
 		},
 		{
 			"id": 48,
 			"speaker": "johnson15",
-			"text": "The door.",
+			"text": "The door. It's a sturdy door run with the city's electricity. Hopefully, it will have a really good combination too.",
 			"responses":[
+				{
+					"text": "Tell me about this cousin.",
+					"nextNodeId": 56
+				}
 			]
 		},
 		{
@@ -702,5 +724,99 @@
 				},
 			]
 		},
+		{
+			"id": 52,
+			"speaker": "johnson15",
+			"text": "Well, I'm making this room with no doors. I'm also working on a labyrinth, and my cousin is working on a keypad door.",
+			"responses":[
+				{
+					"text": "Tell me about the wall.",
+					"nextNodeId": 6,
+				},
+				{
+					"text": "Tell me about the labyrinth.",
+					"nextNodeId": 54,
+				},
+				{
+					"text": "Tell me about the keypad door",
+					"nextNodeId": 55
+				},
+				{
+					"text": "Tell me about your cousin.",
+					"nextNodeId": 56
+				},
+			]
+		},
+		{
+			"id": 53,
+			"speaker": "johnson15",
+			"text": "Well, I'm making this room with no doors. I'm also working on a keybad door, and my cousin is working on a labyrinth.",
+			"responses":[
+				{
+					"text": "Tell me about the wall.",
+					"nextNodeId": 6,
+				},
+				{
+					"text": "Tell me about the labyrinth.",
+					"nextNodeId": 54,
+				},
+				{
+					"text": "Tell me about the keypad door",
+					"nextNodeId": 55
+				},
+				{
+					"text": "Tell me about your cousin.",
+					"nextNodeId": 56
+				}
+			]
+		},
+		{
+			"id": 54,
+			"speaker": "johnson15",
+			"text": "It's going to be a complicated underwater maze. No one should be able to get throught it.",
+			"responses":[
+				{
+					"text": "And your cousin's making it? Tell me about him.",
+					"globalIsTrue": "BAD_LABYRINTH",
+					"nextNodeId": 56
+				},
+			]
+		},
+		{
+			"id": 55,
+			"speaker": "johnson15",
+			"text": "It's a sturdy door run with the city's electricity. It should have a really good combination too.",
+			"responses":[
+				{
+					"text": "And your cousin's making it? Tell me about him.",
+					"globalIsTrue": "BAD_DOOR",
+					"nextNodeId": 56
+				},
+			]
+		},
+		{
+			"id": 56,
+			"speaker": "johnson15",
+			"text": "Well, he's usually a good designer, but the other day, this random cardboard box came out of nowhere and smacked him on the head. I worry he'll be like my other dumb cousin, but I just don't have the time to make both security systems.",
+			"responses":[
+				{
+					"text": "I'm sure he'll be alright.",
+					"nextNodeId": 57
+				},
+				{
+					"text": "What a <i>random</i> and <i>bizarre</i> coinkydink.",
+					"nextNodeId": 57
+				},
+				{
+					"text": "That's too bad.",
+					"nextNodeId": 57
+				},
+			]
+		},
+		{
+			"id": 57,
+			"speaker": "johnson15",
+			"text": "Well, I bet the security will be not so great. [Sigh.] What can you do?"
+		}		
 	]
 }

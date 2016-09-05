@@ -144,7 +144,7 @@
             "text": "All he said was that he wants people to know he has a sense of humor. I'm not sure what that means.",
             "responses": [
                 {
-                    "text": "continue",
+                    "text": "[continue]",
                     "nextNodeId": 1
                 },
             ]

@@ -170,7 +170,7 @@
 			"text": "Close, but no. It's g-e-s-e-l-l-s-c-h-a-f-t. \"A\" for effort.",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 14
 				},
 			]
@@ -181,7 +181,7 @@
 			"text": "Not even close. It's g-e-s-e-l-l-s-c-h-a-f-t. \"F\" for effort.",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 14 
 				},
 			]

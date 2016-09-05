@@ -135,7 +135,7 @@
 			"text": "Well, both \"Future Industrial Technology\" and \"Forward SciTech Co\" have been around for a while. About 50 years, ago, the two merged into \"Forward FutureTech Technology.\" Back then, we were struggling to get funds. Luckily, Anthony Calahan invested in our company. Since then, we've been doing great!", 
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 8
 				}
 			],

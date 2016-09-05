@@ -331,7 +331,7 @@
 			"text": "I'm leaning toward \"Forward FutureTech Technology.\" Their products sound much more interesting.",
 			"responses": [
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 17
 				}
 			]	

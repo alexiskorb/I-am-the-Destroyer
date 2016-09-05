@@ -41930,7 +41930,7 @@ module.exports=//ANGEL_INTRODUCTION
             "text": "All he said was that he wants people to know he has a sense of humor. I'm not sure what that means.",
             "responses": [
                 {
-                    "text": "continue",
+                    "text": "[continue]",
                     "nextNodeId": 1
                 },
             ]
@@ -42893,7 +42893,7 @@ module.exports=//NO_FUTURE_TECH
 			"text": "Well, both \"Future Industrial Technology\" and \"Forward SciTech Co\" have been around for a while. About 50 years, ago, the two merged into \"Forward FutureTech Technology.\" Back then, we were struggling to get funds. Luckily, Anthony Calahan invested in our company. Since then, we've been doing great!", 
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 8
 				}
 			],
@@ -43989,7 +43989,7 @@ module.exports=//CARNIVAL
 			"text": "I'm leaning toward \"Forward FutureTech Technology.\" Their products sound much more interesting.",
 			"responses": [
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 17
 				}
 			]	
@@ -44277,7 +44277,7 @@ module.exports=//GRAVITY_LIGHTER
 				{
 					"text": "What are you doing?",
 					"nextNodeId": 4,
-					"globalIsFalse": "BRICK_WALL"
+					"globalIsFalse": ["BRICK_WALL"]
 				},
 				{
 					"text": "So, how's the wall going?",
@@ -44303,6 +44303,7 @@ module.exports=//GRAVITY_LIGHTER
 				{
 					"text": "About the labyrinth and door...",
 					"globalIsTrue": "DOOR_TALK",
+					"globalIsFalse": ["BAD_LABYRINTH", "BAD_DOOR"],
 					"nextNodeId": 36
 				},
 				{			
@@ -44319,7 +44320,7 @@ module.exports=//GRAVITY_LIGHTER
 					"text": "How's the rest of the construction going?",
 					"nextNodeId": 51,
 					"globalIsTrue": "BRICK_WALL",
-					"globalIsFalse": "DOOR_TALK"
+					"globalIsFalse": ["DOOR_TALK", "BAD_LABYRINTH", "BAD_DOOR"]
 				},
 			]
 		},
@@ -44340,7 +44341,7 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "No that's just my name.",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 1,
 				},
 			]
@@ -44352,12 +44353,25 @@ module.exports=//GRAVITY_LIGHTER
 			"responses":[
 				{
 					"text": "[gasp] No!",
-					"nextNodeId": 5,
+					"nextNodeId": 5
 				},
 				{
 					"text": "So what do you have so far?",
+					"globalIsFalse": ["BAD_LABYRINTH", "BAD_DOOR"],
 					"nextNodeId": 33
-				}
+				},
+				{
+					"text": "So what do you have so far?",
+					"globalIsFalse": "BAD_LABYRINTH",
+					"globalIsTrue": "BAD_DOOR",
+					"nextNodeId": 52
+				},
+				{
+					"text": "So what do you have so far?",
+					"globalIsTrue": "BAD_LABYRINTH",
+					"globalIsFalse": "BAD_DOOR",
+					"nextNodeId": 53
+				},
 			]
 		},
 		{
@@ -44473,7 +44487,7 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "I look a lot like my family. There are a lot of us.",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 2
 				},
 			]
@@ -44532,7 +44546,7 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "It's too dangerous! I'd get a paper cut for sure. Any other suggestions?",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 16
 				},
 			]
@@ -44543,7 +44557,7 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "I've always been more fond of ducks. But, they aren't quite as stackable. Any other suggestions?",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 16
 				},
 			]
@@ -44554,7 +44568,7 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "Pillows don't make good walls. What are you talking about? Is this a prison or a day care?",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 16
 				},
 			]
@@ -44651,7 +44665,7 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "No. Steel's so expensive. Any other suggestions?",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 24
 				},
 			]
@@ -44662,7 +44676,7 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "Bricks are ugly. I can't do that. I take pride in my work.",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 24
 				},
 			]
@@ -44673,7 +44687,7 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "But brick is heavy. My back will hurt.",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 24
 				},
 			]
@@ -44734,7 +44748,7 @@ module.exports=//GRAVITY_LIGHTER
 				},
 				{
 					"text": "Tell me about the labyrinth.",
-					"nextNodeId": 34
+					"nextNodeId": 34,
 				},
 				{
 					"text": "Tell me about the keypad door",
@@ -44900,15 +44914,23 @@ module.exports=//GRAVITY_LIGHTER
 		{
 			"id": 47,
 			"speaker": "johnson15",
-			"text": "The labyrinth.",
+			"text": "The labyrinth. It's going to be a complicated underwater maze. Hopefully, no one can get throught it.",
 			"responses":[
+				{
+					"text": "Tell me about this cousin.",
+					"nextNodeId": 56
+				},
 			]
 		},
 		{
 			"id": 48,
 			"speaker": "johnson15",
-			"text": "The door.",
+			"text": "The door. It's a sturdy door run with the city's electricity. Hopefully, it will have a really good combination too.",
 			"responses":[
+				{
+					"text": "Tell me about this cousin.",
+					"nextNodeId": 56
+				}
 			]
 		},
 		{
@@ -44948,6 +44970,100 @@ module.exports=//GRAVITY_LIGHTER
 				},
 			]
 		},
+		{
+			"id": 52,
+			"speaker": "johnson15",
+			"text": "Well, I'm making this room with no doors. I'm also working on a labyrinth, and my cousin is working on a keypad door.",
+			"responses":[
+				{
+					"text": "Tell me about the wall.",
+					"nextNodeId": 6,
+				},
+				{
+					"text": "Tell me about the labyrinth.",
+					"nextNodeId": 54,
+				},
+				{
+					"text": "Tell me about the keypad door",
+					"nextNodeId": 55
+				},
+				{
+					"text": "Tell me about your cousin.",
+					"nextNodeId": 56
+				},
+			]
+		},
+		{
+			"id": 53,
+			"speaker": "johnson15",
+			"text": "Well, I'm making this room with no doors. I'm also working on a keybad door, and my cousin is working on a labyrinth.",
+			"responses":[
+				{
+					"text": "Tell me about the wall.",
+					"nextNodeId": 6,
+				},
+				{
+					"text": "Tell me about the labyrinth.",
+					"nextNodeId": 54,
+				},
+				{
+					"text": "Tell me about the keypad door",
+					"nextNodeId": 55
+				},
+				{
+					"text": "Tell me about your cousin.",
+					"nextNodeId": 56
+				}
+			]
+		},
+		{
+			"id": 54,
+			"speaker": "johnson15",
+			"text": "It's going to be a complicated underwater maze. No one should be able to get throught it.",
+			"responses":[
+				{
+					"text": "And your cousin's making it? Tell me about him.",
+					"globalIsTrue": "BAD_LABYRINTH",
+					"nextNodeId": 56
+				},
+			]
+		},
+		{
+			"id": 55,
+			"speaker": "johnson15",
+			"text": "It's a sturdy door run with the city's electricity. It should have a really good combination too.",
+			"responses":[
+				{
+					"text": "And your cousin's making it? Tell me about him.",
+					"globalIsTrue": "BAD_DOOR",
+					"nextNodeId": 56
+				},
+			]
+		},
+		{
+			"id": 56,
+			"speaker": "johnson15",
+			"text": "Well, he's usually a good designer, but the other day, this random cardboard box came out of nowhere and smacked him on the head. I worry he'll be like my other dumb cousin, but I just don't have the time to make both security systems.",
+			"responses":[
+				{
+					"text": "I'm sure he'll be alright.",
+					"nextNodeId": 57
+				},
+				{
+					"text": "What a <i>random</i> and <i>bizarre</i> coinkydink.",
+					"nextNodeId": 57
+				},
+				{
+					"text": "That's too bad.",
+					"nextNodeId": 57
+				},
+			]
+		},
+		{
+			"id": 57,
+			"speaker": "johnson15",
+			"text": "Well, I bet the security will be not so great. [Sigh.] What can you do?"
+		}		
 	]
 }
 },{}],9:[function(require,module,exports){
@@ -45123,7 +45239,7 @@ module.exports=
 			"text": "Close, but no. It's g-e-s-e-l-l-s-c-h-a-f-t. \"A\" for effort.",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 14
 				},
 			]
@@ -45134,7 +45250,7 @@ module.exports=
 			"text": "Not even close. It's g-e-s-e-l-l-s-c-h-a-f-t. \"F\" for effort.",
 			"responses":[
 				{
-					"text": "continue",
+					"text": "[continue]",
 					"nextNodeId": 14 
 				},
 			]
