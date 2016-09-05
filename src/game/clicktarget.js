@@ -91,6 +91,14 @@ ClickTarget.prototype.update = function()
 			break;
 		}
 	}
+
+	// update position of hover mesh
+	if (this.hoverMesh && this.hoverMesh.visible)
+	{
+		this.mesh.parent.updateMatrixWorld();
+		this.hoverMesh.position.setFromMatrixPosition(this.mesh.matrixWorld);
+		this.hoverMesh.position.z = this.mesh.position.z - 1;
+	}
 }
 
 ClickTarget.prototype.isPointInBounds = function(point)
@@ -120,8 +128,6 @@ ClickTarget.prototype.hover = function()
 	this.getBoundingBox();
 
 	this.mesh.parent.updateMatrixWorld();
-	var temp = new THREE.Vector3().setFromMatrixPosition(this.mesh.matrixWorld);
-	this.hoverMesh.position.set(temp.x, temp.y, this.mesh.position.z - 1);
 	this.bounds.size(this.hoverMesh.scale);
 	this.hoverMesh.scale.x /= 48;
 	this.hoverMesh.scale.y /= 48;
