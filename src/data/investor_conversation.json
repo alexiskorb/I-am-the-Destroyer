@@ -37,12 +37,12 @@
 					"globalIsFalse": "INVESTMENT_DECISION"
 				},
 				{
-					"text": "So, what did you decide to invest in again?",
+					"text": "So, who did you decide to invest in again?",
 					"nextNodeId": 38,
 					"globalIsTrue": ["INVESTMENT_DECISION", "NO_FUTURE_TECH"]
 				},
 				{
-					"text": "So, what did you decide to invest in again?",
+					"text": "So, who did you decide to invest in again?",
 					"nextNodeId": 39,
 					"globalIsTrue": "INVESTMENT_DECISION",
 					"globalIsFalse": "NO_FUTURE_TECH"
