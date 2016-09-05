@@ -44265,6 +44265,15 @@ module.exports=//GRAVITY_LIGHTER
 					"nextNodeId": 32,
 					"globalIsTrue": "CARDBOARD_WALL"
 				},
+				{
+					"text": "You remind me of someone.",
+					"nextNodeId": 13
+				},
+				{
+					"text": "About the labyrinth and door...",
+					"globalIsTrue": "DOOR_TALK",
+					"nextNodeId": 36
+				},
 				{			
 					"text": "Which one's your cousin working on again?",
 					"globalIsTrue": "BAD_LABYRINTH",
@@ -47694,6 +47703,11 @@ PrisonScene3.prototype.added = function()
 		target: "prison4",
 		globalIsTrue: "LAMP_PLUGGED_IN",
 		globalIsFalse: "DAM_BUILT"
+	})
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison4",
+		globalIsTrue: "BAD_DOOR"
 	})
 
 	// create outlet

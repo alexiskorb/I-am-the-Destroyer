@@ -42,6 +42,11 @@ PrisonScene3.prototype.added = function()
 		globalIsTrue: "LAMP_PLUGGED_IN",
 		globalIsFalse: "DAM_BUILT"
 	})
+	doorClickTarget.addAction({
+		action: "triggerScene",
+		target: "prison4",
+		globalIsTrue: "BAD_DOOR"
+	})
 
 	// create outlet
 	var outlet = this.createClickableSprite("outlet", -495, 7);
