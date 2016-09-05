@@ -42898,7 +42898,7 @@ module.exports=//NO_FUTURE_TECH
 				}
 			],
 		},
-        {
+		{
 			"id": 8,
 			"speaker": "future_tech_guy",
 			"text": "Any more questions?", 
@@ -42907,23 +42907,23 @@ module.exports=//NO_FUTURE_TECH
 					"text": "Tell me about your history.",
 					"nextNodeId": 7
 				},
-                {
-                    "text": "What do you make?",
+				{
+					"text": "What do you make?",
 					"nextNodeId": 9
-                },
-                {
-                    "text": "Do you have anything cool with you?",
+				},
+				{
+					"text": "Do you have anything cool with you?",
 					"nextNodeId": 11,
 					"globalIsFalse": "LAMP_GAINED"
-                },
+				},
 				{
-                    "text": "Do you have anything cool with you?",
+					"text": "Do you have anything cool with you?",
 					"nextNodeId": 19,
 					"globalIsTrue": "LAMP_GAINED"
-                }
+				}
 			],
 		},
-        {
+		{
 			"id": 9,
 			"speaker": "future_tech_guy",
 			"text": "We make all sorts of things. We've made force fields, ion swords, holographic chairs. We also make more mundane stuff that's styled to look like it would belong in a SciFy movie.", 
@@ -42932,19 +42932,19 @@ module.exports=//NO_FUTURE_TECH
 					"text": "Holographic chairs?",
 					"nextNodeId": 10
 				},
-                {
-                    "text": "Do you have anything cool with you?",
+				{
+					"text": "Do you have anything cool with you?",
 					"nextNodeId": 11,
 					"globalIsFalse": "LAMP_GAINED"
-                },
+				},
 				{
-                    "text": "Do you have anything cool with you?",
+					"text": "Do you have anything cool with you?",
 					"nextNodeId": 19,
 					"globalIsTrue": "LAMP_GAINED"
-                }
+				}
 			],
 		},
-        {
+		{
 			"id": 10,
 			"speaker": "future_tech_guy",
 			"text": "It looks like a chair, but is just a hologram. Yeah. I don't know why'd you want it either.", 
@@ -42952,10 +42952,10 @@ module.exports=//NO_FUTURE_TECH
 				{
 					"text": "Another thing...",
 					"nextNodeId": 8				
-                },
+				},
 			],
 		},
-        {
+		{
 			"id": 11,
 			"speaker": "future_tech_guy",
 			"text": "Not really. We are giving out free lamps.", 
@@ -42963,38 +42963,35 @@ module.exports=//NO_FUTURE_TECH
 				{
 					"text": "Does it do anything?",
 					"nextNodeId": 12				
-                },
-                {
-                    "text": "I don't want a lamp.",
+				},
+				{
+					"text": "I don't want a lamp.",
 					"nextNodeId": 8
-                }
+				}
 			],
 		},
-        {
+		{
 			"id": 12,
 			"speaker": "future_tech_guy",
 			"text": "No. It's just a boring lamp.", 
 			"responses":[
 				{
 					"text": "I'll take it anyway.",
-					"nextNodeId": 13				
-                },
-                {
-                    "text": "I don't want a lamp.",
+					"nextNodeId": 13,
+					"setGlobalTrue": "LAMP_GAINED",
+					"getItem": "lamp"
+				},
+				{
+					"text": "I don't want a lamp.",
 					"nextNodeId": 8
-                }
+				}
 			],
 		},
-        {
+		{
 			"id": 13,
 			"speaker": "future_tech_guy",
 			"text": "Here you go.", 
 			"responses":[
-				{
-					"text": "[Take lamp.]",	
-					"setGlobalTrue": "LAMP_GAINED",	
-					"getItem": "lamp"		
-                },
 			],
 		},
 		{
@@ -47255,7 +47252,7 @@ CreationOfTheWorldScene.prototype.added = function()
 	})
 
 	// create player
-	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);
+	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-393);
 	this.playerSprite.addAction({
 		action: "showInfoBox",
 		target: "shadow",

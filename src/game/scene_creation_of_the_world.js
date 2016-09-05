@@ -67,7 +67,7 @@ CreationOfTheWorldScene.prototype.added = function()
 	})
 
 	// create player
-	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-390);
+	this.playerSprite = this.createClickableSprite("heaven_player", -314, GameEngine.screenHeight/2-393);
 	this.playerSprite.addAction({
 		action: "showInfoBox",
 		target: "shadow",
