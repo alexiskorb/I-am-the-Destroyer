@@ -45691,7 +45691,7 @@ ClickTarget.prototype.triggerAction = function(action)
 
 	if (action.action == "triggerTimeDevice")
 	{
-		SceneManager.showTimeDevice(action.disable);
+		SceneManager.showTimeDevice();
 	}
 	else if (action.action == "collectItem")
 	{
@@ -45752,10 +45752,6 @@ ClickTarget.prototype.triggerAction = function(action)
 
 ClickTarget.prototype.actionMeetsConditionals = function(action)
 {
-	if (action.disable && !GlobalVariables.getVariable(action.disable))
-	{
-		return false;
-	}
 	if (action.globalIsFalse)
 	{
 		if (action.globalIsFalse instanceof Array)
@@ -46145,7 +46141,7 @@ Conversation.getNode = function(index)
 //SaveState = require("./save_state.js");
 
 /*
-PROGRAMMETICALLY SET VARIABLES:
+PROGRAMMATICALLY SET VARIABLES:
 - "HAS_COLLECTED_<ITEMKEY>": set when the "collectItem" action is taken on the ITEMKEY. Never unset.
 - "<ITEMKEY>_OBTAINED": set when the specified item is in the inventory, unset when it is removed. TODO: RENAME to "HAS_ITEM_<ITEMKEY>"
 - "TIMEDEVICE_RAISED": set when the device is raised, unset when it is lowered.
@@ -48147,8 +48143,6 @@ var TimeDeviceScene = function()
 {
 	this.backgroundUrl = undefined;
 
-	this.wantsUp = false;
-	this.isAtWant = true;
 	this.animationTimer = 0;
 	this.animationDuration = 0.5;
 
@@ -48168,6 +48162,8 @@ TimeDeviceScene.prototype.added = function()
 		globalIsTrue: "TIMEDEVICE_RAISED"
 	})
 	this.stickyNote.addFalse("STICKY_REMOVED");
+	this.stickyNote.addFalse("YOU_WIN");
+	this.stickyNote.addTrue("PASSED_INTRO");
 	
 	// create buttons
 	this.buttons = [];
@@ -48180,6 +48176,7 @@ TimeDeviceScene.prototype.added = function()
 	})
 	button1.passThroughIfDisabled = true;
 	button1.addFalse("YOU_WIN");
+	button1.addTrue("PASSED_INTRO");
 
 	var button2 = this.createClickableSprite("timedevice_button2", -75, -145);
 	button2.addAction({
@@ -48189,6 +48186,7 @@ TimeDeviceScene.prototype.added = function()
 	})
 	button2.passThroughIfDisabled = true;
 	button2.addFalse("YOU_WIN");
+	button2.addTrue("PASSED_INTRO");
 
 	var button3 = this.createClickableSprite("timedevice_button3", 66, -145);
 	button3.addAction({
@@ -48198,6 +48196,7 @@ TimeDeviceScene.prototype.added = function()
 	})
 	button3.passThroughIfDisabled = true;
 	button3.addFalse("YOU_WIN");
+	button3.addTrue("PASSED_INTRO");
 
 	var button4 = this.createClickableSprite("timedevice_button4", 173, -90);
 	button4.addAction({
@@ -48207,6 +48206,7 @@ TimeDeviceScene.prototype.added = function()
 	})
 	button4.passThroughIfDisabled = true;
 	button4.addFalse("YOU_WIN");
+	button4.addTrue("PASSED_INTRO");
 
 	this.buttons.push(button1);
 	this.buttons.push(button2);
@@ -48215,26 +48215,32 @@ TimeDeviceScene.prototype.added = function()
 
 	// create device base
 	this.deviceBase = this.createClickableSprite("timedevice", 0, 0);
-	this.deviceBase.addFalse("YOU_WIN");
 	this.deviceBase.addAction({
 		action: "triggerTimeDevice",
-		disable: "PASSED_INTRO",
 		globalIsFalse: "TIMEDEVICE_RAISED"
 	})
+	this.deviceBase.addFalse("YOU_WIN");
+	this.deviceBase.addTrue("PASSED_INTRO");
 	this.deviceBase.mesh.position.z = -15;
 
 	Scene.prototype.added.call(this);
 
-	this.offYPos = GameEngine.screenHeight + 100;
-	this.transform.position.y = this.offYPos;
+	this.TWEEN_TARGET_UP = 3;
+	this.TWEEN_TARGET_OFF = 2;
+	this.TWEEN_TARGET_REALLYOFF = 1;
 
-	this.tweenOff();
+	this.onYPos = GameEngine.screenHeight / 2;
+	this.offYPos = GameEngine.screenHeight + 100;
+	this.reallyOffYPos = GameEngine.screenHeight + 200;
+
+	this.tweenTarget = this.TWEEN_TARGET_REALLYOFF;
+	this.tweenStartYPos = this.tweenTargetYPos = this.transform.position.y = this.reallyOffYPos;
 }
 
 TimeDeviceScene.prototype.update = function()
 {
 	// tween off if it's up and I click anything
-	if (Input.Mouse.buttonPressed(Input.Mouse.LEFT) && this.wantsUp)
+	if (Input.Mouse.buttonPressed(Input.Mouse.LEFT) && this.tweenTarget == this.TWEEN_TARGET_UP)
 	{
 		if (this.eatFrame)
 		{
@@ -48246,29 +48252,26 @@ TimeDeviceScene.prototype.update = function()
 		}
 	}
 
-	// tween on and off
-	if (!this.isAtWant)
+	// tween "off" if it's "really off" and we pass the intro
+	if (this.tweenTarget == this.TWEEN_TARGET_REALLYOFF && GlobalVariables.getVariable("PASSED_INTRO"))
+	{
+		this.tweenOff();
+	}
+
+	// update tween
+	if (this.animationTimer < this.animationDuration)
 	{
 		this.animationTimer += bmacSdk.deltaSec;
 		if (this.animationTimer >= this.animationDuration)
 		{
 			this.animationTimer = this.animationDuration;
-			this.isAtWant = true;
 		}
 
 		var animProgress = this.animationTimer / this.animationDuration;
 		animProgress *= animProgress;
 
 		// tween position
-		var halfHeight = GameEngine.screenHeight / 2;
-		if (this.wantsUp)
-		{
-			this.transform.position.y = this.offYPos + (halfHeight - this.offYPos) * animProgress;
-		}
-		else
-		{
-			this.transform.position.y = halfHeight + (this.offYPos - halfHeight) * animProgress;
-		} 
+		this.transform.position.y = this.tweenStartYPos + (this.tweenTargetYPos - this.tweenStartYPos) * animProgress;
 	}
 
 	Scene.prototype.update.call(this);
@@ -48276,29 +48279,23 @@ TimeDeviceScene.prototype.update = function()
 
 TimeDeviceScene.prototype.tweenOff = function()
 {
-	if (this.wantsUp)
-	{
-		this.isAtWant = false;
-		this.wantsUp = false;
-		GlobalVariables.unsetVariable("TIMEDEVICE_RAISED");
-		this.animationTimer = 0;
-		this.eatFrame = true;
-	}
+	this.tweenTarget = this.TWEEN_TARGET_OFF;
+	this.tweenStartYPos = this.transform.position.y;
+	this.tweenTargetYPos = this.offYPos;
+	GlobalVariables.unsetVariable("TIMEDEVICE_RAISED");
+	this.animationTimer = 0;
+	this.eatFrame = true;
 }
 
 TimeDeviceScene.prototype.tweenOn = function()
 {
-	if (!this.wantsUp)
-	{
-		this.isAtWant = false;
-		this.wantsUp = true;
-		GlobalVariables.setVariable("TIMEDEVICE_RAISED");
-		this.animationTimer = 0;
-		this.eatFrame = true;
-	}
+	this.tweenTarget = this.TWEEN_TARGET_UP;
+	this.tweenStartYPos = this.transform.position.y;
+	this.tweenTargetYPos = this.onYPos;
+	GlobalVariables.setVariable("TIMEDEVICE_RAISED");
+	this.animationTimer = 0;
+	this.eatFrame = true;
 }
-
-
 
 module.exports = new TimeDeviceScene();
 

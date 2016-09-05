@@ -216,7 +216,7 @@ ClickTarget.prototype.triggerAction = function(action)
 
 	if (action.action == "triggerTimeDevice")
 	{
-		SceneManager.showTimeDevice(action.disable);
+		SceneManager.showTimeDevice();
 	}
 	else if (action.action == "collectItem")
 	{
@@ -277,10 +277,6 @@ ClickTarget.prototype.triggerAction = function(action)
 
 ClickTarget.prototype.actionMeetsConditionals = function(action)
 {
-	if (action.disable && !GlobalVariables.getVariable(action.disable))
-	{
-		return false;
-	}
 	if (action.globalIsFalse)
 	{
 		if (action.globalIsFalse instanceof Array)
