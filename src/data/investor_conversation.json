@@ -1,6 +1,7 @@
 //CARNIVAL
 //INVESTMENT_TALK
 //NO_FUTURE_TECH
+//INVESTMENT_DECISION
 {
 	"title": "investor_convo",
 
@@ -26,12 +27,25 @@
 				},
                 {
 					"text": "What are you doing?",
+					"globalIsFalse": "INVESTMENT_DECISION",
 					"nextNodeId": 8
 				},
 				{
 					"text": "I have an idea for your investment.",
 					"nextNodeId": 17,
-					"globalIsTrue": "INVESTMENT_TALK"
+					"globalIsTrue": "INVESTMENT_TALK",
+					"globalIsFalse": "INVESTMENT_DECISION"
+				},
+				{
+					"text": "So, what did you decide to invest in again?",
+					"nextNodeId": 38,
+					"globalIsTrue": ["INVESTMENT_DECISION", "NO_FUTURE_TECH"]
+				},
+				{
+					"text": "So, what did you decide to invest in again?",
+					"nextNodeId": 39,
+					"globalIsTrue": "INVESTMENT_DECISION",
+					"globalIsFalse": "NO_FUTURE_TECH"
 				},
 				{
 					"text": "Any news around town?",
@@ -269,12 +283,14 @@
 			"text": "So, should I take the risk and go for \"Forward FutureTech Technology\" or play it safe with \"Farmer and Sons\"?",
 			"responses": [
 				{
-					"text": "Take the risk. I want a hovercar.",
+					"text": "Take the risk. I want a hovercar. Invest in \"Forward FutureTech Technology.\"",
+					"setGlobalFalse": "NO_FUTURE_TECH",
+					"setGlobalTrue": "INVESTMENT_DECISION",
 					"nextNodeId": 18
 				},
 				{
-					"text": "Play it safe. And more food is always welcome. I like food.",
-					"setGlobalTrue": "NO_FUTURE_TECH",
+					"text": "Play it safe. And more food is always welcome. I like food. Invest in \"Farmer and Sons.\"",
+					"setGlobalTrue": ["NO_FUTURE_TECH", "INVESTMENT_DECISION"],
 					"nextNodeId": 19
 				},
 				{
@@ -541,6 +557,28 @@
 				{
 					"text": "What are you doing here?",
 					"nextNodeId": 8
+				}
+			]
+		},
+		{
+			"id": 38,
+			"speaker": "investor",
+			"text": "\"Farmer and Sons.\" They control almost all of the food production around here. With my investment, they can expand and produce even more food.",
+			"responses": [
+				{
+					"text": "I have another question.",
+					"nextNodeId": 1
+				}
+			]
+		},
+		{
+			"id": 39,
+			"speaker": "investor",
+			"text": "\"Forward FutureTech Techonology.\" They're working on a bunch of advanced technology that I think would sell well. I also think it would be cool to have force fields, hovercars, and other stuff like that in the future.",
+			"responses": [
+				{
+					"text": "I have another question.",
+					"nextNodeId": 1
 				}
 			]
 		}
