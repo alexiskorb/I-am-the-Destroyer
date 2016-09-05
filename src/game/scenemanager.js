@@ -3,6 +3,7 @@ Input = require("../sdk/input");
 Conversation = require("./conversation.js");
 InfoBox = require("./infobox.js");
 AudioManager = require("../sdk/audiomanager");
+//SaveState = require("./save_state.js")
 
 var SceneManager =
 {
@@ -211,6 +212,7 @@ SceneManager.finallyChangeScene = function(key, dontNotify)
 
 	if (key.substr(0, 6) === "prison")
 	{
+		//SaveSate.setGlobal("prison", this.scenes.LAST_PRISON);
 		this.scenes.LAST_PRISON = this.currentScene;
 	}
 }
