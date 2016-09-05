@@ -123,8 +123,8 @@ ClickTarget.prototype.hover = function()
 	var temp = new THREE.Vector3().setFromMatrixPosition(this.mesh.matrixWorld);
 	this.hoverMesh.position.set(temp.x, temp.y, this.mesh.position.z - 1);
 	this.bounds.size(this.hoverMesh.scale);
-	this.hoverMesh.scale.x /= 32;
-	this.hoverMesh.scale.y /= 32;
+	this.hoverMesh.scale.x /= 48;
+	this.hoverMesh.scale.y /= 48;
 	this.hoverMesh.scale.z = 1;
 	this.hoverMesh.visible = true;
 }
