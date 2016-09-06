@@ -46556,7 +46556,7 @@ InfoBox.info =
                 isFalse: ["BOX_IN_WORMHOLE"]
             },
             {
-                text: "So, for example, 55<sup>2</sup> = (55 -5)(55 + 5) + 25 = (50)(60) + 25 = 3025. Easy, huh?",
+                text: "So, for example, 55<sup>2</sup> = (55 -5)(55 + 5) + 5<sup>2</sup> = (50)(60) + 25 = 3025. Easy, huh?",
                 isFalse: ["BOX_IN_WORMHOLE"]
             },
             {
