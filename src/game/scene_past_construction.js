@@ -17,7 +17,7 @@ ConstructionScene.prototype = new Scene();
 ConstructionScene.prototype.added = function()
 {
 	// create characters
-	var doorGuy = this.createClickableSprite("builder_guy", 200, 200);
+	var doorGuy = this.createClickableSprite("builder_guy2", 200, 200);
 	doorGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/johnson_xv_conversation.json")
