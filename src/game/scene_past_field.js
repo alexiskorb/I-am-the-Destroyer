@@ -17,7 +17,7 @@ FieldScene.prototype = new Scene();
 FieldScene.prototype.added = function()
 {
 	// create characters
-	var investor = this.createClickableSprite("suit_sprite", 50, 0);
+	var investor = this.createClickableSprite("suit_sprite2", 50, 0);
 	investor.addAction({
 		action: "triggerConversation",
 		target: require("../data/investor_conversation.json")

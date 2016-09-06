@@ -43668,7 +43668,7 @@ module.exports=//CARNIVAL
 		{
 			"id": "investor",
 			"displayName": "Anthony Calahan",
-			"sprite": "suit"
+			"sprite": "suit2"
 		}
 	],
 
@@ -47588,7 +47588,7 @@ FieldScene.prototype = new Scene();
 FieldScene.prototype.added = function()
 {
 	// create characters
-	var investor = this.createClickableSprite("suit_sprite", 50, 0);
+	var investor = this.createClickableSprite("suit_sprite2", 50, 0);
 	investor.addAction({
 		action: "triggerConversation",
 		target: require("../data/investor_conversation.json")
@@ -48800,8 +48800,8 @@ module.exports =
 	"balloon":[820,1912,60,60],
 	"balloonLarge":[1686,1562,72,128],
 	"brickwall":[2467,0,544,862],
-	"builder_guy":[1033,2283,124,288],
-	"builder_guy2":[1385,1985,124,288],
+	"builder_guy":[1385,1985,124,288],
+	"builder_guy2":[1510,1985,124,288],
 	"cardboard":[881,1912,60,60],
 	"cardboard_preacher":[1230,1985,154,319],
 	"cardboardbox":[767,2498,60,60],
@@ -48817,7 +48817,7 @@ module.exports =
 	"hammer":[1759,1562,60,60],
 	"heaven_angel":[820,1985,212,467],
 	"heaven_player":[1033,1985,196,297],
-	"humane_guy_sprite":[1510,1985,124,280],
+	"humane_guy_sprite":[1160,2305,124,280],
 	"keydoor":[2377,863,544,862],
 	"labyrinth_sign":[1031,880,800,400],
 	"lamp":[828,2453,60,60],
@@ -48825,7 +48825,7 @@ module.exports =
 	"magnets":[828,2514,60,60],
 	"moat_full":[0,0,1920,250],
 	"moat_hungry":[0,251,1920,250],
-	"normal_guy_sprite":[1158,2305,124,280],
+	"normal_guy_sprite":[1285,2305,124,280],
 	"outlet":[538,2196,61,83],
 	"pit_bridge":[0,502,1263,226],
 	"pit_edge":[1264,603,400,150],
@@ -48838,6 +48838,7 @@ module.exports =
 	"speaker":[646,2347,150,150],
 	"steelwall":[2231,1726,537,852],
 	"suit_sprite":[1686,1281,126,280],
+	"suit_sprite2":[1033,2283,126,280],
 	"tech_table":[0,2306,383,291],
 	"timedevice":[0,1912,537,393],
 	"timedevice_button1":[1417,754,141,93],
@@ -48864,18 +48865,19 @@ module.exports =
 "characters":
 {
 	url: "media/characters_atlas.png",
-	width: 895,
-	height: 502,
+	width: 897,
+	height: 510,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
 	"builder":[591,0,158,243],
 	"builder2":[426,0,164,250],
-	"humane_guy":[583,251,144,250],
+	"humane_guy":[728,251,144,250],
 	"johnson1":[0,0,212,371],
 	"normal_guy":[426,251,156,251],
 	"player":[213,0,212,371],
-	"suit":[750,0,144,259],
+	"suit":[583,251,144,259],
+	"suit2":[750,0,146,250],
 	},
 },
 }
