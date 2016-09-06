@@ -535,7 +535,7 @@
 		{
 			"id": 36,
 			"speaker": "johnson15",
-			"text": "I don't have the time to do both the door and the labyrinth. So, I was thinking I'd have my cousin do one for me.",
+			"text": "I don't have the time to do both the door and the labyrinth. So, I was thinking I'd have my cousin, Peter, do one for me.",
 			"responses":[
 				{
 					"text": "Your cousin?",
@@ -565,12 +565,12 @@
 			"text": "Any toddler could get through his systems.",
 			"responses":[
 				{
-					"text": "What about the first cousin?",
+					"text": "What about, Peter, the first cousin?",
 					"nextNodeId": 39,
 					"globalIsFalse": "BOX_IN_WORMHOLE"
 				},
 			    { 
-					"text": "What about the first cousin?",
+					"text": "What about, Peter, the first cousin?",
 					"nextNodeId": 43,
 					"globalIsTrue": "BOX_IN_WORMHOLE"
 				},
@@ -618,7 +618,7 @@
 		{
 			"id": 43,
 			"speaker": "johnson15",
-			"text": "Well, funny thing. The other day, this random cardboard box came out of nowhere and smacked him on the head. I worry he'll be like my other cousin, but I just don't have the time to make both security systems.",
+			"text": "Well, funny thing. The other day, this random cardboard box came out of nowhere and smacked Peter on the head. I worry he'll be like my other cousin, but I just don't have the time to make both security systems.",
 			"responses":[
 				{
 					"text": "I'm sure he'll be alright.",
@@ -671,7 +671,7 @@
 			"text": "The labyrinth. It's going to be a complicated underwater maze. Hopefully, no one can get throught it.",
 			"responses":[
 				{
-					"text": "Tell me about this cousin.",
+					"text": "Tell me about this cousin, Peter.",
 					"nextNodeId": 56
 				},
 			]
@@ -682,7 +682,7 @@
 			"text": "The door. It's a sturdy door run with the city's electricity. Hopefully, it will have a really good combination too.",
 			"responses":[
 				{
-					"text": "Tell me about this cousin.",
+					"text": "Tell me about this cousin, Peter",
 					"nextNodeId": 56
 				}
 			]
@@ -797,7 +797,7 @@
 		{
 			"id": 56,
 			"speaker": "johnson15",
-			"text": "Well, he's usually a good designer, but the other day, this random cardboard box came out of nowhere and smacked him on the head. I worry he'll be like my other dumb cousin, but I just don't have the time to make both security systems.",
+			"text": "Well, he's usually a good designer, but the other day, this random cardboard box came out of nowhere and smacked Peter on the head. I worry he'll be like my other dumb cousin, but I just don't have the time to make both security systems.",
 			"responses":[
 				{
 					"text": "I'm sure he'll be alright.",

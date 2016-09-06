@@ -22,6 +22,18 @@ ConstructionScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/johnson_xv_conversation.json")
 	})
+	var cousin = this.createClickableSprite("cousin_sprite", 400, 300);
+	cousin.addAction({
+		action: "showInfoBox",
+		target: "cousin"
+	})
+	cousin.addFalse("BOX_IN_WORMHOLE");
+	var cousin_hurt = this.createClickableSprite("cousin_bandage", 400, 300);
+	cousin_hurt.addAction({
+		action: "showInfoBox",
+		target: "cousin"
+	})
+	cousin_hurt.addTrue("BOX_IN_WORMHOLE");
 	var humaneGuy = this.createClickableSprite("humane_guy_sprite", -500, 300);
 	humaneGuy.addAction({
 		action: "triggerConversation",

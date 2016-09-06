@@ -44781,7 +44781,7 @@ module.exports=//GRAVITY_LIGHTER
 		{
 			"id": 36,
 			"speaker": "johnson15",
-			"text": "I don't have the time to do both the door and the labyrinth. So, I was thinking I'd have my cousin do one for me.",
+			"text": "I don't have the time to do both the door and the labyrinth. So, I was thinking I'd have my cousin, Peter, do one for me.",
 			"responses":[
 				{
 					"text": "Your cousin?",
@@ -44811,12 +44811,12 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "Any toddler could get through his systems.",
 			"responses":[
 				{
-					"text": "What about the first cousin?",
+					"text": "What about, Peter, the first cousin?",
 					"nextNodeId": 39,
 					"globalIsFalse": "BOX_IN_WORMHOLE"
 				},
 			    { 
-					"text": "What about the first cousin?",
+					"text": "What about, Peter, the first cousin?",
 					"nextNodeId": 43,
 					"globalIsTrue": "BOX_IN_WORMHOLE"
 				},
@@ -44864,7 +44864,7 @@ module.exports=//GRAVITY_LIGHTER
 		{
 			"id": 43,
 			"speaker": "johnson15",
-			"text": "Well, funny thing. The other day, this random cardboard box came out of nowhere and smacked him on the head. I worry he'll be like my other cousin, but I just don't have the time to make both security systems.",
+			"text": "Well, funny thing. The other day, this random cardboard box came out of nowhere and smacked Peter on the head. I worry he'll be like my other cousin, but I just don't have the time to make both security systems.",
 			"responses":[
 				{
 					"text": "I'm sure he'll be alright.",
@@ -44917,7 +44917,7 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "The labyrinth. It's going to be a complicated underwater maze. Hopefully, no one can get throught it.",
 			"responses":[
 				{
-					"text": "Tell me about this cousin.",
+					"text": "Tell me about this cousin, Peter.",
 					"nextNodeId": 56
 				},
 			]
@@ -44928,7 +44928,7 @@ module.exports=//GRAVITY_LIGHTER
 			"text": "The door. It's a sturdy door run with the city's electricity. Hopefully, it will have a really good combination too.",
 			"responses":[
 				{
-					"text": "Tell me about this cousin.",
+					"text": "Tell me about this cousin, Peter",
 					"nextNodeId": 56
 				}
 			]
@@ -45043,7 +45043,7 @@ module.exports=//GRAVITY_LIGHTER
 		{
 			"id": 56,
 			"speaker": "johnson15",
-			"text": "Well, he's usually a good designer, but the other day, this random cardboard box came out of nowhere and smacked him on the head. I worry he'll be like my other dumb cousin, but I just don't have the time to make both security systems.",
+			"text": "Well, he's usually a good designer, but the other day, this random cardboard box came out of nowhere and smacked Peter on the head. I worry he'll be like my other dumb cousin, but I just don't have the time to make both security systems.",
 			"responses":[
 				{
 					"text": "I'm sure he'll be alright.",
@@ -46534,6 +46534,81 @@ InfoBox.info =
             },
         ]
     },
+    cousin: 
+    { 
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I am Peter Johnson, Angel Johnson XV's cousin.",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "Yes, I know we don't look alike.",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "I help make his security systems.",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "Here is a math shortcut for calculating squares: x<sup>2</sup> = (x - a)(x + a) + a<sup>2</sup> for any value of \"a\".",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "So, for example, 55<sup>2</sup> = (55 -5)(55 + 5) + 25 = (50)(60) + 25 = 3025. Easy, huh?",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "Euler's Identity, e<sup>i&#960</sup> + 1 = 0, is a special case of Euler's Formula.",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "Want to hear a joke?",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "One day, Heisenberg was driving down the freeway and got pulled over by a cop.",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "The cop walked up to Heisenberg and asked, \"Do you know how fast you were going?\"",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "Heisenberg replied, \"No, but I know exactly where I am.\"",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "The puzzled cop shook his head, and said, \"You were going 80mph.\"",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "\"Great,\" said Heisenberg, \"Now, I'm lost.\"",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "Me is Peter, cousin of Johnson.",
+                isTrue: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "He want help wit tings.",
+                isTrue: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "I is help him.",
+                isTrue: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "1 + 1 = 4.",
+                isTrue: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "The moon landing was faked.",
+                isTrue: ["BOX_IN_WORMHOLE"]
+            }
+        ]
+    },
     wormhole: 
     {
         cycle: 0,
@@ -47530,6 +47605,18 @@ ConstructionScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/johnson_xv_conversation.json")
 	})
+	var cousin = this.createClickableSprite("cousin_sprite", 400, 300);
+	cousin.addAction({
+		action: "showInfoBox",
+		target: "cousin"
+	})
+	cousin.addFalse("BOX_IN_WORMHOLE");
+	var cousin_hurt = this.createClickableSprite("cousin_bandage", 400, 300);
+	cousin_hurt.addAction({
+		action: "showInfoBox",
+		target: "cousin"
+	})
+	cousin_hurt.addTrue("BOX_IN_WORMHOLE");
 	var humaneGuy = this.createClickableSprite("humane_guy_sprite", -500, 300);
 	humaneGuy.addAction({
 		action: "triggerConversation",
@@ -48793,21 +48880,23 @@ module.exports =
 {
 	url: "media/general_atlas.png",
 	width: 3467,
-	height: 2597,
+	height: 2619,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
 	"balloon":[820,1912,60,60],
 	"balloonLarge":[1686,1562,72,128],
 	"brickwall":[2467,0,544,862],
-	"builder_guy":[1385,1985,124,288],
-	"builder_guy2":[1510,1985,124,288],
+	"builder_guy":[1510,1985,124,288],
+	"builder_guy2":[1160,2305,124,288],
 	"cardboard":[881,1912,60,60],
 	"cardboard_preacher":[1230,1985,154,319],
 	"cardboardbox":[767,2498,60,60],
 	"cardboardboxlarge":[646,2196,150,150],
 	"cardboardWall":[1832,863,544,862],
 	"cardboardWallBroken":[1686,1726,544,855],
+	"cousin_bandage":[1385,1985,124,290],
+	"cousin_sprite":[1285,2305,124,280],
 	"crystal":[538,1912,281,283],
 	"empty_pit":[0,880,1030,230],
 	"grad_circle":[1697,804,64,64],
@@ -48817,15 +48906,15 @@ module.exports =
 	"hammer":[1759,1562,60,60],
 	"heaven_angel":[820,1985,212,467],
 	"heaven_player":[1033,1985,196,297],
-	"humane_guy_sprite":[1160,2305,124,280],
+	"humane_guy_sprite":[1410,2276,124,280],
 	"keydoor":[2377,863,544,862],
 	"labyrinth_sign":[1031,880,800,400],
-	"lamp":[828,2453,60,60],
+	"lamp":[767,2559,60,60],
 	"lamplarge":[2769,1726,300,734],
-	"magnets":[828,2514,60,60],
+	"magnets":[828,2453,60,60],
 	"moat_full":[0,0,1920,250],
 	"moat_hungry":[0,251,1920,250],
-	"normal_guy_sprite":[1285,2305,124,280],
+	"normal_guy_sprite":[1535,2274,124,280],
 	"outlet":[538,2196,61,83],
 	"pit_bridge":[0,502,1263,226],
 	"pit_edge":[1264,603,400,150],

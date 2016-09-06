@@ -153,6 +153,81 @@ InfoBox.info =
             },
         ]
     },
+    cousin: 
+    { 
+        cycle: 0,
+        data:
+        [
+            {
+                text: "I am Peter Johnson, Angel Johnson XV's cousin.",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "Yes, I know we don't look alike.",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "I help make his security systems.",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "Here is a math shortcut for calculating squares: x<sup>2</sup> = (x - a)(x + a) + a<sup>2</sup> for any value of \"a\".",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "So, for example, 55<sup>2</sup> = (55 -5)(55 + 5) + 25 = (50)(60) + 25 = 3025. Easy, huh?",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "Euler's Identity, e<sup>i&#960</sup> + 1 = 0, is a special case of Euler's Formula.",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "Want to hear a joke?",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "One day, Heisenberg was driving down the freeway and got pulled over by a cop.",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "The cop walked up to Heisenberg and asked, \"Do you know how fast you were going?\"",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "Heisenberg replied, \"No, but I know exactly where I am.\"",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "The puzzled cop shook his head, and said, \"You were going 80mph.\"",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "\"Great,\" said Heisenberg, \"Now, I'm lost.\"",
+                isFalse: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "Me is Peter, cousin of Johnson.",
+                isTrue: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "He want help wit tings.",
+                isTrue: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "I is help him.",
+                isTrue: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "1 + 1 = 4.",
+                isTrue: ["BOX_IN_WORMHOLE"]
+            },
+            {
+                text: "The moon landing was faked.",
+                isTrue: ["BOX_IN_WORMHOLE"]
+            }
+        ]
+    },
     wormhole: 
     {
         cycle: 0,
