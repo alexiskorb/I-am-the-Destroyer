@@ -10,7 +10,7 @@ module.exports =
 {
 	url: "media/general_atlas.png",
 	width: 3467,
-	height: 2619,
+	height: 2597,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
@@ -33,14 +33,15 @@ module.exports =
 	"hammer":[1759,1562,60,60],
 	"heaven_angel":[820,1985,212,467],
 	"heaven_player":[1033,1985,196,297],
+	"humane_guy_sprite":[1385,1985,124,280],
 	"keydoor":[2377,863,544,862],
 	"labyrinth_sign":[1031,880,800,400],
-	"lamp":[767,2559,60,60],
+	"lamp":[828,2453,60,60],
 	"lamplarge":[2769,1726,300,734],
-	"magnets":[828,2453,60,60],
+	"magnets":[828,2514,60,60],
 	"moat_full":[0,0,1920,250],
 	"moat_hungry":[0,251,1920,250],
-	"normal_guy_sprite":[1385,1985,124,280],
+	"normal_guy_sprite":[1510,1985,124,280],
 	"outlet":[538,2196,61,83],
 	"pit_bridge":[0,502,1263,226],
 	"pit_edge":[1264,603,400,150],
@@ -79,12 +80,13 @@ module.exports =
 "characters":
 {
 	url: "media/characters_atlas.png",
-	width: 742,
+	width: 887,
 	height: 503,
 	filter: THREE.LinearFilter,
 	sprites:
 	{
 	"builder":[426,0,158,243],
+	"humane_guy":[742,0,144,250],
 	"johnson1":[0,0,212,371],
 	"normal_guy":[585,0,156,251],
 	"player":[213,0,212,371],

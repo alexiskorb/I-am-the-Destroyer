@@ -22,7 +22,7 @@ ConstructionScene.prototype.added = function()
 		action: "triggerConversation",
 		target: require("../data/johnson_xv_conversation.json")
 	})
-	var humaneGuy = this.createClickableSprite("normal_guy_sprite", -500, 300);
+	var humaneGuy = this.createClickableSprite("humane_guy_sprite", -500, 300);
 	humaneGuy.addAction({
 		action: "triggerConversation",
 		target: require("../data/humane_society_conversation.json")
