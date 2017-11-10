@@ -7,5 +7,10 @@ Team of 3:<br />
 -Design/Programming/Additional Art: Alexis Korb (me)<br />
 -Programming/Production/Additional Art: Brian Macintosh<br />
 
+Some features I worked on:<br />
+-Story and NPC dialogue<br />
+-Informational text boxes<br />
+-Inventory UI and item interaction<br />
+
 Game is playable on the website of my programming partner:<br />
 http://brianmacintosh.com/projects/iamthedestroyer/
